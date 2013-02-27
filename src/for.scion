@@ -1,4 +1,5 @@
 <html>
+<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on {{ [NSDate date]] }} -->
 <body>
 {# render an old skool HTML table #}
 {% MulleScionEven = "#DDDDDD" %}

@@ -1,9 +1,9 @@
 The template are filled with properties from an object. That object can be
 anything NSObject based. The data is accessed through key value coding. All
-accessed to data are funneled through a small number of dedicated routines
-that you may but ususally don't need to override.
+accesses to data are funneled through a small number of dedicated routines
+that you may, but ususally don't need to, override.
 
-In this example data is read from properties.plist.
+In this example, data is read from properties.plist.
 
 
 name={{ name }}

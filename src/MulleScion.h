@@ -1,6 +1,6 @@
 //
 //  MulleScion.h
-//  MulleTwigLikeObjCTemplates
+//  MulleScionTemplates
 //
 //  Created by Nat! on 25.02.13.
 //  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
@@ -13,7 +13,7 @@
 
 
 /*
- * The convenience interface. If you don't want to think use it.
+ * The convenience interface. If you don't want to think, use this:
  * 
  * --------------snip------------------------
  // [MulleScionTemplate setCacheEnabled:YES];

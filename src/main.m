@@ -1,6 +1,6 @@
 //
 //  main.m
-//  MulleTwigLikeObjCTemplates
+//  MulleScionTemplates
 //
 //  Created by Nat! on 24.02.13.
 //  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
@@ -9,6 +9,28 @@
 #import <Foundation/Foundation.h>
 
 #import "MulleScion.h"
+
+
+static NSFileHandle  *outputStreamWithInfo( NSDictionary *info);
+static NSDictionary  *getInfoFromArguments( void);
+static id            acquirePropertyList( NSString *s);
+
+
+/* #####
+   ##### #####  CODE SPECIFIC FOR MULLE SCION
+   ##### */
+
+static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
+{
+   NSMutableDictionary   *sanitize;
+   
+   sanitize = [NSMutableDictionary dictionary];
+   [sanitize setObject:[info objectForKey:@"MulleScionRootTemplate"]
+                forKey:@"MulleScionRootTemplate"];
+   [sanitize setObject:[info objectForKey:@"MulleScionPropertyList"]
+                forKey:@"MulleScionPropertyList"];
+   return( sanitize);
+}
 
 
 @interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
@@ -23,6 +45,58 @@
 }
 
 @end
+
+
+
+static int   run( NSString *template,
+                  id <MulleScionDataSource> src,
+                  id < MulleScionOutput> dst,
+                  NSDictionary *locals)
+{
+   if( ! [MulleScionTemplate writeToOutput:dst
+                              templateFile:template
+                                dataSource:src
+                            localVariables:locals])
+   {
+      NSLog( @"Template file \"%@\" could not be read", template);
+      return( -2);
+   }
+
+   return( 0);
+}
+
+/*       #####
+   ##### #####
+         ##### */
+
+
+int main(int argc, const char * argv[])
+{
+   NSAutoreleasePool   *pool;
+   NSFileHandle        *stream;
+   NSDictionary        *info;
+   
+   int   rval;
+   
+   pool = [NSAutoreleasePool new];
+   
+   info = getInfoFromArguments();
+   if( ! info)
+      return( -1);
+   
+   stream = outputStreamWithInfo( info);
+   if( ! stream)
+      return( -2);
+   
+   rval = run( [info objectForKey:@"MulleScionRootTemplate"],
+               [info objectForKey:@"plist"],
+               stream,
+               localVariablesFromInfo( info));
+#if DEBUG
+   [pool release];
+#endif
+   return( rval);
+}
 
 
 static id   acquirePropertyList( NSString *s)
@@ -53,7 +127,7 @@ static id   acquirePropertyList( NSString *s)
 }
 
 
-static NSDictionary  *getInfo( void)
+static NSDictionary  *getInfoFromArguments( void)
 {
    NSArray               *arguments;
    NSString              *plistName;
@@ -78,12 +152,12 @@ static NSDictionary  *getInfo( void)
       goto usage;
    if( ! [outputName length])
       outputName = @"-";
-
+   
    plist = acquirePropertyList( plistName);
    if( plist)
       [info setObject:plist
                forKey:@"plist"];
-
+   
    [info setObject:templateName
             forKey:@"MulleScionRootTemplate"];
    [info setObject:plistName
@@ -99,19 +173,6 @@ usage:
 }
 
 
-static NSDictionary  *sanitizedInfo( NSDictionary *info)
-{
-   NSMutableDictionary   *sanitize;
-   
-   sanitize = [NSMutableDictionary dictionary];
-   [sanitize setObject:[info objectForKey:@"MulleScionRootTemplate"]
-            forKey:@"MulleScionRootTemplate"];
-   [sanitize setObject:[info objectForKey:@"MulleScionPropertyList"]
-                forKey:@"MulleScionPropertyList"];
-   return( sanitize);
-}
-
-
 static NSFileHandle   *outputStreamWithInfo( NSDictionary *info)
 {
    NSString       *outputName;
@@ -119,55 +180,15 @@ static NSFileHandle   *outputStreamWithInfo( NSDictionary *info)
    
    outputName = [info objectForKey:@"output"];
    if( [outputName isEqualToString:@"-"])
-        return( [NSFileHandle fileHandleWithStandardOutput]);
+      return( [NSFileHandle fileHandleWithStandardOutput]);
    stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
    if( ! stream)
-     [[NSFileManager defaultManager] createFileAtPath:outputName
-                                             contents:[NSData data]
-                                           attributes:nil];
+      [[NSFileManager defaultManager] createFileAtPath:outputName
+                                              contents:[NSData data]
+                                            attributes:nil];
    stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
    if( ! stream)
       NSLog( @"failed to create output file \"%@\"", outputName);
    return( stream);
 }
 
-
-static int   run( void)
-{
-   NSFileHandle   *stream;
-   NSDictionary   *info;
-   
-   info = getInfo();
-   if( ! info)
-      return( -1);
-
-   stream = outputStreamWithInfo( info);
-   if( ! stream)
-      return( -2);
-   
-   if( ! [MulleScionTemplate writeToOutput:stream
-                              templateFile:[info objectForKey:@"MulleScionRootTemplate"]
-                                dataSource:[info objectForKey:@"plist"]
-                            localVariables:sanitizedInfo( info)])
-   {
-      NSLog( @"Template file \"%@\" could not be read", [info objectForKey:@"MulleScionRootTemplate"]);
-      return( -2);
-   }
-
-   return( 0);
-}
-
-
-int main(int argc, const char * argv[])
-{
-   NSAutoreleasePool   *pool;
-
-   int   rval;
-   
-   pool = [NSAutoreleasePool new];
-   rval = run();
-#if DEBUG
-   [pool release];
-#endif
-   return( rval);
-}

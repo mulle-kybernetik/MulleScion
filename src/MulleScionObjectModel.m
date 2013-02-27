@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel.m
-//  MulleTwigLikeObjCTemplates
+//  MulleScionTemplates
 //
 //  Created by Nat! on 24.02.13.
 //  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.

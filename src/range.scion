@@ -1,9 +1,10 @@
-For those special moments, when you really want to use range. There is only
-one function built in, and that's
+For those special moments, when you really want to use NSRange.
+
+There is only one function built in, and that's
 
 NSMakeRange
 
-but you can extend this easily.
+but you can extend functions easily.
 
 
 {{ [@"VfL Bochum 1848" substringWithRange:NSMakeRange( 4, 6)] }}
