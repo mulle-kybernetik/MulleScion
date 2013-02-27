@@ -59,39 +59,45 @@ static int   run( NSString *template,
                             localVariables:locals])
    {
       NSLog( @"Template file \"%@\" could not be read", template);
-      return( -2);
+      return( -1);
    }
 
    return( 0);
 }
 
+
 /*       #####
    ##### #####
          ##### */
+
+static int _main(int argc, const char * argv[])
+{
+   NSFileHandle        *stream;
+   NSDictionary        *info;
+   
+   info = getInfoFromArguments();
+   if( ! info)
+      return( -3);
+
+   stream = outputStreamWithInfo( info);
+   if( ! stream)
+      return( -2);
+         
+   return( run( [info objectForKey:@"MulleScionRootTemplate"],
+                [info objectForKey:@"plist"],
+                stream,
+                localVariablesFromInfo( info)));
+}
 
 
 int main(int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
-   NSFileHandle        *stream;
-   NSDictionary        *info;
-   
-   int   rval;
+   int                 rval;
    
    pool = [NSAutoreleasePool new];
+   rval = _main( argc, argv);
    
-   info = getInfoFromArguments();
-   if( ! info)
-      return( -1);
-   
-   stream = outputStreamWithInfo( info);
-   if( ! stream)
-      return( -2);
-   
-   rval = run( [info objectForKey:@"MulleScionRootTemplate"],
-               [info objectForKey:@"plist"],
-               stream,
-               localVariablesFromInfo( info));
 #if DEBUG
    [pool release];
 #endif

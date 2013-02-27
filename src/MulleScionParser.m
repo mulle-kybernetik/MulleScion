@@ -103,7 +103,7 @@
                         reason:(NSString *) reason
 {
    [NSException raise:NSInvalidArgumentException
-               format:@"%@ %lu: %@", fileName ? fileName : @"template", lineNumber, reason];
+               format:@"%@ %lu: %@", fileName ? fileName : @"template", (long) lineNumber, reason];
 }
 
 @end

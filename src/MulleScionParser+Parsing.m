@@ -1113,6 +1113,7 @@ static MulleScionIf  * NS_RETURNS_RETAINED parser_do_if( parser *p, NSUInteger l
                                      lineNumber:line]);
 }
 
+
 static MulleScionWhile  * NS_RETURNS_RETAINED parser_do_while( parser *p, NSUInteger line)
 {
    MulleScionExpression   *expr;
@@ -1120,6 +1121,19 @@ static MulleScionWhile  * NS_RETURNS_RETAINED parser_do_while( parser *p, NSUInt
    expr = parser_do_expression( p);
    return( [MulleScionWhile newWithRetainedExpression:expr
                                            lineNumber:line]);
+}
+
+
+static MulleScionFilter  * NS_RETURNS_RETAINED parser_do_filter( parser *p, NSUInteger line)
+{
+   MulleScionExpression   *expr;
+   
+   expr = parser_do_expression( p);
+   if( ! [expr isIdentifier] && ! [expr isPipe])
+      parser_error( p, "identifier or pipe expected");
+   
+   return( [MulleScionFilter newWithRetainedExpression:expr
+                                            lineNumber:line]);
 }
 
 
@@ -1137,6 +1151,8 @@ typedef enum
    EndblockOpcode,
    IncludesOpcode,
    ExtendsOpcode,
+   FilterOpcode,
+   EndfilterOpcode,
 } MulleScionOpcode;
 
 
@@ -1154,11 +1170,13 @@ static MulleScionOpcode   opcodeForString( NSString *s)
    case 5 : if( [s isEqualToString:@"endif"]) return( EndifOpcode);
             if( [s isEqualToString:@"while"]) return( WhileOpcode);
             if( [s isEqualToString:@"block"]) return( BlockOpcode); break;
-   case 6 : if( [s isEqualToString:@"endfor"]) return( EndforOpcode); break;
+   case 6 : if( [s isEqualToString:@"endfor"]) return( EndforOpcode);
+            if( [s isEqualToString:@"filter"]) return( FilterOpcode); break;
    case 7 : if( [s isEqualToString:@"extends"]) return( ExtendsOpcode); break;
    case 8 : if( [s isEqualToString:@"endblock"]) return( EndblockOpcode);
             if( [s isEqualToString:@"endwhile"]) return( EndwhileOpcode);
             if( [s isEqualToString:@"includes"]) return( IncludesOpcode); break;
+   case 9 : if( [s isEqualToString:@"endfilter"]) return( EndfilterOpcode); break;
    }
    return( LetOpcode);
 }
@@ -1183,10 +1201,12 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    case BlockOpcode    : return( parser_do_block( p, line));
    case ElseOpcode     : return( [MulleScionElse newWithLineNumber:line]);
    case EndblockOpcode : return( [MulleScionEndBlock newWithLineNumber:line]);
+   case EndfilterOpcode: return( [MulleScionEndFilter newWithLineNumber:line]);
    case EndforOpcode   : return( [MulleScionEndFor newWithLineNumber:line]);
    case EndifOpcode    : return( [MulleScionEndIf newWithLineNumber:line]);
    case EndwhileOpcode : return( [MulleScionEndWhile newWithLineNumber:line]);
    case ExtendsOpcode  : return( parser_do_extends( p));
+   case FilterOpcode   : return( parser_do_filter( p, line));
    case ForOpcode      : return( parser_do_for( p, line));
    case IfOpcode       : return( parser_do_if( p, line));
    case IncludesOpcode : return( parser_do_includes( p));

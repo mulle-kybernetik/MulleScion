@@ -807,3 +807,14 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 }
 
 @end
+
+
+@implementation MulleScionFilter
+
+@end
+
+
+@implementation MulleScionEndFilter
+
+@end
+

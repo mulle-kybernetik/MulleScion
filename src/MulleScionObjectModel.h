@@ -287,3 +287,12 @@
 @interface MulleScionFunctionCall : MulleScionExpressionCommand
 @end
 
+
+@interface MulleScionFilter : MulleScionExpressionCommand
+@end
+
+
+@interface MulleScionEndFilter : MulleScionTerminator
+@end
+
+

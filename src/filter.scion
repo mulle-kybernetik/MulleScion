@@ -1,0 +1,9 @@
+{% filter uppercaseString %}
+This is filtered and pushed through uppercaseString.
+   {% filter lowercaseString|capitalizedString %}
+Witness how this string is all capitalized now but no uppercasing, because
+the filter pipes don't add up with nesting.
+      {{ @"local filters nest though envelope/foo.html" | lastPathComponent }}
+   {% endfilter %}
+back to original.
+{% endfilter %}

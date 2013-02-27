@@ -30,6 +30,7 @@
 		41764B9316DA511200560FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9216DA511200560FCF /* main.m */; };
 		41764B9716DA511200560FCF /* mulle-scion.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
 		41764BB116DAC92400560FCF /* properties.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAE16DAAAA400560FCF /* properties.plist */; };
+		4190DC6D16DEC7E200FC4471 /* filter.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4190DC6C16DEC5F400FC4471 /* filter.scion */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41D6DEE516DE50ED004833D6 /* MulleScionDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */; };
@@ -215,6 +216,7 @@
 			dstSubfolderSpec = 0;
 			files = (
 				4121DAF816DCFBC800BFD60C /* empty.scion in CopyFiles */,
+				4190DC6D16DEC7E200FC4471 /* filter.scion in CopyFiles */,
 				4121DB0A16DD459700BFD60C /* pipes.scion in CopyFiles */,
 				4121DB0E16DD677F00BFD60C /* range.scion in CopyFiles */,
 				4121DB1316DD781700BFD60C /* dot.scion in CopyFiles */,
@@ -354,6 +356,7 @@
 		41764BAE16DAAAA400560FCF /* properties.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = properties.plist; sourceTree = "<group>"; };
 		41764BCC16DAF4C500560FCF /* MulleScion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScion.h; sourceTree = "<group>"; };
 		41764BCD16DAF4C600560FCF /* MulleScion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScion.m; sourceTree = "<group>"; };
+		4190DC6C16DEC5F400FC4471 /* filter.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = filter.scion; sourceTree = "<group>"; };
 		41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionPrintingException.h; sourceTree = "<group>"; };
 		41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionPrintingException.m; sourceTree = "<group>"; };
 		41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionDataSourceProtocol.m; sourceTree = "<group>"; };
@@ -527,6 +530,7 @@
 				41ECE09716DC367200E891A0 /* simple_extends.scion */,
 				4121DAED16DCCE0B00BFD60C /* spaces.scion */,
 				4121DAF916DCFD9D00BFD60C /* while.scion */,
+				4190DC6C16DEC5F400FC4471 /* filter.scion */,
 			);
 			name = "Supporting Files";
 			path = src;

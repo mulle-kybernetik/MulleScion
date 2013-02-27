@@ -98,7 +98,7 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
 {
    NSData              *data;
    archive_header      *header;
-   NSUInteger          length;
+   uint64_t            length;
    NSRange             range;
    BOOL                isCompressed;
    
@@ -111,18 +111,19 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    isCompressed = ! strcmp( header->version, current_compressed_version);
    if( ! isCompressed && strcmp( header->version, current_version))
       return( nil);
+
+   length = ntohq( header->size);
+   if( (NSUInteger) length != length)
+   {
+      NSLog( @"archive too large for this machine");
+      return( nil);
+   }
    
-   range = NSMakeRange( sizeof( archive_header), length -  sizeof( archive_header));
+   range = NSMakeRange( sizeof( archive_header), (NSUInteger) length - sizeof( archive_header));
    data  = [data subdataWithRange:range];
    if( isCompressed)
    {
 #if HAVE_ZLIB
-      length = ntohq( header->size);
-      if( (NSUInteger) length != length)
-      {
-         NSLog( @"archive too large for this machine");
-         return( nil);
-      }
       data = [data decompressedDataUsingZLib:(NSUInteger) length];
       
       [data retain];

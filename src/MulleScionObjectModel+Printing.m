@@ -21,6 +21,8 @@ NSString   *MulleScionRenderOutputKey    = @"MulleScionRenderOutput";
 NSString   *MulleScionCurrentFileKey     = @"MulleScionCurrentFile";
 NSString   *MulleScionCurrentLineKey     = @"MulleScionCurrentLine";
 NSString   *MulleScionCurrentFunctionKey = @"MulleScionCurrentFunction";
+NSString   *MulleScionCurrentFilterKey   = @"MulleScionCurrentFilter";
+NSString   *MulleScionPreviousFiltersKey = @"MulleScionPreviousFilters";
 
 NSString   *MulleScionForOpenerKey       = @"MulleScionForOpener";
 NSString   *MulleScionForSeparatorKey    = @"MulleScionForSeparator";
@@ -70,6 +72,33 @@ NSString   *MulleScionOddKey             = @"MulleScionOdd";
    
 }
 
+
+static void   MulleScionRenderString( NSString *value,
+                                     id <MulleScionOutput> output,
+                                     NSMutableDictionary *locals,
+                                     id <MulleScionDataSource> dataSource)
+{
+   MulleScionExpression  *filter;
+   
+   filter = [locals objectForKey:MulleScionCurrentFilterKey];
+   if( filter)
+   {
+      if( [filter isIdentifier])
+      {
+         value = [dataSource mulleScionPipeString:value
+                                    throughMethod:[(MulleScionVariable *) filter identifier]
+                                   localVariables:locals];
+      }
+      else
+      {
+         value = [filter evaluateValue:(id) value
+                        localVariables:locals
+                            dataSource:dataSource];
+      }
+   }
+   [output appendString:value];
+}
+
 @end
 
 
@@ -109,7 +138,7 @@ NSString   *MulleScionOddKey             = @"MulleScionOdd";
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
    [self updateLineNumberInlocalVariables:locals];
-   [s appendString:value_];
+   MulleScionRenderString( value_, s, locals, dataSource);
    return( self->next_);
 }
 
@@ -250,7 +279,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
    n = [arguments_ count] + 2;
    if( m  != n)
       [NSException raise:NSInvalidArgumentException
-                  format:@"Method \"%@\" expects %ld arguments", NSStringFromSelector( action_), n];
+                  format:@"Method \"%@\" expects %ld arguments", NSStringFromSelector( action_), (long) n];
    
    
    invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -491,8 +520,10 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
    value = [self valueWithLocalVariables:locals
                               dataSource:dataSource];
    if( value)
-      [s appendString:[value mulleScionDescriptionWithLocalVariables:locals]];
-   
+   {
+      [value mulleScionDescriptionWithLocalVariables:locals];
+      MulleScionRenderString( value, s, locals, dataSource);
+   }
    return( self->next_);
 }
 
@@ -580,8 +611,10 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
                               dataSource:dataSource];
 
    if( value)
-      [s appendString:[value mulleScionDescriptionWithLocalVariables:locals]];
-   
+   {
+      value = [value mulleScionDescriptionWithLocalVariables:locals];
+      MulleScionRenderString( value, s, locals, dataSource);
+   }
    return( self->next_);
 }
 
@@ -934,5 +967,62 @@ static BOOL  isTrue( id value)
 }
 
 @end
+
+
+@implementation MulleScionFilter ( Printing)
+
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+                   localVariables:(NSMutableDictionary *) locals
+                       dataSource:(id <MulleScionDataSource>) dataSource
+{
+   MulleScionExpression  *prev;
+   NSMutableArray        *stack;
+   
+   [self updateLineNumberInlocalVariables:locals];
+   
+   prev = [locals objectForKey:MulleScionCurrentFilterKey];
+   if( prev)
+   {
+      stack = [locals objectForKey:MulleScionPreviousFiltersKey];
+      if( ! stack)
+      {
+         stack = [NSMutableArray new];
+         [locals setObject:stack
+                    forKey:MulleScionPreviousFiltersKey];
+         [stack release];
+      }
+      [stack addObject:prev];
+   }
+   
+   // filters don't stack ( sorry)
+   [locals setObject:self->expression_
+              forKey:MulleScionCurrentFilterKey];
+   
+   return( self->next_);
+}
+
+@end
+
+
+@implementation MulleScionEndFilter ( Printing)
+
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+                   localVariables:(NSMutableDictionary *) locals
+                       dataSource:(id <MulleScionDataSource>) dataSource
+{
+   NSMutableArray   *stack;
+   
+   [self updateLineNumberInlocalVariables:locals];
+   
+   stack = [locals objectForKey:MulleScionPreviousFiltersKey];
+   if( ! stack)
+      MulleScionPrintingException( NSInvalidArgumentException, @"stray endfilter", locals);
+   [stack removeLastObject];
+   
+   return( self->next_);
+}
+
+@end
+
 
 
