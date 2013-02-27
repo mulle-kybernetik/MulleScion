@@ -181,11 +181,17 @@ static NSFileHandle   *outputStreamWithInfo( NSDictionary *info)
    outputName = [info objectForKey:@"output"];
    if( [outputName isEqualToString:@"-"])
       return( [NSFileHandle fileHandleWithStandardOutput]);
+   [[NSFileManager defaultManager] createFileAtPath:outputName
+                                           contents:[NSData data]
+                                         attributes:nil];
    stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
    if( ! stream)
       [[NSFileManager defaultManager] createFileAtPath:outputName
                                               contents:[NSData data]
                                             attributes:nil];
+   else
+      [stream truncateFileAtOffset:0];
+
    stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
    if( ! stream)
       NSLog( @"failed to create output file \"%@\"", outputName);
