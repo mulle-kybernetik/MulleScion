@@ -1,0 +1,4 @@
+{% block footer %}
+my footer
+{% block footer_extension %}default footer extension text{% endblock %}
+{% endblock %}

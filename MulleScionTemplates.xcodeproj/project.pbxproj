@@ -1,0 +1,1233 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		410B32E416DB769C005D0EAD /* ifthenelse.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32DD16DB6971005D0EAD /* ifthenelse.scion */; };
+		410B32F016DBD6B3005D0EAD /* extends.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32EF16DBD5DC005D0EAD /* extends.scion */; };
+		410B32F116DBD6B5005D0EAD /* footer.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32EE16DBD5D4005D0EAD /* footer.scion */; };
+		410B32F216DBD6B6005D0EAD /* body.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32ED16DBD5C8005D0EAD /* body.scion */; };
+		410B32F316DBD6B8005D0EAD /* header.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32EC16DBD5BC005D0EAD /* header.scion */; };
+		410B32F416DBD6BA005D0EAD /* base.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32EB16DBD57B005D0EAD /* base.scion */; };
+		4121DAEE16DCCE6A00BFD60C /* spaces.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAED16DCCE0B00BFD60C /* spaces.scion */; };
+		4121DAF016DCDD3D00BFD60C /* preserve_whitespace.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAEF16DCDC7600BFD60C /* preserve_whitespace.scion */; };
+		4121DAF216DCE47500BFD60C /* for.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF116DCE0FB00BFD60C /* for.scion */; };
+		4121DAF416DCEC5200BFD60C /* for_comma.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF316DCE79C00BFD60C /* for_comma.scion */; };
+		4121DAF616DCFAAB00BFD60C /* hackish.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF516DCFAA600BFD60C /* hackish.scion */; };
+		4121DAF816DCFBC800BFD60C /* empty.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF716DCFBB700BFD60C /* empty.scion */; };
+		4121DAFA16DCFE2D00BFD60C /* while.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF916DCFD9D00BFD60C /* while.scion */; };
+		4121DAFF16DD050100BFD60C /* formatting.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAFE16DD048800BFD60C /* formatting.scion */; };
+		4121DB0416DD2B6900BFD60C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4121DB0316DD2B6900BFD60C /* libz.dylib */; };
+		4121DB0A16DD459700BFD60C /* pipes.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0916DD451C00BFD60C /* pipes.scion */; };
+		4121DB0C16DD65BA00BFD60C /* properties.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0B16DD5E0B00BFD60C /* properties.scion */; };
+		4121DB0E16DD677F00BFD60C /* range.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0D16DD667900BFD60C /* range.scion */; };
+		4121DB1316DD781700BFD60C /* dot.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1216DD779800BFD60C /* dot.scion */; };
+		41764B9016DA511200560FCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
+		41764B9316DA511200560FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9216DA511200560FCF /* main.m */; };
+		41764B9716DA511200560FCF /* mulle-scion.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
+		41764BB116DAC92400560FCF /* properties.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAE16DAAAA400560FCF /* properties.plist */; };
+		41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
+		41D6DEE516DE50ED004833D6 /* MulleScionDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */; };
+		41D6DEE616DE50EF004833D6 /* NSObject+MulleScionDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BAB16DA5E1600560FCF /* NSObject+MulleScionDescription.m */; };
+		41D6DEE716DE50F1004833D6 /* MulleScionPrintingException.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */; };
+		41D6DEE816DE50F4004833D6 /* MulleScionObjectModel+Printing.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA816DA5B2B00560FCF /* MulleScionObjectModel+Printing.m */; };
+		41D6DEE916DE50F6004833D6 /* MulleMutableLineNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32E916DB8A7D005D0EAD /* MulleMutableLineNumber.m */; };
+		41D6DEEA16DE50FD004833D6 /* NSValue+CheatAndHack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */; };
+		41D6DEEB16DE5107004833D6 /* MulleScionPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA116DA51B700560FCF /* MulleScionPrinter.m */; };
+		41D6DEF116DE513F004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
+		41D6DEFC16DE5183004833D6 /* MulleScionObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */; };
+		41D6DEFD16DE5185004833D6 /* MulleScionObjectModel+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */; };
+		41D6DEFE16DE5188004833D6 /* MulleScionTemplate+CompressedArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0616DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.m */; };
+		41D6DEFF16DE518D004833D6 /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
+		41D6DF0516DE51C9004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
+		41D6DF1516DE521C004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
+		41D6DF2516DE523D004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
+		41D6DF3016DE5270004833D6 /* MulleScion.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BCD16DAF4C600560FCF /* MulleScion.m */; };
+		41D6DF3116DE5279004833D6 /* MulleScion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; };
+		41D6DF3A16DE52B2004833D6 /* MulleScionObjectModel+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32E616DB7732005D0EAD /* MulleScionObjectModel+Description.m */; };
+		41D6DF3B16DE52B8004833D6 /* MulleScionObjectModel+Description.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+Description.h */; };
+		41D6DF3C16DE52CE004833D6 /* MulleScionParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
+		41D6DF3D16DE52D4004833D6 /* MulleScionParser+Parsing.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; };
+		41D6DF3E16DE52D6004833D6 /* MulleScionParser+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */; };
+		41D6DF4516DE52F6004833D6 /* MulleScionDataSourceProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
+		41D6DF4716DE5309004833D6 /* MulleScionOutputProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; };
+		41D6DF4816DE530C004833D6 /* MulleScionDataSourceProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
+		41D6DF4916DE530E004833D6 /* NSObject+MulleScionDescription.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; };
+		41D6DF4A16DE5314004833D6 /* MulleScionPrinter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; };
+		41D6DF4B16DE5316004833D6 /* MulleScionPrintingException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; };
+		41D6DF4C16DE5318004833D6 /* MulleScionObjectModel+Printing.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */; };
+		41D6DF4D16DE531A004833D6 /* NSValue+CheatAndHack.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0F16DD685B00BFD60C /* NSValue+CheatAndHack.h */; };
+		41D6DF4E16DE531E004833D6 /* MulleMutableLineNumber.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */; };
+		41D6DF5216DE536A004833D6 /* MulleObjCCompilerSettings.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; };
+		41D6DF5316DE536D004833D6 /* MulleScionObjectModel+NSCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; };
+		41D6DF5416DE5370004833D6 /* MulleScionTemplate+CompressedArchive.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; };
+		41D6DF7016DE53C0004833D6 /* libMulleScionConvenience.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF2416DE523D004833D6 /* libMulleScionConvenience.a */; };
+		41D6DF7216DE53C0004833D6 /* libMulleScionParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF0416DE51C9004833D6 /* libMulleScionParser.a */; };
+		41D6DF7316DE53C0004833D6 /* libMulleScionPrinter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DED916DE509E004833D6 /* libMulleScionPrinter.a */; };
+		41D6DF7416DE53C0004833D6 /* libMulleScionTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DEF016DE513F004833D6 /* libMulleScionTemplate.a */; };
+		41D6DF7F16DE53E6004833D6 /* MulleScion.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8016DE5415004833D6 /* MulleObjCCompilerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8116DE5415004833D6 /* MulleScionObjectModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8216DE5415004833D6 /* MulleScionObjectModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41D6DF8316DE5415004833D6 /* MulleScionTemplate+CompressedArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8416DE5415004833D6 /* MulleScionOutputProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8516DE5415004833D6 /* MulleScionDataSourceProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8616DE5415004833D6 /* NSObject+MulleScionDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8716DE5415004833D6 /* MulleScionPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8816DE5415004833D6 /* MulleScionPrintingException.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8916DE5415004833D6 /* MulleScionObjectModel+Printing.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8A16DE5415004833D6 /* NSValue+CheatAndHack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0F16DD685B00BFD60C /* NSValue+CheatAndHack.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41D6DF8B16DE5415004833D6 /* MulleMutableLineNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41D6DF8C16DE5415004833D6 /* MulleScionParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8D16DE5415004833D6 /* MulleScionParser+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41D6DF8E16DE5415004833D6 /* NSData+ZLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0016DD251900BFD60C /* NSData+ZLib.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41D6DF8F16DE5415004833D6 /* MulleScionObjectModel+Description.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+Description.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41D6DF9416DE5443004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF6216DE53AE004833D6 /* Foundation.framework */; };
+		41DCAF7916DE576F00C5A74E /* libMulleScionConvenience.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF2416DE523D004833D6 /* libMulleScionConvenience.a */; };
+		41DCAF7A16DE576F00C5A74E /* libMulleScionParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF0416DE51C9004833D6 /* libMulleScionParser.a */; };
+		41DCAF7B16DE576F00C5A74E /* libMulleScionPrinter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DED916DE509E004833D6 /* libMulleScionPrinter.a */; };
+		41DCAF7C16DE576F00C5A74E /* libMulleScionTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DEF016DE513F004833D6 /* libMulleScionTemplate.a */; };
+		41ECE09816DC36C000E891A0 /* simple_extends.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41ECE09716DC367200E891A0 /* simple_extends.scion */; };
+		41ECE09916DC36C200E891A0 /* simple_base.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41ECE09616DC363E00E891A0 /* simple_base.scion */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		41D6DF3216DE52A1004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DED816DE509E004833D6;
+			remoteInfo = MulleScionPrinter;
+		};
+		41D6DF3416DE52A4004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DEEF16DE513F004833D6;
+			remoteInfo = MulleScionTemplate;
+		};
+		41D6DF3616DE52A6004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF0316DE51C9004833D6;
+			remoteInfo = MulleScionParser;
+		};
+		41D6DF3816DE52AD004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DEEF16DE513F004833D6;
+			remoteInfo = MulleScionTemplate;
+		};
+		41D6DF5016DE5354004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DEEF16DE513F004833D6;
+			remoteInfo = MulleScionTemplate;
+		};
+		41D6DF5516DE537C004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DEEF16DE513F004833D6;
+			remoteInfo = MulleScionTemplate;
+		};
+		41D6DF7516DE53D9004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DEEF16DE513F004833D6;
+			remoteInfo = MulleScionTemplate;
+		};
+		41D6DF7716DE53D9004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF0316DE51C9004833D6;
+			remoteInfo = MulleScionParser;
+		};
+		41D6DF7916DE53D9004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DED816DE509E004833D6;
+			remoteInfo = MulleScionPrinter;
+		};
+		41D6DF7D16DE53D9004833D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF2316DE523D004833D6;
+			remoteInfo = MulleScionConvenience;
+		};
+		41DCAF6F16DE575500C5A74E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DEEF16DE513F004833D6;
+			remoteInfo = MulleScionTemplate;
+		};
+		41DCAF7116DE575500C5A74E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF0316DE51C9004833D6;
+			remoteInfo = MulleScionParser;
+		};
+		41DCAF7316DE575500C5A74E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DED816DE509E004833D6;
+			remoteInfo = MulleScionPrinter;
+		};
+		41DCAF7716DE575500C5A74E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF2316DE523D004833D6;
+			remoteInfo = MulleScionConvenience;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		41764B8A16DA511200560FCF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				41764B9716DA511200560FCF /* mulle-scion.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		41764BAF16DAC91900560FCF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /tmp/;
+			dstSubfolderSpec = 0;
+			files = (
+				4121DAF816DCFBC800BFD60C /* empty.scion in CopyFiles */,
+				4121DB0A16DD459700BFD60C /* pipes.scion in CopyFiles */,
+				4121DB0E16DD677F00BFD60C /* range.scion in CopyFiles */,
+				4121DB1316DD781700BFD60C /* dot.scion in CopyFiles */,
+				4121DB0C16DD65BA00BFD60C /* properties.scion in CopyFiles */,
+				4121DAF616DCFAAB00BFD60C /* hackish.scion in CopyFiles */,
+				410B32F316DBD6B8005D0EAD /* header.scion in CopyFiles */,
+				4121DAF216DCE47500BFD60C /* for.scion in CopyFiles */,
+				4121DAEE16DCCE6A00BFD60C /* spaces.scion in CopyFiles */,
+				4121DAF416DCEC5200BFD60C /* for_comma.scion in CopyFiles */,
+				41764BB116DAC92400560FCF /* properties.plist in CopyFiles */,
+				4121DAF016DCDD3D00BFD60C /* preserve_whitespace.scion in CopyFiles */,
+				4121DAFF16DD050100BFD60C /* formatting.scion in CopyFiles */,
+				41ECE09916DC36C200E891A0 /* simple_base.scion in CopyFiles */,
+				4121DAFA16DCFE2D00BFD60C /* while.scion in CopyFiles */,
+				410B32F216DBD6B6005D0EAD /* body.scion in CopyFiles */,
+				410B32F416DBD6BA005D0EAD /* base.scion in CopyFiles */,
+				41ECE09816DC36C000E891A0 /* simple_extends.scion in CopyFiles */,
+				410B32F016DBD6B3005D0EAD /* extends.scion in CopyFiles */,
+				410B32F116DBD6B5005D0EAD /* footer.scion in CopyFiles */,
+				410B32E416DB769C005D0EAD /* ifthenelse.scion in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DED716DE509E004833D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				41D6DF4716DE5309004833D6 /* MulleScionOutputProtocol.h in CopyFiles */,
+				41D6DF4816DE530C004833D6 /* MulleScionDataSourceProtocol.h in CopyFiles */,
+				41D6DF4B16DE5316004833D6 /* MulleScionPrintingException.h in CopyFiles */,
+				41D6DF4D16DE531A004833D6 /* NSValue+CheatAndHack.h in CopyFiles */,
+				41D6DF4E16DE531E004833D6 /* MulleMutableLineNumber.h in CopyFiles */,
+				41D6DF4C16DE5318004833D6 /* MulleScionObjectModel+Printing.h in CopyFiles */,
+				41D6DF4A16DE5314004833D6 /* MulleScionPrinter.h in CopyFiles */,
+				41D6DF4916DE530E004833D6 /* NSObject+MulleScionDescription.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DEEE16DE513F004833D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				41D6DF5216DE536A004833D6 /* MulleObjCCompilerSettings.h in CopyFiles */,
+				41D6DF4516DE52F6004833D6 /* MulleScionDataSourceProtocol.h in CopyFiles */,
+				41D6DF5316DE536D004833D6 /* MulleScionObjectModel+NSCoding.h in CopyFiles */,
+				41D6DF5416DE5370004833D6 /* MulleScionTemplate+CompressedArchive.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF0216DE51C9004833D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				41D6DF3C16DE52CE004833D6 /* MulleScionParser.h in CopyFiles */,
+				41D6DF3D16DE52D4004833D6 /* MulleScionParser+Parsing.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF1216DE521C004833D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				41D6DF3B16DE52B8004833D6 /* MulleScionObjectModel+Description.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF2216DE523D004833D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				41D6DF3116DE5279004833D6 /* MulleScion.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		410B32DD16DB6971005D0EAD /* ifthenelse.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ifthenelse.scion; sourceTree = "<group>"; };
+		410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+NSCoding.h"; sourceTree = "<group>"; };
+		410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+NSCoding.m"; sourceTree = "<group>"; };
+		410B32E516DB7732005D0EAD /* MulleScionObjectModel+Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+Description.h"; sourceTree = "<group>"; };
+		410B32E616DB7732005D0EAD /* MulleScionObjectModel+Description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Description.m"; sourceTree = "<group>"; };
+		410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleMutableLineNumber.h; sourceTree = "<group>"; };
+		410B32E916DB8A7D005D0EAD /* MulleMutableLineNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleMutableLineNumber.m; sourceTree = "<group>"; };
+		410B32EB16DBD57B005D0EAD /* base.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = base.scion; sourceTree = "<group>"; };
+		410B32EC16DBD5BC005D0EAD /* header.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = header.scion; sourceTree = "<group>"; };
+		410B32ED16DBD5C8005D0EAD /* body.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = body.scion; sourceTree = "<group>"; };
+		410B32EE16DBD5D4005D0EAD /* footer.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = footer.scion; sourceTree = "<group>"; };
+		410B32EF16DBD5DC005D0EAD /* extends.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = extends.scion; sourceTree = "<group>"; };
+		4121DAED16DCCE0B00BFD60C /* spaces.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spaces.scion; sourceTree = "<group>"; };
+		4121DAEF16DCDC7600BFD60C /* preserve_whitespace.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = preserve_whitespace.scion; sourceTree = "<group>"; };
+		4121DAF116DCE0FB00BFD60C /* for.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = for.scion; sourceTree = "<group>"; };
+		4121DAF316DCE79C00BFD60C /* for_comma.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = for_comma.scion; sourceTree = "<group>"; };
+		4121DAF516DCFAA600BFD60C /* hackish.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hackish.scion; sourceTree = "<group>"; };
+		4121DAF716DCFBB700BFD60C /* empty.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = empty.scion; sourceTree = "<group>"; };
+		4121DAF916DCFD9D00BFD60C /* while.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = while.scion; sourceTree = "<group>"; };
+		4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionParser+Parsing.h"; sourceTree = "<group>"; };
+		4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionParser+Parsing.m"; sourceTree = "<group>"; };
+		4121DAFE16DD048800BFD60C /* formatting.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = formatting.scion; sourceTree = "<group>"; };
+		4121DB0016DD251900BFD60C /* NSData+ZLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ZLib.h"; sourceTree = "<group>"; };
+		4121DB0116DD251900BFD60C /* NSData+ZLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ZLib.m"; sourceTree = "<group>"; };
+		4121DB0316DD2B6900BFD60C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionTemplate+CompressedArchive.h"; sourceTree = "<group>"; };
+		4121DB0616DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionTemplate+CompressedArchive.m"; sourceTree = "<group>"; };
+		4121DB0916DD451C00BFD60C /* pipes.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pipes.scion; sourceTree = "<group>"; };
+		4121DB0B16DD5E0B00BFD60C /* properties.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = properties.scion; sourceTree = "<group>"; };
+		4121DB0D16DD667900BFD60C /* range.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = range.scion; sourceTree = "<group>"; };
+		4121DB0F16DD685B00BFD60C /* NSValue+CheatAndHack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+CheatAndHack.h"; sourceTree = "<group>"; };
+		4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CheatAndHack.m"; sourceTree = "<group>"; };
+		4121DB1216DD779800BFD60C /* dot.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dot.scion; sourceTree = "<group>"; };
+		4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionDataSourceProtocol.h; sourceTree = "<group>"; };
+		41764B8C16DA511200560FCF /* MulleScionTemplates */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MulleScionTemplates; sourceTree = BUILT_PRODUCTS_DIR; };
+		41764B8F16DA511200560FCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		41764B9216DA511200560FCF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		41764B9616DA511200560FCF /* mulle-scion.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "mulle-scion.1"; sourceTree = "<group>"; };
+		41764B9D16DA51A200560FCF /* MulleScionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionParser.h; sourceTree = "<group>"; };
+		41764B9E16DA51A200560FCF /* MulleScionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionParser.m; sourceTree = "<group>"; };
+		41764BA016DA51B700560FCF /* MulleScionPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionPrinter.h; sourceTree = "<group>"; };
+		41764BA116DA51B700560FCF /* MulleScionPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionPrinter.m; sourceTree = "<group>"; };
+		41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionObjectModel.h; sourceTree = "<group>"; };
+		41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionObjectModel.m; sourceTree = "<group>"; };
+		41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleObjCCompilerSettings.h; sourceTree = "<group>"; };
+		41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+Printing.h"; sourceTree = "<group>"; };
+		41764BA816DA5B2B00560FCF /* MulleScionObjectModel+Printing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Printing.m"; sourceTree = "<group>"; };
+		41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MulleScionDescription.h"; sourceTree = "<group>"; };
+		41764BAB16DA5E1600560FCF /* NSObject+MulleScionDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MulleScionDescription.m"; sourceTree = "<group>"; };
+		41764BAE16DAAAA400560FCF /* properties.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = properties.plist; sourceTree = "<group>"; };
+		41764BCC16DAF4C500560FCF /* MulleScion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScion.h; sourceTree = "<group>"; };
+		41764BCD16DAF4C600560FCF /* MulleScion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScion.m; sourceTree = "<group>"; };
+		41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionPrintingException.h; sourceTree = "<group>"; };
+		41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionPrintingException.m; sourceTree = "<group>"; };
+		41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionDataSourceProtocol.m; sourceTree = "<group>"; };
+		41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionOutputProtocol.h; sourceTree = "<group>"; };
+		41D6DEAA16DE3D37004833D6 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		41D6DED916DE509E004833D6 /* libMulleScionPrinter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionPrinter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6DEF016DE513F004833D6 /* libMulleScionTemplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionTemplate.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6DF0416DE51C9004833D6 /* libMulleScionParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6DF1416DE521C004833D6 /* libMulleScionDebugging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionDebugging.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6DF2416DE523D004833D6 /* libMulleScionConvenience.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionConvenience.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6DF5C16DE53AE004833D6 /* MulleScionTemplates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MulleScionTemplates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6DF5D16DE53AE004833D6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		41D6DF6016DE53AE004833D6 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		41D6DF6116DE53AE004833D6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		41D6DF6216DE53AE004833D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		41DCAF6E16DE557100C5A74E /* MulleScionTemplates-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MulleScionTemplates-Info.plist"; sourceTree = "<group>"; };
+		41ECE09616DC363E00E891A0 /* simple_base.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = simple_base.scion; sourceTree = "<group>"; };
+		41ECE09716DC367200E891A0 /* simple_extends.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = simple_extends.scion; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41764B8916DA511200560FCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DCAF7C16DE576F00C5A74E /* libMulleScionTemplate.a in Frameworks */,
+				41DCAF7A16DE576F00C5A74E /* libMulleScionParser.a in Frameworks */,
+				41DCAF7B16DE576F00C5A74E /* libMulleScionPrinter.a in Frameworks */,
+				41DCAF7916DE576F00C5A74E /* libMulleScionConvenience.a in Frameworks */,
+				41764B9016DA511200560FCF /* Foundation.framework in Frameworks */,
+				4121DB0416DD2B6900BFD60C /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DED616DE509E004833D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DEED16DE513F004833D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DEF116DE513F004833D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF0116DE51C9004833D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF0516DE51C9004833D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF1116DE521C004833D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF1516DE521C004833D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF2116DE523D004833D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF2516DE523D004833D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF5816DE53AE004833D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF7016DE53C0004833D6 /* libMulleScionConvenience.a in Frameworks */,
+				41D6DF7216DE53C0004833D6 /* libMulleScionParser.a in Frameworks */,
+				41D6DF7316DE53C0004833D6 /* libMulleScionPrinter.a in Frameworks */,
+				41D6DF7416DE53C0004833D6 /* libMulleScionTemplate.a in Frameworks */,
+				41D6DF9416DE5443004833D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4121DB0816DD410D00BFD60C /* MulleScionLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				41D6DF4F16DE532F004833D6 /* MulleScionTemplate */,
+				41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */,
+				41D6DEA016DE28EE004833D6 /* MulleScionParser */,
+				41D6DEA116DE291F004833D6 /* ZLib */,
+				41D6DEA216DE293F004833D6 /* Debugging */,
+			);
+			name = MulleScionLibrary;
+			sourceTree = "<group>";
+		};
+		41764B8316DA511200560FCF = {
+			isa = PBXGroup;
+			children = (
+				41D6DEAA16DE3D37004833D6 /* README */,
+				41764B9116DA511200560FCF /* src */,
+				41764B8E16DA511200560FCF /* Frameworks */,
+				41764B9416DA511200560FCF /* Supporting Files */,
+				41764B8D16DA511200560FCF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		41764B8D16DA511200560FCF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41764B8C16DA511200560FCF /* MulleScionTemplates */,
+				41D6DED916DE509E004833D6 /* libMulleScionPrinter.a */,
+				41D6DEF016DE513F004833D6 /* libMulleScionTemplate.a */,
+				41D6DF0416DE51C9004833D6 /* libMulleScionParser.a */,
+				41D6DF1416DE521C004833D6 /* libMulleScionDebugging.a */,
+				41D6DF2416DE523D004833D6 /* libMulleScionConvenience.a */,
+				41D6DF5C16DE53AE004833D6 /* MulleScionTemplates.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41764B8E16DA511200560FCF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				41764B8F16DA511200560FCF /* Foundation.framework */,
+				4121DB0316DD2B6900BFD60C /* libz.dylib */,
+				41D6DF5D16DE53AE004833D6 /* Cocoa.framework */,
+				41D6DF5F16DE53AE004833D6 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		41764B9116DA511200560FCF /* src */ = {
+			isa = PBXGroup;
+			children = (
+				41764B9216DA511200560FCF /* main.m */,
+				41764BCC16DAF4C500560FCF /* MulleScion.h */,
+				41764BCD16DAF4C600560FCF /* MulleScion.m */,
+				4121DB0816DD410D00BFD60C /* MulleScionLibrary */,
+				41764B9616DA511200560FCF /* mulle-scion.1 */,
+				41DCAF6E16DE557100C5A74E /* MulleScionTemplates-Info.plist */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		41764B9416DA511200560FCF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				41764BAE16DAAAA400560FCF /* properties.plist */,
+				410B32DD16DB6971005D0EAD /* ifthenelse.scion */,
+				4121DB0B16DD5E0B00BFD60C /* properties.scion */,
+				4121DB0D16DD667900BFD60C /* range.scion */,
+				410B32EB16DBD57B005D0EAD /* base.scion */,
+				410B32EC16DBD5BC005D0EAD /* header.scion */,
+				410B32ED16DBD5C8005D0EAD /* body.scion */,
+				410B32EE16DBD5D4005D0EAD /* footer.scion */,
+				410B32EF16DBD5DC005D0EAD /* extends.scion */,
+				41ECE09616DC363E00E891A0 /* simple_base.scion */,
+				41ECE09716DC367200E891A0 /* simple_extends.scion */,
+				4121DAED16DCCE0B00BFD60C /* spaces.scion */,
+				4121DAEF16DCDC7600BFD60C /* preserve_whitespace.scion */,
+				4121DAF116DCE0FB00BFD60C /* for.scion */,
+				4121DAF316DCE79C00BFD60C /* for_comma.scion */,
+				4121DAF516DCFAA600BFD60C /* hackish.scion */,
+				4121DAF716DCFBB700BFD60C /* empty.scion */,
+				4121DAF916DCFD9D00BFD60C /* while.scion */,
+				4121DB1216DD779800BFD60C /* dot.scion */,
+				4121DAFE16DD048800BFD60C /* formatting.scion */,
+				4121DB0916DD451C00BFD60C /* pipes.scion */,
+			);
+			name = "Supporting Files";
+			path = src;
+			sourceTree = "<group>";
+		};
+		41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */ = {
+			isa = PBXGroup;
+			children = (
+				41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */,
+				4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */,
+				41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */,
+				41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */,
+				41764BAB16DA5E1600560FCF /* NSObject+MulleScionDescription.m */,
+				41764BA016DA51B700560FCF /* MulleScionPrinter.h */,
+				41764BA116DA51B700560FCF /* MulleScionPrinter.m */,
+				41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */,
+				41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */,
+				41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */,
+				41764BA816DA5B2B00560FCF /* MulleScionObjectModel+Printing.m */,
+				4121DB0F16DD685B00BFD60C /* NSValue+CheatAndHack.h */,
+				4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */,
+				410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */,
+				410B32E916DB8A7D005D0EAD /* MulleMutableLineNumber.m */,
+			);
+			name = MulleScionPrinter;
+			sourceTree = "<group>";
+		};
+		41D6DEA016DE28EE004833D6 /* MulleScionParser */ = {
+			isa = PBXGroup;
+			children = (
+				41764B9D16DA51A200560FCF /* MulleScionParser.h */,
+				41764B9E16DA51A200560FCF /* MulleScionParser.m */,
+				4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */,
+				4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */,
+			);
+			name = MulleScionParser;
+			sourceTree = "<group>";
+		};
+		41D6DEA116DE291F004833D6 /* ZLib */ = {
+			isa = PBXGroup;
+			children = (
+				4121DB0016DD251900BFD60C /* NSData+ZLib.h */,
+				4121DB0116DD251900BFD60C /* NSData+ZLib.m */,
+			);
+			name = ZLib;
+			sourceTree = "<group>";
+		};
+		41D6DEA216DE293F004833D6 /* Debugging */ = {
+			isa = PBXGroup;
+			children = (
+				410B32E516DB7732005D0EAD /* MulleScionObjectModel+Description.h */,
+				410B32E616DB7732005D0EAD /* MulleScionObjectModel+Description.m */,
+			);
+			name = Debugging;
+			sourceTree = "<group>";
+		};
+		41D6DF4F16DE532F004833D6 /* MulleScionTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */,
+				41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */,
+				41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */,
+				410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */,
+				410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */,
+				4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */,
+				4121DB0616DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.m */,
+			);
+			name = MulleScionTemplate;
+			sourceTree = "<group>";
+		};
+		41D6DF5F16DE53AE004833D6 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				41D6DF6016DE53AE004833D6 /* AppKit.framework */,
+				41D6DF6116DE53AE004833D6 /* CoreData.framework */,
+				41D6DF6216DE53AE004833D6 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		41D6DF5916DE53AE004833D6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF8016DE5415004833D6 /* MulleObjCCompilerSettings.h in Headers */,
+				41D6DF7F16DE53E6004833D6 /* MulleScion.h in Headers */,
+				41D6DF8116DE5415004833D6 /* MulleScionObjectModel.h in Headers */,
+				41D6DF8316DE5415004833D6 /* MulleScionTemplate+CompressedArchive.h in Headers */,
+				41D6DF8416DE5415004833D6 /* MulleScionOutputProtocol.h in Headers */,
+				41D6DF8516DE5415004833D6 /* MulleScionDataSourceProtocol.h in Headers */,
+				41D6DF8716DE5415004833D6 /* MulleScionPrinter.h in Headers */,
+				41D6DF8816DE5415004833D6 /* MulleScionPrintingException.h in Headers */,
+				41D6DF8916DE5415004833D6 /* MulleScionObjectModel+Printing.h in Headers */,
+				41D6DF8C16DE5415004833D6 /* MulleScionParser.h in Headers */,
+				41D6DF8D16DE5415004833D6 /* MulleScionParser+Parsing.h in Headers */,
+				41D6DF8616DE5415004833D6 /* NSObject+MulleScionDescription.h in Headers */,
+				41D6DF8B16DE5415004833D6 /* MulleMutableLineNumber.h in Headers */,
+				41D6DF8216DE5415004833D6 /* MulleScionObjectModel+NSCoding.h in Headers */,
+				41D6DF8E16DE5415004833D6 /* NSData+ZLib.h in Headers */,
+				41D6DF8A16DE5415004833D6 /* NSValue+CheatAndHack.h in Headers */,
+				41D6DF8F16DE5415004833D6 /* MulleScionObjectModel+Description.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		41764B8B16DA511200560FCF /* mulle-scion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41764B9A16DA511200560FCF /* Build configuration list for PBXNativeTarget "mulle-scion" */;
+			buildPhases = (
+				41764B8816DA511200560FCF /* Sources */,
+				41764B8916DA511200560FCF /* Frameworks */,
+				41764B8A16DA511200560FCF /* CopyFiles */,
+				41764BAF16DAC91900560FCF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41DCAF7016DE575500C5A74E /* PBXTargetDependency */,
+				41DCAF7216DE575500C5A74E /* PBXTargetDependency */,
+				41DCAF7416DE575500C5A74E /* PBXTargetDependency */,
+				41DCAF7816DE575500C5A74E /* PBXTargetDependency */,
+			);
+			name = "mulle-scion";
+			productName = MulleTwigLikeObjCTemplates;
+			productReference = 41764B8C16DA511200560FCF /* MulleScionTemplates */;
+			productType = "com.apple.product-type.tool";
+		};
+		41D6DED816DE509E004833D6 /* MulleScionPrinter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D6DEE216DE509F004833D6 /* Build configuration list for PBXNativeTarget "MulleScionPrinter" */;
+			buildPhases = (
+				41D6DED516DE509E004833D6 /* Sources */,
+				41D6DED616DE509E004833D6 /* Frameworks */,
+				41D6DED716DE509E004833D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41D6DF5616DE537C004833D6 /* PBXTargetDependency */,
+			);
+			name = MulleScionPrinter;
+			productName = mulleScionPrinter;
+			productReference = 41D6DED916DE509E004833D6 /* libMulleScionPrinter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		41D6DEEF16DE513F004833D6 /* MulleScionTemplate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D6DEF916DE513F004833D6 /* Build configuration list for PBXNativeTarget "MulleScionTemplate" */;
+			buildPhases = (
+				41D6DEEC16DE513F004833D6 /* Sources */,
+				41D6DEED16DE513F004833D6 /* Frameworks */,
+				41D6DEEE16DE513F004833D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MulleScionTemplate;
+			productName = mulleScionTemplate;
+			productReference = 41D6DEF016DE513F004833D6 /* libMulleScionTemplate.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		41D6DF0316DE51C9004833D6 /* MulleScionParser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D6DF0D16DE51C9004833D6 /* Build configuration list for PBXNativeTarget "MulleScionParser" */;
+			buildPhases = (
+				41D6DF0016DE51C9004833D6 /* Sources */,
+				41D6DF0116DE51C9004833D6 /* Frameworks */,
+				41D6DF0216DE51C9004833D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41D6DF5116DE5354004833D6 /* PBXTargetDependency */,
+			);
+			name = MulleScionParser;
+			productName = MulleScionParser;
+			productReference = 41D6DF0416DE51C9004833D6 /* libMulleScionParser.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		41D6DF1316DE521C004833D6 /* MulleScionDebugging */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D6DF1D16DE521D004833D6 /* Build configuration list for PBXNativeTarget "MulleScionDebugging" */;
+			buildPhases = (
+				41D6DF1016DE521C004833D6 /* Sources */,
+				41D6DF1116DE521C004833D6 /* Frameworks */,
+				41D6DF1216DE521C004833D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41D6DF3916DE52AD004833D6 /* PBXTargetDependency */,
+			);
+			name = MulleScionDebugging;
+			productName = MulleScionDebugging;
+			productReference = 41D6DF1416DE521C004833D6 /* libMulleScionDebugging.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		41D6DF2316DE523D004833D6 /* MulleScionConvenience */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D6DF2D16DE523E004833D6 /* Build configuration list for PBXNativeTarget "MulleScionConvenience" */;
+			buildPhases = (
+				41D6DF2016DE523D004833D6 /* Sources */,
+				41D6DF2116DE523D004833D6 /* Frameworks */,
+				41D6DF2216DE523D004833D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41D6DF3716DE52A6004833D6 /* PBXTargetDependency */,
+				41D6DF3516DE52A4004833D6 /* PBXTargetDependency */,
+				41D6DF3316DE52A1004833D6 /* PBXTargetDependency */,
+			);
+			name = MulleScionConvenience;
+			productName = MulleScionConvenience;
+			productReference = 41D6DF2416DE523D004833D6 /* libMulleScionConvenience.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		41D6DF5B16DE53AE004833D6 /* MulleScionTemplates */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41D6DF6D16DE53AE004833D6 /* Build configuration list for PBXNativeTarget "MulleScionTemplates" */;
+			buildPhases = (
+				41D6DF5716DE53AE004833D6 /* Sources */,
+				41D6DF5816DE53AE004833D6 /* Frameworks */,
+				41D6DF5916DE53AE004833D6 /* Headers */,
+				41D6DF5A16DE53AE004833D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41D6DF7616DE53D9004833D6 /* PBXTargetDependency */,
+				41D6DF7816DE53D9004833D6 /* PBXTargetDependency */,
+				41D6DF7A16DE53D9004833D6 /* PBXTargetDependency */,
+				41D6DF7E16DE53D9004833D6 /* PBXTargetDependency */,
+			);
+			name = MulleScionTemplates;
+			productName = MulleScionTemplates;
+			productReference = 41D6DF5C16DE53AE004833D6 /* MulleScionTemplates.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41764B8416DA511200560FCF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Mulle kybernetiK";
+			};
+			buildConfigurationList = 41764B8716DA511200560FCF /* Build configuration list for PBXProject "MulleScionTemplates" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41764B8316DA511200560FCF;
+			productRefGroup = 41764B8D16DA511200560FCF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41764B8B16DA511200560FCF /* mulle-scion */,
+				41D6DEEF16DE513F004833D6 /* MulleScionTemplate */,
+				41D6DF0316DE51C9004833D6 /* MulleScionParser */,
+				41D6DED816DE509E004833D6 /* MulleScionPrinter */,
+				41D6DF1316DE521C004833D6 /* MulleScionDebugging */,
+				41D6DF2316DE523D004833D6 /* MulleScionConvenience */,
+				41D6DF5B16DE53AE004833D6 /* MulleScionTemplates */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41D6DF5A16DE53AE004833D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41764B8816DA511200560FCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41764B9316DA511200560FCF /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DED516DE509E004833D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DEE516DE50ED004833D6 /* MulleScionDataSourceProtocol.m in Sources */,
+				41D6DEE616DE50EF004833D6 /* NSObject+MulleScionDescription.m in Sources */,
+				41D6DEEB16DE5107004833D6 /* MulleScionPrinter.m in Sources */,
+				41D6DEE716DE50F1004833D6 /* MulleScionPrintingException.m in Sources */,
+				41D6DEE816DE50F4004833D6 /* MulleScionObjectModel+Printing.m in Sources */,
+				41D6DEEA16DE50FD004833D6 /* NSValue+CheatAndHack.m in Sources */,
+				41D6DEE916DE50F6004833D6 /* MulleMutableLineNumber.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DEEC16DE513F004833D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DEFC16DE5183004833D6 /* MulleScionObjectModel.m in Sources */,
+				41D6DEFD16DE5185004833D6 /* MulleScionObjectModel+NSCoding.m in Sources */,
+				41D6DEFE16DE5188004833D6 /* MulleScionTemplate+CompressedArchive.m in Sources */,
+				41D6DEFF16DE518D004833D6 /* NSData+ZLib.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF0016DE51C9004833D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF3E16DE52D6004833D6 /* MulleScionParser+Parsing.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF1016DE521C004833D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF3A16DE52B2004833D6 /* MulleScionObjectModel+Description.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF2016DE523D004833D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41D6DF3016DE5270004833D6 /* MulleScion.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41D6DF5716DE53AE004833D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		41D6DF3316DE52A1004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DED816DE509E004833D6 /* MulleScionPrinter */;
+			targetProxy = 41D6DF3216DE52A1004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF3516DE52A4004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DEEF16DE513F004833D6 /* MulleScionTemplate */;
+			targetProxy = 41D6DF3416DE52A4004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF3716DE52A6004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF0316DE51C9004833D6 /* MulleScionParser */;
+			targetProxy = 41D6DF3616DE52A6004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF3916DE52AD004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DEEF16DE513F004833D6 /* MulleScionTemplate */;
+			targetProxy = 41D6DF3816DE52AD004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF5116DE5354004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DEEF16DE513F004833D6 /* MulleScionTemplate */;
+			targetProxy = 41D6DF5016DE5354004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF5616DE537C004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DEEF16DE513F004833D6 /* MulleScionTemplate */;
+			targetProxy = 41D6DF5516DE537C004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF7616DE53D9004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DEEF16DE513F004833D6 /* MulleScionTemplate */;
+			targetProxy = 41D6DF7516DE53D9004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF7816DE53D9004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF0316DE51C9004833D6 /* MulleScionParser */;
+			targetProxy = 41D6DF7716DE53D9004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF7A16DE53D9004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DED816DE509E004833D6 /* MulleScionPrinter */;
+			targetProxy = 41D6DF7916DE53D9004833D6 /* PBXContainerItemProxy */;
+		};
+		41D6DF7E16DE53D9004833D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF2316DE523D004833D6 /* MulleScionConvenience */;
+			targetProxy = 41D6DF7D16DE53D9004833D6 /* PBXContainerItemProxy */;
+		};
+		41DCAF7016DE575500C5A74E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DEEF16DE513F004833D6 /* MulleScionTemplate */;
+			targetProxy = 41DCAF6F16DE575500C5A74E /* PBXContainerItemProxy */;
+		};
+		41DCAF7216DE575500C5A74E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF0316DE51C9004833D6 /* MulleScionParser */;
+			targetProxy = 41DCAF7116DE575500C5A74E /* PBXContainerItemProxy */;
+		};
+		41DCAF7416DE575500C5A74E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DED816DE509E004833D6 /* MulleScionPrinter */;
+			targetProxy = 41DCAF7316DE575500C5A74E /* PBXContainerItemProxy */;
+		};
+		41DCAF7816DE575500C5A74E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF2316DE523D004833D6 /* MulleScionConvenience */;
+			targetProxy = 41DCAF7716DE575500C5A74E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		41764B9816DA511200560FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		41764B9916DA511200560FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		41764B9B16DA511200560FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				PRODUCT_NAME = MulleScionTemplates;
+			};
+			name = Debug;
+		};
+		41764B9C16DA511200560FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				PRODUCT_NAME = MulleScionTemplates;
+			};
+			name = Release;
+		};
+		41D6DEE316DE509F004833D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionPrinter.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		41D6DEE416DE509F004833D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionPrinter.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		41D6DEFA16DE513F004833D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionTemplate.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		41D6DEFB16DE513F004833D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionTemplate.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		41D6DF0E16DE51C9004833D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionParser.dst;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		41D6DF0F16DE51C9004833D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionParser.dst;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		41D6DF1E16DE521D004833D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionDebugging.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		41D6DF1F16DE521D004833D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionDebugging.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		41D6DF2E16DE523E004833D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionConvenience.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		41D6DF2F16DE523E004833D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionConvenience.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		41D6DF6E16DE53AE004833D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 18;
+				DYLIB_CURRENT_VERSION = 48;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "src/MulleScionTemplates-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		41D6DF6F16DE53AE004833D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 18;
+				DYLIB_CURRENT_VERSION = 48;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "src/MulleScionTemplates-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41764B8716DA511200560FCF /* Build configuration list for PBXProject "MulleScionTemplates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41764B9816DA511200560FCF /* Debug */,
+				41764B9916DA511200560FCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41764B9A16DA511200560FCF /* Build configuration list for PBXNativeTarget "mulle-scion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41764B9B16DA511200560FCF /* Debug */,
+				41764B9C16DA511200560FCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DEE216DE509F004833D6 /* Build configuration list for PBXNativeTarget "MulleScionPrinter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41D6DEE316DE509F004833D6 /* Debug */,
+				41D6DEE416DE509F004833D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DEF916DE513F004833D6 /* Build configuration list for PBXNativeTarget "MulleScionTemplate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41D6DEFA16DE513F004833D6 /* Debug */,
+				41D6DEFB16DE513F004833D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DF0D16DE51C9004833D6 /* Build configuration list for PBXNativeTarget "MulleScionParser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41D6DF0E16DE51C9004833D6 /* Debug */,
+				41D6DF0F16DE51C9004833D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DF1D16DE521D004833D6 /* Build configuration list for PBXNativeTarget "MulleScionDebugging" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41D6DF1E16DE521D004833D6 /* Debug */,
+				41D6DF1F16DE521D004833D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DF2D16DE523E004833D6 /* Build configuration list for PBXNativeTarget "MulleScionConvenience" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41D6DF2E16DE523E004833D6 /* Debug */,
+				41D6DF2F16DE523E004833D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41D6DF6D16DE53AE004833D6 /* Build configuration list for PBXNativeTarget "MulleScionTemplates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41D6DF6E16DE53AE004833D6 /* Debug */,
+				41D6DF6F16DE53AE004833D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41764B8416DA511200560FCF /* Project object */;
+}

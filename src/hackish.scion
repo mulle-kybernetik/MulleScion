@@ -1,0 +1,11 @@
+{% block hackish %} {# block hackish will be part of the template #}
+{% block hackish_extension %}
+{% endblock %}
+ but useful for doing a little multiple inheritance.
+{% endblock %}
+
+{% extends "empty.scion" %}
+
+{% block footer_extension2 %}
+it's tricky tricky tricky
+{% endblock %}

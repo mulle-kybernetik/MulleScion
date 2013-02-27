@@ -1,0 +1,4 @@
+{% block header %}
+my header
+{% block header_extension %}default header_extension text{% endblock %}
+{% endblock %}

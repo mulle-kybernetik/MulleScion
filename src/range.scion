@@ -1,0 +1,11 @@
+For those special moments, when you really want to use range. There is only
+one function built in, and that's
+
+NSMakeRange
+
+but you can extend this easily.
+
+
+{{ [@"VfL Bochum 1848" substringWithRange:NSMakeRange( 4, 6)] }}
+{# stupid pet tricks, achived by a category on NSValue #}
+{{ [@"VfL Bochum 1848" rangeOfString:@"18"].location }}

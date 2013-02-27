@@ -1,0 +1,21 @@
+<html>
+<body>
+{# render an old skool HTML table #}
+{% MulleScionEven = "#DDDDDD" %}
+{% MulleScionOdd  = "#FFFFFF" %}
+{% for item in [NSTimeZone knownTimeZoneNames] %}
+  {% if item#.n %}
+    {% if item#.isFirst %}
+<table>
+   <tr><th>TimeZone</th></tr>
+    {% endif %}
+   <tr bgcolor="{{ item#.evenOdd }}"><td>{{ item }}</td></tr>
+    {% if item#.isLast %}
+</table>
+    {% endif %}
+  {% else %}
+Sorry, no timezone info available.
+  {% endif %}
+{% endfor %}
+</body>
+</html>

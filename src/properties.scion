@@ -1,0 +1,19 @@
+The template are filled with properties from an object. That object can be
+anything NSObject based. The data is accessed through key value coding. All
+accessed to data are funneled through a small number of dedicated routines
+that you may but ususally don't need to override.
+
+In this example data is read from properties.plist.
+
+
+name={{ name }}
+when={{ when }}
+count={{ count }}
+bag.a={{ bag.a }}
+bag.b={{ bag.b }}
+bag={{ bag }}
+bag.@count={{ bag.@count }}
+
+This is shown when using the mulle-scion tool.
+{{ MulleScionRootTemplate }} 
+

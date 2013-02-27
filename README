@@ -1,0 +1,10 @@
+Project Goals
+=============
+
+1. Compatible with 10.4 (why ? because I want to run it with MulleFoundation)
+2. Keep Parser and Printer independent (why ? To allow apps to only use a few
+pre-rendered templates)
+3. Offload complexity into the Parser. The Printer should be fast and lean.
+4. Try to conserve memory.
+5. Be reasonably close to TWIG (PHP Templates), but don't break a leg.
+6. mulle-scion executable is currently 110K (much too big!)

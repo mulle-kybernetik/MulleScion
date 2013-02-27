@@ -1,0 +1,12 @@
+<html>
+ <body>
+{# render an old skool HTML table with while #}
+  <table>
+   <tr><th>TimeZone</th></tr>
+{% rover = [[NSTimeZone knownTimeZoneNames] objectEnumerator] %}
+{% while item = [rover nextObject] %}
+   <tr><td>{{ item }}</td></tr>
+{% endwhile %}
+  </table>
+ </body>
+</html>

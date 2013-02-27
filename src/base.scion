@@ -1,0 +1,4 @@
+{# test includes en-passant :) #}
+{% includes "header.scion" %}
+{% includes "body.scion" %}
+{% includes "footer.scion" %}
