@@ -30,6 +30,8 @@
 - (BOOL) isTemplate;
 - (BOOL) isIdentifier;
 - (BOOL) isTerminator;
+- (BOOL) isFunction;
+- (BOOL) isMethod;
 
 - (BOOL) isIf;
 - (BOOL) isElse;
@@ -210,7 +212,7 @@
 
 
 
-@interface MulleScionLet : MulleScionCommand
+@interface MulleScionSet : MulleScionCommand
 {
    NSString               *identifier_;
    MulleScionExpression   *expression_;
@@ -223,7 +225,7 @@
 
 
 // "for" is pretty much the same as an assignment, just looped
-@interface MulleScionFor : MulleScionLet
+@interface MulleScionFor : MulleScionSet
 @end
 
 

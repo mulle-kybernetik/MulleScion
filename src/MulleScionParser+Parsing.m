@@ -852,13 +852,13 @@ static MulleScionExpression * NS_RETURNS_RETAINED  parser_do_expression( parser 
    switch( operator)
    {
    case '|' :
-         if( ! [right isPipe] && ! [right isIdentifier])
+         if( ! [right isMethod] && ! [right isPipe] && ! [right isIdentifier])
             parser_error( p, "identifier expected after '|'");
          return( [MulleScionPipe newWithRetainedLeftExpression:left
                                        retainedRightExpression:right
                                            lineNumber:p->memo.lineNumber]);
    case '.' :
-         if( ! [right isPipe] && ! [right isDot] && ! [right isIdentifier])
+         if( ! [right isMethod] && ! [right isPipe] && ! [right isDot] && ! [right isIdentifier])
             parser_error( p, "identifier expected after '.'");
          return( [MulleScionDot newWithRetainedLeftExpression:left
                                        retainedRightExpression:right
@@ -1063,7 +1063,7 @@ static MulleScionMethodCall  *NS_RETURNS_RETAINED parser_do_method_call( parser 
 }
 
 
-static MulleScionLet  * NS_RETURNS_RETAINED parser_do_let( parser *p, NSString *identifier, NSUInteger line)
+static MulleScionSet  * NS_RETURNS_RETAINED parser_do_set( parser *p, NSString *identifier, NSUInteger line)
 {
    MulleScionExpression  *expr;
    unsigned char         c;
@@ -1077,7 +1077,7 @@ static MulleScionLet  * NS_RETURNS_RETAINED parser_do_let( parser *p, NSString *
    parser_skip_whitespace( p);
    expr = parser_do_expression( p);
    
-   return([MulleScionLet newWithIdentifier:identifier
+   return([MulleScionSet newWithIdentifier:identifier
                         retainedExpression:expr
                                 lineNumber:line]);
 }
@@ -1139,7 +1139,7 @@ static MulleScionFilter  * NS_RETURNS_RETAINED parser_do_filter( parser *p, NSUI
 
 typedef enum
 {
-   LetOpcode = 0,
+   SetOpcode = 0,
    IfOpcode,
    ElseOpcode,
    EndifOpcode,
@@ -1165,7 +1165,8 @@ static MulleScionOpcode   opcodeForString( NSString *s)
    switch( len)
    {
    case 2 : if( [s isEqualToString:@"if"]) return( IfOpcode); break;
-   case 3 : if( [s isEqualToString:@"for"]) return( ForOpcode); break;
+   case 3 : if( [s isEqualToString:@"set"]) return( SetOpcode);
+            if( [s isEqualToString:@"for"]) return( ForOpcode); break;
    case 4 : if( [s isEqualToString:@"else"]) return( ElseOpcode); break;
    case 5 : if( [s isEqualToString:@"endif"]) return( EndifOpcode);
             if( [s isEqualToString:@"while"]) return( WhileOpcode);
@@ -1178,7 +1179,7 @@ static MulleScionOpcode   opcodeForString( NSString *s)
             if( [s isEqualToString:@"includes"]) return( IncludesOpcode); break;
    case 9 : if( [s isEqualToString:@"endfilter"]) return( EndfilterOpcode); break;
    }
-   return( LetOpcode);
+   return( SetOpcode);
 }
 
 
@@ -1211,7 +1212,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    case IfOpcode       : return( parser_do_if( p, line));
    case IncludesOpcode : return( parser_do_includes( p));
    case WhileOpcode    : return( parser_do_while( p, line));
-   case LetOpcode      : return( parser_do_let( p, s, line));
+   case SetOpcode      : return( parser_do_set( p, s, line));
    }
    return( nil);  // for gcc
 }

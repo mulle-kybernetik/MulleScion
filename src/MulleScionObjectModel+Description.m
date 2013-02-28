@@ -271,7 +271,7 @@
 @end
 
 
-@implementation MulleScionLet ( Debug)
+@implementation MulleScionSet ( Debug)
 
 - (NSString *) commandDescription
 {

@@ -77,8 +77,10 @@
 - (BOOL) isIdentifier { return( NO); }
 - (BOOL) isTerminator { return( NO); }
 - (BOOL) isTemplate   { return( NO); }
+- (BOOL) isFunction   { return( NO); }
+- (BOOL) isMethod     { return( NO); }
 
-- (BOOL) isLet        { return( NO); }
+- (BOOL) isSet        { return( NO); }
 
 - (BOOL) isIf         { return( NO); }
 - (BOOL) isElse       { return( NO); }
@@ -351,6 +353,48 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( p);
 }
 
+- (BOOL) isFunction
+{
+   return( YES);
+}
+
+@end
+
+
+@implementation MulleScionMethod
+
++ (id) newWithRetainedTarget:(MulleScionExpression *) NS_CONSUMED target
+methodName:(NSString *) methodName
+arguments:(NSArray *) arguments
+lineNumber:(NSUInteger) nr
+
+{
+   MulleScionMethod   *p;
+   
+   NSParameterAssert( [target isKindOfClass:[MulleScionExpression class]]);
+   NSParameterAssert( [methodName isKindOfClass:[NSString class]] && [methodName length]);
+   NSParameterAssert( ! arguments || [arguments isKindOfClass:[NSArray class]]);
+   
+   p             = newMulleScionValueObject( self, nil, nr);
+   p->value_     = target;
+   p->action_    = NSSelectorFromString( methodName);
+   p->arguments_ = [arguments copy];
+   return( p);
+}
+
+
+- (void) dealloc
+{
+   [arguments_ release];
+   
+   [super dealloc];
+}
+
+- (BOOL) isMethod
+{
+   return( YES);
+}
+
 @end
 
 
@@ -451,37 +495,6 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
-@implementation MulleScionMethod
-
-+ (id) newWithRetainedTarget:(MulleScionExpression *) NS_CONSUMED target
-                  methodName:(NSString *) methodName
-                   arguments:(NSArray *) arguments
-                  lineNumber:(NSUInteger) nr
-
-{
-   MulleScionMethod   *p;
-
-   NSParameterAssert( [target isKindOfClass:[MulleScionExpression class]]);
-   NSParameterAssert( [methodName isKindOfClass:[NSString class]] && [methodName length]);
-   NSParameterAssert( ! arguments || [arguments isKindOfClass:[NSArray class]]);
-
-   p             = newMulleScionValueObject( self, nil, nr);
-   p->value_     = target;
-   p->action_    = NSSelectorFromString( methodName);
-   p->arguments_ = [arguments copy];
-   return( p);
-}
-
-
-- (void) dealloc
-{
-   [arguments_ release];
-
-   [super dealloc];
-}
-
-@end
-
 
 @implementation MulleScionCommand
 
@@ -577,7 +590,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
-@implementation MulleScionLet
+@implementation MulleScionSet
 
 - (NSString *) commandName
 {
@@ -588,7 +601,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
       retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
               lineNumber:(NSUInteger) nr
 {
-   MulleScionLet   *p;
+   MulleScionSet   *p;
    
    NSParameterAssert( [s isKindOfClass:[NSString class]] && [s length]);
    NSParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
@@ -609,7 +622,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 }
 
 
-- (BOOL) isLet
+- (BOOL) isSet
 {
    return( YES);
 }

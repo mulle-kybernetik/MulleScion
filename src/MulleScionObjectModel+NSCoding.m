@@ -134,7 +134,7 @@
 @end
 
 
-@implementation MulleScionLet ( NSCoding )
+@implementation MulleScionSet ( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
