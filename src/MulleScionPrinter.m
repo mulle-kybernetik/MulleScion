@@ -13,8 +13,11 @@
 
 @implementation MulleScionPrinter
 
+
 - (id) initWithDataSource:(id) dataSource
 {
+   // NSLog( @"<%@ %p lives>", isa, self);
+
    dataSource_  = dataSource;
    [dataSource retain];
 
@@ -27,6 +30,8 @@
    [dataSource_ release];
    [defaultlocals_ release];
 
+   // Instruments apparently lies cold blooded :)
+   //NSLog( @"<%@ %p is dead>", isa, self);
    [super dealloc];
 }
 

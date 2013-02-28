@@ -48,9 +48,9 @@ NSString   *MulleScionOddKey             = @"MulleScionOdd";
 
 @implementation MulleScionObject ( Printing)
 
-- (MulleScionObject *)   renderInto:(id <MulleScionOutput>) s
-                     localVariables:(NSMutableDictionary *) locals
-                         dataSource:(id <MulleScionDataSource>) dataSource
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+                   localVariables:(NSMutableDictionary *) locals
+                       dataSource:(id <MulleScionDataSource>) dataSource
 {
    return( self->next_);
 }
@@ -75,11 +75,13 @@ NSString   *MulleScionOddKey             = @"MulleScionOdd";
 
 
 static void   MulleScionRenderString( NSString *value,
-                                     id <MulleScionOutput> output,
-                                     NSMutableDictionary *locals,
-                                     id <MulleScionDataSource> dataSource)
+                                      id <MulleScionOutput> output,
+                                      NSMutableDictionary *locals,
+                                      id <MulleScionDataSource> dataSource)
 {
    MulleScionExpression  *filter;
+   
+   NSCParameterAssert( [value isKindOfClass:[NSString class]]);
    
    filter = [locals objectForKey:MulleScionCurrentFilterKey];
    if( filter)
@@ -97,7 +99,12 @@ static void   MulleScionRenderString( NSString *value,
                             dataSource:dataSource];
       }
    }
-   [output appendString:value];
+   
+   if( value)
+   {
+      NSCParameterAssert( [value isKindOfClass:[NSString class]]);
+      [output appendString:value];
+   }
 }
 
 @end
@@ -212,7 +219,7 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 
 @implementation MulleScionMethod ( Printing)
 
-char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
+static char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
 {
    char   c;
    
@@ -241,7 +248,6 @@ char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
    
    return( type);
 }
-
 
 
 static void   _pop( NSAutoreleasePool *pool)
@@ -300,30 +306,29 @@ static void   *numberBuffer( char *type, NSNumber *value)
 }
 
 
-- (id) valueOfTarget:(id) target
-  withLocalVariables:(NSMutableDictionary *) locals
-         dataSource:(id <MulleScionDataSource>) dataSource
+- (id) evaluateValue:(id) target
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
 {
-   MulleScionExpression *expr;
-   NSAutoreleasePool   *pool;
-   NSInvocation        *invocation;
-   NSMethodSignature   *signature;
-   id                  *buf;
-   id                  original;
-   id                  value;
-   char                *returnType;
-   char                *type;
-   NSUInteger          i, n, m;
-   NSUInteger          length;
+   MulleScionExpression   *expr;
+   NSAutoreleasePool      *pool;
+   NSInvocation           *invocation;
+   NSMethodSignature      *signature;
+   NSUInteger             i, n, m;
+   NSUInteger             length;
+   char                   *returnType;
+   char                   *type;
+   id                     *buf;
+   id                     value;
    // static char         id_type[ 2] = { _C_ID, 0 };
    
    pool = [NSAutoreleasePool new];
-   
+
    signature = [dataSource mulleScionMethodSignatureForSelector:action_
                                                          target:target];
    if( ! signature)
       [NSException raise:NSInvalidArgumentException
-                  format:@"Method \"%@\" is unknown on \"%@\" (which evaluates to: %@)", NSStringFromSelector( action_), original, target];
+                  format:@"Method \"%@\" is unknown on \"%@\"", NSStringFromSelector( action_), target];
    
    // remember varargs, there can be more arguments
    m = [signature numberOfArguments];
@@ -420,9 +425,8 @@ static void   *numberBuffer( char *type, NSNumber *value)
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
 {
-   id   target;
    id   original;
-   id   replacement;
+   id   target;
    
    original = nil;
    if( [value_ isIdentifier])
@@ -430,7 +434,6 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    target = [value_ valueWithLocalVariables:locals
                                  dataSource:dataSource];
-   
    if( ! target && original)
       target = [dataSource mulleScionClassFromString:original];
    
@@ -438,11 +441,12 @@ static void   *numberBuffer( char *type, NSNumber *value)
       [NSException raise:NSInvalidArgumentException
                   format:@"Class or variable named \"%@\" is unknown", original];
    
-   return( [self valueOfTarget:target
-            withLocalVariables:locals
+   return( [self evaluateValue:target
+                localVariables:locals
                     dataSource:dataSource]);
 }
 
+   
 @end
 
 
@@ -540,7 +544,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 @end
 
 
-@implementation MulleScionVariableAssigment ( Printing)
+@implementation MulleScionVariableAssignment ( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -560,9 +564,9 @@ static void   *numberBuffer( char *type, NSNumber *value)
 }
 
 
-- (MulleScionObject *)   renderInto:(id <MulleScionOutput>) s
-                         localVariables:(NSMutableDictionary *) locals
-                             dataSource:(id <MulleScionDataSource>) dataSource
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+                   localVariables:(NSMutableDictionary *) locals
+                       dataSource:(id <MulleScionDataSource>) dataSource
 {
    id   value;
    
@@ -1074,6 +1078,3 @@ static BOOL  isTrue( id value)
 }
 
 @end
-
-
-

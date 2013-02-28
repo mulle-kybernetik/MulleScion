@@ -9,10 +9,8 @@
 #import "MulleScionParser.h"
 
 
-@interface MulleScionParser (Parsing)
+@interface MulleScionParser ( Parsing)
 
 - (MulleScionTemplate *) templateParsedWithBlockTable:(NSMutableDictionary *) blockTable;
 
-- (MulleScionTemplate *) templateWithContentsOfFile:(NSString *) fileName
-                                         blockTable:(NSMutableDictionary *) blockTable;
 @end

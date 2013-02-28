@@ -41,9 +41,19 @@
 }
 
 
+- (MulleScionObject *) behead
+{
+   MulleScionObject   *obj;
+   
+   obj = self->next_;
+   self->next_ = nil;
+   return( obj);
+}
+
+
 - (MulleScionObject *) tail
 {
-   MulleScionObject *obj;
+   MulleScionObject   *obj;
    
    for( obj = self; obj->next_; obj = obj->next_);
    return( obj);
@@ -62,15 +72,16 @@
 }
 
 
-- (id) appendRetainedObject:(MulleScionObject *) NS_CONSUMED  obj
+- (id) appendRetainedObject:(MulleScionObject *) NS_CONSUMED  p
 {
-   NSParameterAssert( [obj isKindOfClass:[MulleScionObject class]]);
-   NSParameterAssert( ! self->next_);
-   NSParameterAssert( ! obj->next_ || [obj isBlock] || [obj isKindOfClass:[MulleScionTemplate class]]);
+   MulleScionObject  *obj;
    
-   self->next_ = obj;
-   while( obj->next_)
-      obj = obj->next_;
+   NSParameterAssert( [p isKindOfClass:[MulleScionObject class]]);
+   NSParameterAssert( ! self->next_);
+   // NSParameterAssert( ! p->next_ || [p isBlock] || [p isKindOfClass:[MulleScionTemplate class]]);
+   
+   self->next_ = p;
+   for( obj = p; obj->next_; obj = obj->next_);
    return( obj);
 }
 
@@ -79,6 +90,7 @@
 - (BOOL) isTemplate   { return( NO); }
 - (BOOL) isFunction   { return( NO); }
 - (BOOL) isMethod     { return( NO); }
+- (BOOL) isVariableAssignment { return( NO); }
 
 - (BOOL) isSet        { return( NO); }
 
@@ -236,12 +248,9 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
          continue;
       }
 
-      //
-      // use NSCoding to make a copy, so I don't have to write all those
-      // copy routines
-      //
-      chain = [NSUnarchiver unarchiveObjectWithData:[NSArchiver archivedDataWithRootObject:chain]];
+      chain = [chain copyWithZone:NULL];
       [owner replaceOwnedBlockWith:chain];
+      [chain release];
    }
 }
 
@@ -249,6 +258,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 - (BOOL) isTemplate
 {
    return( YES);
+}
+
+
+- (NSString *) fileName
+{
+   return( value_);
 }
 
 @end
@@ -313,19 +328,13 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
-@implementation MulleScionVariable
+@implementation MulleScionIdentifierExpression
 
 + (id) newWithIdentifier:(NSString *) s
               lineNumber:(NSUInteger) nr
 {
    NSParameterAssert( [s isKindOfClass:[NSString class]] && [s length]);
    return( newMulleScionValueObject( self, s, nr));
-}
-
-
-- (BOOL) isIdentifier
-{
-   return( YES);
 }
 
 
@@ -337,7 +346,18 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
-@implementation MulleScionFunction : MulleScionExpression
+
+@implementation MulleScionVariable
+
+- (BOOL) isIdentifier
+{
+   return( YES);
+}
+
+@end
+
+
+@implementation MulleScionFunction
 
 + (id) newWithIdentifier:(NSString *) s
                arguments:(NSArray *) arguments
@@ -356,6 +376,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 - (BOOL) isFunction
 {
    return( YES);
+}
+
+
+- (NSArray *) arguments
+{
+   return( arguments_);
 }
 
 @end
@@ -398,13 +424,13 @@ lineNumber:(NSUInteger) nr
 @end
 
 
-@implementation MulleScionVariableAssigment
+@implementation MulleScionVariableAssignment
 
 + (id) newWithIdentifier:(NSString *) s
       retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
               lineNumber:(NSUInteger) nr
 {
-   MulleScionVariableAssigment   *p;
+   MulleScionVariableAssignment   *p;
 
    NSParameterAssert( [s isKindOfClass:[NSString class]] && [s length]);
    NSParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
@@ -420,6 +446,24 @@ lineNumber:(NSUInteger) nr
    [expression_ release];
    
    [super dealloc];
+}
+
+
+- (NSString *) identifier
+{
+   return( self->value_);
+}
+
+
+- (MulleScionExpression *) expression
+{
+   return( self->expression_);
+}
+
+
+- (BOOL) isVariableAssignment
+{
+   return( YES);
 }
 
 @end
@@ -828,6 +872,66 @@ lineNumber:(NSUInteger) nr
 
 
 @implementation MulleScionEndFilter
+
+@end
+
+
+@implementation MulleScionMacro
+
++ (id) newWithIdentifier:(NSString *) s
+                function:(MulleScionFunction *) function
+                    body:(MulleScionTemplate *) body
+                fileName:(NSString *) fileName
+              lineNumber:(NSUInteger) nr
+{
+   MulleScionMacro   *p;
+   
+   NSParameterAssert( [s isKindOfClass:[NSString class]]);
+   NSParameterAssert( [function isKindOfClass:[MulleScionFunction class]]);
+   NSParameterAssert( [body isKindOfClass:[MulleScionTemplate class]]);
+   
+   p              = [self newWithValue:fileName
+                            lineNumber:nr];
+   p->identifier_ = [s copy];
+   p->function_   = [function retain];
+   p->body_       = [body retain];
+   
+   return( p);
+}
+
+
+- (void) dealloc
+{
+   [body_ release];
+   [function_ release];
+   [identifier_ release];
+   
+   [super dealloc];
+}
+
+
+- (NSString *) identifier
+{
+   return( identifier_);
+}
+
+
+- (MulleScionFunction *) function
+{
+   return( function_);
+}
+
+
+- (MulleScionTemplate *) body
+{
+   return( body_);
+}
+
+
+- (BOOL) isTemplate
+{
+   return( NO);
+}
 
 @end
 

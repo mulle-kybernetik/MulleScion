@@ -103,10 +103,18 @@
                           localVariables:(NSDictionary *) locals
 {
    MulleScionPrinter   *printer;
+   NSAutoreleasePool   *pool;
+   NSString            *s;
    
+   pool = [NSAutoreleasePool new];
+
    printer = [[[MulleScionPrinter alloc] initWithDataSource:dataSource] autorelease];
    [printer setDefaultlocalVariables:locals];
-   return( [printer describeWithTemplate:self]);
+   s = [printer describeWithTemplate:self];
+   
+   [s retain];
+   [pool release];
+   return( [s autorelease]);
 }
 
 
@@ -115,11 +123,14 @@
         localVariables:(NSDictionary *) locals
 {
    MulleScionPrinter   *printer;
+   NSAutoreleasePool   *pool;
    
+   pool = [NSAutoreleasePool new];
    printer = [[[MulleScionPrinter alloc] initWithDataSource:dataSource] autorelease];
    [printer setDefaultlocalVariables:locals];
    [printer writeToOutput:output
                  template:self];
+   [pool release];
 }
 
 @end
@@ -163,6 +174,7 @@ static BOOL  checkCacheDirectory( NSString *path)
    NSString           *s;
    
    pool = [NSAutoreleasePool new];
+#ifndef PROFILE
    s = [[NSUserDefaults standardUserDefaults] stringForKey:MulleScionCacheDirectoryKey];
    if( ! s)
       s = [[[NSProcessInfo processInfo] environment] objectForKey:MulleScionCacheDirectoryKey];
@@ -172,6 +184,7 @@ static BOOL  checkCacheDirectory( NSString *path)
          [self setCacheDirectory:s];
          [self setCacheEnabled:YES];
       }
+#endif
    [pool release];
 }
 

@@ -31,6 +31,9 @@
 		41764B9716DA511200560FCF /* mulle-scion.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
 		41764BB116DAC92400560FCF /* properties.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAE16DAAAA400560FCF /* properties.plist */; };
 		4178D2F616DF73BD001C9FB0 /* libMulleScionDebugging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF1416DE521C004833D6 /* libMulleScionDebugging.a */; };
+		4178D2F816DFA742001C9FB0 /* define.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4178D2F716DFA5D0001C9FB0 /* define.scion */; };
+		4178D2FA16DFBB43001C9FB0 /* macro.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4178D2F916DFAC8C001C9FB0 /* macro.scion */; };
+		4178D2FD16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */; };
 		4190DC6D16DEC7E200FC4471 /* filter.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4190DC6C16DEC5F400FC4471 /* filter.scion */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
@@ -227,8 +230,10 @@
 				4190DC6D16DEC7E200FC4471 /* filter.scion in CopyFiles */,
 				4121DB0A16DD459700BFD60C /* pipes.scion in CopyFiles */,
 				4121DB0E16DD677F00BFD60C /* range.scion in CopyFiles */,
+				4178D2FA16DFBB43001C9FB0 /* macro.scion in CopyFiles */,
 				4121DB1316DD781700BFD60C /* dot.scion in CopyFiles */,
 				4121DB0C16DD65BA00BFD60C /* properties.scion in CopyFiles */,
+				4178D2F816DFA742001C9FB0 /* define.scion in CopyFiles */,
 				4121DAF616DCFAAB00BFD60C /* _hackish.scion in CopyFiles */,
 				410B32F316DBD6B8005D0EAD /* _header.scion in CopyFiles */,
 				4121DAF216DCE47500BFD60C /* for.scion in CopyFiles */,
@@ -364,6 +369,10 @@
 		41764BAE16DAAAA400560FCF /* properties.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = properties.plist; sourceTree = "<group>"; };
 		41764BCC16DAF4C500560FCF /* MulleScion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScion.h; sourceTree = "<group>"; };
 		41764BCD16DAF4C600560FCF /* MulleScion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScion.m; sourceTree = "<group>"; };
+		4178D2F716DFA5D0001C9FB0 /* define.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = define.scion; sourceTree = "<group>"; };
+		4178D2F916DFAC8C001C9FB0 /* macro.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro.scion; sourceTree = "<group>"; };
+		4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+MacroExpansion.h"; sourceTree = "<group>"; };
+		4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+MacroExpansion.m"; sourceTree = "<group>"; };
 		4190DC6C16DEC5F400FC4471 /* filter.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = filter.scion; sourceTree = "<group>"; };
 		41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionPrintingException.h; sourceTree = "<group>"; };
 		41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionPrintingException.m; sourceTree = "<group>"; };
@@ -520,8 +529,10 @@
 			children = (
 				41764BAE16DAAAA400560FCF /* properties.plist */,
 				4121DB0B16DD5E0B00BFD60C /* properties.scion */,
-				4121DB0D16DD667900BFD60C /* range.scion */,
+				4178D2F716DFA5D0001C9FB0 /* define.scion */,
 				4121DB1216DD779800BFD60C /* dot.scion */,
+				4178D2F916DFAC8C001C9FB0 /* macro.scion */,
+				4121DB0D16DD667900BFD60C /* range.scion */,
 				410B32EF16DBD5DC005D0EAD /* extends.scion */,
 				410B32DD16DB6971005D0EAD /* ifthenelse.scion */,
 				4121DAFE16DD048800BFD60C /* formatting.scion */,
@@ -574,6 +585,8 @@
 				41764B9E16DA51A200560FCF /* MulleScionParser.m */,
 				4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */,
 				4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */,
+				4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */,
+				4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */,
 			);
 			name = MulleScionParser;
 			sourceTree = "<group>";
@@ -877,6 +890,7 @@
 			files = (
 				41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */,
 				41D6DF3E16DE52D6004833D6 /* MulleScionParser+Parsing.m in Sources */,
+				4178D2FD16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1006,7 +1020,13 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
@@ -1023,6 +1043,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
@@ -1031,8 +1052,13 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NS_BLOCK_ASSERTIONS,
+					NDEBUG,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
@@ -1058,6 +1084,110 @@
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Release;
+		};
+		4178D2FE16E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NS_BLOCK_ASSERTIONS,
+					NDEBUG,
+					PROFILE,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = macosx;
+			};
+			name = Profile;
+		};
+		4178D2FF16E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 18.48;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				PRODUCT_NAME = "mulle-scion";
+			};
+			name = Profile;
+		};
+		4178D30016E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionTemplate.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Profile;
+		};
+		4178D30116E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionParser.dst;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Profile;
+		};
+		4178D30216E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionPrinter.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Profile;
+		};
+		4178D30316E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionDebugging.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Profile;
+		};
+		4178D30416E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/MulleScionConvenience.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Profile;
+		};
+		4178D30516E00263001C9FB0 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 18;
+				DYLIB_CURRENT_VERSION = 48;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "src/MulleScionTemplates-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Profile;
 		};
 		41D6DEE316DE509F004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1193,6 +1323,7 @@
 			buildConfigurations = (
 				41764B9816DA511200560FCF /* Debug */,
 				41764B9916DA511200560FCF /* Release */,
+				4178D2FE16E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1202,6 +1333,7 @@
 			buildConfigurations = (
 				41764B9B16DA511200560FCF /* Debug */,
 				41764B9C16DA511200560FCF /* Release */,
+				4178D2FF16E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1211,6 +1343,7 @@
 			buildConfigurations = (
 				41D6DEE316DE509F004833D6 /* Debug */,
 				41D6DEE416DE509F004833D6 /* Release */,
+				4178D30216E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1220,6 +1353,7 @@
 			buildConfigurations = (
 				41D6DEFA16DE513F004833D6 /* Debug */,
 				41D6DEFB16DE513F004833D6 /* Release */,
+				4178D30016E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1229,6 +1363,7 @@
 			buildConfigurations = (
 				41D6DF0E16DE51C9004833D6 /* Debug */,
 				41D6DF0F16DE51C9004833D6 /* Release */,
+				4178D30116E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1238,6 +1373,7 @@
 			buildConfigurations = (
 				41D6DF1E16DE521D004833D6 /* Debug */,
 				41D6DF1F16DE521D004833D6 /* Release */,
+				4178D30316E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1247,6 +1383,7 @@
 			buildConfigurations = (
 				41D6DF2E16DE523E004833D6 /* Debug */,
 				41D6DF2F16DE523E004833D6 /* Release */,
+				4178D30416E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1256,6 +1393,7 @@
 			buildConfigurations = (
 				41D6DF6E16DE53AE004833D6 /* Debug */,
 				41D6DF6F16DE53AE004833D6 /* Release */,
+				4178D30516E00263001C9FB0 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

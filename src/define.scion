@@ -1,0 +1,11 @@
+Define is something that is not in TWIG. A define is similiar to a preprocessor
+#define in C, the value gets substituted into the expression.
+Subsitution is only within template brackets. Substitution is done during the
+compilation of the template.
+
+{% define PC = [self stringByReplacingOccurrencesOfString:@"S04"
+                                               withString:@"***"] %}
+                                                 
+{% filter PC %}
+  VfL vs. S04 = 4:0
+{% endfilter %}

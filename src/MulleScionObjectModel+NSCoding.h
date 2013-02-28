@@ -8,10 +8,12 @@
 #import "MulleScionObjectModel.h"
 
 
-@interface MulleScionObject ( NSCoding) < NSCoding >
+@interface MulleScionObject ( NSCoding) < NSCoding, NSCopying >
 
 - (id) initWithCoder:(NSCoder *) decoder;
 - (void) encodeWithCoder:(NSCoder *) encoder;
+
+- (id) copyWithZone:(NSZone *) zone;
 
 @end
 

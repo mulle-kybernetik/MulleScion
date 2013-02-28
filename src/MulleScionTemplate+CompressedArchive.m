@@ -162,7 +162,8 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    NSMutableData      *data;
    NSUInteger         length;
    archive_header     *header;
-   char               *version;   
+   char               *version;
+   
    pool    = [NSAutoreleasePool new];
    
    payload = [NSArchiver archivedDataWithRootObject:self];
@@ -173,8 +174,8 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
 #else
    version = current_version;
 #endif
-   data   = [NSMutableData dataWithLength:sizeof( archive_header)];
-   header = (archive_header *) [data bytes];
+   data    = [NSMutableData dataWithLength:sizeof( archive_header)];
+   header  = (archive_header *) [data bytes];
    
    assert( strlen( version) < 16);
    strcpy( header->version, version);

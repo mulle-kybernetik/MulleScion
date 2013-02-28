@@ -32,6 +32,7 @@
 - (BOOL) isTerminator;
 - (BOOL) isFunction;
 - (BOOL) isMethod;
+- (BOOL) isVariableAssignment;  // not a set though
 
 - (BOOL) isIf;
 - (BOOL) isElse;
@@ -57,6 +58,8 @@
 - (void) replaceOwnedBlockWith:(MulleScionObject *) replacement;
 - (MulleScionObject *) nextOwnerOfBlock;
 
+// hackish stuff for the parser
+- (MulleScionObject *) behead;
 - (MulleScionObject *) tail;
 - (NSUInteger) count;
 
@@ -78,6 +81,7 @@
 
 - (id) initWithFilename:(NSString *) s;
 - (void) expandBlocksUsingTable:(NSDictionary *) table;
+- (NSString *) fileName;
 
 @end
 
@@ -120,14 +124,17 @@
 @end
 
 
-
-@interface MulleScionVariable : MulleScionExpression
+@interface MulleScionIdentifierExpression : MulleScionExpression
 
 + (id) newWithIdentifier:(NSString *) s
               lineNumber:(NSUInteger) nr;
 
 - (NSString *) identifier;
 
+@end
+
+
+@interface MulleScionVariable : MulleScionIdentifierExpression
 @end
 
 
@@ -154,7 +161,7 @@
 @end
 
 
-@interface MulleScionFunction : MulleScionExpression
+@interface MulleScionFunction : MulleScionIdentifierExpression
 {
    NSArray   *arguments_;
 }
@@ -163,19 +170,24 @@
                arguments:(NSArray *) arguments
               lineNumber:(NSUInteger) nr;
 
+- (NSArray *) arguments;
+
 @end
 
 
 
 // like assignment, but prints if just in an expession
-@interface MulleScionVariableAssigment : MulleScionExpression
+@interface MulleScionVariableAssignment : MulleScionIdentifierExpression
 {
+@public
    MulleScionExpression   *expression_;
 }
 
 + (id) newWithIdentifier:(NSString *) identifier
       retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
               lineNumber:(NSUInteger) nr;
+
+- (NSString *) expression;
 
 @end
 
@@ -195,8 +207,9 @@
 @end
 
 
-
-// commands do not print anything
+//
+// Commands do not print anything
+//
 @interface MulleScionCommand : MulleScionObject
 
 - (NSString *) commandName;
@@ -240,6 +253,7 @@
 
 + (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED expr
                       lineNumber:(NSUInteger) nr;
+
 @end
 
 
@@ -297,4 +311,23 @@
 @interface MulleScionEndFilter : MulleScionTerminator
 @end
 
+
+@interface MulleScionMacro : MulleScionTemplate
+{
+   NSString             *identifier_;
+   MulleScionFunction   *function_;
+   MulleScionTemplate   *body_;
+}
+
++ (id) newWithIdentifier:(NSString *) s
+                function:(MulleScionFunction *) function
+                    body:(MulleScionTemplate *) body
+                fileName:(NSString *) fileName
+              lineNumber:(NSUInteger) nr;
+
+- (NSString *) identifier;
+- (MulleScionFunction *) function;
+- (MulleScionTemplate *) body;
+
+@end
 

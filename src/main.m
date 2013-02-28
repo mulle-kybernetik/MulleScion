@@ -90,21 +90,6 @@ static int _main(int argc, const char * argv[])
 }
 
 
-int main(int argc, const char * argv[])
-{
-   NSAutoreleasePool   *pool;
-   int                 rval;
-   
-   pool = [NSAutoreleasePool new];
-   rval = _main( argc, argv);
-   
-#if DEBUG
-   [pool release];
-#endif
-   return( rval);
-}
-
-
 static id   acquirePropertyList( NSString *s)
 {
    NSData    *data;
@@ -203,4 +188,20 @@ static NSFileHandle   *outputStreamWithInfo( NSDictionary *info)
       NSLog( @"failed to create output file \"%@\"", outputName);
    return( stream);
 }
+
+
+int main(int argc, const char * argv[])
+{
+   NSAutoreleasePool   *pool;
+   int                 rval;
+   
+   pool = [NSAutoreleasePool new];
+   rval = _main( argc, argv);
+   
+#if defined( DEBUG) || defined( PROFILE)
+   [pool release];
+#endif
+   return( rval);
+}
+
 

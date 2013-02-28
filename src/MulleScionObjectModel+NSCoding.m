@@ -17,6 +17,25 @@
 }
 
 
+//
+// use NSCoding to make a copy, so I don't have to write all those
+// copy routines
+//
+- (id) copyWithZone:(NSZone *) zone
+{
+   NSData             *data;
+   NSAutoreleasePool  *pool;
+   id                 copy;
+   
+   pool = [NSAutoreleasePool new];
+   data = [NSArchiver archivedDataWithRootObject:self];
+   copy = [[NSUnarchiver unarchiveObjectWithData:data] retain];
+   [pool release];
+   
+   return( copy);
+}
+    
+    
 - (id) initWithCoder:(NSCoder *) decoder
 {
    unsigned long  lineNumber;
@@ -197,4 +216,18 @@
 @end
 
 
+#ifdef DEBUG
+@implementation MulleScionMacro ( NSCoding )
 
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   abort();
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   abort();
+}
+@end
+#endif
