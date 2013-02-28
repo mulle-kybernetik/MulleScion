@@ -15,5 +15,5 @@ bag={{ bag }}
 bag.@count={{ bag.@count }}
 
 This is shown when using the mulle-scion tool.
-{{ MulleScionRootTemplate }} 
+{{ MulleScionRootTemplate }} filled with values from {{ MulleScionPropertyListName }} 
 

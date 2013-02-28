@@ -27,8 +27,8 @@ static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
    sanitize = [NSMutableDictionary dictionary];
    [sanitize setObject:[info objectForKey:@"MulleScionRootTemplate"]
                 forKey:@"MulleScionRootTemplate"];
-   [sanitize setObject:[info objectForKey:@"MulleScionPropertyList"]
-                forKey:@"MulleScionPropertyList"];
+   [sanitize setObject:[info objectForKey:@"MulleScionPropertyListName"]
+                forKey:@"MulleScionPropertyListName"];
    return( sanitize);
 }
 
@@ -167,7 +167,7 @@ static NSDictionary  *getInfoFromArguments( void)
    [info setObject:templateName
             forKey:@"MulleScionRootTemplate"];
    [info setObject:plistName
-            forKey:@"MulleScionPropertyList"];
+            forKey:@"MulleScionPropertyListName"];
    [info setObject:outputName
             forKey:@"output"];
    

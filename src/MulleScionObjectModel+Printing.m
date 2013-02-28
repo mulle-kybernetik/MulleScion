@@ -18,11 +18,11 @@
 
 NSString   *MulleScionPrintFormatKey     = @"MulleScionPrintFormat";
 NSString   *MulleScionRenderOutputKey    = @"MulleScionRenderOutput";
-NSString   *MulleScionCurrentFileKey     = @"MulleScionCurrentFile";
-NSString   *MulleScionCurrentLineKey     = @"MulleScionCurrentLine";
+NSString   *MulleScionCurrentFileKey     = @"__FILE__";
+NSString   *MulleScionCurrentLineKey     = @"__LINE__";
 NSString   *MulleScionCurrentFunctionKey = @"MulleScionCurrentFunction";
-NSString   *MulleScionCurrentFilterKey   = @"MulleScionCurrentFilter";
-NSString   *MulleScionPreviousFiltersKey = @"MulleScionPreviousFilters";
+NSString   *MulleScionCurrentFilterKey   = @"__FILTER__";
+NSString   *MulleScionPreviousFiltersKey = @"__FILTER_STACK__";
 
 NSString   *MulleScionForOpenerKey       = @"MulleScionForOpener";
 NSString   *MulleScionForSeparatorKey    = @"MulleScionForSeparator";
@@ -145,6 +145,62 @@ static void   MulleScionRenderString( NSString *value,
 @end
 
 
+static id   MulleScionValueForKeyPath( NSString *keyPath,
+                                       NSMutableDictionary * locals,
+                                       id dataSource)
+{
+   id   value;
+ 
+   if( [keyPath isEqualToString:@"self"])
+      return( dataSource);
+   value = [dataSource mulleScionValueForKeyPath:keyPath
+                                inLocalVariables:locals];
+   if( ! value)
+      value = [dataSource mulleScionValueForKeyPath:keyPath
+                                     localVariables:locals];
+   return( value);
+}
+
+
+@implementation MulleScionVariable ( Printing)
+
+- (id) valueWithLocalVariables:(NSMutableDictionary *) locals
+                    dataSource:(id <MulleScionDataSource>) dataSource
+{
+   return( MulleScionValueForKeyPath( value_, locals, dataSource));
+}
+
+@end
+
+
+@implementation MulleScionFunction ( Printing)
+
+- (id) valueWithLocalVariables:(NSMutableDictionary *) locals
+                    dataSource:(id <MulleScionDataSource>) dataSource
+{
+   NSEnumerator           *rover;
+   NSMutableArray         *array;
+   MulleScionExpression   *expr;
+   id                     value;
+   
+   array = [NSMutableArray array];
+   rover = [arguments_ objectEnumerator];
+   while( expr = [rover nextObject])
+   {
+      value = [expr valueWithLocalVariables:locals
+                                 dataSource:dataSource];
+      if( ! value)
+         value = [NSNull null];
+      [array addObject:value];
+   }
+   return( [dataSource mulleScionFunction:value_
+                                arguments:array
+                           localVariables:locals]);
+}
+
+@end
+
+
 @implementation MulleScionMethod ( Printing)
 
 char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
@@ -211,18 +267,18 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    switch( *type)
    {
-   case _C_CHR      : *(char *) buf = [value charValue]; return( buf);
-   case _C_UCHR     : *(unsigned char *) buf = [value unsignedCharValue]; return( buf);
-   case _C_SHT      : *(short *) buf = [value shortValue]; return( buf);
-   case _C_USHT     : *(unsigned short *) buf = [value unsignedShortValue]; return( buf);
-   case _C_INT      : *(int *) buf = [value intValue]; return( buf);
-   case _C_UINT     : *(unsigned int *) buf = [value unsignedIntValue]; return( buf);
-   case _C_LNG      : *(long *) buf = [value longValue]; return( buf);
-   case _C_ULNG     : *(unsigned long *) buf = [value unsignedLongValue]; return( buf);
-   case _C_LNG_LNG  : *(long long *) buf = [value longLongValue]; return( buf);
-   case _C_ULNG_LNG : *(unsigned long long *) buf = [value unsignedLongLongValue]; return( buf);
-   case _C_FLT      : *(float *) buf = [value floatValue]; return( buf);
-   case _C_DBL      : *(double *) buf = [value doubleValue]; return( buf);
+      case _C_CHR      : *(char *) buf = [value charValue]; return( buf);
+      case _C_UCHR     : *(unsigned char *) buf = [value unsignedCharValue]; return( buf);
+      case _C_SHT      : *(short *) buf = [value shortValue]; return( buf);
+      case _C_USHT     : *(unsigned short *) buf = [value unsignedShortValue]; return( buf);
+      case _C_INT      : *(int *) buf = [value intValue]; return( buf);
+      case _C_UINT     : *(unsigned int *) buf = [value unsignedIntValue]; return( buf);
+      case _C_LNG      : *(long *) buf = [value longValue]; return( buf);
+      case _C_ULNG     : *(unsigned long *) buf = [value unsignedLongValue]; return( buf);
+      case _C_LNG_LNG  : *(long long *) buf = [value longLongValue]; return( buf);
+      case _C_ULNG_LNG : *(unsigned long long *) buf = [value unsignedLongLongValue]; return( buf);
+      case _C_FLT      : *(float *) buf = [value floatValue]; return( buf);
+      case _C_DBL      : *(double *) buf = [value doubleValue]; return( buf);
    }
    
    myType = (char *) [value objCType];
@@ -253,21 +309,21 @@ static void   *numberBuffer( char *type, NSNumber *value)
    // static char         id_type[ 2] = { _C_ID, 0 };
    
    pool = [NSAutoreleasePool new];
-
+   
    original = nil;
    if( [value_ isIdentifier])
       original = [(MulleScionVariable *) value_ identifier];
    
    target = [value_ valueWithLocalVariables:locals
-                                  dataSource:dataSource];
+                                 dataSource:dataSource];
    
    if( ! target && original)
-      target = NSClassFromString( original);
+      target = [dataSource mulleScionClassFromString:original];
    
    if( ! target)
       [NSException raise:NSInvalidArgumentException
                   format:@"Class or variable named \"%@\" is unknown", original];
-
+   
    signature  = [dataSource mulleScionMethodSignatureForSelector:action_
                                                           target:target];
    if( ! signature)
@@ -284,15 +340,19 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    invocation = [NSInvocation invocationWithMethodSignature:signature];
    [invocation setSelector:action_];
-
+   
    for( i = 2; i < n; i++)
    {
       expr  = [arguments_ objectAtIndex:i - 2];
       value = [expr valueWithLocalVariables:locals
                                  dataSource:dataSource];
+      if( value == dataSource) // security hole
+         [NSException raise:NSInvalidArgumentException
+                     format:@"You can't use the dataSource as an argument"];
       
-                       // type = id_type;  // ok, varargs with non-objects won't work
-                       // if( i < m)
+      
+      // type = id_type;  // ok, varargs with non-objects won't work
+      // if( i < m)
       {
          type = (char *) [signature getArgumentTypeAtIndex:i];
          type = _NSObjCSkipRuntimeTypeQualifier( type);
@@ -300,10 +360,10 @@ static void   *numberBuffer( char *type, NSNumber *value)
       
       switch( *type)
       {
-      case _C_ID       : buf = &value; break;
-      case _C_CLASS    : buf = &value; break;
-      case _C_SEL      : buf = &value; break;
-      default          : buf = numberBuffer( type, value); break;
+         case _C_ID       : buf = &value; break;
+         case _C_CLASS    : buf = &value; break;
+         case _C_SEL      : buf = &value; break;
+         default          : buf = numberBuffer( type, value); break;
       }
       
       if( ! buf)
@@ -316,10 +376,10 @@ static void   *numberBuffer( char *type, NSNumber *value)
                       atIndex:i];
    }
    
-   [invocation retainArguments]; 
+   [invocation retainArguments];
    [invocation invokeWithTarget:target];
    
-   value  = nil; 
+   value  = nil;
    length = [signature methodReturnLength];
    if( length)
    {
@@ -331,29 +391,29 @@ static void   *numberBuffer( char *type, NSNumber *value)
       
       switch( *returnType)
       {
-      case _C_ID       : value = *buf; break;
-      case _C_CLASS    : value = *buf; _pop( pool); return( value);
-      case _C_SEL      : value = (id) *(SEL *) buf; _pop( pool); return( value);
-      case _C_CHARPTR  : value = [NSString stringWithCString:(char *) buf]; break;
-      case _C_CHR      : value = [NSNumber numberWithChar:*(char *) buf]; break;
-      case _C_UCHR     : value = [NSNumber numberWithUnsignedChar:*(unsigned char *) buf]; break;
-      case _C_SHT      : value = [NSNumber numberWithShort:*(short *) buf]; break;
-      case _C_USHT     : value = [NSNumber numberWithUnsignedShort:*(unsigned short *) buf]; break;
-      case _C_INT      : value = [NSNumber numberWithInt:*(int *) buf]; break;
-      case _C_UINT     : value = [NSNumber numberWithUnsignedInt:*(unsigned int *) buf]; break;
-      case _C_LNG      : value = [NSNumber numberWithLong:*(long *) buf]; break;
-      case _C_ULNG     : value = [NSNumber numberWithUnsignedLong:*(unsigned long *) buf]; break;
-      case _C_LNG_LNG  : value = [NSNumber numberWithLongLong:*(long long *) buf]; break;
-      case _C_ULNG_LNG : value = [NSNumber numberWithUnsignedLongLong:*(unsigned long long *) buf]; break;
-      case _C_FLT      : value = [NSNumber numberWithFloat:*(float *) buf]; break;
-      case _C_DBL      : value = [NSNumber numberWithDouble:*(double *) buf]; break;
+         case _C_ID       : value = *buf; break;
+         case _C_CLASS    : value = *buf; _pop( pool); return( value);
+         case _C_SEL      : value = (id) *(SEL *) buf; _pop( pool); return( value);
+         case _C_CHARPTR  : value = [NSString stringWithCString:(char *) buf]; break;
+         case _C_CHR      : value = [NSNumber numberWithChar:*(char *) buf]; break;
+         case _C_UCHR     : value = [NSNumber numberWithUnsignedChar:*(unsigned char *) buf]; break;
+         case _C_SHT      : value = [NSNumber numberWithShort:*(short *) buf]; break;
+         case _C_USHT     : value = [NSNumber numberWithUnsignedShort:*(unsigned short *) buf]; break;
+         case _C_INT      : value = [NSNumber numberWithInt:*(int *) buf]; break;
+         case _C_UINT     : value = [NSNumber numberWithUnsignedInt:*(unsigned int *) buf]; break;
+         case _C_LNG      : value = [NSNumber numberWithLong:*(long *) buf]; break;
+         case _C_ULNG     : value = [NSNumber numberWithUnsignedLong:*(unsigned long *) buf]; break;
+         case _C_LNG_LNG  : value = [NSNumber numberWithLongLong:*(long long *) buf]; break;
+         case _C_ULNG_LNG : value = [NSNumber numberWithUnsignedLongLong:*(unsigned long long *) buf]; break;
+         case _C_FLT      : value = [NSNumber numberWithFloat:*(float *) buf]; break;
+         case _C_DBL      : value = [NSNumber numberWithDouble:*(double *) buf]; break;
 #ifdef _C_LNG_DBL
             //   case _C_LNG_DBL  : value = [NSNumber numberWithLongDouble: *(long double *) buf]; break;
 #endif
 #ifdef _C_BOOL
-      case _C_BOOL     : value = [NSNumber numberWithBool:*(BOOL *) buf]; break;
+         case _C_BOOL     : value = [NSNumber numberWithBool:*(BOOL *) buf]; break;
 #endif
-      default          : value = [NSNumber value:buf withObjCType:returnType]; break;
+         default          : value = [NSNumber value:buf withObjCType:returnType]; break;
       }
    }
    pop( pool, value);
@@ -362,129 +422,6 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 @end
 
-
-static id   MulleScionValueForKeyPath( NSString *keyPath,
-                                       NSMutableDictionary * locals,
-                                       id dataSource)
-{
-   id   value;
- 
-   if( [keyPath isEqualToString:@"self"])
-      return( dataSource);
-   value = [dataSource mulleScionValueForKeyPath:keyPath
-                                inLocalVariables:locals];
-   if( ! value)
-      value = [dataSource mulleScionValueForKeyPath:keyPath
-                                     localVariables:locals];
-   return( value);
-}
-
-
-@implementation MulleScionVariable ( Printing)
-
-- (id) valueWithLocalVariables:(NSMutableDictionary *) locals
-                    dataSource:(id <MulleScionDataSource>) dataSource
-{
-   return( MulleScionValueForKeyPath( value_, locals, dataSource));
-}
-
-@end
-
-
-@implementation MulleScionPipe ( Printing)
-
-- (id) evaluateValue:(id) value
-      localVariables:(NSMutableDictionary *) locals
-          dataSource:(id <MulleScionDataSource>) dataSource
-{
-   NSString        *identifier;
-   MulleScionPipe  *next;
-
-   // make it string
-   value = [value mulleScionDescriptionWithLocalVariables:locals];
-   
-   if( ! [self->right_ isPipe])
-   {
-      identifier = [(MulleScionVariable *) self->right_ identifier];
-      value      = [dataSource mulleScionPipeString:value
-                                      throughMethod:identifier
-                                     localVariables:locals];
-      return( value);
-   }
-   
-   next = (MulleScionPipe *) self->right_;
-   NSParameterAssert( [next->value_ isKindOfClass:[MulleScionVariable class]]);
-   
-   identifier = [(MulleScionVariable *) next->value_ identifier];
-   value      = [dataSource mulleScionPipeString:value
-                                   throughMethod:identifier
-                                  localVariables:locals];
-   return( [self->right_ evaluateValue:value
-                        localVariables:locals
-                            dataSource:dataSource]);
-}
-
-@end
-
-
-@implementation MulleScionDot ( Printing)
-
-- (id) evaluateValue:(id) value
-      localVariables:(NSMutableDictionary *) locals
-          dataSource:(id <MulleScionDataSource>) dataSource
-{
-   NSString        *identifier;
-   MulleScionDot   *next;
-   
-   if( ! [self->right_ isDot])
-   {
-      identifier = [(MulleScionVariable *) self->right_ identifier];
-      value      = [value mulleScionValueForKeyPath:identifier
-                                     localVariables:locals];
-      return( value);
-   }
-
-   next = (MulleScionDot *) self->right_;
-   NSParameterAssert( [next->value_ isKindOfClass:[MulleScionVariable class]]);
-      
-   identifier = [(MulleScionVariable *) next->value_ identifier];
-   value      = [value mulleScionValueForKeyPath:identifier
-                                  localVariables:locals];
-   
-   return( [self->right_ evaluateValue:value
-                        localVariables:locals
-                            dataSource:dataSource]);
-}
-
-@end
-
-
-@implementation MulleScionFunction ( Printing)
-
-- (id) valueWithLocalVariables:(NSMutableDictionary *) locals
-                    dataSource:(id <MulleScionDataSource>) dataSource
-{
-   NSEnumerator           *rover;
-   NSMutableArray         *array;
-   MulleScionExpression   *expr;
-   id                     value;
-   
-   array = [NSMutableArray array];
-   rover = [arguments_ objectEnumerator];
-   while( expr = [rover nextObject])
-   {
-      value = [expr valueWithLocalVariables:locals
-                                 dataSource:dataSource];
-      if( ! value)
-         value = [NSNull null];
-      [array addObject:value];
-   }
-   return( [dataSource mulleScionFunction:value_
-                                arguments:array
-                           localVariables:locals]);
-}
-
-@end
 
 
 @implementation MulleScionExpression ( Printing)
@@ -521,7 +458,7 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
                               dataSource:dataSource];
    if( value)
    {
-      [value mulleScionDescriptionWithLocalVariables:locals];
+      value = [value mulleScionDescriptionWithLocalVariables:locals];
       MulleScionRenderString( value, s, locals, dataSource);
    }
    return( self->next_);
@@ -964,6 +901,74 @@ static BOOL  isTrue( id value)
    if( [curr isEndBlock])
       curr = curr->next_;
    return( curr);
+}
+
+@end
+
+
+@implementation MulleScionPipe ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   NSString        *identifier;
+   MulleScionPipe  *next;
+   
+   // make it string
+   value = [value mulleScionDescriptionWithLocalVariables:locals];
+   
+   if( ! [self->right_ isPipe])
+   {
+      identifier = [(MulleScionVariable *) self->right_ identifier];
+      value      = [dataSource mulleScionPipeString:value
+                                      throughMethod:identifier
+                                     localVariables:locals];
+      return( value);
+   }
+   
+   next = (MulleScionPipe *) self->right_;
+   NSParameterAssert( [next->value_ isKindOfClass:[MulleScionVariable class]]);
+   
+   identifier = [(MulleScionVariable *) next->value_ identifier];
+   value      = [dataSource mulleScionPipeString:value
+                                   throughMethod:identifier
+                                  localVariables:locals];
+   return( [self->right_ evaluateValue:value
+                        localVariables:locals
+                            dataSource:dataSource]);
+}
+
+@end
+
+
+@implementation MulleScionDot ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   NSString        *identifier;
+   MulleScionDot   *next;
+   
+   if( ! [self->right_ isDot])
+   {
+      identifier = [(MulleScionVariable *) self->right_ identifier];
+      value      = [value mulleScionValueForKeyPath:identifier
+                                     localVariables:locals];
+      return( value);
+   }
+   
+   next = (MulleScionDot *) self->right_;
+   NSParameterAssert( [next->value_ isKindOfClass:[MulleScionVariable class]]);
+   
+   identifier = [(MulleScionVariable *) next->value_ identifier];
+   value      = [value mulleScionValueForKeyPath:identifier
+                                  localVariables:locals];
+   
+   return( [self->right_ evaluateValue:value
+                        localVariables:locals
+                            dataSource:dataSource]);
 }
 
 @end

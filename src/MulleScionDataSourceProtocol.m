@@ -57,12 +57,24 @@
 
 
 //
-// here you can intercept all interpreted method calls
+// here you can intercept all method calls
 //
 - (id) mulleScionMethodSignatureForSelector:(SEL) sel
                                      target:(id) target
 {
+   if( sel == @selector( poseAs:))
+      [NSException raise:NSInvalidArgumentException
+                  format:@"death to all posers :)"];
+   
    return( [target methodSignatureForSelector:sel]);
+}
+
+//
+// here you can intercept factory calls like [NSDate date]
+//
+- (Class) mulleScionClassFromString:(NSString *) s
+{
+   return( NSClassFromString( s));
 }
 
 

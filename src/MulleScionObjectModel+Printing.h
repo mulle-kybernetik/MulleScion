@@ -11,13 +11,11 @@
 #import "MulleScionOutputProtocol.h"
 
 
-
 @interface MulleScionObject ( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource;
-
 @end
 
 

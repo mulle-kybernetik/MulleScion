@@ -11,7 +11,7 @@
 // You use these methods if you want to control, what a template
 // can access from your dataSource (e.g. a customer writing his own templates).
 // You probably want to call super afterwards. NSObject has default
-// implementations for all.
+// implementations for all. If you don't like the input, raise an exception.
 //
 // You can also override this to add KVC functionality (':' is available :))
 //
@@ -45,6 +45,11 @@
 //
 - (id) mulleScionMethodSignatureForSelector:(SEL) sel
                                      target:(id) target;
+
+//
+// control class method calls
+//
+- (Class) mulleScionClassFromString:(NSString *) s;
 
 //
 // control access to pipes
