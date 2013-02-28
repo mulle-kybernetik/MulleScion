@@ -1,0 +1,2 @@
+{# this template is not very interesting on it's own #}
+{% block a %}xxx{% endblock %}

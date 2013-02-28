@@ -7,3 +7,9 @@ the filter pipes don't add up with nesting.
    {% endfilter %}
 back to original.
 {% endfilter %}
+
+{% filter lowercaseString| [[self componentsSeparatedByString:@"/"] componentsJoinedByString:@"-"] %}
+THIS/IS/POSSIBLE
+{% endfilter %}
+
+

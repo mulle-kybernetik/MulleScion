@@ -1,3 +1,4 @@
+{# this template is not very interesting on it's own #}
 {% block header %}
 my header
 {% block header_extension %}default header_extension text{% endblock %}

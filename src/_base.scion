@@ -1,0 +1,5 @@
+{# this template is not very interesting on it's own #}
+{# test includes en-passant :) #}
+{% includes "_header.scion" %}
+{% includes "_body.scion" %}
+{% includes "_footer.scion" %}

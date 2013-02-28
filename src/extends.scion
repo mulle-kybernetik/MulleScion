@@ -1,4 +1,4 @@
-{% extends "base.scion" %}
+{% extends "_base.scion" %}
 
 This text is after extends, so it won't be printed.
 It's a confusing way to comment...:)
@@ -25,5 +25,5 @@ default footer_extension2 text
 
 {% block hackish_extension %}A bit of a mind bender{% endblock %}
  
-{% extends "hackish.scion" %}
+{% extends "_hackish.scion" %}
 

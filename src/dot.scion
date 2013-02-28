@@ -1,6 +1,8 @@
-{#  dots do key value coding even with spaces inbetween #}
-{# but that's it for spaces in key value paths #}
+{# dots do key value coding even with spaces inbetween #}
+{# Then you can also interpose methods if you want  #}
 {% z = [NSDictionary dictionaryWithObject:@"VfL Bochum 1848" forKey:@"c"] %}
 {% y = [NSDictionary dictionaryWithObject:z forKey:@"b"] %}
 {% x = [NSDictionary dictionaryWithObject:y forKey:@"a"] %}
 {{ x . a . b .c }}
+
+{{ x . a . [self objectForKey:@"b"] . c }}

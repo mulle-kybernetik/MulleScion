@@ -1,4 +1,4 @@
-{% extends "simple_base" %}
+{% extends "_simple_base" %}
 {% block a %}yyy{% endblock %}
 This text wont show because after an extends only blocks and extends are parsed.
 Blocks after extends are merely use for block replacement. They are not part of
