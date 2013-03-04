@@ -1,5 +1,10 @@
-If you don't want to write objectAtIndex: and objectForKey: you can also use
+Within MulleScionTemplates you can use regular Objective-C method call syntax.
 
+{{ [NSDate date] }}
+
+But you can also use '[' ']' in the "modern" way, to access dictonaries and
+array. So if you don't want to write objectAtIndex: and objectForKey: you 
+can also use
 
 {{ bag[ "a" ] }}
 {{ list[ 1] }}

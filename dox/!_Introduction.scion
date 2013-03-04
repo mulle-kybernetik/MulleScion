@@ -3,9 +3,9 @@ It's a commandline program.
 
 Run this example with:
 
-   mulle-scion MY_FIRST_TEMPLATE.scion properties.plist
+   mulle-scion '!_Introduction.scion' properties.plist
 
-In a MulleScion template expression are filled with properties from an object. 
+In a MulleScion template expressions are filled with properties from an object. 
 That object can be anything NSObject based. The data is accessed through 
 key value coding. Anything between two curly brackets '{' is called an 
 expression. The expresssion is evaluated and the resulting value is added to 

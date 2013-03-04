@@ -1,6 +1,6 @@
 [{% verbatim %}[
 This just grabs all data between "{% verbatim %}" and "{% endverbatim %}" and
-doesn't intepret it.
+doesn't interpret it.
 
 {% if egal  %}
 

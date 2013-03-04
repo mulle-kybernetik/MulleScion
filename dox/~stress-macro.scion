@@ -1,0 +1,28 @@
+{% macro name( name, xxx) %}
+ {{ name }}
+ {{ xxx }}
+{% endmacro %}
+
+{% macro stress( name) %}
+{% if name %}     // want change here
+{% endif %}
+{% while name %}  // want change here
+{% endif %}
+{% for name in name %}  // want change only in second I guess
+{% endif %}
+
+{{ name ? name : name }}  // change all
+{{ name | name }}  // change all
+{{ name . name }}  // change all
+{{ name and name or name and not name }}  // change all
+
+{% [name call:name] %}         // dont't change target
+
+{% name( xxx=name, name=xxx) %} // change first parameter value only
+
+{% set name = name %}  // only change expr (second)
+{% endif %}
+
+{% endmacro %}
+
+{{ stress( nil) }}
