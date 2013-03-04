@@ -1534,6 +1534,13 @@ static MulleScionBlock * NS_RETURNS_RETAINED  parser_do_block( parser *p, NSUInt
 {
    NSString   *identifier;
    
+   //
+   // this is actually not really necessary, but I can't decide if to expand
+   // the identifer in the macro or not. Lets have a use case first
+   //
+   if( p->inMacro)
+      parser_error( p, "no block definitions in a macro definition.");
+   
    identifier = parser_do_identifier( p);
    if( ! [identifier length])
       parser_error( p, "identifier expected");

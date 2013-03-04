@@ -38,8 +38,8 @@
 
 
 static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArray( NSArray *array,
-                                                                                   NSString *identifier,
-                                                                                   MulleScionExpression *expr)
+                                                                                    NSString *identifier,
+                                                                                    MulleScionExpression *expr)
 {
    NSEnumerator       *rover;
    NSMutableArray     *result;
@@ -83,9 +83,9 @@ static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArr
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
 {
-   NSArray     *result;
+   NSArray   *result;
    
-   result = replaceVariablesWithIdentifierInArray(  self->arguments_, identifier, expr);
+   result = replaceVariablesWithIdentifierInArray( self->arguments_, identifier, expr);
    
    [self->arguments_ release];
    self->arguments_ = result;
@@ -101,14 +101,29 @@ static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArr
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
 {
-   NSArray     *result;
+   NSArray                *result;
+   MulleScionMethod       *copy;
+   MulleScionExpression   *copy1;
    
-   result = replaceVariablesWithIdentifierInArray(  self->arguments_, identifier, expr);
+   copy1  = [value_ replaceVariableWithIdentifier:identifier
+                                  withExpression:expr];
+   result = replaceVariablesWithIdentifierInArray( self->arguments_, identifier, expr);
+
+   copy = nil;
+   
+   if( copy1)
+   {
+      copy = [isa newWithRetainedTarget:copy1
+                             methodName:NSStringFromSelector( self->action_)
+                              arguments:nil
+                             lineNumber:[self lineNumber]];
+      self = copy;
+   }
    
    [self->arguments_ release];
    self->arguments_ = result;
    
-   return( nil);
+   return( copy);
 }
 
 @end

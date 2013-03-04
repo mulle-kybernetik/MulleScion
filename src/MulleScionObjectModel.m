@@ -302,9 +302,9 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @implementation MulleScionMethod
 
 + (id) newWithRetainedTarget:(MulleScionExpression *) NS_CONSUMED target
-methodName:(NSString *) methodName
-arguments:(NSArray *) arguments
-lineNumber:(NSUInteger) nr
+                  methodName:(NSString *) methodName
+                   arguments:(NSArray *) arguments
+                  lineNumber:(NSUInteger) nr
 
 {
    MulleScionMethod   *p;

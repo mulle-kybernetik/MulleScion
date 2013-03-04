@@ -837,21 +837,41 @@ static void   *numberBuffer( char *type, NSNumber *value)
 @implementation MulleScionIf ( Printing)
 
 static Class  _nsNumberClass;
-
-
-static BOOL  isTrue( id value)
-{
-   if( value == MulleScionNull)
-      return( NO);
-   if( [value respondsToSelector:@selector( boolValue)])
-      return( [value boolValue]);
-   return( YES);
-}
+static Class  _nsStringClass;
 
 
 + (void) load
 {
    _nsNumberClass = [NSNumber class];
+   _nsStringClass = [NSString class];
+}
+
+
+static BOOL  isTrue( id value)
+{
+   BOOL  flag;
+   
+   if( value == MulleScionNull)
+      return( NO);
+
+   flag = NO;
+   if( [value respondsToSelector:@selector( boolValue)])
+   {
+      flag = [value boolValue];
+      if( ! flag)
+      {
+         //
+         // [@"foo" boolValue] gives NO, so check if
+         // NSString really means it. we just know
+         // NO and 0
+         //
+         if( [value isKindOfClass:_nsStringClass])
+            flag  = ! ([value isEqualToString:@"0"] ||
+                       [value isEqualToString:@"NO"]);
+      }
+   }
+   
+   return( flag);
 }
 
 
