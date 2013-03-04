@@ -1,0 +1,8 @@
+[{% verbatim %}[
+This just grabs all data between "{% verbatim %}" and "{% endverbatim %}" and
+doesn't intepret it.
+
+{% if egal  %}
+
+]{% endverbatim %}]
+Back to business: {{ name }}

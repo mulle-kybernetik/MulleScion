@@ -1,0 +1,38 @@
+{% if 2 and not 0 and not YES %}
+xxx
+{% endif %}
+
+{% verbatim %}
+If then else are you standard conditionals.
+
+...
+{% if YES %}
+t
+{% else %}
+f
+{% endif %}
+...
+
+There are your standard boolean operations at your disposal, namely 
+'not' 'and' 'or' Read from left to right as there is no precedence. If you need 
+precedence use parentheses.
+...
+{% if not YES and YES or NO %}
+t
+{% else %}
+f
+{% endif %}
+...
+...
+{% if not( YES and (YES or NO)) %}
+t
+{% else %}
+f
+{% endif %}
+...
+
+{% endverbatim %}
+
+If you need if then else within an expression use the '?' ':' conditional.
+
+{{ YES ? "yes" : "no" }}/{{ NO ? "yes" : "no" }}

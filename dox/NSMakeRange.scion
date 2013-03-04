@@ -1,11 +1,5 @@
-For those special moments, when you really want to use NSRange.
-
-There is only one function built in, and that's
-
-NSMakeRange
-
-but you can extend functions easily.
-
+For those special moments, when you really want to do string operations in
+the template and you need NSRange: there is a NSMakeRange function built in:
 
 {{ [@"VfL Bochum 1848" substringWithRange:NSMakeRange( 4, 6)] }}
 {# stupid pet tricks, achived by a category on NSValue #}

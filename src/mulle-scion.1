@@ -1,1 +1,60 @@
-None yet
+.Dd 3/3/13     
+.Dt Local 8    
+.Os Darwin
+.Sh NAME       
+.Nm mulle-scion
+.Nd creates text output from a MulleScion template and a property list file.
+.Sh SYNOPSIS      
+.Nm
+.Op Fl w
+.Ar template      
+.Ar plist         
+.Op Ar outputfile 
+.Sh DESCRIPTION   
+.Nm
+is a standalone renderer for MulleScionTemplates files. 
+.Pp               
+These are the arguments you can give to 
+.Nm
+:
+.Bl -tag -width "XXXXXXXXXX" -indent 
+.It Ar template  
+path to the MulleScionTemplate. If the file has no extension a .scion will be 
+appended. The directory of this path will become your root for included 
+templates.
+.It Ar plist  
+Path to a property list file. If you give '-' as a path, the property list will 
+be read from standard input. You can also give 'none' for no property list.
+.It Ar outputfile
+The output file to write the output to. If this parameter is omitted, the 
+output is written to standard output.
+.El                      
+.Bl -tag -width "XXXXXXXXXX" -indent 
+.It Fl w 
+If you give mulle-scion the webserver option if will start a small webserver, 
+suitable only for demonstration purposes and it will treat all remaining 
+arguments of the command line as bundle identifiers or paths, to be loaded 
+immediately. The document root is hardcoded to /tmp and it should only open a 
+port on 18048 on the localhost interface.
+.El 
+.Pp                     
+.Pp
+.Sh ENVIRONMENT     
+.Bl -tag -width "MulleScionCacheDirectory" -indent 
+.It Ev MulleScionCacheDirectory
+If set this will enable the caching of compiled templates to the specified 
+directory. Changes to source templates are not tracked. Use a dependency 
+tracker like make for that. 
+.El                      
+.Sh SEE ALSO 
+.Xr make 1 
+.Sh AUTHOR
+Coded by Nat! for Mulle kybernetiK. There should be a homepage for 
+MulleScionTemplates at 
+.Pp
+http://www.mulle-kybernetik.com/software/git/MulleScionTemplates
+.Pp
+The webserver is based on mongoose by Sergey Lyubka. 
+.Pp
+https://github.com/valenok/mongoose
+

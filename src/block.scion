@@ -1,0 +1,11 @@
+A block marks marks a span of template content. It has an identifier.
+
+{% block myblock %}Like so my block{% endblock %}
+
+A block can share an identifier, but this is more often than not a mistake :)
+
+{% block myblock %}Like this is so my other block{% endblock %}
+
+On it's own a block contents are rendered as given into the template output. 
+Only in conjunction with "extends" does the block reveal its true use.
+

@@ -1,0 +1,7 @@
+{% block xxx %}
+{% endblock %}
+
+{% block xxx %}
+  {{ runtime_error_line_5() }}
+{% endblock %}
+

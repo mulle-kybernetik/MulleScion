@@ -16,6 +16,7 @@
 @interface MulleScionObject ( Description)
 
 - (NSString *) description;
+- (NSString *) shortDescription;
 
 @end
 

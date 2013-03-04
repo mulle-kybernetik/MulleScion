@@ -8,11 +8,10 @@ so you know when to use a block and when to use a macro.
 Blocks are evaluated much later than macros.
 
 
-{% macro line( name, cellpadding) %}
-<tr><td cellpadding="{{ cellpadding }}">{{ name }}</td></tr>{% endmacro %}
+{% macro line( name, cellpadding) %}<tr cellpadding="{{ cellpadding }}"><td >{{ name }}</td></tr>{% endmacro %}
 
-{{ name }}
-<table>
+This value {{ name }} is from properties file
+<table border=1>
   {{ line( "xxx", 10) }}
 </table>
-{{ name }}{# should be as before table #}
+And it {{ name }} should now be as before the macro expansion

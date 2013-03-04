@@ -34,13 +34,22 @@
 }
 
 
+- (NSString *) shortDescription
+{
+   NSString  *s;
+   
+   s = [self _description];
+   return( [NSString stringWithFormat:@"%ld: %@", (long) lineNumber_, s]);
+}
+
+
 - (NSString *) description
 {
    NSString  *s;
    
    s = [self _description];
    if( next_)
-      return( [NSString stringWithFormat:@"%@%@%@", s, [next_ _descriptionSeparator], [next_ description]]);
+      return( [NSString stringWithFormat:@"%ld: %@%@%@", (long) lineNumber_, s, [next_ _descriptionSeparator], [next_ description]]);
    return( s);
 }
 
@@ -60,14 +69,51 @@
    return( value_);
 }
 
+
+static NSString   *shortenedString( NSString *s, size_t max)
+{
+   NSUInteger   length;
+
+   length = [s length];
+   if( length > max)
+   {
+      if( max < 4)
+         return( [s substringToIndex:max]);
+
+      s = [s substringToIndex:max - 3];
+      s = [s stringByAppendingString:@"..."];
+   }
+   return( s);
+}
+
+
+- (NSString *) shortDescription
+{
+   NSString     *s;
+
+   s = shortenedString( [self _description], 64);
+   return( [NSString stringWithFormat:@"%ld: %@", (long) lineNumber_, s]);
+}
+
+
 - (NSString *) description
 {
    NSString  *s;
    
    s = [self _description];
    if( next_)
-      return( [NSString stringWithFormat:@"%@%@", s, [next_ description]]);
+      return( [NSString stringWithFormat:@"%ld: %@%@", (long) lineNumber_, s, [next_ description]]);
    return( s);
+}
+
+@end
+
+
+@implementation MulleScionTemplate ( Description)
+
+- (NSString *) _description
+{
+   return( [NSString stringWithFormat:@"%ld: template %@", (long) lineNumber_, value_]);
 }
 
 @end
@@ -77,6 +123,7 @@
 
 - (NSString *) mulleScionDescription;
 @end
+
 
 
 @implementation NSObject ( MulleScionDescription)
@@ -101,12 +148,38 @@
 
 @implementation MulleScionString ( Description)
 
+- (NSString *) shortDescription
+{
+   NSString     *s;
+   
+   s = shortenedString( value_, 64);
+   return( [NSString stringWithFormat:@"%ld: @\"%@\"", (long) lineNumber_, s]);
+}
+
+
 - (NSString *) mulleScionDescription
 {
-   return( [NSString stringWithFormat:@"\"%@\"", [value_ description]]);
+   return( [NSString stringWithFormat:@"@\"%@\"", value_]);
 }
 
 @end
+
+
+@implementation MulleScionSelector( Description)
+
+- (NSString *) shortDescription
+{
+   return( [NSString stringWithFormat:@"%ld: @selector( %@)", (long) lineNumber_, value_]);
+}
+
+
+- (NSString *) mulleScionDescription
+{
+   return( [NSString stringWithFormat:@"@selector( %@)", value_]);
+}
+
+@end
+
 
 
 @implementation MulleScionExpression ( Description)
@@ -123,7 +196,6 @@
 
 @end
 
-
 @implementation MulleScionArray ( Description)
 
 - (NSString *) mulleScionDescription
@@ -134,7 +206,7 @@
    s = [NSMutableString string];
    n = [value_ count];
 
-   [s appendFormat:@"("];
+   [s appendFormat:@"@("];
    if( n)
    {
       for( i = 0; i < n - 1; i++)
@@ -217,6 +289,17 @@
 @end
 
 
+@implementation MulleScionNot ( Description)
+
+- (NSString *) mulleScionDescription
+{
+   return( [NSString stringWithFormat:@"not %@",
+            [value_ mulleScionDescription]]);
+}
+
+@end
+
+
 @implementation MulleScionBinaryOperatorExpression ( Description)
 
 - (NSString *) mulleScionDescription
@@ -226,6 +309,18 @@
 }
 
 @end
+
+
+@implementation MulleScionConditional ( Description)
+
+- (NSString *) mulleScionDescription
+{
+   return( [NSString stringWithFormat:@"%@ ? %@ : %@",
+            [value_ mulleScionDescription], [middle_ mulleScionDescription], [right_ mulleScionDescription]]);
+}
+
+@end
+
 
 @implementation MulleScionTerminator ( Description)
 
@@ -317,11 +412,10 @@
    NSString   *command;
    
    command = [self _commandDescription];
-   return( [NSString stringWithFormat:@"%@%@", command, identifier_]);
+   return( [NSString stringWithFormat:@"(%@) %@%@", fileName_, command, identifier_]);
 }
 
 @end
-
 
 #endif
 

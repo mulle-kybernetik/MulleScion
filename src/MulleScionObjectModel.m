@@ -17,6 +17,19 @@
 {
    abort();
 }
+
+
++ (id) allocWithZone:(NSZone *)zone
+{
+   id  p;
+   
+   p = [super allocWithZone:zone];
+   // we will take undefined behaviour, thank you :)
+#ifdef SIMPLE_SCOREBOARD
+   fprintf( stderr, "%0.*p alive %s\n", (int) sizeof( void *) << 1, p, [NSStringFromClass( self) cString]);
+#endif
+   return( p);
+}
 #endif
 
 
@@ -36,54 +49,14 @@
 - (void) dealloc
 {
    [self->next_ release];
-   
+
+#if defined( DEBUG) && defined( SIMPLE_SCOREBOARD)
+   // take the output, sort it and check for even alive/dead pattern
+   fprintf( stderr, "%0.*p dead  %s \n", (int) sizeof( void *) << 1, self, [NSStringFromClass( isa) cString]);  // sic!
+#endif
    [super dealloc];
 }
 
-
-- (MulleScionObject *) behead
-{
-   MulleScionObject   *obj;
-   
-   obj = self->next_;
-   self->next_ = nil;
-   return( obj);
-}
-
-
-- (MulleScionObject *) tail
-{
-   MulleScionObject   *obj;
-   
-   for( obj = self; obj->next_; obj = obj->next_);
-   return( obj);
-}
-
-
-- (NSUInteger) count;
-{
-   MulleScionObject  *obj;
-   NSUInteger        n;
-
-   n = 1;
-   for( obj = self; obj->next_; obj = obj->next_)
-      ++n;
-   return( n);
-}
-
-
-- (id) appendRetainedObject:(MulleScionObject *) NS_CONSUMED  p
-{
-   MulleScionObject  *obj;
-   
-   NSParameterAssert( [p isKindOfClass:[MulleScionObject class]]);
-   NSParameterAssert( ! self->next_);
-   // NSParameterAssert( ! p->next_ || [p isBlock] || [p isKindOfClass:[MulleScionTemplate class]]);
-   
-   self->next_ = p;
-   for( obj = p; obj->next_; obj = obj->next_);
-   return( obj);
-}
 
 - (BOOL) isIdentifier { return( NO); }
 - (BOOL) isTerminator { return( NO); }
@@ -113,6 +86,7 @@
 - (BOOL) isExtends    { return( NO); }
 - (BOOL) isIncludes   { return( NO); }
 
+
 - (Class) terminatorClass
 {
    return( Nil);
@@ -122,55 +96,6 @@
 - (NSUInteger) lineNumber
 {
    return( lineNumber_);
-}
-
-- (MulleScionObject *) nextOwnerOfBlock
-{
-   MulleScionObject  *curr;
-   
-   for( curr = self; curr; curr = curr->next_)
-      if( [curr->next_ isBlock])
-         break;
-   return( curr);
-}
-
-
-- (MulleScionObject *) ownerOfBlockWithIdentifier:(NSString *) identifier
-{
-   MulleScionObject  *curr;
-   
-   for( curr = self; curr; curr = curr->next_)
-      if( [curr->next_ isBlock])
-         if( [identifier isEqualToString:[(MulleScionBlock *) curr->next_ identifier]])
-            break;
-   return( curr);
-}
-
-
-// replacement must be copy
-- (void) replaceOwnedBlockWith:(MulleScionObject *) replacement
-{
-   MulleScionBlock      *block;
-   MulleScionObject     *endBlock;
-   MulleScionObject     *replacementEnd;
-   
-   NSParameterAssert( [self->next_ isBlock]);
-   NSParameterAssert( [replacement isKindOfClass:[MulleScionObject class]]);
-   
-   block    = (MulleScionBlock *) self->next_;
-   endBlock = [block terminateToEnd:block->next_];
-   
-   NSParameterAssert( [endBlock isEndBlock]);
-   
-   for( replacementEnd = replacement; replacementEnd; replacementEnd = replacementEnd->next_)
-      if( ! replacementEnd->next_)
-         break;
-   
-   self->next_           = [replacement retain];
-   replacementEnd->next_ = endBlock->next_;
-   endBlock->next_       = nil;
-
-   [block release];
 }
 
 @end
@@ -226,32 +151,6 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
       name = @"template";
    return( [self initWithValue:name
                     lineNumber:0]);
-}
-
-
-- (void) expandBlocksUsingTable:(NSDictionary *) table
-{
-   NSString             *identifier;
-   MulleScionBlock      *block;
-   MulleScionObject     *owner;
-   MulleScionObject     *chain;
-   
-   owner = self;
-   while( owner = [owner nextOwnerOfBlock])
-   {
-      block      = (MulleScionBlock *) owner->next_;
-      identifier = [block identifier];
-      chain      = [table objectForKey:identifier];
-      if( ! chain)
-      {
-         owner = block;
-         continue;
-      }
-
-      chain = [chain copyWithZone:NULL];
-      [owner replaceOwnedBlockWith:chain];
-      [chain release];
-   }
 }
 
 
@@ -316,6 +215,10 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+@implementation MulleScionSelector
+@end
+
+
 @implementation MulleScionArray
 
 + (id) newWithArray:(NSArray *) value
@@ -373,6 +276,15 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( p);
 }
 
+
+- (void) dealloc
+{
+   [arguments_ release];
+
+   [super dealloc];
+}
+
+
 - (BOOL) isFunction
 {
    return( YES);
@@ -415,6 +327,7 @@ lineNumber:(NSUInteger) nr
    
    [super dealloc];
 }
+
 
 - (BOOL) isMethod
 {
@@ -469,6 +382,36 @@ lineNumber:(NSUInteger) nr
 @end
 
 
+@implementation MulleScionOperatorExpression
+
+- (NSString *) operator
+{
+#if DEBUG
+   abort();
+#endif
+   return( nil);
+}
+
+@end
+
+
+@implementation MulleScionUnaryOperatorExpression
+
++ (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED expr
+                      lineNumber:(NSUInteger) nr
+{
+   MulleScionUnaryOperatorExpression   *p;
+   
+   NSParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
+   
+   p = newMulleScionValueObject( self, nil, nr);
+   p->value_ = expr;
+   return( p);
+}
+
+@end
+
+
 @implementation MulleScionBinaryOperatorExpression
 
 + (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
@@ -486,6 +429,7 @@ lineNumber:(NSUInteger) nr
    return( p);
 }
 
+
 - (void) dealloc
 {
    [right_ release];
@@ -493,19 +437,86 @@ lineNumber:(NSUInteger) nr
    [super dealloc];
 }
 
+@end
+
+
+@implementation MulleScionComparison
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          comparison:(MulleScionComparisonOperator) op
+                          lineNumber:(NSUInteger) nr;
+{
+   MulleScionComparison   *p;
+   
+   NSParameterAssert( [left isKindOfClass:[MulleScionExpression class]]);
+   NSParameterAssert( [right isKindOfClass:[MulleScionExpression class]]);
+   
+   p = newMulleScionValueObject( self, nil, nr);
+   p->value_      = left;  
+   p->right_      = right;
+   p->comparison_ = op;
+   return( p);
+}
+
 
 - (NSString *) operator
 {
-#if DEBUG
-   abort();
-#endif
+   switch( comparison_)
+   {
+   case MulleScionEqual                : return( @"==");
+   case MulleScionNotEqual             : return( @"!=");
+   case MulleScionLessThan             : return( @"<");
+   case MulleScionGreaterThan          : return( @">");
+   case MulleScionLessThanOrEqualTo    : return( @"<=");
+   case MulleScionGreaterThanOrEqualTo : return( @">=");
+   }
 }
 
 @end
 
 
+@implementation MulleScionNot
 
-@implementation MulleScionPipe : MulleScionBinaryOperatorExpression
+- (NSString *) operator
+{
+   return( @"not");
+}
+
+@end
+
+
+@implementation MulleScionAnd
+
+- (NSString *) operator
+{
+   return( @"and");
+}
+
+@end
+
+
+@implementation MulleScionOr
+
+- (NSString *) operator
+{
+   return( @"or");
+}
+
+@end
+
+
+@implementation MulleScionIndexing
+
+- (NSString *) operator
+{
+   return( @"[]");
+}
+
+@end
+
+
+@implementation MulleScionPipe
 
 - (BOOL) isPipe
 {
@@ -518,11 +529,10 @@ lineNumber:(NSUInteger) nr
    return( @"|");
 }
 
-
 @end
 
 
-@implementation MulleScionDot : MulleScionBinaryOperatorExpression
+@implementation MulleScionDot
 
 - (BOOL) isDot
 {
@@ -538,6 +548,28 @@ lineNumber:(NSUInteger) nr
 
 @end
 
+
+@implementation MulleScionConditional
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+            retainedMiddleExpression:(MulleScionExpression *) NS_CONSUMED middle
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr
+{
+   MulleScionConditional   *p;
+   
+   NSParameterAssert( [left isKindOfClass:[MulleScionExpression class]]);
+   NSParameterAssert( [middle isKindOfClass:[MulleScionExpression class]]);
+   NSParameterAssert( [right isKindOfClass:[MulleScionExpression class]]);
+   
+   p = newMulleScionValueObject( self, nil, nr);
+   p->value_      = left;
+   p->middle_     = middle;
+   p->right_      = right;
+   return( p);
+}
+
+@end
 
 
 @implementation MulleScionCommand
@@ -579,11 +611,6 @@ lineNumber:(NSUInteger) nr
          if( ! --stack)
             return( curr);
       }
-      
-      // nested codes ? slurp them
-      if( [curr terminatorClass])
-         curr = [self terminateToEnd:curr];
-      
    }
    return( curr);
 }
@@ -608,15 +635,12 @@ lineNumber:(NSUInteger) nr
       }
       
       if( [curr isElse])
-         return( curr);
+         if( stack == 1)
+            return( curr);
       
       if( cls == terminatorCls)
          if( ! --stack)
             return( curr);
-      
-      // nested codes ? slurp them
-      if( [curr terminatorClass])
-         curr = [self terminateToEnd:curr];
    }
    return( curr);
 }
@@ -624,7 +648,7 @@ lineNumber:(NSUInteger) nr
 @end
 
 
-@implementation MulleScionTerminator : MulleScionCommand
+@implementation MulleScionTerminator
 
 - (BOOL) isTerminator
 {
@@ -796,6 +820,7 @@ lineNumber:(NSUInteger) nr
 @implementation MulleScionBlock
 
 + (id) newWithIdentifier:(NSString *) s
+                fileName:(NSString *) fileName
               lineNumber:(NSUInteger) nr
 {
    MulleScionBlock   *p;
@@ -804,6 +829,7 @@ lineNumber:(NSUInteger) nr
    
    p              = [self newWithLineNumber:nr];
    p->identifier_ = [s copy];
+   p->fileName_   = [fileName copy];
    return( p);
 }
 
@@ -811,6 +837,7 @@ lineNumber:(NSUInteger) nr
 - (void) dealloc
 {
    [identifier_ release];
+   [fileName_ release];
    
    [super dealloc];
 }
@@ -819,6 +846,12 @@ lineNumber:(NSUInteger) nr
 - (BOOL) isBlock
 {
    return( YES);
+}
+
+
+- (NSString *) fileName
+{
+   return( fileName_);
 }
 
 

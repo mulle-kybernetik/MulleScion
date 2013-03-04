@@ -42,7 +42,6 @@
    template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
    if( ! template)
       return( nil);
-   
    return( [template descriptionWithDataSource:dataSource
                                 localVariables:(NSDictionary *) locals]);
 }
@@ -99,6 +98,14 @@
 }
 
 
+static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
+{
+   //   if( ! dataSource)
+   // dataSource = [NSDictionary dictionary];
+   return( [[[MulleScionPrinter alloc] initWithDataSource:dataSource] autorelease]);
+}
+
+
 - (NSString *) descriptionWithDataSource:(id) dataSource
                           localVariables:(NSDictionary *) locals
 {
@@ -108,7 +115,7 @@
    
    pool = [NSAutoreleasePool new];
 
-   printer = [[[MulleScionPrinter alloc] initWithDataSource:dataSource] autorelease];
+   printer = createPrinterWithDatasource( dataSource);
    [printer setDefaultlocalVariables:locals];
    s = [printer describeWithTemplate:self];
    
@@ -126,7 +133,7 @@
    NSAutoreleasePool   *pool;
    
    pool = [NSAutoreleasePool new];
-   printer = [[[MulleScionPrinter alloc] initWithDataSource:dataSource] autorelease];
+   printer = createPrinterWithDatasource( dataSource);
    [printer setDefaultlocalVariables:locals];
    [printer writeToOutput:output
                  template:self];
@@ -171,7 +178,9 @@ static BOOL  checkCacheDirectory( NSString *path)
 + (void) load
 {
    NSAutoreleasePool  *pool;
+#ifndef PROFILE
    NSString           *s;
+#endif
    
    pool = [NSAutoreleasePool new];
 #ifndef PROFILE

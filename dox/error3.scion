@@ -1,0 +1,9 @@
+{% bogus = 
+            "xxx"  %}
+
+{% macro error() %}
+  {{ error_on_line_5()  }}
+{% endmacro %}
+
+{{ error() }}
+

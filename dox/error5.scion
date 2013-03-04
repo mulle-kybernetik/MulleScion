@@ -1,0 +1,7 @@
+{% extends "error4.scion" %}
+
+{% block xxx %}
+  {{ runtime_error_line_4() }}
+{% endblock %}
+
+

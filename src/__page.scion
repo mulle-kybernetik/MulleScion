@@ -1,0 +1,10 @@
+<html>
+   <head>
+       <title>{% block scion_title %}MulleScionTemplates{% endblock %}</title>
+        {% block scion_header_additions %}{% endblock %}
+   </head>
+   <body>
+     {% block scion_body %}{% endblock %}
+     {% block scion_footer %}{% endblock %}
+   </body>
+</html>

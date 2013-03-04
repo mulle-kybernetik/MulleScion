@@ -19,7 +19,6 @@
 @end
 
 
-extern NSString   *MulleScionPrintFormatKey;
 extern NSString   *MulleScionRenderOutputKey;
 extern NSString   *MulleScionCurrentFileKey;
 extern NSString   *MulleScionCurrentLineKey;

@@ -84,17 +84,17 @@
 {
    SEL   sel;
    
-   NSParameterAssert( [s isKindOfClass:[NSString class]]);
+   NSParameterAssert( ! s || [s isKindOfClass:[NSString class]]);
    NSParameterAssert( [identifier isKindOfClass:[NSString class]]);
    NSParameterAssert( [locals isKindOfClass:[NSMutableDictionary class]]);
    
    if( ! [identifier length])
-      MulleScionPrintingException( NSInvalidArgumentException, @"empty pipe identifier is invalid", locals);
+      MulleScionPrintingException( NSInvalidArgumentException, locals, @"empty pipe identifier is invalid");
    
    sel = NSSelectorFromString( identifier);
-   if( ! [s respondsToSelector:sel])
-      MulleScionPrintingException( NSInvalidArgumentException, @"NSString does not respond to %@",
-                          identifier, locals);
+   if( ! [s respondsToSelector:sel] && s)
+      MulleScionPrintingException( NSInvalidArgumentException, locals, @"NSString does not respond to %@",
+                                  identifier);;
    
    // assume extra parameter is harmless...
    s = [s performSelector:sel
@@ -107,13 +107,22 @@
                 arguments:(NSArray *) arguments
            localVariables:(NSMutableDictionary *) locals
 {
+   id  value;
+   
    NSParameterAssert( [identifier isKindOfClass:[NSString class]]);
    NSParameterAssert( ! arguments || [arguments isKindOfClass:[NSArray class]]);
    NSParameterAssert( [locals isKindOfClass:[NSMutableDictionary class]]);
    
    [locals setObject:identifier
               forKey:MulleScionCurrentFunctionKey];
-   
+
+   if( [identifier isEqualToString:@"defined"])
+   {
+      MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
+      value  = MulleScionPrintingValidatedArgument( arguments, 0, [NSString class], locals);
+      return( [NSNumber numberWithBool: [locals objectForKey:value] ? YES : NO]);
+   }
+
    if( [identifier isEqualToString:@"NSMakeRange"])
    {
       NSRange   range;
@@ -126,7 +135,7 @@
    }
    
    [NSException raise:NSInvalidArgumentException
-               format:@"%@ %@: unknown function %@",
+               format:@"\"%@\" %@: unknown function \"%@\"",
     [locals valueForKey:MulleScionCurrentFileKey],
     [locals valueForKey:MulleScionCurrentLineKey],
     [locals valueForKey:MulleScionCurrentFunctionKey]];

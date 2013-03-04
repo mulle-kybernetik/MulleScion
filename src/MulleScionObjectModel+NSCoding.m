@@ -83,6 +83,27 @@
 @end
 
 
+@implementation MulleScionVariableAssignment ( NSCoding )
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   self = [super initWithCoder:decoder];
+   assert( self);
+   
+   [decoder decodeValuesOfObjCTypes:"@", &expression_];
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   [super encodeWithCoder:encoder];
+   [encoder encodeValuesOfObjCTypes:"@", &expression_];
+}
+
+@end
+
+
 @implementation MulleScionFunction ( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
@@ -153,6 +174,54 @@
 @end
 
 
+@implementation MulleScionComparison  ( NSCoding )
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   unsigned char   code;
+
+   self = [super initWithCoder:decoder];
+   assert( self);
+   
+   [decoder decodeValuesOfObjCTypes:"C", &code];
+   comparison_ = code;
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   unsigned char   code;
+   
+   [super encodeWithCoder:encoder];
+   code = comparison_;
+   [encoder encodeValuesOfObjCTypes:"C", &code];
+}
+
+@end
+
+
+@implementation MulleScionConditional ( NSCoding )
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   self = [super initWithCoder:decoder];
+   assert( self);
+   
+   [decoder decodeValuesOfObjCTypes:"@@", &middle_, &right_];
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   [super encodeWithCoder:encoder];
+   [encoder encodeValuesOfObjCTypes:"@@", &middle_, &right_];
+}
+
+@end
+
+
 @implementation MulleScionSet ( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
@@ -202,7 +271,7 @@
    self = [super initWithCoder:decoder];
    assert( self);
    
-   [decoder decodeValuesOfObjCTypes:"@", &identifier_];
+   [decoder decodeValuesOfObjCTypes:"@@", &identifier_, &fileName_];
    return( self);
 }
 
@@ -210,7 +279,7 @@
 - (void) encodeWithCoder:(NSCoder *) encoder
 {
    [super encodeWithCoder:encoder];
-   [encoder encodeValuesOfObjCTypes:"@", &identifier_];
+   [encoder encodeValuesOfObjCTypes:"@@", &identifier_, &fileName_];
 }
 
 @end

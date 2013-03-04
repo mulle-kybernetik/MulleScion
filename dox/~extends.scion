@@ -1,0 +1,29 @@
+{% extends "_base.scion" %}
+
+This text is after extends, so it won't be printed.
+It's a confusing way to comment...:)
+All the blocks following are slurped up and remembered till the end of the 
+enveloping template. Then blocks are substituted.
+
+{% block header %}
+this will be overridden shortly by the following block
+{% endblock %}
+
+{% block header %}
+replaced the whole header
+{% endblock %}
+
+{% block body_extension %}
+extended the body
+{% endblock %}
+
+{% block footer_extension %}
+ {% block footer_extension2 %}
+default footer_extension2 text
+ {% endblock %}
+{% endblock %}
+
+{% block hackish_extension %}A bit of a mind bender{% endblock %}
+ 
+{% extends "_hackish.scion" %}
+

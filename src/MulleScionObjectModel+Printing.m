@@ -9,6 +9,7 @@
 #import "MulleScionObjectModel+Printing.h"
 
 #import "MulleMutableLineNumber.h"
+#import "MulleScionNull.h"
 #import "MulleScionPrintingException.h"
 #import "MulleScionDataSourceProtocol.h"
 #import "NSObject+MulleScionDescription.h"
@@ -16,22 +17,44 @@
 #import <objc/objc-class.h>
 
 
-NSString   *MulleScionPrintFormatKey     = @"MulleScionPrintFormat";
-NSString   *MulleScionRenderOutputKey    = @"MulleScionRenderOutput";
-NSString   *MulleScionCurrentFileKey     = @"__FILE__";
-NSString   *MulleScionCurrentLineKey     = @"__LINE__";
-NSString   *MulleScionCurrentFunctionKey = @"MulleScionCurrentFunction";
-NSString   *MulleScionCurrentFilterKey   = @"__FILTER__";
-NSString   *MulleScionPreviousFiltersKey = @"__FILTER_STACK__";
-NSString   *MulleScionSelfReplacementKey = @"__SELF_REPLACEMENT__";
+NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";
+NSString   *MulleScionCurrentFileKey          = @"__FILE__";
+NSString   *MulleScionPreviousFilesKey        = @"__FILE_STACK__";
+NSString   *MulleScionCurrentLineKey          = @"__LINE__";
+NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
+NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
+NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
+NSString   *MulleScionSelfReplacementKey      = @"__SELF_REPLACEMENT__";
 
-NSString   *MulleScionForOpenerKey       = @"MulleScionForOpener";
-NSString   *MulleScionForSeparatorKey    = @"MulleScionForSeparator";
-NSString   *MulleScionForCloserKey       = @"MulleScionForCloser";
+NSString   *MulleScionForOpenerKey            = @"MulleScionForOpener";
+NSString   *MulleScionForSeparatorKey         = @"MulleScionForSeparator";
+NSString   *MulleScionForCloserKey            = @"MulleScionForCloser";
+NSString   *MulleScionForSubdivisionLengthKey = @"MulleScionForSubdivisionLength";
+NSString   *MulleScionForSubdivisionOpenerKey = @"MulleScionForSubdivisionOpener";
+NSString   *MulleScionForSubdivisionCloserKey = @"MulleScionForSubdivisionCloser";
 
-NSString   *MulleScionEvenKey            = @"MulleScionEven";
-NSString   *MulleScionOddKey             = @"MulleScionOdd";
+NSString   *MulleScionEvenKey                 = @"MulleScionEven";
+NSString   *MulleScionOddKey                  = @"MulleScionOdd";
 
+
+#if 0
+# define TRACE_RENDER( self, s, locals, dataSource)   fprintf( stderr, "%s\n", [[self shortDescription] cString])
+#else
+# define TRACE_RENDER( self, s, locals, dataSource)
+#endif
+
+
+#if 0
+# define TRACE_EVAL_BEGIN( self, value)               fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"-->%@ (%@)", [self shortDescription], value] cString])
+# define TRACE_EVAL_END( self, value)                 fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"<--%@ (%@)", [self shortDescription], value] cString])
+# define TRACE_EVAL_CONT( self, value)                fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"   %@ (%@)", [self shortDescription], value] cString])
+# define TRACE_EVAL_BEGIN_END( self, value, result)   fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"<->%@ (%@->%@)", [self shortDescription], value, result] cString])
+#else
+# define TRACE_EVAL_BEGIN( self, value)
+# define TRACE_EVAL_END( self, value)
+# define TRACE_EVAL_CONT( self, value)
+# define TRACE_EVAL_BEGIN_END( self, value, result)
+#endif
 
 @interface MulleScionExpression ( Printing)
 
@@ -52,25 +75,68 @@ NSString   *MulleScionOddKey             = @"MulleScionOdd";
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
+   TRACE_RENDER( self, s, locals, dataSource);
    return( self->next_);
 }
 
 
-- (void) updateLineNumberInlocalVariables:(NSMutableDictionary *) locals
+static void   initLineNumber( MulleScionObject *self, NSMutableDictionary *locals)
+{
+   MulleMutableLineNumber   *nr;
+   
+   nr = [MulleMutableLineNumber new];
+   [locals setObject:nr
+              forKey:MulleScionCurrentLineKey];
+   [nr release];
+}
+
+
+static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *locals)
 {
    MulleMutableLineNumber   *nr;
    
    // linenumber is trusted and not funneled
    nr = [locals objectForKey:MulleScionCurrentLineKey];
-   if( ! nr)
-   {
-      nr = [MulleMutableLineNumber new];
-      [locals setObject:nr
-                 forKey:MulleScionCurrentLineKey];
-      [nr release];
-   }
-   [nr setUnsignedInteger:lineNumber_];
+   [nr setUnsignedInteger:self->lineNumber_];
+}
+
+
+static void   pushFileName( NSMutableDictionary *locals, NSString *filename)
+{
+   NSMutableArray   *stack;
+   NSString         *prev;
    
+   prev = [locals objectForKey:MulleScionCurrentFileKey];
+   NSCParameterAssert( prev);
+   
+   stack = [locals objectForKey:MulleScionPreviousFilesKey];
+   if( ! stack)
+   {
+      stack = [NSMutableArray new];
+      [locals setObject:stack
+                 forKey:MulleScionPreviousFilesKey];
+      [stack release];
+   }
+   [stack addObject:prev];
+
+   [locals setObject:filename
+              forKey:MulleScionCurrentFileKey];
+}
+
+
+static void   popFileName( NSMutableDictionary *locals)
+{
+   NSString         *prev;
+   NSMutableArray   *stack;
+   
+   NSCParameterAssert( [locals objectForKey:MulleScionPreviousFilesKey] != nil);
+   
+   stack = [locals objectForKey:MulleScionPreviousFilesKey];
+   NSCParameterAssert( stack);
+   prev = [stack lastObject];
+   [locals setObject:prev
+              forKey:MulleScionCurrentFileKey];
+   [stack removeLastObject];
 }
 
 
@@ -117,22 +183,32 @@ static void   MulleScionRenderString( NSString *value,
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
    MulleScionObject   *curr;
+   NSAutoreleasePool  *pool;
+   
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
    
    //
    // expose everything to the dataSource for max. hackability
    // trusted (writing OK, reading ? your choice!)
    //
+   initLineNumber( self, locals);
+   updateLineNumber( self, locals);
+
    [locals setObject:s
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
               forKey:MulleScionCurrentFileKey];
-   [self updateLineNumberInlocalVariables:locals];
    
    curr = self->next_;
    while( curr)
       curr = [curr renderInto:s
                localVariables:locals
                    dataSource:dataSource];
+   
+   [pool release];
+   
    return( curr);
 }
 
@@ -145,7 +221,9 @@ static void   MulleScionRenderString( NSString *value,
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   updateLineNumber( self, locals);
    MulleScionRenderString( value_, s, locals, dataSource);
    return( self->next_);
 }
@@ -174,6 +252,9 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
    if( ! value)
       value = [dataSource mulleScionValueForKeyPath:keyPath
                                      localVariables:locals];
+   if( ! value)
+      value = MulleScionNull;
+   
    return( value);
 }
 
@@ -198,6 +279,7 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
    NSMutableArray         *array;
    MulleScionExpression   *expr;
    id                     value;
+   id                     result;
    
    array = [NSMutableArray array];
    rover = [arguments_ objectEnumerator];
@@ -206,12 +288,15 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
       value = [expr valueWithLocalVariables:locals
                                  dataSource:dataSource];
       if( ! value)
-         value = [NSNull null];
+         value = MulleScionNull;
       [array addObject:value];
    }
-   return( [dataSource mulleScionFunction:value_
-                                arguments:array
-                           localVariables:locals]);
+   result = [dataSource mulleScionFunction:value_
+                                 arguments:array
+                           localVariables:locals];
+   if( ! result)
+      result = MulleScionNull;
+   return( result);
 }
 
 @end
@@ -250,7 +335,7 @@ static char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
 }
 
 
-static void   _pop( NSAutoreleasePool *pool)
+static void   _pop( NSAutoreleasePool * NS_CONSUMED pool)
 {
    [pool release];
 }
@@ -320,22 +405,27 @@ static void   *numberBuffer( char *type, NSNumber *value)
    char                   *type;
    id                     *buf;
    id                     value;
+   id                     result;
+   void                   *tmp;
+   
    // static char         id_type[ 2] = { _C_ID, 0 };
+
+   TRACE_EVAL_BEGIN( self, target);
    
    pool = [NSAutoreleasePool new];
 
    signature = [dataSource mulleScionMethodSignatureForSelector:action_
                                                          target:target];
    if( ! signature)
-      [NSException raise:NSInvalidArgumentException
-                  format:@"Method \"%@\" is unknown on \"%@\"", NSStringFromSelector( action_), target];
+      MulleScionPrintingException( NSInvalidArgumentException, locals,
+                  @"Method \"%@\" is unknown on \"%@\"", NSStringFromSelector( action_), target);
    
    // remember varargs, there can be more arguments
    m = [signature numberOfArguments];
    n = [arguments_ count] + 2;
    if( m  != n)
-      [NSException raise:NSInvalidArgumentException
-                  format:@"Method \"%@\" expects %ld arguments", NSStringFromSelector( action_), (long) n];
+      MulleScionPrintingException( NSInvalidArgumentException, locals,
+                                  @"Method \"%@\" expects %ld arguments", NSStringFromSelector( action_), (long) n);
    
    
    invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -346,9 +436,13 @@ static void   *numberBuffer( char *type, NSNumber *value)
       expr  = [arguments_ objectAtIndex:i - 2];
       value = [expr valueWithLocalVariables:locals
                                  dataSource:dataSource];
-      if( value == dataSource) // security hole
-         [NSException raise:NSInvalidArgumentException
-                     format:@"You can't use the dataSource as an argument"];
+
+      if( value == MulleScionNull)
+         value = nil;
+      
+      if( value == dataSource) // plug security hole
+         MulleScionPrintingException( NSInvalidArgumentException, locals,
+                                     @"You can't use the dataSource as an argument");
       
       
       // type = id_type;  // ok, varargs with non-objects won't work
@@ -362,24 +456,24 @@ static void   *numberBuffer( char *type, NSNumber *value)
       {
       case _C_ID       : buf = &value; break;
       case _C_CLASS    : buf = &value; break;
-      case _C_SEL      : buf = &value; break;
+      case _C_SEL      : tmp = [value pointerValue]; buf = (id *) &tmp; break;
       default          : buf = numberBuffer( type, value); break;
       }
       
       if( ! buf)
-         [NSException raise:NSInvalidArgumentException
-                     format:@"Method \"%@\" is not callable from MulleScion (argument #%ld)",
-          NSStringFromSelector( action_), (long) i - 2];
+         MulleScionPrintingException( NSInvalidArgumentException, locals,
+                                     @"Method \"%@\" is not callable from MulleScion (argument #%ld)",
+          NSStringFromSelector( action_), (long) i - 2);
       
       // unfortunately NSInvocation is too dumb for varargs
       [invocation setArgument:buf
                       atIndex:i];
    }
    
-   [invocation retainArguments];
+   // [invocation retainArguments];
    [invocation invokeWithTarget:target];
    
-   value  = nil;
+   result = nil;
    length = [signature methodReturnLength];
    if( length)
    {
@@ -391,64 +485,71 @@ static void   *numberBuffer( char *type, NSNumber *value)
       
       switch( *returnType)
       {
-      case _C_ID       : value = *buf; break;
-      case _C_CLASS    : value = *buf; _pop( pool); return( value);
-      case _C_SEL      : value = (id) *(SEL *) buf; _pop( pool); return( value);
-      case _C_CHARPTR  : value = [NSString stringWithCString:(char *) buf]; break;
-      case _C_CHR      : value = [NSNumber numberWithChar:*(char *) buf]; break;
-      case _C_UCHR     : value = [NSNumber numberWithUnsignedChar:*(unsigned char *) buf]; break;
-      case _C_SHT      : value = [NSNumber numberWithShort:*(short *) buf]; break;
-      case _C_USHT     : value = [NSNumber numberWithUnsignedShort:*(unsigned short *) buf]; break;
-      case _C_INT      : value = [NSNumber numberWithInt:*(int *) buf]; break;
-      case _C_UINT     : value = [NSNumber numberWithUnsignedInt:*(unsigned int *) buf]; break;
-      case _C_LNG      : value = [NSNumber numberWithLong:*(long *) buf]; break;
-      case _C_ULNG     : value = [NSNumber numberWithUnsignedLong:*(unsigned long *) buf]; break;
-      case _C_LNG_LNG  : value = [NSNumber numberWithLongLong:*(long long *) buf]; break;
-      case _C_ULNG_LNG : value = [NSNumber numberWithUnsignedLongLong:*(unsigned long long *) buf]; break;
-      case _C_FLT      : value = [NSNumber numberWithFloat:*(float *) buf]; break;
-      case _C_DBL      : value = [NSNumber numberWithDouble:*(double *) buf]; break;
+      case _C_ID       : result = *buf; break;
+      case _C_CLASS    : result = *buf; break;
+      case _C_SEL      : result = [NSValue valueWithPointer:*(SEL *) buf]; break;
+      case _C_CHARPTR  : result = [NSString stringWithCString:(char *) buf]; break;
+      case _C_CHR      : result = [NSNumber numberWithChar:*(char *) buf]; break;
+      case _C_UCHR     : result = [NSNumber numberWithUnsignedChar:*(unsigned char *) buf]; break;
+      case _C_SHT      : result = [NSNumber numberWithShort:*(short *) buf]; break;
+      case _C_USHT     : result = [NSNumber numberWithUnsignedShort:*(unsigned short *) buf]; break;
+      case _C_INT      : result = [NSNumber numberWithInt:*(int *) buf]; break;
+      case _C_UINT     : result = [NSNumber numberWithUnsignedInt:*(unsigned int *) buf]; break;
+      case _C_LNG      : result = [NSNumber numberWithLong:*(long *) buf]; break;
+      case _C_ULNG     : result = [NSNumber numberWithUnsignedLong:*(unsigned long *) buf]; break;
+      case _C_LNG_LNG  : result = [NSNumber numberWithLongLong:*(long long *) buf]; break;
+      case _C_ULNG_LNG : result = [NSNumber numberWithUnsignedLongLong:*(unsigned long long *) buf]; break;
+      case _C_FLT      : result = [NSNumber numberWithFloat:*(float *) buf]; break;
+      case _C_DBL      : result = [NSNumber numberWithDouble:*(double *) buf]; break;
 #ifdef _C_LNG_DBL
-            //   case _C_LNG_DBL  : value = [NSNumber numberWithLongDouble: *(long double *) buf]; break;
+            //   case _C_LNG_DBL  : result = [NSNumber numberWithLongDouble: *(long double *) buf]; break;
 #endif
 #ifdef _C_BOOL
-      case _C_BOOL     : value = [NSNumber numberWithBool:*(BOOL *) buf]; break;
+      case _C_BOOL     : result = [NSNumber numberWithBool:*(BOOL *) buf]; break;
 #endif
-      default          : value = [NSNumber value:buf withObjCType:returnType]; break;
+      default          : result = [NSNumber value:buf withObjCType:returnType]; break;
       }
    }
-   pop( pool, value);
+   pop( pool, result);
    
-   return( value);
+   if( ! result)
+      result = MulleScionNull;
+   
+   TRACE_EVAL_END( self, result);
+   return( result);
 }
 
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
 {
-   id   original;
-   id   target;
+   id    original;
+   id    target;
    
-   original = nil;
+   NSParameterAssert( [locals isKindOfClass:[NSMutableDictionary class]]);
+   
+   original     = nil;
    if( [value_ isIdentifier])
       original = [(MulleScionVariable *) value_ identifier];
    
    target = [value_ valueWithLocalVariables:locals
                                  dataSource:dataSource];
+   
+   if( target == MulleScionNull)
+      target = nil;
+   
    if( ! target && original)
       target = [dataSource mulleScionClassFromString:original];
    
    if( ! target)
-      [NSException raise:NSInvalidArgumentException
-                  format:@"Class or variable named \"%@\" is unknown", original];
+      return( MulleScionNull);
    
    return( [self evaluateValue:target
                 localVariables:locals
                     dataSource:dataSource]);
 }
 
-   
 @end
-
 
 
 @implementation MulleScionExpression ( Printing)
@@ -457,7 +558,11 @@ static void   *numberBuffer( char *type, NSNumber *value)
       localVariables:(NSMutableDictionary *) locals
           dataSource:(id <MulleScionDataSource>) dataSource
 {
-   return( self);
+   id   result;
+   
+   result = ! value ? MulleScionNull : value;
+   TRACE_EVAL_BEGIN_END( self, value, result);
+   return( result);
 }
 
 
@@ -478,16 +583,22 @@ static void   *numberBuffer( char *type, NSNumber *value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   id   value;
+   NSAutoreleasePool  *pool;
+   id                 value;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
    value = [self valueWithLocalVariables:locals
                               dataSource:dataSource];
-   if( value)
-   {
-      value = [value mulleScionDescriptionWithLocalVariables:locals];
-      MulleScionRenderString( value, s, locals, dataSource);
-   }
+   
+   value = [value mulleScionDescriptionWithLocalVariables:locals];
+   MulleScionRenderString( value, s, locals, dataSource);
+
+   [pool release];
+   
    return( self->next_);
 }
 
@@ -499,7 +610,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
 {
-   return( value_);
+   return( value_ ? value_ : MulleScionNull);
 }
 
 @end
@@ -511,7 +622,20 @@ static void   *numberBuffer( char *type, NSNumber *value)
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
 {
+   NSParameterAssert( value_ != nil);
    return( value_);
+}
+
+@end
+
+
+@implementation MulleScionSelector ( Printing)
+
+- (id) valueWithLocalVariables:(NSMutableDictionary *) locals
+                    dataSource:(id <MulleScionDataSource>) dataSource
+{
+   NSParameterAssert( value_ != nil);
+   return( [NSValue valueWithPointer:NSSelectorFromString( value_)]);
 }
 
 @end
@@ -535,7 +659,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
       value = [expr valueWithLocalVariables:locals
                                  dataSource:dataSource];
       if( value == nil)
-         value = [NSNull null];
+         value = MulleScionNull;
       [array addObject:value];
    }
    return( array);
@@ -553,13 +677,8 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    value = [expression_ valueWithLocalVariables:locals
                                      dataSource:dataSource];
-   
-   if( value)
-      [locals setObject:value
-                 forKey:value_];
-   else
-      [locals removeObjectForKey:value_];
-
+   [locals setObject:value
+              forKey:value_];
    return( value);
 }
 
@@ -568,17 +687,22 @@ static void   *numberBuffer( char *type, NSNumber *value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   id   value;
+   NSAutoreleasePool  *pool;
+   id                 value;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
    value = [self valueWithLocalVariables:locals
                               dataSource:dataSource];
 
-   if( value)
-   {
-      value = [value mulleScionDescriptionWithLocalVariables:locals];
-      MulleScionRenderString( value, s, locals, dataSource);
-   }
+   value = [value mulleScionDescriptionWithLocalVariables:locals];
+   MulleScionRenderString( value, s, locals, dataSource);
+
+   [pool release];
+
    return( self->next_);
 }
 
@@ -625,21 +749,18 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 @implementation MulleScionSet ( Printing)
 
-
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
 {
    id   value;
    
+   // lldb voodoo
+   NSParameterAssert( [expression_ isKindOfClass:[MulleScionExpression class]]);
+   
    value = [expression_ valueWithLocalVariables:locals
                                      dataSource:dataSource];
-   
-   if( value)
-      [locals setObject:value
-                 forKey:identifier_];
-   else
-      [locals removeObjectForKey:identifier_];
-   
+   [locals setObject:value
+              forKey:identifier_];
    return( value);
 }
 
@@ -648,11 +769,17 @@ static void   *numberBuffer( char *type, NSNumber *value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   // assignment doesn't render
+   NSAutoreleasePool  *pool;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
    [self valueWithLocalVariables:locals
                       dataSource:dataSource];
+   
+   [pool release];
    
    return( self->next_);
 }
@@ -667,7 +794,9 @@ static void   *numberBuffer( char *type, NSNumber *value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   MulleScionPrintingException( NSInternalInconsistencyException, @"stray %@ in template", [self commandName], locals);
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   MulleScionPrintingException( NSInternalInconsistencyException, locals, @"stray %@ in template", [self commandName]);
 }
 
 
@@ -682,12 +811,19 @@ static void   *numberBuffer( char *type, NSNumber *value)
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
    MulleScionObject   *curr;
+   NSAutoreleasePool  *pool;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
    [expression_ valueWithLocalVariables:locals
                              dataSource:dataSource];
-   
    curr = self->next_;
+   
+   [pool release];
+   
    return( curr);
 }
 
@@ -701,7 +837,11 @@ static Class  _nsNumberClass;
 
 static BOOL  isTrue( id value)
 {
-   return( value && (! [value isKindOfClass:_nsNumberClass] || [value boolValue]));
+   if( value == MulleScionNull)
+      return( NO);
+   if( [value respondsToSelector:@selector( boolValue)])
+      return( [value boolValue]);
+   return( YES);
 }
 
 
@@ -715,11 +855,16 @@ static BOOL  isTrue( id value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   id                 value;
    MulleScionObject   *curr;
    BOOL               flag;
+   NSAutoreleasePool  *pool;
+   id                 value;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
    value = [expression_ valueWithLocalVariables:locals
                                      dataSource:dataSource];
 
@@ -747,6 +892,8 @@ static BOOL  isTrue( id value)
    
    if( [curr isEndIf])
       curr = curr->next_;
+
+   [pool release];
    
    return( curr);
 }
@@ -763,9 +910,10 @@ static BOOL  isTrue( id value)
    BOOL                  isEven;
    BOOL                  isFirst;
    BOOL                  isLast;
+   BOOL                  isSubdivisionStart;
+   BOOL                  isSubdivisionEnd;
    MulleScionObject      *curr;
    MulleScionObject      *memo;
-   NSArray               *release;
    NSAutoreleasePool     *pool;
    NSEnumerator          *rover;
    NSMutableDictionary   *info;
@@ -773,17 +921,22 @@ static BOOL  isTrue( id value)
    NSString              *even;
    NSString              *infoKey;
    NSString              *key;
+   NSString              *next;
    NSString              *odd;
    NSString              *opener;
    NSString              *separator;
+   NSString              *subdivisionOpener;
+   NSString              *subdivisionCloser;
    NSUInteger            i;
-   NSUInteger            n;
+   NSInteger             division;
    NSNumber              *yes, *no;
    id                    value;
    
+   TRACE_RENDER( self, s, locals, dataSource);
+
    pool = [NSAutoreleasePool new];
    
-   [self updateLineNumberInlocalVariables:locals];
+   updateLineNumber( self, locals);
    
    opener    = [locals objectForKey:MulleScionForOpenerKey];
    separator = [locals objectForKey:MulleScionForSeparatorKey];
@@ -796,6 +949,19 @@ static BOOL  isTrue( id value)
    if( ! closer)
       closer = @"";
 
+   division  = [[locals objectForKey:MulleScionForSubdivisionLengthKey] integerValue];
+   if( division <= 0)
+      division = 1;
+
+   subdivisionOpener = @"";
+   subdivisionCloser = separator;
+
+   if( division > 1)
+   {
+      subdivisionOpener = [locals objectForKey:MulleScionForSubdivisionOpenerKey];
+      subdivisionCloser = [locals objectForKey:MulleScionForSubdivisionCloserKey];
+   }
+   
    even = [locals objectForKey:MulleScionEvenKey];
    odd  = [locals objectForKey:MulleScionOddKey];
    
@@ -804,44 +970,58 @@ static BOOL  isTrue( id value)
    if( ! odd)
       odd = @"odd";
 
-   release = nil;
-   value   = [expression_ valueWithLocalVariables:locals
-                                       dataSource:dataSource];
-   
-   if( ! [value respondsToSelector:@selector( objectEnumerator)])
-      value = release = [[[NSArray alloc] initWithObjects:value, nil] autorelease];
-   
-   curr  = self->next_;
-   memo  = curr;
+   value = [expression_ valueWithLocalVariables:locals
+                                     dataSource:dataSource];
 
-   rover = [value objectEnumerator];
-
-   i     = 0;
-   n     = [[rover allObjects] count];  
-   rover = [value objectEnumerator];
-
-   info  = [NSMutableDictionary dictionary];
-   [info setObject:[NSNumber numberWithInteger:n]
-            forKey:@"n"];
+   if( [value isKindOfClass:[NSEnumerator class]])
+      rover = value;
+   else
+   {
+      if( [value respondsToSelector:@selector( keyEnumerator)])
+         rover = [value keyEnumerator];
+      else
+      {
+         if( ! [value respondsToSelector:@selector( objectEnumerator)])
+            value = [[[NSArray alloc] initWithObjects:value, nil] autorelease];
+         rover = [value objectEnumerator];
+      }
+   }
    
+   curr    = self->next_;
+   memo    = curr;
+
+   info    = [NSMutableDictionary dictionary];
    infoKey = [NSString stringWithFormat:@"%@#", identifier_];
    [locals setObject:info
               forKey:infoKey];
    
-   yes = [NSNumber numberWithBool:YES];
-   no  = [NSNumber numberWithBool:NO];
-   while( key = [rover nextObject])
+   yes  = [NSNumber numberWithBool:YES];
+   no   = [NSNumber numberWithBool:NO];
+
+   i    = 0;
+   next = [rover nextObject];
+   while( key = next)
    {
-      isFirst = i == 0;
-      isLast  = i == n - 1;
-      isEven  = !(i & 1);
+      next               = [rover nextObject];
       
+      isFirst            = i == 0;
+      isLast             = ! next;
+      isEven             = !(i & 1);
+      isSubdivisionEnd   = (i % division) == division - 1;
+      isSubdivisionStart = ! (i % division);
+
       [info setObject:[NSNumber numberWithInteger:i]
                forKey:@"i"];
-      [info setObject:isFirst ? opener : @""
+      [info setObject:[NSNumber numberWithInteger:i % division]
+               forKey:@"modulo"];
+      [info setObject:[NSNumber numberWithInteger:i / division]
+               forKey:@"division"];
+      
+      [info setObject:isFirst ? opener : (isSubdivisionStart ? subdivisionOpener : @"")
                forKey:@"header"];
-      [info setObject:isLast ? closer : separator
+      [info setObject:isLast ? closer : (isSubdivisionEnd ? subdivisionCloser : separator)
                forKey:@"footer"];
+
       [info setObject:isEven ? even : odd
                forKey:@"evenOdd"];
       [info setObject:isFirst ? yes : no
@@ -861,9 +1041,22 @@ static BOOL  isTrue( id value)
       ++i;
    }
 
+   if( i == 0)
+   {
+      curr = [self terminateToElse:curr];
+      if( [curr isElse])
+         [self renderBlock:curr->next_
+                      into:s
+            localVariables:locals
+                dataSource:dataSource];
+   }
+   
    curr = [self terminateToEnd:curr];
    if( [curr isEndFor])
       curr = curr->next_;
+   
+   [locals removeObjectForKey:infoKey];
+   [locals removeObjectForKey:identifier_];   // always nil anyway
    
    [pool release];
    
@@ -879,11 +1072,16 @@ static BOOL  isTrue( id value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   id                     value;
-   MulleScionObject       *curr;
-   MulleScionObject       *memo;
+   MulleScionObject   *curr;
+   MulleScionObject   *memo;
+   NSAutoreleasePool  *pool;
+   id                 value;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
 
    curr = self->next_;
    memo = curr;
@@ -905,6 +1103,9 @@ static BOOL  isTrue( id value)
    curr = [self terminateToEnd:curr];
    if( [curr isEndWhile])
       curr = curr->next_;
+   
+   [pool release];
+   
    return( curr);
 }
 
@@ -918,8 +1119,14 @@ static BOOL  isTrue( id value)
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
    MulleScionObject   *curr;
+   NSAutoreleasePool  *pool;
+   
+   TRACE_RENDER( self, s, locals, dataSource);
 
-   [self updateLineNumberInlocalVariables:locals];
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
+   pushFileName( locals, fileName_);
    
    curr = [self renderBlock:self->next_
                        into:s
@@ -927,7 +1134,204 @@ static BOOL  isTrue( id value)
                  dataSource:dataSource];
    if( [curr isEndBlock])
       curr = curr->next_;
+   
+   [pool release];
+   
    return( curr);
+}
+
+@end
+
+
+@implementation MulleScionEndBlock ( Printing)
+
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+                   localVariables:(NSMutableDictionary *) locals
+                       dataSource:(id <MulleScionDataSource>) dataSource
+{
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   popFileName( locals);
+   
+   return( self->next_);
+}
+
+@end
+
+
+
+@implementation MulleScionComparison ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   id                   otherValue;
+   BOOL                 flag;
+   NSComparisonResult   comparison;
+   id                   result;
+
+   TRACE_EVAL_BEGIN( self, value);
+   
+   if( value == MulleScionNull)
+      value = nil;
+   
+   otherValue = [self->right_ valueWithLocalVariables:locals
+                                           dataSource:dataSource];
+   if( otherValue == MulleScionNull)
+      otherValue = nil;
+   switch( comparison_)
+   {
+   case MulleScionEqual    : comparison = ([value isEqual:otherValue] ? NSOrderedSame : NSOrderedAscending); break;
+   case MulleScionNotEqual : comparison = ([value isEqual:otherValue] ? NSOrderedAscending : NSOrderedSame); break;
+   default                 : comparison = [value compare:otherValue]; break;
+   }
+
+   flag = NO;
+   switch( comparison)
+   {
+   case NSOrderedSame       :
+      switch( comparison_)
+      {
+      case MulleScionEqual                :
+      case MulleScionLessThanOrEqualTo    :
+      case MulleScionGreaterThanOrEqualTo :
+         flag = YES;
+      }
+      break;
+   case NSOrderedAscending  :
+      switch( comparison_)
+      {
+      case MulleScionNotEqual          :
+      case MulleScionLessThan          :
+      case MulleScionLessThanOrEqualTo :
+         flag = YES;
+      }
+      break;
+   case NSOrderedDescending :
+      switch( comparison_)
+      {
+      case MulleScionNotEqual             :
+      case MulleScionGreaterThan          :
+      case MulleScionGreaterThanOrEqualTo :
+         flag = YES;
+      }
+      break;
+   }
+
+   result = [NSNumber numberWithBool:flag];
+
+   TRACE_EVAL_END( self, result);
+   return( result);
+}
+
+@end
+
+
+@implementation MulleScionNot ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   id   result;
+   
+   result = [NSNumber numberWithBool:! isTrue( value)];
+
+   TRACE_EVAL_BEGIN_END( self, value, result);
+   return( result);
+}
+
+@end
+
+
+@implementation MulleScionAnd ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   id     otherValue;
+   id     result;
+   BOOL   flag;
+
+   TRACE_EVAL_BEGIN( self, value);
+   flag = isTrue( value);
+   if( flag)
+   {
+      otherValue = [self->right_ valueWithLocalVariables:locals
+                                              dataSource:dataSource];
+      TRACE_EVAL_CONT( self, otherValue);
+      
+      flag = isTrue( otherValue);
+   }
+   result = [NSNumber numberWithBool:flag];
+
+   TRACE_EVAL_END( self, result);
+   return( result);
+}
+
+@end
+
+
+@implementation MulleScionOr ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   id     otherValue;
+   id     result;
+   BOOL   flag;
+   
+   TRACE_EVAL_BEGIN( self, value);
+   
+   flag = isTrue( value);
+   if( ! flag)
+   {
+      otherValue = [self->right_ valueWithLocalVariables:locals
+                                              dataSource:dataSource];
+      TRACE_EVAL_CONT( self, otherValue);
+      flag = isTrue( otherValue);
+   }
+   
+   result = [NSNumber numberWithBool:flag];
+   
+   TRACE_EVAL_END( self, result);
+   
+   return( result);
+}
+
+@end
+
+
+@implementation MulleScionIndexing ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   id   otherValue;
+   id   result;
+
+   TRACE_EVAL_BEGIN( self, value);
+   
+   if( value == MulleScionNull)
+      return( value);
+   
+   otherValue = [self->right_ valueWithLocalVariables:locals
+                                           dataSource:dataSource];
+   if( [value respondsToSelector:@selector( objectAtIndex:)])
+      result = [value objectAtIndex:[otherValue unsignedLongValue]];
+   else
+      result = [value valueForKeyPath:[otherValue description]];
+
+   if( ! result)
+      result = MulleScionNull;
+   
+   TRACE_EVAL_END( self, result);
+
+   return( result);
 }
 
 @end
@@ -941,7 +1345,13 @@ static BOOL  isTrue( id value)
 {
    NSString        *identifier;
    MulleScionPipe  *next;
+   id              result;
    
+   TRACE_EVAL_BEGIN( self, value);
+
+   if( value == MulleScionNull)
+      return( value);
+
    // make it string
    value = [value mulleScionDescriptionWithLocalVariables:locals];
    
@@ -951,18 +1361,20 @@ static BOOL  isTrue( id value)
       {
          [locals setObject:value
                     forKey:MulleScionSelfReplacementKey];
-         value = [(MulleScionMethod *) self->right_ valueWithLocalVariables:locals
+         result = [(MulleScionMethod *) self->right_ valueWithLocalVariables:locals
                                                                  dataSource:dataSource];
          [locals removeObjectForKey:MulleScionSelfReplacementKey];
-         
-         return( value);
+
+         TRACE_EVAL_END( self, result);
+         return( result);
       }
       
       identifier = [(MulleScionVariable *) self->right_ identifier];
-      value      = [dataSource mulleScionPipeString:value
+      result     = [dataSource mulleScionPipeString:value
                                       throughMethod:identifier
                                      localVariables:locals];
-      return( value);
+      TRACE_EVAL_END( self, result);
+      return( result);
    }
 
    next = (MulleScionPipe *) self->right_;
@@ -972,9 +1384,12 @@ static BOOL  isTrue( id value)
    value      = [dataSource mulleScionPipeString:value
                                    throughMethod:identifier
                                   localVariables:locals];
-   return( [self->right_ evaluateValue:value
-                        localVariables:locals
-                            dataSource:dataSource]);
+   result     = [self->right_ evaluateValue:value
+                             localVariables:locals
+                                 dataSource:dataSource];
+   TRACE_EVAL_END( self, result);
+   
+   return( result);
 }
 
 @end
@@ -988,6 +1403,14 @@ static BOOL  isTrue( id value)
 {
    NSString        *identifier;
    MulleScionDot   *next;
+   id              result;
+   
+   NSParameterAssert( value);
+   
+   TRACE_EVAL_BEGIN( self, value);
+   
+   if( value == MulleScionNull)
+      return( value);
    
    if( ! [self->right_ isDot])
    {
@@ -995,17 +1418,23 @@ static BOOL  isTrue( id value)
       {
          [locals setObject:value
                     forKey:MulleScionSelfReplacementKey];
-         value = [(MulleScionMethod *) self->right_ valueWithLocalVariables:locals
+         result = [(MulleScionMethod *) self->right_ valueWithLocalVariables:locals
                                                                  dataSource:dataSource];
          [locals removeObjectForKey:MulleScionSelfReplacementKey];
 
-         return( value);
+         if( ! result)
+            result = MulleScionNull;
+         TRACE_EVAL_END( self, result);
+         return( result);
       }
       
       identifier = [(MulleScionVariable *) self->right_ identifier];
-      value      = [value mulleScionValueForKeyPath:identifier
+      result      = [value mulleScionValueForKeyPath:identifier
                                      localVariables:locals];
-      return( value);
+      if( ! result)
+         result = MulleScionNull;
+      TRACE_EVAL_END( self, result);
+      return( result);
    }
    
    next = (MulleScionDot *) self->right_;
@@ -1014,10 +1443,39 @@ static BOOL  isTrue( id value)
       identifier = [(MulleScionVariable *) next->value_ identifier];
       value      = [value mulleScionValueForKeyPath:identifier
                                      localVariables:locals];
+      if( ! value)
+         value = MulleScionNull;
    }
-   return( [self->right_ evaluateValue:value
-                        localVariables:locals
-                            dataSource:dataSource]);
+   
+   result = [self->right_ evaluateValue:value
+                         localVariables:locals
+                             dataSource:dataSource];
+   TRACE_EVAL_END( self, result);
+   return( result);
+}
+
+@end
+
+
+@implementation MulleScionConditional ( Printing)
+
+- (id) evaluateValue:(id) value
+      localVariables:(NSMutableDictionary *) locals
+          dataSource:(id <MulleScionDataSource>) dataSource
+{
+   MulleScionExpression   *choice;
+   id                     result;
+   
+   TRACE_EVAL_BEGIN( self, value);
+   
+   choice = self->middle_;
+   if( ! isTrue( value))
+      choice = self->right_;
+
+   result = [choice valueWithLocalVariables:locals
+                                dataSource:dataSource];
+   TRACE_EVAL_END( self, result);
+   return( result);
 }
 
 @end
@@ -1031,8 +1489,13 @@ static BOOL  isTrue( id value)
 {
    MulleScionExpression  *prev;
    NSMutableArray        *stack;
+   NSAutoreleasePool     *pool;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
    
    prev = [locals objectForKey:MulleScionCurrentFilterKey];
    if( prev)
@@ -1052,6 +1515,8 @@ static BOOL  isTrue( id value)
    [locals setObject:self->expression_
               forKey:MulleScionCurrentFilterKey];
    
+   [pool release];
+   
    return( self->next_);
 }
 
@@ -1064,15 +1529,31 @@ static BOOL  isTrue( id value)
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   NSMutableArray   *stack;
+   NSMutableArray       *stack;
+   NSAutoreleasePool    *pool;
+   MulleScionEndFilter  *filter;
    
-   [self updateLineNumberInlocalVariables:locals];
+   TRACE_RENDER( self, s, locals, dataSource);
+
+   pool = [NSAutoreleasePool new];
+      
+   updateLineNumber( self, locals);
 
    if( ! [locals objectForKey:MulleScionCurrentFilterKey])
-      MulleScionPrintingException( NSInvalidArgumentException, @"stray endfilter", locals);
+      MulleScionPrintingException( NSInvalidArgumentException, locals, @"stray endfilter");
    
    stack = [locals objectForKey:MulleScionPreviousFiltersKey];
-   [stack removeLastObject];
+   filter = [stack lastObject];
+   if( filter)
+   {
+      [locals setObject:filter
+                 forKey:MulleScionCurrentFilterKey];
+      [stack removeLastObject];
+   }
+   else
+      [locals removeObjectForKey:MulleScionCurrentFilterKey];
+   
+   [pool release];
    
    return( self->next_);
 }

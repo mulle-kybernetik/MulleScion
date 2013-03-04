@@ -20,6 +20,6 @@ extern NSString   *MulleScionNumberFormatterKey;
 extern NSString   *MulleScionDateFormatKey;
 extern NSString   *MulleScionNumberFormatKey;
 extern NSString   *MulleScionLocaleKey;
-extern NSString   *MulleScionNSNullDescriptionKey;
+extern NSString   *MulleScionNilDescriptionKey;
 extern NSString   *MulleScionStringLengthKey;
 extern NSString   *MulleScionStringEllipsisKey;

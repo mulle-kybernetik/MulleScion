@@ -1,6 +1,6 @@
 
 MulleScionTemplates is a modern template engine for Objective C
-                                             (written in an oldfashioned way :)
+                                             (written in an oldfashioned way)
 
 It's heavily (very heavily) inspired by 
 
@@ -22,8 +22,9 @@ MulleScionTemplates is fairly flexible, reasonably fast and can be made as
                data.
 
     Flexible:  There is the possibility of extending KVC and writing your own
-               "builtin" fuctions. A template can (if allowed) execute arbitrary
-               ObjC code.
+               "builtin" fuctions. A template can (if allowed) execute 
+               arbitrary ObjC code. MulleScion has a powerful #define like 
+               preprocessing capability.
 
 
 Using the MulleScionTemplates.framework. Creating a string from your object 
@@ -41,27 +42,42 @@ MulleScionTemplates is a work in progress, but it looks good to me.
 
 DOCUMENTATION
 =============
-Non existing. MulleScion is very similar to TWIG, you can glean much
-of relevance from http://twig.sensiolabs.org. Also check out the supplied test
-templates and the source, which do have some comments. If you see a feature in
-TWIG but don't see it in the test file, it's not there.
+
+mulle-scion contains a little webserver that hosts the documentation contained
+in dox, when copied to /tmp. Virtually all the documentation is contained in 
+those example .scion templates in the dox folder. For each command or feature 
+there should be a separate template file that documents it.
+
+The documentation is not very good, actually they are just more or less test
+cases with comments...
+
+MulleScion is very similar to TWIG, so you can glean much of relevance from 
+http://twig.sensiolabs.org. If you see a feature in
+TWIG but don't see it in the tests file, it's not there (but it's probably 
+easily achieved some other way (define, macro, ObjC category on NSString).
 
 
 LIMITATIONS
 =============
 Because you can execute arbitrary ObjC methods, and have access to Key Value
-Coding, MulleScion can pretty much do anything. MulleScionTemplates uses 
-NSInvocation for method calls, and it usually can not do variable arguments. 
+Coding, MulleScion can pretty much do anything. MulleScionTemplates use 
+NSInvocation for method calls, and that usually can not do variable arguments. 
 So that will be a problem. Be wary of anything using structs and C-Arrays and 
 C-strings, although MulleScionTemplates tries to be as helpful as possible.
 
-MulleScionTemplates doesn't prevent you from trying stupid things.
+MulleScionTemplates do not do arithmetic or bitwise logic, quite on purpose.
+
+MulleScionTemplates do not support the @{ } syntax to create dictionaries.
+
+MulleScionTemplates && and || have no operator precedence, use parentheses
+
+MulleScionTemplates don't prevent you from trying stupid things.
 
 
 TODO
 =============
-Will probably do filters some time.
 Would be nice to have delayed evaluation for render results.
+Get rid of MulleScionNull except for printing a nil value.
 
 
 AUTHOR

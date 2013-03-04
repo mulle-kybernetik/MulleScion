@@ -1,29 +1,14 @@
-{% extends "_base.scion" %}
+Extends is a special kind of "includes". After the file to extend has been 
+included normal template parsing is suspended and only blocks and other 
+includes and extends statements are processed.
 
-This text is after extends, so it won't be printed.
-It's a confusing way to comment...:)
-All the blocks following are slurped up and remembered till the end of the 
-enveloping template. Then blocks are substituted.
+Whenever a block is found in this state, the block is recorded for later
+substitution of previous read blocks in the non-suspended state. The last read
+block therefore wins. This in effect provides a form of template inheritance.
 
-{% block header %}
-this will be overridden shortly by the following block
-{% endblock %}
+Whenever another "extends" command is found. Regular template processing resumes
+again, so that the extends command can perform an include (See first step).
 
-{% block header %}
-replaced the whole header
-{% endblock %}
+{% extends "block.scion" %}
 
-{% block body_extension %}
-extended the body
-{% endblock %}
-
-{% block footer_extension %}
- {% block footer_extension2 %}
-default footer_extension2 text
- {% endblock %}
-{% endblock %}
-
-{% block hackish_extension %}A bit of a mind bender{% endblock %}
- 
-{% extends "_hackish.scion" %}
-
+{% block myblock %}Your block is now our block{% endblock %}

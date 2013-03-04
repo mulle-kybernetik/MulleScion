@@ -13,11 +13,15 @@
 
 @implementation MulleScionPrinter
 
-
 - (id) initWithDataSource:(id) dataSource
 {
    // NSLog( @"<%@ %p lives>", isa, self);
 
+   if( ! dataSource)
+   {
+      [self autorelease];
+      return( nil);
+   }
    dataSource_  = dataSource;
    [dataSource retain];
 

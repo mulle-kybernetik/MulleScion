@@ -1,2 +1,0 @@
-{# pipes convert the left side to a string and then apply the right side  #}
-{{ @"A STRING" | lowercaseString | uppercaseString }}

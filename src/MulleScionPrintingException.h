@@ -10,7 +10,7 @@
 #import "MulleObjCCompilerSettings.h"
 
 
-void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NSString *format, ...);
+void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NSDictionary *locals, NSString *format, ...);
 
-void  MulleScionPrintingValidateArgumentCount( NSArray *arguments, NSUInteger n,  NSMutableDictionary *locals);
-id    MulleScionPrintingValidatedArgument( NSArray *arguments, NSUInteger i,  Class cls, NSMutableDictionary *locals);
+void  MulleScionPrintingValidateArgumentCount( NSArray *arguments, NSUInteger n,  NSDictionary *locals);
+id    MulleScionPrintingValidatedArgument( NSArray *arguments, NSUInteger i,  Class cls, NSDictionary *locals);

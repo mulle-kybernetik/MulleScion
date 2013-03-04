@@ -1,0 +1,64 @@
+To try out these example compile the project and put mulle-scion into your path.
+It's a commandline program.
+
+Run this example with:
+
+   mulle-scion MY_FIRST_TEMPLATE.scion properties.plist
+
+In a MulleScion template expression are filled with properties from an object. 
+That object can be anything NSObject based. The data is accessed through 
+key value coding. Anything between two curly brackets '{' is called an 
+expression. The expresssion is evaluated and the resulting value is added to 
+the output.
+
+....
+name={{ name }}
+....
+
+Expressions can be postprocessed with pipes.
+
+....
+when={{ name | lowercaseString }}
+....
+
+Pipes can also contain ObjC calls with parameters, where the left side of the
+pipe is substituted for self in the right side.
+
+....
+when={{ name | [self stringByReplacingOccurrencesOfString:@" 1848" withString:@""] }}
+....
+
+As that gets unwieldy, you can use a define to make common calls nice to read.
+
+....
+{% define no1848 = [self stringByReplacingOccurrencesOfString:@" 1848"
+                                                     withString:@""] %}
+when={{ name | no1848 }}
+....
+
+You have full key value coding available. With for loops can you iterate over
+collections just like NSEnumerator (it is in an NSEnumerator internally :))
+
+....
+The bag contains {{ bag.@count }} entries
+{% if defined( "bag") %}
+ {% for item in [bag allKeys] %}
+   {{ [bag objectForKey:item] }}
+ {% endfor %}
+{% endif %}
+...
+
+But with dots separated by spaces you can do even more complicated KVC.
+
+With if then else you do your usual logic
+
+...
+{% if YES %}
+ Yes
+{% else %}
+ No
+{% endif %}
+...
+
+
+

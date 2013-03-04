@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MulleScion.h"
+#import "MulleMongoose.h"
 
 
 static NSFileHandle  *outputStreamWithInfo( NSDictionary *info);
@@ -41,7 +42,10 @@ static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
 
 - (void) appendString:(NSString *) s
 {
-   [self writeData:[s dataUsingEncoding:NSUTF8StringEncoding]];
+   NSData             *data;
+   
+   data = [s dataUsingEncoding:NSUTF8StringEncoding];
+   [self writeData:data];
 }
 
 @end
@@ -112,7 +116,7 @@ static id   acquirePropertyList( NSString *s)
    if( ! plist)
    {
       NSLog( @"property list failure: %@", error);
-      exit( -1);
+      return( nil);
    }
    return( plist);
 }
@@ -145,9 +149,10 @@ static NSDictionary  *getInfoFromArguments( void)
       outputName = @"-";
    
    plist = acquirePropertyList( plistName);
-   if( plist)
-      [info setObject:plist
-               forKey:@"plist"];
+   if( ! plist)
+      goto usage;
+   [info setObject:plist
+            forKey:@"plist"];
    
    [info setObject:templateName
             forKey:@"MulleScionRootTemplate"];
@@ -159,7 +164,7 @@ static NSDictionary  *getInfoFromArguments( void)
    return( info);
    
 usage:
-   fprintf( stderr, "%s <template> <propertylist|-|none> [output|-]", [processName cString]);
+   fprintf( stderr, "%s [-w] <template> <propertylist|-|none> [output]", [processName cString]);
    return( nil);
 }
 
@@ -190,10 +195,45 @@ static NSFileHandle   *outputStreamWithInfo( NSDictionary *info)
 }
 
 
+static void  loadBundles( void)
+{
+   NSEnumerator   *rover;
+   NSBundle       *bundle;
+   NSString       *argument;
+   
+   rover = [[[NSProcessInfo processInfo] arguments] objectEnumerator];
+   [rover nextObject];
+   
+   while( argument = [rover nextObject])
+   {
+      if( [argument hasPrefix:@"-"])
+         continue;
+      
+      bundle = [NSBundle bundleWithIdentifier:argument];
+      if( ! bundle)
+         bundle = [NSBundle bundleWithPath:argument];
+      if( ! [bundle load])
+      {
+         NSLog( @"Couldn't load bundle %@", argument);
+         exit( 1);
+      }
+   }
+}
+
+
 int main(int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
+
+#ifndef DONT_HAVE_WEBSERVER
+   if( argc > 1 && ! strcmp( argv[ 1], "-w"))
+   {
+      loadBundles();
+      mulle_mongoose_main();
+      return( 0);
+   }
+#endif
    
    pool = [NSAutoreleasePool new];
    rval = _main( argc, argv);
@@ -201,6 +241,10 @@ int main(int argc, const char * argv[])
 #if defined( DEBUG) || defined( PROFILE)
    [pool release];
 #endif
+# ifdef PROFILE
+   // sleeping for the sampler to hit stuff
+   sleep( 2);
+# endif
    return( rval);
 }
 

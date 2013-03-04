@@ -1,3 +1,2 @@
-
 {# expect one line ahead of me #}.{#now the trailing comment should slurp the last linefeed #}
 <- is a dot here ?

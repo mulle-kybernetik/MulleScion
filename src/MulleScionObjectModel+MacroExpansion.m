@@ -10,7 +10,6 @@
 
 #import "MulleScionObjectModel+NSCoding.h"
 
-
 // this is totally hackish
 
 
@@ -149,15 +148,17 @@ static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArr
 @implementation MulleScionMacro ( MacroExpansion)
 
 - (MulleScionTemplate *) expandedBodyWithParameters:(NSDictionary *) parameters
+                                           fileName:(NSString *) fileName
+                                         lineNumber:(NSUInteger) line
 {
-   id                     expr;
-   MulleScionTemplate     *copy;
-   MulleScionObject       *next;
-   MulleScionObject       *curr;
-   MulleScionObject       *prev;
-   MulleScionObject       *replacement;
-   NSEnumerator           *rover;
-   NSString               *identifier;
+   id                   expr;
+   MulleScionTemplate   *copy;
+   MulleScionObject     *next;
+   MulleScionObject     *curr;
+   MulleScionObject     *prev;
+   MulleScionObject     *replacement;
+   NSEnumerator         *rover;
+   NSString             *identifier;
    
    copy = [[[self body] copyWithZone:NULL] autorelease];
    
@@ -173,7 +174,7 @@ static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArr
       if( expr == [NSNull null])
          [NSException raise:NSInvalidArgumentException
                      format:@"%@ %ld: parameter \"%@\" in macro \"%@\" needs a value",
-          [self fileName], (long) [self lineNumber], identifier, [self identifier]];
+          fileName, (long) line, identifier, [self identifier]];
          
       for( prev = nil, curr = copy; curr; prev = curr, curr = next)
       {
@@ -236,6 +237,8 @@ static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArr
 
 
 - (NSDictionary *) parametersWithArguments:(NSArray *) arguments
+                                  fileName:(NSString *) fileName
+                                lineNumber:(NSUInteger) line
 {
    NSMutableDictionary             *parameters;
    MulleScionIdentifierExpression  *expr;
@@ -262,12 +265,12 @@ static NSMutableArray  * NS_RETURNS_RETAINED replaceVariablesWithIdentifierInArr
       {
          if( i >= n)
             [NSException raise:NSInvalidArgumentException
-                        format:@"%@ %ld:too many parameters for macro \"%@\"", [self fileName], (long) [self lineNumber], [self identifier]];
+                        format:@"%@ %ld:too many parameters for macro \"%@\"", fileName, (long) line, [self identifier]];
          identifier = [identifiers objectAtIndex:i];
       }
       if( ! [parameters objectForKey:identifier])
              [NSException raise:NSInvalidArgumentException
-                         format:@"%@ %ld:parameter \"%@\" is unknown to macro \"%@\"", [self fileName], (long) [self lineNumber], identifier, [self identifier]];
+                         format:@"%@ %ld:parameter \"%@\" is unknown to macro \"%@\"", fileName, (long) line, identifier, [self identifier]];
       
       if( [expr isVariableAssignment])
          value = [(MulleScionVariableAssignment *) expr expression];

@@ -1,4 +1,0 @@
-{% MulleScionForOpener = "<"  %}
-{% MulleScionForSeparator = "|"  %}
-{% MulleScionForCloser = ">"  %}
-{% for item in ( 1, 2, 3) %}{{ item#.header }}{{ item }}{{ item#.footer }}{% endfor %}

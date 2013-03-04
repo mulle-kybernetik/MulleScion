@@ -5,7 +5,7 @@
  but useful for doing a little multiple inheritance.
 {% endblock %}
 
-{% extends "empty.scion" %}
+{% extends "_empty.scion" %}
 
 {% block footer_extension2 %}
 it's tricky tricky tricky

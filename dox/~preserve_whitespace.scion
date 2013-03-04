@@ -1,0 +1,7 @@
+1. This {{ nil }}should{{ nil}} look fine with regular spacing between words.
+    {# this comment line should just disappear #}
+2. And this {% foo=nil %}should be right below line 1 and looking fine.
+    {% for i in @( 1, 2, 3) %}
+       {% foo=i %}
+    {% endfor %}
+3. And again{# comment is invisible #} a fine line just below line 2.

@@ -5,13 +5,17 @@
 //  Created by Nat! on 28.02.13.
 //  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
 //
-#import "MulleScionObjectModel.h"
+#import "MulleScionObjectModel+Parsing.h"
 
 
 @interface MulleScionMacro ( MacroExpansion)
 
-- (NSDictionary *) parametersWithArguments:(NSArray *) arguments;
-- (MulleScionTemplate *) expandedBodyWithParameters:(NSDictionary *) parameters;
+- (NSDictionary *) parametersWithArguments:(NSArray *) arguments
+                                  fileName:(NSString *) fileName
+                                lineNumber:(NSUInteger) line;
+- (MulleScionTemplate *) expandedBodyWithParameters:(NSDictionary *) parameters
+                                           fileName:(NSString *) fileName
+                                         lineNumber:(NSUInteger) line;
 
 @end
 

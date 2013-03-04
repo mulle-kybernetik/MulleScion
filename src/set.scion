@@ -1,0 +1,6 @@
+Set is used to asssing values to variables. You may omit the Set keyword if you
+want.
+
+{% set foo = @"value" %}
+{{ foo }}
+

@@ -10,6 +10,8 @@
 
 #import "MulleScionDataSourceProtocol.h"
 #import "MulleScionOutputProtocol.h"
+#import "MulleScionPrinter.h"
+#import "MulleScionParser.h"
 
 
 /*

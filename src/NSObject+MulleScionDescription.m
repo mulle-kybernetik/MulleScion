@@ -8,6 +8,7 @@
 
 #import "NSObject+MulleScionDescription.h"
 #import "MulleObjCCompilerSettings.h"
+#import "MulleScionNull.h"
 
 
 NSString   *MulleScionDateFormatterKey        = @"MulleScionDateFormatter";
@@ -15,7 +16,7 @@ NSString   *MulleScionNumberFormatterKey      = @"MulleScionNumberFormatter";
 NSString   *MulleScionDateFormatKey           = @"MulleScionDateFormat";
 NSString   *MulleScionNumberFormatKey         = @"MulleScionNumberFormat";
 NSString   *MulleScionLocaleKey               = @"MulleScionLocale";
-NSString   *MulleScionNSNullDescriptionKey    = @"MulleScionNullDescription";
+NSString   *MulleScionNilDescriptionKey       = @"MulleScionNilDescription";
 NSString   *MulleScionStringLengthKey         = @"MulleScionStringLength";
 NSString   *MulleScionStringEllipsisKey       = @"MulleScionStringEllipsis";
 
@@ -39,7 +40,22 @@ extern void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionN
 {
    NSString  *s;
    
-   s = [context objectForKey:MulleScionNSNullDescriptionKey];
+   s = [context objectForKey:MulleScionNilDescriptionKey];
+   if( ! s)
+      return( @"");
+   return( [s mulleScionDescriptionWithLocalVariables:context]);
+}
+
+@end
+
+
+@implementation _MulleScionNull ( MulleScionDescription)
+
++ (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
+{
+   NSString  *s;
+   
+   s = [context objectForKey:MulleScionNilDescriptionKey];
    if( ! s)
       return( @"");
    return( [s mulleScionDescriptionWithLocalVariables:context]);

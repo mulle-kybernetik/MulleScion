@@ -1,0 +1,5 @@
+If you don't want to write objectAtIndex: and objectForKey: you can also use
+
+
+{{ bag[ "a" ] }}
+{{ list[ 1] }}

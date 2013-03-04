@@ -1,3 +1,6 @@
+Filter push the resultant text of template texts and expressions through a
+string filter. A filter has a corresponding endfilter to turn of filtering.
+
 {% filter uppercaseString %}
 This is filtered and pushed through uppercaseString.
    {% filter lowercaseString|capitalizedString %}
@@ -11,5 +14,3 @@ back to original.
 {% filter lowercaseString| [[self componentsSeparatedByString:@"/"] componentsJoinedByString:@"-"] %}
 THIS/IS/POSSIBLE
 {% endfilter %}
-
-

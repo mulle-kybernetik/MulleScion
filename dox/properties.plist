@@ -3,19 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Test</string>
+	<string>VfL Bochum 1848</string>
 	<key>count</key>
 	<integer>2</integer>
 	<key>when</key>
 	<date>2013-02-24T20:09:15Z</date>
-	<key>a</key>
-	<string>VfL Bochum 1848</string>
+	<key>test</key>
+	<string>Test</string>
+	<key>list</key>
+	<array>
+		<string>value for 0</string>
+		<string>value for 1</string>
+	</array>
 	<key>bag</key>
 	<dict>
 		<key>a</key>
-		<string>An A</string>
+		<string>value for a</string>
 		<key>b</key>
-		<string>{{</string>
+		<string>value for b</string>
 	</dict>
 </dict>
 </plist>

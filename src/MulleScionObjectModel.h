@@ -10,13 +10,17 @@
 #import"MulleObjCCompilerSettings.h"
 
 
+#ifndef MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
+# define MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
+#endif
+
 //
 // after template expansion a MulleScionObject won't be mutated
 // by MulleScion
 //
 @interface MulleScionObject : NSObject
 {
-@public
+MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
    MulleScionObject  *next_;
 @protected
    NSUInteger        lineNumber_;   // where the object was read from
@@ -25,7 +29,6 @@
 
 + (id) newWithLineNumber:(NSUInteger) nr;
 - (id) initWithLineNumber:(NSUInteger) nr;
-- (id) appendRetainedObject:(MulleScionObject *) NS_CONSUMED obj;
 
 - (BOOL) isTemplate;
 - (BOOL) isIdentifier;
@@ -54,15 +57,6 @@
 
 - (NSUInteger) lineNumber;
 
-- (MulleScionObject *) ownerOfBlockWithIdentifier:(NSString *) identifier;
-- (void) replaceOwnedBlockWith:(MulleScionObject *) replacement;
-- (MulleScionObject *) nextOwnerOfBlock;
-
-// hackish stuff for the parser
-- (MulleScionObject *) behead;
-- (MulleScionObject *) tail;
-- (NSUInteger) count;
-
 @end
 
 
@@ -80,7 +74,6 @@
 @interface MulleScionTemplate : MulleScionValueObject
 
 - (id) initWithFilename:(NSString *) s;
-- (void) expandBlocksUsingTable:(NSDictionary *) table;
 - (NSString *) fileName;
 
 @end
@@ -116,6 +109,10 @@
 @end
 
 
+@interface MulleScionSelector : MulleScionString
+@end
+
+
 @interface MulleScionArray : MulleScionExpression
 
 + (id) newWithArray:(NSArray *) s
@@ -138,23 +135,70 @@
 @end
 
 
-@interface MulleScionBinaryOperatorExpression : MulleScionExpression
-{
-   MulleScionExpression       *right_;
-}
-
-+ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
-             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
-                          lineNumber:(NSUInteger) nr;
+@interface MulleScionOperatorExpression : MulleScionExpression
 
 - (NSString *) operator;
 
 @end
 
 
+@interface MulleScionUnaryOperatorExpression : MulleScionOperatorExpression
+
++ (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED left
+                      lineNumber:(NSUInteger) nr;
+@end
+
+
+@interface MulleScionNot  : MulleScionUnaryOperatorExpression
+@end
+
+
+@interface MulleScionBinaryOperatorExpression : MulleScionOperatorExpression
+{
+   MulleScionExpression   *right_;
+}
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr;
+
+@end
+
+
+@interface MulleScionAnd  : MulleScionBinaryOperatorExpression
+@end
+
+@interface MulleScionOr   : MulleScionBinaryOperatorExpression
+@end
+
 @interface MulleScionPipe : MulleScionBinaryOperatorExpression
 @end
 
+@interface MulleScionIndexing : MulleScionBinaryOperatorExpression
+@end
+
+
+typedef enum
+{
+   MulleScionEqual,
+   MulleScionNotEqual,
+   MulleScionLessThan,
+   MulleScionGreaterThan,
+   MulleScionLessThanOrEqualTo,
+   MulleScionGreaterThanOrEqualTo
+} MulleScionComparisonOperator;
+
+
+@interface MulleScionComparison : MulleScionBinaryOperatorExpression
+{
+   MulleScionComparisonOperator  comparison_;
+}
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          comparison:(MulleScionComparisonOperator) op
+                          lineNumber:(NSUInteger) nr;
+@end
 
 // might go away, it's a kludge (for NSRange really)
 @interface MulleScionDot : MulleScionBinaryOperatorExpression
@@ -203,6 +247,21 @@
                   methodName:(NSString *) methodName
                    arguments:(NSArray *) arguments
                   lineNumber:(NSUInteger) nr;
+
+@end
+
+
+// 
+@interface MulleScionConditional : MulleScionExpression
+{
+   MulleScionExpression   *middle_;
+   MulleScionExpression   *right_;
+}
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+            retainedMiddleExpression:(MulleScionExpression *) NS_CONSUMED middle
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr;
 
 @end
 
@@ -282,12 +341,15 @@
 @interface MulleScionBlock : MulleScionCommand
 {
    NSString   *identifier_;
+   NSString   *fileName_;
 }
 
 + (id) newWithIdentifier:(NSString *) identifier
+                fileName:(NSString *) fileName
               lineNumber:(NSUInteger) nr;
 
 - (NSString *) identifier;
+- (NSString *) fileName;
 
 @end
 

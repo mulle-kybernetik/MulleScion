@@ -24,10 +24,13 @@
            fileName:(NSString *) fileName;
 
 - (MulleScionTemplate *) template;
+- (NSDictionary *) dependencyTable;
 
 - (void) parserErrorInFileName:(NSString *) fileName
                     lineNumber:(NSUInteger) lineNumber
                         reason:(NSString *) reason;
 - (NSString *) fileName;
+
+
 
 @end
