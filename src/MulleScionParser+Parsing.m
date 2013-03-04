@@ -1578,6 +1578,9 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_includes( parser *p, BO
    BOOL                   verbatim;
    NSString               *s;
 
+   if( p->inMacro)
+      parser_error( p, "no including or extending in macro");
+   
    verbatim = NO;
    parser_skip_whitespace( p);
    if( parser_peek_character( p) != '"')
@@ -1822,6 +1825,9 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSU
    NSString            *identifier;
    unsigned char       c;
    
+   if( p->inMacro)
+      parser_error( p, "no macro definitions in a macro definition.");
+   
    parser_skip_whitespace( p);
    identifier = parser_do_identifier( p);
    
@@ -1921,8 +1927,8 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    parser_skip_whitespace( p);
    
    op = parser_opcode_for_string( p, s);
-   if( p->inMacro && op != EndmacroOpcode)
-      parser_error( p, "no commands in macros");
+   //if( p->inMacro && op != EndmacroOpcode)
+   //   parser_error( p, "no commands in macros");
       
    switch( op)
    {
@@ -2061,11 +2067,8 @@ retry:
       next = parser_do_command( p);
       if( ! [next isTemplate])
          parser_finish_command( p);
-      if( p->inMacro)     // nil means, we have hit the {% endmacro %}
-      {
-         assert( ! next);
-         return( next);
-      }
+      if( ! next && p->inMacro)
+         return( nil);  // endmacro ...
       break;
    }
    

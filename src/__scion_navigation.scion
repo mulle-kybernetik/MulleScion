@@ -1,3 +1,4 @@
+{% includes "__scion_macros.scion" %}
 {% result = @() %}
 {% fileManager = [NSFileManager defaultManager] %}
 {% for file in [[fileManager directoryContentsAtPath:@"/tmp"] sortedArrayUsingSelector:@selector( compare:)] %}
@@ -6,13 +7,4 @@
   {%endif %}
 {% endfor %}
 {##}
-{% MulleScionForSubdivisionLength = 4 %}
-{% MulleScionForOpener = "	<tr><td>" %}
-{% MulleScionForSeparator = "</td><td>" %}
-{% MulleScionForCloser = "</td></tr>" %}
-{% MulleScionForSubdivisionOpener = MulleScionForOpener %}
-{% MulleScionForSubdivisionCloser = "</td></tr>
-" %}
-<table>
-{% for file in result %}{{ file#.header }}<a href="{{file}}?wrapper=_wrapper.scion">{{ [file isEqualToString:@"dot.scion"] ? @"." : [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
-</table>
+{{ html_file_list_table( file_list=result) }}

@@ -159,6 +159,7 @@ static void start_mongoose()
    {
       "document_root",   "/tmp",
       "listening_ports", "127.0.0.1:18048",
+      "num_threads", "1",
       NULL
    };
    /* Setup signal handler: quit on Ctrl-C */

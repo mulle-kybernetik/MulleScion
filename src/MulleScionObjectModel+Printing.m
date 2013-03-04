@@ -200,6 +200,10 @@ static void   MulleScionRenderString( NSString *value,
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
               forKey:MulleScionCurrentFileKey];
+
+   // hard to do in templates
+   [locals setObject:[NSNumber numberWithUnsignedLong:NSNotFound]
+              forKey:@"NSNotFound"];
    
    curr = self->next_;
    while( curr)

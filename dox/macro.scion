@@ -1,17 +1,21 @@
 A macro is a little like a block, but it can't be overridden. On the bright 
-side you can give a macro parameters. A block doesn't have that feature. 
-A macro is a compile time construct like a define. Here MulleScion deviates
-again from TWIG. There is no imports facility and you can only have
-expressions in macros. Why ? Because it makes a neat conceptual boundary,
-so you know when to use a block and when to use a macro.
+side you can give a macro parameters. Blocks are evaluated much later than 
+macros.
 
-Blocks are evaluated much later than macros.
+A macro is a compile time construct like a define. MulleScion deviates
+again from TWIG in that there is no imports facility.
 
 
-{% macro line( name, cellpadding) %}<tr cellpadding="{{ cellpadding }}"><td >{{ name }}</td></tr>{% endmacro %}
-
-This value {{ name }} is from properties file
-<table border=1>
-  {{ line( "xxx", 10) }}
+{% macro table( border, cellpadding, list) %}
+<table border="{{border}}" cellpadding="{{ cellpadding }}">
+ {% for i in list %}
+   <tr><td >{{ i }}</td></tr>
+ {% endfor %}
 </table>
-And it {{ name }} should now be as before the macro expansion
+{% endmacro %}
+
+This value {{ list }} is from the properties file
+
+{{ table( 1, 10, @( @"VfL", @"Bochum", @"1848")) }}
+
+And {{ list }} should now be as before the macro expansion

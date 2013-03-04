@@ -27,8 +27,8 @@ MulleScionTemplates is fairly flexible, reasonably fast and can be made as
                preprocessing capability.
 
 
-Using the MulleScionTemplates.framework. Creating a string from your object 
-using a template file is as easy as:
+Using the MulleScionTemplates.framework the creation of a string from your 
+object using a template file is as easy as:
 
  NSString  *output;
  

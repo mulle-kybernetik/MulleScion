@@ -9,23 +9,12 @@
 
 
 {% block scion_navigation_extension %}
-
-{% dependencyTable = [MulleScionTemplate dependencyTableOfFile:"{$ WRAPPED_TEMPLATE $}"] %}
-{% value = dependencyTable[ "{$ WRAPPED_TEMPLATE $}"] %}
-{% if [value count] %}
- {% result = [[value allObjects] sortedArrayUsingSelector:@selector( compare:)] %}
-{##}
-{% MulleScionForSubdivisionLength = 4 %}
-{% MulleScionForOpener = "	<tr><td>" %}
-{% MulleScionForSeparator = "</td><td>" %}
-{% MulleScionForCloser = "</td></tr>" %}
-{% MulleScionForSubdivisionOpener = MulleScionForOpener %}
-{% MulleScionForSubdivisionCloser = "</td></tr>
-" %}
-<hr>
-<table>
-{% for file in result %}{{ file#.header }}<a href="{{file}}?wrapper=_wrapper.scion">{{ [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
-</table>
-{% endif %}
-
+ {##}
+ {% dependencyTable = [MulleScionTemplate dependencyTableOfFile:"{$ WRAPPED_TEMPLATE $}"] %}
+ {% value          = dependencyTable[ "{$ WRAPPED_TEMPLATE $}"] %}
+ {% if [value count] %}
+  <hr>
+  {% result = [[value allObjects] sortedArrayUsingSelector:@selector( compare:)] %}
+  {{ html_file_list_table( file_list=result) }}
+ {% endif %}
 {% endblock %}
