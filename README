@@ -48,8 +48,8 @@ in dox, when copied to /tmp. Virtually all the documentation is contained in
 those example .scion templates in the dox folder. For each command or feature 
 there should be a separate template file that documents it.
 
-The documentation is not very good, actually they are just more or less test
-cases with comments...
+The documentation is not very good, actually it is just more or less a 
+collection of test cases with comments...
 
 MulleScion is very similar to TWIG, so you can glean much of relevance from 
 http://twig.sensiolabs.org. If you see a feature in
@@ -84,3 +84,6 @@ AUTHOR
 =============
 Coded by Nat!
 2013 Mulle kybernetiK
+
+Mongoose Webserver by
+Sergey Lyubka 

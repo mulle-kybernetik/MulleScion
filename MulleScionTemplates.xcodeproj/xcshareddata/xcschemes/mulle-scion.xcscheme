@@ -71,6 +71,14 @@
             argument = "-w"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./dox/~stress-macro.scion"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "none"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
