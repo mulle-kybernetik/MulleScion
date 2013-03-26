@@ -193,15 +193,31 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
          return( [self descriptionWithLocale:locale]);
    
       formatter = [[NSNumberFormatter new] autorelease];
-      if( [NSDateFormatter defaultFormatterBehavior] == 1000)
+#if ! TARGET_OS_IPHONE
+      if( [NSNumberFormatter defaultFormatterBehavior] == 1000)
          [formatter setLocalizesFormat:YES];
       else
+#endif
          formatter = [[NSNumberFormatter new] autorelease];
       
       [context setObject:formatter
                   forKey:MulleScionNumberFormatterKey];
    }
+#if ! TARGET_OS_IPHONE
    [formatter setFormat:format];
+#else
+   {
+      NSArray   *components;
+      
+      components = [format componentsSeparatedByString:@";"];
+      if( [components count] == 3)
+      {
+         [formatter setPositiveFormat:[components objectAtIndex:0]];
+         [formatter setZeroSymbol:[components objectAtIndex:1]];
+         [formatter setNegativeFormat:[components objectAtIndex:2]];
+      }
+   }
+#endif
    [formatter setLocale:locale];
    return( [formatter stringFromNumber:self]);
 }
@@ -225,6 +241,7 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
       if( ! format)
          return( [self descriptionWithLocale:locale]);
       
+#if ! TARGET_OS_IPHONE
       if( [NSDateFormatter defaultFormatterBehavior] == 1000)
       {
          // preferred for strftime compatibility
@@ -232,6 +249,7 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
                                              allowNaturalLanguage:YES] autorelease];
       }
       else
+#endif
          formatter = [[NSDateFormatter new] autorelease];
       [context setObject:formatter
                   forKey:MulleScionDateFormatterKey];

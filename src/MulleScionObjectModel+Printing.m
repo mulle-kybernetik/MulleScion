@@ -42,8 +42,12 @@
 #import "MulleScionPrintingException.h"
 #import "MulleScionDataSourceProtocol.h"
 #import "NSObject+MulleScionDescription.h"
-#import <Foundation/NSDebug.h>
-#import <objc/objc-class.h>
+#if ! TARGET_OS_IPHONE
+# import <Foundation/NSDebug.h>
+# import <objc/objc-class.h>
+#else
+# import <objc/runtime.h>
+#endif
 
 
 NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";

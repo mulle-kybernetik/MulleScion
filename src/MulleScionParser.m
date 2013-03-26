@@ -40,8 +40,9 @@
 #import "MulleScionParser+Parsing.h"
 #import "MulleScionObjectModel+Parsing.h"
 #import "MulleScionObjectModel+BlockExpansion.h"
-#import <Foundation/NSDebug.h>
-
+#if ! TARGET_OS_IPHONE
+# import <Foundation/NSDebug.h>
+#endif
 
 @implementation MulleScionParser
 

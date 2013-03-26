@@ -57,8 +57,13 @@
    id                 copy;
    
    pool = [NSAutoreleasePool new];
+#if TARGET_OS_IPHONE  // much slower...
+   data = [NSKeyedArchiver archivedDataWithRootObject:self];
+   copy = [[NSKeyedUnarchiver unarchiveObjectWithData:data] retain];
+#else
    data = [NSArchiver archivedDataWithRootObject:self];
    copy = [[NSUnarchiver unarchiveObjectWithData:data] retain];
+#endif
    [pool release];
    
    return( copy);

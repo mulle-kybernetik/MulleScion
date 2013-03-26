@@ -163,7 +163,11 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
       return( nil);
 #endif
    }
+#if TARGET_OS_IPHONE  // much slower...
+   return( [[NSKeyedUnarchiver unarchiveObjectWithData:data] retain]);
+#else
    return( [[NSUnarchiver unarchiveObjectWithData:data] retain]);
+#endif
 }
 
 
@@ -195,7 +199,12 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    
    pool    = [NSAutoreleasePool new];
    
+#if TARGET_OS_IPHONE  // probably much slower...
+   payload = [NSKeyedArchiver archivedDataWithRootObject:self];
+#else
    payload = [NSArchiver archivedDataWithRootObject:self];
+#endif
+
    length  = [payload length];
 #if HAVE_ZLIB
    payload = [payload compressedDataUsingZLib];
