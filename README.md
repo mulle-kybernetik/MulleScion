@@ -9,7 +9,6 @@ It's **heavily** (very heavily) inspired by
 [TWIG]("http://twig.sensiolabs.org/") "The flexible, fast, and secure template engine for PHP"
 
 
-
 *MulleScionTemplates* is fairly flexible, reasonably fast and can be made as
  secure as you wish. 
 
@@ -27,6 +26,18 @@ Fast** :      *MulleScionTemplates* can compile templates into a compressed arch
                "builtin" fuctions. A template can (if allowed) execute 
                arbitrary ObjC code. MulleScion has a powerful define like 
                preprocessing capability and macros to expand your template vocabulary.
+
+
+MulleScionTemplates are beautiful (hello Jinja :) :
+
+	{% extends "layout.html" %}
+	{% block body %}
+ 	 <ul>
+ 	 {% for user in users %}
+  	  <li><a href="{{ user.url }}">{{ user.username }}</a></li>
+  	 {% endfor %}
+  	 </ul>
+	{% endblock %}
 
 
 Using the MulleScionTemplates.framework the creation of a string from your 
