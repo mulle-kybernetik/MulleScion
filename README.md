@@ -8,10 +8,9 @@ It's **heavily** (very heavily) inspired by
 
 [TWIG]("http://twig.sensiolabs.org/") "The flexible, fast, and secure template engine for PHP"
 
-
 *MulleScionTemplates* is fairly flexible, reasonably fast and can be made as
  secure as you wish. 
-
+ 
 * **Reasonably 
 Fast** :      *MulleScionTemplates* can compile templates into a compressed archive 
                format. Loading such an archive is lots faster than parsing. A 
@@ -19,25 +18,33 @@ Fast** :      *MulleScionTemplates* can compile templates into a compressed arch
                render different output from different input.
 
 * **Secure** :   *MulleScionTemplates* has hooks so your application can ensure that 
-               untrusted template code doesn't have access to all of the input 
+               untrusted template code doesn't have access to all of the applications 
                data.
 
 * **Flexible** :    There is the possibility of extending KVC and writing your own
                "builtin" fuctions. A template can (if allowed) execute 
                arbitrary ObjC code. MulleScion has a powerful define like 
                preprocessing capability and macros to expand your template vocabulary.
-
-
-MulleScionTemplates are beautiful (hello Jinja :) :
-
-	{% extends "layout.html" %}
-	{% block body %}
- 	 <ul>
- 	 {% for user in users %}
-  	  <li><a href="{{ user.url }}">{{ user.username }}</a></li>
-  	 {% endfor %}
-  	 </ul>
-	{% endblock %}
+               
+Here is a simple example, where ObjC code is embedded in a template:
+ 
+ 	<html>
+	<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on {{ [NSDate date]] }} -->
+	<body>
+	{% for item in [NSTimeZone knownTimeZoneNames] %}
+	    {% if item#.isFirst %}
+	<table>
+	   <tr><th>TimeZone</th></tr>
+	    {% endif %}	
+	   <tr><td>{{ item }}</td></tr>
+	    {% if item#.isLast %}
+	</table>
+	    {% endif %}
+	{% else %}
+	Sorry, no timezone info available.
+	{% endfor %}
+	</body>
+	</html>
 
 
 Using the MulleScionTemplates.framework the creation of a string from your 

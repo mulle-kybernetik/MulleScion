@@ -3,7 +3,7 @@ included normal template parsing is suspended and only blocks and other
 includes and extends statements are processed.
 
 Whenever a block is found in this state, the block is recorded for later
-substitution of previous read blocks in the non-suspended state. The last read
+substitution of previously read blocks in the non-suspended state. The last read
 block therefore wins. This in effect provides a form of template inheritance.
 
 Whenever another "extends" command is found. Regular template processing resumes

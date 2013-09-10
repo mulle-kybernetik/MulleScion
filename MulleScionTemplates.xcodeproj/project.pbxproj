@@ -524,6 +524,7 @@
 		41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+MulleMongoose.m"; sourceTree = "<group>"; };
 		41DD56BC16E4145000C4D68A /* NSString+HTMLEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTMLEscape.h"; sourceTree = "<group>"; };
 		41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTMLEscape.m"; sourceTree = "<group>"; };
+		41DEE8A117DF22190042A439 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		41EA51A516E4E42A00D3B0AD /* includes.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = includes.scion; sourceTree = "<group>"; };
 		41EA51A716E4E61A00D3B0AD /* block.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = block.scion; sourceTree = "<group>"; };
 		41EA51A816E4E63500D3B0AD /* set.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = set.scion; sourceTree = "<group>"; };
@@ -635,6 +636,7 @@
 		41764B8316DA511200560FCF = {
 			isa = PBXGroup;
 			children = (
+				41DEE8A117DF22190042A439 /* README.md */,
 				414A842816E52DF50084AE1E /* LICENSE */,
 				41764B9116DA511200560FCF /* src */,
 				41764B8E16DA511200560FCF /* Frameworks */,

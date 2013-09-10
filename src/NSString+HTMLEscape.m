@@ -52,7 +52,7 @@ static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
 }
 
 // this is not a good idea, remove this before release
-- (NSString *) htmlEscapedString;
+- (NSString *) htmlEscapedString
 {
    unichar         c;
    unichar         *src;
