@@ -1,0 +1,259 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		418118DA17E0AB9E00CF2B4D /* test.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC017E0A92F00E0F019 /* test.plist */; };
+		418118DB17E0ABA200CF2B4D /* test.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC117E0A94E00E0F019 /* test.scion */; };
+		41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CB017E0A88900E0F019 /* Foundation.framework */; };
+		41820CB417E0A88900E0F019 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41820CB317E0A88900E0F019 /* main.m */; };
+		41820CBF17E0A8BA00E0F019 /* MulleScionTemplates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		418118D917E0AB9300CF2B4D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /tmp;
+			dstSubfolderSpec = 0;
+			files = (
+				418118DA17E0AB9E00CF2B4D /* test.plist in CopyFiles */,
+				418118DB17E0ABA200CF2B4D /* test.scion in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41820CAB17E0A88900E0F019 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		41820CAD17E0A88900E0F019 /* minimal-mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "minimal-mulle-scion"; path = "/Volumes/Source/srcM/Tests/minimal-mulle-scion/build/Release/minimal-mulle-scion"; sourceTree = "<absolute>"; };
+		41820CB017E0A88900E0F019 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		41820CB317E0A88900E0F019 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MulleScionTemplates.framework; sourceTree = "<group>"; };
+		41820CC017E0A92F00E0F019 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
+		41820CC117E0A94E00E0F019 /* test.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.scion; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41820CAA17E0A88900E0F019 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */,
+				41820CBF17E0A8BA00E0F019 /* MulleScionTemplates.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41820CA417E0A88900E0F019 = {
+			isa = PBXGroup;
+			children = (
+				41820CB217E0A88900E0F019 /* minimal-mulle-scion */,
+				41820CAF17E0A88900E0F019 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		41820CAF17E0A88900E0F019 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */,
+				41820CB017E0A88900E0F019 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		41820CB217E0A88900E0F019 /* minimal-mulle-scion */ = {
+			isa = PBXGroup;
+			children = (
+				41820CB317E0A88900E0F019 /* main.m */,
+				41820CB517E0A88900E0F019 /* Supporting Files */,
+			);
+			path = "minimal-mulle-scion";
+			sourceTree = "<group>";
+		};
+		41820CB517E0A88900E0F019 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				41820CC017E0A92F00E0F019 /* test.plist */,
+				41820CC117E0A94E00E0F019 /* test.scion */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41820CAC17E0A88900E0F019 /* minimal-mulle-scion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41820CBB17E0A88900E0F019 /* Build configuration list for PBXNativeTarget "minimal-mulle-scion" */;
+			buildPhases = (
+				41820CA917E0A88900E0F019 /* Sources */,
+				41820CAA17E0A88900E0F019 /* Frameworks */,
+				41820CAB17E0A88900E0F019 /* CopyFiles */,
+				418118D917E0AB9300CF2B4D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "minimal-mulle-scion";
+			productName = "minimal-mulle-scion";
+			productReference = 41820CAD17E0A88900E0F019 /* minimal-mulle-scion */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41820CA517E0A88900E0F019 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Mulle kybernetiK";
+			};
+			buildConfigurationList = 41820CA817E0A88900E0F019 /* Build configuration list for PBXProject "minimal-mulle-scion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 41820CA417E0A88900E0F019;
+			productRefGroup = 41820CA417E0A88900E0F019;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41820CAC17E0A88900E0F019 /* minimal-mulle-scion */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41820CA917E0A88900E0F019 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41820CB417E0A88900E0F019 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		41820CB917E0A88900E0F019 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		41820CBA17E0A88900E0F019 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		41820CBC17E0A88900E0F019 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		41820CBD17E0A88900E0F019 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41820CA817E0A88900E0F019 /* Build configuration list for PBXProject "minimal-mulle-scion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41820CB917E0A88900E0F019 /* Debug */,
+				41820CBA17E0A88900E0F019 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41820CBB17E0A88900E0F019 /* Build configuration list for PBXNativeTarget "minimal-mulle-scion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41820CBC17E0A88900E0F019 /* Debug */,
+				41820CBD17E0A88900E0F019 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41820CA517E0A88900E0F019 /* Project object */;
+}

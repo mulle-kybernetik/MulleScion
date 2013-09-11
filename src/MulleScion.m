@@ -85,6 +85,57 @@
 }
 
 
+static id   acquirePropertyList( NSString *s)
+{
+   NSData    *data;
+   NSString  *error;
+   id        plist;
+   
+   data  = [NSData dataWithContentsOfFile:s];
+   if( ! data)
+   {
+      NSLog( @"failed to open: %@", s);
+      return( data);
+   }
+   
+   error = nil;
+   plist = [NSPropertyListSerialization propertyListFromData:data
+                                            mutabilityOption:NSPropertyListImmutable
+                                                      format:NULL
+                                            errorDescription:&error];
+   if( ! plist)
+      NSLog( @"property list failure: %@", error);
+   return( plist);
+}
+
+
++ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
+                          propertyListFile:(NSString *) plistFileName
+                            localVariables:(NSDictionary *) locals
+{
+   MulleScionTemplate   *template;
+   id                    plist;
+   
+   template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
+   if( ! template)
+      return( nil);
+   plist = acquirePropertyList( plistFileName);
+   if( ! plist)
+      return( nil);
+   return( [template descriptionWithDataSource:plist
+                                localVariables:(NSDictionary *) locals]);
+}
+
+
++ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
+                          propertyListFile:(NSString *) plistFileName
+{
+   return( [self descriptionWithTemplateFile:fileName
+                            propertyListFile:plistFileName
+                              localVariables:nil]);
+}
+
+
 - (id) initWithContentsOfFile:(NSString *) fileName
 {
    MulleScionParser   *parser;
