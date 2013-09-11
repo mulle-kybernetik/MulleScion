@@ -90,7 +90,7 @@
    NSParameterAssert( [template isKindOfClass:[MulleScionTemplate class]]);
 
    locals = [NSMutableDictionary dictionaryWithDictionary:defaultlocals_];
-   
+   NSParameterAssert( locals);  // could raise if Apple starts hating on nil
    [template renderInto:output
          localVariables:locals
              dataSource:dataSource_];

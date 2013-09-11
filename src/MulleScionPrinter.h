@@ -44,8 +44,8 @@
 
 @interface MulleScionPrinter : NSObject
 {
-   id                   dataSource_;
-   NSMutableDictionary  *defaultlocals_;
+   id            dataSource_;
+   NSDictionary  *defaultlocals_;
 }
 
 - (id) initWithDataSource:(id) dataSource;

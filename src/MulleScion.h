@@ -61,6 +61,9 @@
                           localVariables:(NSDictionary *) locals;
 
 + (NSString *) descriptionWithTemplateFile:(NSString *) fileName
+                                dataSource:(id <MulleScionDataSource>) dataSource;
+
++ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
                                 dataSource:(id <MulleScionDataSource>) dataSource
                             localVariables:(NSDictionary *) locals;
 

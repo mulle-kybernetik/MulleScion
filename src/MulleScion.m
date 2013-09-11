@@ -76,6 +76,15 @@
 }
 
 
++ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
+                                dataSource:(id <MulleScionDataSource>) dataSource
+{
+   return( [self descriptionWithTemplateFile:fileName
+                                  dataSource:dataSource
+                              localVariables:nil]);
+}
+
+
 - (id) initWithContentsOfFile:(NSString *) fileName
 {
    MulleScionParser   *parser;

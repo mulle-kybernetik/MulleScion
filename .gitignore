@@ -4,3 +4,4 @@ MulleScionTemplates.xcodeproj/xcuserdata
 *.pch
 *~
 Build
+*.gz
