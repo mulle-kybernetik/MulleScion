@@ -41,6 +41,7 @@
 #import "MulleScionOutputProtocol.h"
 #import "MulleScionPrinter.h"
 #import "MulleScionParser.h"
+#import "MulleScionParser+Parsing.h"
 
 
 /*

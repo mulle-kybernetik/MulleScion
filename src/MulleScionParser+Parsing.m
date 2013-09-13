@@ -1512,7 +1512,7 @@ static char  *parser_best_match_for_string( parser *p, NSString *s)
 }
 
 
-// grabs a whole block and puts it into the table
+// grabs a whole block and put it into the table
 static void  parser_do_whole_block_to_block_table( parser *p)
 {
    MulleScionBlock      *block;

@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		418118DA17E0AB9E00CF2B4D /* test.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC017E0A92F00E0F019 /* test.plist */; };
-		418118DB17E0ABA200CF2B4D /* test.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC117E0A94E00E0F019 /* test.scion */; };
+		418118DB17E0ABA200CF2B4D /* ptest.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC117E0A94E00E0F019 /* ptest.scion */; };
 		41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CB017E0A88900E0F019 /* Foundation.framework */; };
 		41820CB417E0A88900E0F019 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41820CB317E0A88900E0F019 /* main.m */; };
-		41820CBF17E0A8BA00E0F019 /* MulleScionTemplates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */; };
+		41F2D88817E3357600E00498 /* MulleScionTemplates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F2D88717E3357600E00498 /* MulleScionTemplates.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -21,8 +20,7 @@
 			dstPath = /tmp;
 			dstSubfolderSpec = 0;
 			files = (
-				418118DA17E0AB9E00CF2B4D /* test.plist in CopyFiles */,
-				418118DB17E0ABA200CF2B4D /* test.scion in CopyFiles */,
+				418118DB17E0ABA200CF2B4D /* ptest.scion in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -31,10 +29,9 @@
 /* Begin PBXFileReference section */
 		41820CB017E0A88900E0F019 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		41820CB317E0A88900E0F019 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MulleScionTemplates.framework; sourceTree = "<group>"; };
-		41820CC017E0A92F00E0F019 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
-		41820CC117E0A94E00E0F019 /* test.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.scion; sourceTree = "<group>"; };
-		419966FA17E0B1180088EA83 /* minimal-mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "minimal-mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41820CC117E0A94E00E0F019 /* ptest.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ptest.scion; sourceTree = "<group>"; };
+		419966FA17E0B1180088EA83 /* protected-mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "protected-mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41F2D88717E3357600E00498 /* MulleScionTemplates.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MulleScionTemplates.framework; path = ../Build/Products/Debug/MulleScionTemplates.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +40,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */,
-				41820CBF17E0A8BA00E0F019 /* MulleScionTemplates.framework in Frameworks */,
+				41F2D88817E3357600E00498 /* MulleScionTemplates.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,35 +50,34 @@
 		41820CA417E0A88900E0F019 = {
 			isa = PBXGroup;
 			children = (
-				41820CB217E0A88900E0F019 /* minimal-mulle-scion */,
+				41820CB217E0A88900E0F019 /* protected-mulle-scion */,
 				41820CAF17E0A88900E0F019 /* Frameworks */,
-				419966FA17E0B1180088EA83 /* minimal-mulle-scion */,
+				419966FA17E0B1180088EA83 /* protected-mulle-scion */,
 			);
 			sourceTree = "<group>";
 		};
 		41820CAF17E0A88900E0F019 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */,
+				41F2D88717E3357600E00498 /* MulleScionTemplates.framework */,
 				41820CB017E0A88900E0F019 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		41820CB217E0A88900E0F019 /* minimal-mulle-scion */ = {
+		41820CB217E0A88900E0F019 /* protected-mulle-scion */ = {
 			isa = PBXGroup;
 			children = (
 				41820CB317E0A88900E0F019 /* main.m */,
 				41820CB517E0A88900E0F019 /* Supporting Files */,
 			);
-			path = "minimal-mulle-scion";
+			path = "protected-mulle-scion";
 			sourceTree = "<group>";
 		};
 		41820CB517E0A88900E0F019 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				41820CC017E0A92F00E0F019 /* test.plist */,
-				41820CC117E0A94E00E0F019 /* test.scion */,
+				41820CC117E0A94E00E0F019 /* ptest.scion */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -89,9 +85,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		41820CAC17E0A88900E0F019 /* minimal-mulle-scion */ = {
+		41820CAC17E0A88900E0F019 /* protected-mulle-scion */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 41820CBB17E0A88900E0F019 /* Build configuration list for PBXNativeTarget "minimal-mulle-scion" */;
+			buildConfigurationList = 41820CBB17E0A88900E0F019 /* Build configuration list for PBXNativeTarget "protected-mulle-scion" */;
 			buildPhases = (
 				41820CA917E0A88900E0F019 /* Sources */,
 				41820CAA17E0A88900E0F019 /* Frameworks */,
@@ -101,9 +97,9 @@
 			);
 			dependencies = (
 			);
-			name = "minimal-mulle-scion";
+			name = "protected-mulle-scion";
 			productName = "minimal-mulle-scion";
-			productReference = 419966FA17E0B1180088EA83 /* minimal-mulle-scion */;
+			productReference = 419966FA17E0B1180088EA83 /* protected-mulle-scion */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -115,7 +111,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Mulle kybernetiK";
 			};
-			buildConfigurationList = 41820CA817E0A88900E0F019 /* Build configuration list for PBXProject "minimal-mulle-scion" */;
+			buildConfigurationList = 41820CA817E0A88900E0F019 /* Build configuration list for PBXProject "protected-mulle-scion" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -127,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				41820CAC17E0A88900E0F019 /* minimal-mulle-scion */,
+				41820CAC17E0A88900E0F019 /* protected-mulle-scion */,
 			);
 		};
 /* End PBXProject section */
@@ -207,8 +203,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Build/Products/Debug\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "protected-mulle-scion";
 			};
 			name = Debug;
 		};
@@ -218,15 +215,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Build/Products/Debug\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "protected-mulle-scion";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		41820CA817E0A88900E0F019 /* Build configuration list for PBXProject "minimal-mulle-scion" */ = {
+		41820CA817E0A88900E0F019 /* Build configuration list for PBXProject "protected-mulle-scion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				41820CB917E0A88900E0F019 /* Debug */,
@@ -235,7 +233,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		41820CBB17E0A88900E0F019 /* Build configuration list for PBXNativeTarget "minimal-mulle-scion" */ = {
+		41820CBB17E0A88900E0F019 /* Build configuration list for PBXNativeTarget "protected-mulle-scion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				41820CBC17E0A88900E0F019 /* Debug */,

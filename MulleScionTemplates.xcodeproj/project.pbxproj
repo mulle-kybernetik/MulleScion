@@ -853,8 +853,8 @@
 				41D6DF8E16DE5415004833D6 /* NSData+ZLib.h in Headers */,
 				410C7FD816E0D85800DC2465 /* MulleScionObjectModel+MacroExpansion.h in Headers */,
 				410C7FD716E0D85500DC2465 /* MulleScionObjectModel+BlockExpansion.h in Headers */,
-				41D6DF8D16DE5415004833D6 /* MulleScionParser+Parsing.h in Headers */,
 				410C7FD916E0D85E00DC2465 /* MulleScionObjectModel+Parsing.h in Headers */,
+				41D6DF8D16DE5415004833D6 /* MulleScionParser+Parsing.h in Headers */,
 				41D6DF8A16DE5415004833D6 /* NSValue+CheatAndHack.h in Headers */,
 				41D6DF8F16DE5415004833D6 /* MulleScionObjectModel+Description.h in Headers */,
 			);

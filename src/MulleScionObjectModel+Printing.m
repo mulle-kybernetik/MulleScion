@@ -826,7 +826,6 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 @implementation MulleScionTerminator ( Printing)
 
-
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
@@ -835,7 +834,6 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
    MulleScionPrintingException( NSInternalInconsistencyException, locals, @"stray %@ in template", [self commandName]);
 }
-
 
 @end
 
