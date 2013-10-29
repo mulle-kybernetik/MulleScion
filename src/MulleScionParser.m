@@ -114,21 +114,25 @@
    template = [[self templateParsedWithBlockTable:blockTable] retain];
    [pool release];
 
-#ifndef DEBUG
+#if ! TARGET_OS_IPHONE
+# ifndef DEBUG
    if( NSDebugEnabled)
-#endif
+# endif
       if( [template respondsToSelector:@selector( mulleScionDescription)])
          NSLog( @"Parsed Template:\n%@", [template count] <= 1848 ? template : @"too large to print");
+#endif
    
    pool = [NSAutoreleasePool new];
    [template expandBlocksUsingTable:blockTable];
    [pool release];
    
-#ifndef DEBUG
+#if ! TARGET_OS_IPHONE
+# ifndef DEBUG
    if( NSDebugEnabled)
-#endif
+# endif
       if( [template respondsToSelector:@selector( mulleScionDescription)])
          NSLog( @"Template after block expansion:\n%@", [template count] <= 1848 ? template : @"too large to print");
+#endif
    
    [outer release];
    return( [template autorelease]);
