@@ -56,6 +56,8 @@
  */
 @interface MulleScionTemplate ( Convenience)
 
+// use initWithContentsOfArchive for scionz files
+
 - (id) initWithContentsOfFile:(NSString *) fileName;  // template
 
 - (NSString *) descriptionWithDataSource:(id) dataSource

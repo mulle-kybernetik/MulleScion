@@ -1,0 +1,15 @@
+Mac OS X
+========
+sudo chmod 777 /Library/Frameworks
+xcodebuild -scheme mulle-scion 
+
+
+iOS X
+=====
+Get https://github.com/kstenerud/iOS-Universal-Framework and
+install "Real Framework".
+
+xcodebuild -scheme "MulleScionTemplates (iOS Framework)"
+
+copy resulting framework to your project. Don't forget to force_load it.
+

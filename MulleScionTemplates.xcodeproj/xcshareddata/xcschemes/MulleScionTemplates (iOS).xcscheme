@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "41D6DF5B16DE53AE004833D6"
-               BuildableName = "MulleScionTemplates.framework"
-               BlueprintName = "MulleScionTemplates"
+               BlueprintIdentifier = "410300711701DBE200197713"
+               BuildableName = "libMulleScionTemplates.a"
+               BlueprintName = "MulleScionTemplates (iOS)"
                ReferencedContainer = "container:MulleScionTemplates.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
