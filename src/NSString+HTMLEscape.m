@@ -51,6 +51,7 @@ static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
    return( dst);
 }
 
+
 // this is not a good idea, remove this before release
 - (NSString *) htmlEscapedString
 {

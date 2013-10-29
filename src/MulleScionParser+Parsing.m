@@ -215,6 +215,9 @@ static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
 }
 
 
+# pragma mark -
+# pragma mark Tokenizing 
+
 static inline void   parser_memorize( parser *p, parser_memo *memo)
 {
    memo->curr       = p->curr;
@@ -763,6 +766,9 @@ static inline unsigned char   parser_next_character( parser *p)
 }
 
 
+# pragma mark -
+# pragma mark Simple Expressions
+
 static NSString  *parser_do_key_path( parser *p)
 {
    NSString   *s;
@@ -820,6 +826,8 @@ static NSString  *parser_do_string( parser *p)
    return( s ? s : @"");
 }
 
+# pragma mark -
+# pragma mark Expressions
 
 static MulleScionExpression * NS_RETURNS_RETAINED  parser_do_expression( parser *p);
 
@@ -2122,6 +2130,9 @@ retry:
    return( owner);
 }
 
+
+# pragma mark -
+# pragma mark External Interface (API)
 
 - (void) parseData:(NSData *) data
     intoRootObject:(MulleScionObject *) root
