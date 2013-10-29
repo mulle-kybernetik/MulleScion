@@ -1,0 +1,10 @@
+self in a pipe or a dot expression is the result of the incoming string
+
+{{ @"xxx" | [self uppercaseString] }}
+
+otherwise it is a synonym for the datasource
+
+{{ [self valueForKey:@"name"] }} == {{ name }} == {{ self.name }}
+
+
+

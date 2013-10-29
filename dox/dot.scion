@@ -1,6 +1,10 @@
 Dots between identifiers without spaces are your usual key value coding 
-keypath. If you leave spaces between the dots, the functionality expands, so
-that you can interpose arbitrary Object
+keypath. 
+
+{{ bag.a }}
+
+If you leave spaces between the dots, the functionality expands, so
+that you can interpose arbitrary objects
 
 {# Then you can also interpose methods if you want  #}
 {% z = [NSDictionary dictionaryWithObject:@"VfL Bochum 1848" forKey:@"c"] %}

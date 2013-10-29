@@ -578,7 +578,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    NSParameterAssert( [locals isKindOfClass:[NSMutableDictionary class]]);
    
-   original     = nil;
+   original = nil;
    if( [value_ isIdentifier])
       original = [(MulleScionVariable *) value_ identifier];
    
@@ -1227,7 +1227,6 @@ static BOOL  isTrue( id value)
 @end
 
 
-
 @implementation MulleScionComparison ( Printing)
 
 - (id) evaluateValue:(id) value
@@ -1497,7 +1496,7 @@ static BOOL  isTrue( id value)
       }
       
       identifier = [(MulleScionVariable *) self->right_ identifier];
-      result      = [value mulleScionValueForKeyPath:identifier
+      result     = [value mulleScionValueForKeyPath:identifier
                                      localVariables:locals];
       if( ! result)
          result = MulleScionNull;

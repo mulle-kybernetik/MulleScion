@@ -43,7 +43,8 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "${PROJECT_DIR}"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -72,11 +73,11 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./dox/~stress-macro.scion"
+            argument = "./dox/self.scion"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "none"
+            argument = "./dox/properties.plist"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>

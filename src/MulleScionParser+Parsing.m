@@ -1126,13 +1126,15 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    int                   hasAt;
    
    parser_skip_whitespace( p);
-   c = parser_peek_character( p);
+
+   c     = parser_peek_character( p);
    hasAt = (c == '@');
    if( hasAt)  // skip adorning '@'s
    {
       parser_next_character( p);
       c = parser_peek_character( p);
    }
+   
    switch( c)
    {
    case '!' : parser_next_character( p);
@@ -1153,6 +1155,8 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    
    // this laymes
    s = parser_do_key_path( p);
+   while( [s hasPrefix:@"self."])
+      s = [s substringFromIndex:5];
    if( [s isEqualToString:@"nil"])
       return( [MulleScionNumber newWithNumber:nil
                                    lineNumber:p->memo.lineNumber]);
