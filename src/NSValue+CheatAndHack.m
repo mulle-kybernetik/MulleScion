@@ -34,8 +34,7 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-
-#import "NSValue+CheatAndHack.h"
+#import <Foundation/Foundation.h>
 
 
 // this is not very pretty, may screw up programs who depend on NSValue
@@ -56,6 +55,7 @@
    [self getValue:&range];
    return( range.location);
 }
+
 
 - (NSUInteger) length
 {
