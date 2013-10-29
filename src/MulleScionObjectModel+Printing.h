@@ -60,3 +60,10 @@ extern NSString   *MulleScionForCloserKey;
 extern NSString   *MulleScionEvenKey;
 extern NSString   *MulleScionOddKey;
 
+
+@interface MulleScionTemplate ( Printing)
+
+- (NSMutableDictionary *) localVariablesWithDefaultValues:(NSDictionary *) defaults;
+
+@end
+

@@ -113,27 +113,6 @@ NSString   *MulleScionOddKey                  = @"MulleScionOdd";
 }
 
 
-static void   initLineNumber( MulleScionObject *self, NSMutableDictionary *locals)
-{
-   MulleMutableLineNumber   *nr;
-   
-   nr = [MulleMutableLineNumber new];
-   [locals setObject:nr
-              forKey:MulleScionCurrentLineKey];
-   [nr release];
-}
-
-
-static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *locals)
-{
-   MulleMutableLineNumber   *nr;
-   
-   // linenumber is trusted and not funneled
-   nr = [locals objectForKey:MulleScionCurrentLineKey];
-   [nr setUnsignedInteger:self->lineNumber_];
-}
-
-
 static void   pushFileName( NSMutableDictionary *locals, NSString *filename)
 {
    NSMutableArray   *stack;
@@ -211,6 +190,42 @@ static void   MulleScionRenderString( NSString *value,
 
 @implementation MulleScionTemplate ( Printing)
 
+
+static void   initLineNumber( NSMutableDictionary *locals)
+{
+   MulleMutableLineNumber   *nr;
+   
+   nr = [MulleMutableLineNumber new];
+   [locals setObject:nr
+              forKey:MulleScionCurrentLineKey];
+   [nr release];
+}
+
+
+static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *locals)
+{
+   MulleMutableLineNumber   *nr;
+   
+   // linenumber is trusted and not funneled
+   nr = [locals objectForKey:MulleScionCurrentLineKey];
+   [nr setUnsignedInteger:self->lineNumber_];
+}
+
+
+- (NSMutableDictionary *) localVariablesWithDefaultValues:(NSDictionary *) defaults
+{
+   NSMutableDictionary   *locals;
+   
+   locals = [NSMutableDictionary dictionaryWithDictionary:defaults];
+
+   initLineNumber( locals);
+
+   [locals setObject:[NSNumber numberWithUnsignedLong:NSNotFound]
+              forKey:@"NSNotFound"];
+   return( locals);
+}
+
+
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
@@ -218,6 +233,8 @@ static void   MulleScionRenderString( NSString *value,
    MulleScionObject   *curr;
    NSAutoreleasePool  *pool;
    
+   NSAssert( [locals valueForKey:@"NSNotFound"], @"use -[MulleScionTemplate localVariablesWithDefaultValues:] to create the localVariables dictionary");
+
    TRACE_RENDER( self, s, locals, dataSource);
 
    pool = [NSAutoreleasePool new];
@@ -226,17 +243,13 @@ static void   MulleScionRenderString( NSString *value,
    // expose everything to the dataSource for max. hackability
    // trusted (writing OK, reading ? your choice!)
    //
-   initLineNumber( self, locals);
    updateLineNumber( self, locals);
-
    [locals setObject:s
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
               forKey:MulleScionCurrentFileKey];
 
-   // hard to do in templates
-   [locals setObject:[NSNumber numberWithUnsignedLong:NSNotFound]
-              forKey:@"NSNotFound"];
+   // must be provided, because it's too painful to always set it here
    
    curr = self->next_;
    while( curr)
