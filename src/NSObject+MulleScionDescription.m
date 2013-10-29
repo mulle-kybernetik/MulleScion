@@ -196,9 +196,7 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
 #if ! TARGET_OS_IPHONE
       if( [NSNumberFormatter defaultFormatterBehavior] == 1000)
          [formatter setLocalizesFormat:YES];
-      else
 #endif
-         formatter = [[NSNumberFormatter new] autorelease];
       
       [context setObject:formatter
                   forKey:MulleScionNumberFormatterKey];
@@ -232,10 +230,22 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
    NSLocale          *locale;
    NSDateFormatter   *formatter;
    NSString          *format;
+   BOOL              reformat;
+   BOOL              relocalize;
    
    locale    = [context objectForKey:MulleScionLocaleKey];
    format    = [[context objectForKey:MulleScionDateFormatKey] description];
    formatter = [context objectForKey:MulleScionDateFormatterKey];
+
+   if( formatter)
+   {
+      reformat   = format && ! [format isEqualToString:[formatter dateFormat]];
+      relocalize = locale && ! [locale isEqual:[formatter locale]];
+
+      if( (reformat || relocalize) && [formatter formatterBehavior] == 1000)
+         formatter = nil;
+   }
+   
    if( ! formatter)
    {
       if( ! format)
@@ -247,16 +257,25 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
          // preferred for strftime compatibility
          formatter = [[[NSDateFormatter alloc] initWithDateFormat:format
                                              allowNaturalLanguage:YES] autorelease];
+         [context setObject:formatter
+                     forKey:MulleScionDateFormatterKey];
+         return( [formatter stringForObjectValue:self]);
       }
-      else
 #endif
-         formatter = [[NSDateFormatter new] autorelease];
+      
+      formatter = [[NSDateFormatter new] autorelease];
       [context setObject:formatter
                   forKey:MulleScionDateFormatterKey];
+      
+      reformat   = YES;
+      relocalize = YES;
    }
-   if( format)
+
+   if( reformat)
       [formatter setDateFormat:format];
-   [formatter setLocale:locale];
+   if( relocalize)
+      [formatter setLocale:locale];
+   
    return( [formatter stringFromDate:self]);
 }
 
