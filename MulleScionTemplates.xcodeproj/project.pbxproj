@@ -57,7 +57,7 @@
 		41188231181E8345003F06CD /* MulleScionPrintingException.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */; };
 		41188232181E848C003F06CD /* MulleObjCCompilerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41188233181E848C003F06CD /* MulleScionObjectModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188234181E848C003F06CD /* MulleScionObjectModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41188234181E848C003F06CD /* MulleScionObjectModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		41188235181E848C003F06CD /* MulleScionTemplate+CompressedArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41188236181E848C003F06CD /* MulleScionOutputProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41188237181E848C003F06CD /* NSString+HTMLEscape.h in Headers */ = {isa = PBXBuildFile; fileRef = 41DD56BC16E4145000C4D68A /* NSString+HTMLEscape.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,16 +66,16 @@
 		4118823A181E848C003F06CD /* MulleScionPrintingException.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4118823B181E848C003F06CD /* MulleScionObjectModel+Printing.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4118823C181E848C003F06CD /* NSObject+MulleScionDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4118823E181E848C003F06CD /* MulleMutableLineNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4118823E181E848C003F06CD /* MulleMutableLineNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4118823F181E848C003F06CD /* MulleScionNull.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F12D4416E274D100120E63 /* MulleScionNull.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41188240181E848C003F06CD /* MulleScionParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188241181E848C003F06CD /* MulleScionParser+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188242181E848C003F06CD /* MulleScionObjectModel+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD416E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188243181E848C003F06CD /* MulleScionObjectModel+BlockExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD116E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188244181E848C003F06CD /* MulleScionObjectModel+MacroExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41188241181E848C003F06CD /* MulleScionParser+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41188242181E848C003F06CD /* MulleScionObjectModel+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD416E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41188243181E848C003F06CD /* MulleScionObjectModel+BlockExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD116E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41188244181E848C003F06CD /* MulleScionObjectModel+MacroExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		41188245181E848C003F06CD /* MulleScion.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188246181E848C003F06CD /* NSData+ZLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0016DD251900BFD60C /* NSData+ZLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41188247181E848C003F06CD /* MulleScionObjectModel+Description.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+Description.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41188246181E848C003F06CD /* NSData+ZLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0016DD251900BFD60C /* NSData+ZLib.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		41188247181E848C003F06CD /* MulleScionObjectModel+Description.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+Description.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		41188248181E848C003F06CD /* MulleScionTemplates.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F12D3B16E2486600120E63 /* MulleScionTemplates.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41188249181E87F5003F06CD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		411F98BB16E1108900738250 /* libMulleScionDebugging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF1416DE521C004833D6 /* libMulleScionDebugging.a */; };
@@ -114,6 +114,9 @@
 		41764B9716DA511200560FCF /* mulle-scion.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
 		4178D2FD16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */; };
 		41B07E25182001DF0003B67F /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
+		41B07E261820215A0003B67F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
+		41B07E271820215A0003B67F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 414A842816E52DF50084AE1E /* LICENSE */; };
+		41B07E28182021720003B67F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 414A842816E52DF50084AE1E /* LICENSE */; };
 		41BC1BD6181AF0B900A90E06 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41BC1BD5181AF0B900A90E06 /* libz.dylib */; };
 		41BC1BDD181AF34D00A90E06 /* MulleScionTemplates.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41F12D3B16E2486600120E63 /* MulleScionTemplates.h */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
@@ -924,7 +927,6 @@
 			files = (
 				41188232181E848C003F06CD /* MulleObjCCompilerSettings.h in Headers */,
 				41188233181E848C003F06CD /* MulleScionObjectModel.h in Headers */,
-				41188234181E848C003F06CD /* MulleScionObjectModel+NSCoding.h in Headers */,
 				41188235181E848C003F06CD /* MulleScionTemplate+CompressedArchive.h in Headers */,
 				41188236181E848C003F06CD /* MulleScionOutputProtocol.h in Headers */,
 				41188237181E848C003F06CD /* NSString+HTMLEscape.h in Headers */,
@@ -933,17 +935,18 @@
 				4118823A181E848C003F06CD /* MulleScionPrintingException.h in Headers */,
 				4118823B181E848C003F06CD /* MulleScionObjectModel+Printing.h in Headers */,
 				4118823C181E848C003F06CD /* NSObject+MulleScionDescription.h in Headers */,
-				4118823E181E848C003F06CD /* MulleMutableLineNumber.h in Headers */,
 				4118823F181E848C003F06CD /* MulleScionNull.h in Headers */,
 				41188240181E848C003F06CD /* MulleScionParser.h in Headers */,
-				41188241181E848C003F06CD /* MulleScionParser+Parsing.h in Headers */,
-				41188242181E848C003F06CD /* MulleScionObjectModel+Parsing.h in Headers */,
-				41188243181E848C003F06CD /* MulleScionObjectModel+BlockExpansion.h in Headers */,
-				41188244181E848C003F06CD /* MulleScionObjectModel+MacroExpansion.h in Headers */,
 				41188245181E848C003F06CD /* MulleScion.h in Headers */,
-				41188246181E848C003F06CD /* NSData+ZLib.h in Headers */,
-				41188247181E848C003F06CD /* MulleScionObjectModel+Description.h in Headers */,
 				41188248181E848C003F06CD /* MulleScionTemplates.h in Headers */,
+				4118823E181E848C003F06CD /* MulleMutableLineNumber.h in Headers */,
+				41188234181E848C003F06CD /* MulleScionObjectModel+NSCoding.h in Headers */,
+				41188246181E848C003F06CD /* NSData+ZLib.h in Headers */,
+				41188244181E848C003F06CD /* MulleScionObjectModel+MacroExpansion.h in Headers */,
+				41188243181E848C003F06CD /* MulleScionObjectModel+BlockExpansion.h in Headers */,
+				41188242181E848C003F06CD /* MulleScionObjectModel+Parsing.h in Headers */,
+				41188241181E848C003F06CD /* MulleScionParser+Parsing.h in Headers */,
+				41188247181E848C003F06CD /* MulleScionObjectModel+Description.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,6 +1165,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41B07E261820215A0003B67F /* README.md in Resources */,
+				41B07E271820215A0003B67F /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,6 +1175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41188249181E87F5003F06CD /* README.md in Resources */,
+				41B07E28182021720003B67F /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

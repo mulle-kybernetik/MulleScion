@@ -11,7 +11,7 @@
 		418118DB17E0ABA200CF2B4D /* test.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC117E0A94E00E0F019 /* test.scion */; };
 		41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CB017E0A88900E0F019 /* Foundation.framework */; };
 		41820CB417E0A88900E0F019 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41820CB317E0A88900E0F019 /* main.m */; };
-		41820CBF17E0A8BA00E0F019 /* MulleScionTemplates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */; };
+		41B07E2A1820223F0003B67F /* MulleScionTemplates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B07E291820223F0003B67F /* MulleScionTemplates.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,10 +31,10 @@
 /* Begin PBXFileReference section */
 		41820CB017E0A88900E0F019 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		41820CB317E0A88900E0F019 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MulleScionTemplates.framework; sourceTree = "<group>"; };
 		41820CC017E0A92F00E0F019 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		41820CC117E0A94E00E0F019 /* test.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.scion; sourceTree = "<group>"; };
 		419966FA17E0B1180088EA83 /* minimal-mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "minimal-mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41B07E291820223F0003B67F /* MulleScionTemplates.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MulleScionTemplates.framework; path = ../../../../../Library/Frameworks/MulleScionTemplates.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,8 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41B07E2A1820223F0003B67F /* MulleScionTemplates.framework in Frameworks */,
 				41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */,
-				41820CBF17E0A8BA00E0F019 /* MulleScionTemplates.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 		41820CAF17E0A88900E0F019 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				41820CBE17E0A8BA00E0F019 /* MulleScionTemplates.framework */,
+				41B07E291820223F0003B67F /* MulleScionTemplates.framework */,
 				41820CB017E0A88900E0F019 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -148,7 +148,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -180,7 +179,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -206,7 +204,8 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -217,7 +216,8 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
