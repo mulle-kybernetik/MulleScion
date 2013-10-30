@@ -60,7 +60,7 @@ object using a template file is as easy as:
 
 This is the general architecture of *MulleScionTemplates*
 
-![](http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/raw/master/dox/MulleScionTemplatesDataFlow.png "Data Flow Sketch")
+![](/dox/MulleScionTemplatesDataFlow.png "Data Flow Sketch")
 
 *MulleScionTemplates* is a work in progress, it's extremely fresh and little 
 used (yet).
