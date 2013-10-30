@@ -95,4 +95,10 @@ static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
                                    length:len]);
 }
 
+
+- (NSString *) urlEscapedString
+{
+   return( [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+}
+
 @end

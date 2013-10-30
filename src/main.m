@@ -171,7 +171,7 @@ static NSDictionary  *getInfoFromArguments( void)
    if( ! [templateName length])
       goto usage;
    if( ! [plistName length])
-      goto usage;
+      plistName = @"none";
    if( ! [outputName length])
       outputName = @"-";
    
@@ -191,7 +191,7 @@ static NSDictionary  *getInfoFromArguments( void)
    return( info);
    
 usage:
-   fprintf( stderr, "%s [-w] <template> <propertylist|-|none> [output]\n", [processName cString]);
+   fprintf( stderr, "%s [-w] <template> [propertylist|-|none] [output]\n", [processName cString]);
    return( nil);
 }
 
@@ -248,7 +248,7 @@ static void  loadBundles( void)
 }
 
 
-int main(int argc, const char * argv[])
+int main( int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;

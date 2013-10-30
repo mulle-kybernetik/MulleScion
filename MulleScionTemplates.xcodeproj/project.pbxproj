@@ -203,6 +203,7 @@
 		41DD56A216E376FF00C4D68A /* MulleMongoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56A116E376FF00C4D68A /* MulleMongoose.m */; };
 		41DD56B716E3F7A700C4D68A /* MulleScionObjectModel+MulleMongoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */; };
 		41DD56BE16E4145000C4D68A /* NSString+HTMLEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */; };
+		41EC7F961821BF8D00142613 /* #!.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EC7F951821BE3900142613 /* #!.scion */; };
 		41F12D3C16E2486600120E63 /* MulleScionTemplates.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F12D3B16E2486600120E63 /* MulleScionTemplates.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F12D3E16E25B4200120E63 /* MulleScionTemplates.c in Sources */ = {isa = PBXBuildFile; fileRef = 41F12D3D16E25B4200120E63 /* MulleScionTemplates.c */; };
 		41F12D3F16E25B7000120E63 /* MulleScionTemplates.c in Sources */ = {isa = PBXBuildFile; fileRef = 41F12D3D16E25B4200120E63 /* MulleScionTemplates.c */; };
@@ -382,6 +383,7 @@
 				414A841316E50D5F0084AE1E /* NSMakeRange.scion in CopyFiles */,
 				414A841416E50D610084AE1E /* [].scion in CopyFiles */,
 				414A841516E50D620084AE1E /* |.scion in CopyFiles */,
+				41EC7F961821BF8D00142613 /* #!.scion in CopyFiles */,
 				414A841616E50D640084AE1E /* block.scion in CopyFiles */,
 				414A841716E50D650084AE1E /* define.scion in CopyFiles */,
 				414A841816E50D670084AE1E /* dot.scion in CopyFiles */,
@@ -580,6 +582,7 @@
 		41EA51AD16E5045300D3B0AD /* __scion_defines.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = __scion_defines.scion; sourceTree = "<group>"; };
 		41EA51AE16E505A800D3B0AD /* __scion_macros.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __scion_macros.scion; sourceTree = "<group>"; };
 		41EA51B016E50BED00D3B0AD /* ~stress-macro.scion */ = {isa = PBXFileReference; lastKnownFileType = text; name = "~stress-macro.scion"; path = "../dox/~stress-macro.scion"; sourceTree = "<group>"; };
+		41EC7F951821BE3900142613 /* #!.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "#!.scion"; sourceTree = "<group>"; };
 		41ECE09616DC363E00E891A0 /* _simple_base.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = _simple_base.scion; path = ../dox/_simple_base.scion; sourceTree = "<group>"; };
 		41ECE09716DC367200E891A0 /* ~simple_extends.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "~simple_extends.scion"; path = "../dox/~simple_extends.scion"; sourceTree = "<group>"; };
 		41F12D3B16E2486600120E63 /* MulleScionTemplates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionTemplates.h; sourceTree = "<group>"; };
@@ -798,6 +801,7 @@
 				41ECE09616DC363E00E891A0 /* _simple_base.scion */,
 				4121DAF516DCFAA600BFD60C /* _hackish.scion */,
 				4121DAF716DCFBB700BFD60C /* _empty.scion */,
+				41EC7F951821BE3900142613 /* #!.scion */,
 			);
 			path = dox;
 			sourceTree = "<group>";
@@ -1461,7 +1465,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1849;
+				DYLIB_CURRENT_VERSION = 1848.2;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1503,7 +1507,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1849;
+				DYLIB_CURRENT_VERSION = 1848.2;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1558,7 +1562,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1849;
+				DYLIB_CURRENT_VERSION = 1848.2;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (

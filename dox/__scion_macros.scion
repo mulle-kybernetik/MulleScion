@@ -7,6 +7,6 @@
  {% MulleScionForSubdivisionCloser = "</td></tr>
 " %}
  <table>
-  {% for file in file_list %}{{ file#.header }}<a href="{{ file }}{{ wrapper }}">{{ [file isEqualToString:@"dot.scion"] ? @"." : [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
+  {% for file in file_list %}{{ file#.header }}<a href="{{ file | urlEscapedString }}{{ wrapper }}">{{ [file isEqualToString:@"dot.scion"] ? @"." : [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
  </table>
 {% endmacro %}

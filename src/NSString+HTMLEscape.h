@@ -41,5 +41,6 @@
 @interface NSString (HTMLEscape)
 
 - (NSString *) htmlEscapedString;
+- (NSString *) urlEscapedString;
 
 @end

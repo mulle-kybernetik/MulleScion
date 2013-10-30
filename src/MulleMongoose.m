@@ -41,6 +41,7 @@
 #import <Foundation/Foundation.h>
 #import <MulleScionTemplates/MulleScionTemplates.h>
 #import "MulleScionObjectModel+MulleMongoose.h"
+#import "NSString+HTMLEscape.h"
 
 #include <sys/stat.h>
 #include <stdio.h>
@@ -57,6 +58,8 @@
 
 
 /* this code is just for demo purposes */
+#pragma mark -
+#pragma mark ObjC Interfacing
 
 static void   mulle_write_response( struct mg_connection *conn, void *buf, size_t len)
 {
@@ -96,6 +99,7 @@ static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
    s    = [NSString stringWithCString:info->uri];
    if( [s hasPrefix:@"/"])
       s = [s substringFromIndex:1];
+   s    = [s urlEscapedString];
    url  = [NSURL URLWithString:s];
    ext  = [[url lastPathComponent] pathExtension];
    if( ! [ext hasSuffix:@"scion"])
@@ -152,6 +156,9 @@ static void   mulle_mongoose_end_request( struct mg_connection *conn, int reply_
 {
 }
 
+
+#pragma mark - 
+#pragma mark mulle-scion setup
 
 /*
  * stuff stolen from main.c of mongoose

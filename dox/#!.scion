@@ -1,0 +1,12 @@
+#! /usr/local/bin/mulle-scion
+{# #}
+You can make scion files into unix script files, if you use the mulle-scion
+command and prefix your script file and make it executable
+
+#! /usr/local/bin/mulle-scion
+
+There are two environment variables MULLESCION_VERBATIM_INCLUDE_HASHBANG and
+MULLESCION_NO_HASHBANG to turn this feature off.
+
+Current Date: {{ [NSDate date] }}
+

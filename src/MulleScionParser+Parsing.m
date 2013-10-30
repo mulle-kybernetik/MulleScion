@@ -112,6 +112,22 @@ typedef struct _parser
 } parser;
 
 
+static void   parser_skip_after_newline( parser *p);
+
+static void   parser_skip_initial_hashbang_line_if_present( parser *p)
+{
+   assert( p->lineNumber == 1);
+   if( p->sentinel - p->buf < 4)
+      return;
+
+   if( memcmp( "#!", p->buf, 2))
+      return;
+   
+   // so assume mulle-scion was started as unix shellscrip
+   parser_skip_after_newline( p);
+}
+
+
 static void   parser_init( parser *p, unsigned char *buf, size_t len)
 {
    memset( p, 0, sizeof( parser));
@@ -365,6 +381,21 @@ static void   parser_skip_whitespace( parser *p)
          break;
    }
 }
+
+
+static void   parser_skip_after_newline( parser *p)
+{
+   unsigned char   c;
+   
+   c = 0;
+   for( ; p->curr < p->sentinel;)
+   {
+      c = *p->curr++;
+      if( c == '\n')
+         break;
+   }
+}
+
 
 
 static macro_type   parser_skip_text_until_scion_end( parser *p, int type)
@@ -1613,11 +1644,29 @@ static void  parser_add_dependency( parser *p, NSString *fileName, NSString *inc
 }
 
 
+static NSString  * NS_RETURNS_RETAINED parser_remove_hashbang_from_string_if_desired( NSString NS_CONSUMED *s)
+{
+   NSRange   range;
+   NSString  *memo;
+   
+   if( ! [s hasPrefix:@"#!"])
+      return( s);
+   
+   range = [s rangeOfString:@"\n"];
+   if( ! range.length)
+      return( @"");
+   
+   memo = s;
+   s    = [[s substringFromIndex:range.location + 1] retain];
+   [memo release];
+   return( s);
+}
+
 /*
  * How Extends works.
- * when you read a file, the parser collect statement for the template
+ * when you read a file, the parser collects statement for the template.
  * when it finds the keyword "extends" it stops collecting for the the template
- * and builds up the blockTable all other stuff is discarded. This works
+ * and builds up the blockTable, all other stuff is discarded. This works
  * recursively.
  */
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_includes( parser *p, BOOL allowVerbatim)
@@ -1654,6 +1703,8 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_includes( parser *p, BO
       if( ! s)
          parser_error( p, "could not load include file \"%@\"", fileName);
       
+      if( ! getenv( "MULLESCION_VERBATIM_INCLUDE_HASHBANG") && ! getenv( "MULLESCION_NO_HASHBANG"))
+         s = parser_remove_hashbang_from_string_if_desired( s);
       return( [MulleScionPlainText newWithRetainedString:s
                                               lineNumber:p->memo.lineNumber]);
    }
@@ -2159,6 +2210,14 @@ retry:
    parser_set_definitions_table( &parser, definitionTable);
    parser_set_macro_table( &parser, macroTable);
    parser_set_dependency_table( &parser, dependencyTable);
+   
+   //
+   // this make it possible to have scion templates as executable unix scripts
+   // lets do this also on includes, because otherwise the output of the dox
+   // looks funny. Well because they include it verbatim, they still look funny
+   //   if( ! [self parent])
+   if( ! getenv( "MULLESCION_NO_HASHBANG"))
+      parser_skip_initial_hashbang_line_if_present( &parser);
    
    last_type = eof;
    for( node = root; node; node = parser_next_object( &parser, node, &last_type));
