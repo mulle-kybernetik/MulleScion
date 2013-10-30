@@ -1060,7 +1060,6 @@ static MulleScionConditional  * NS_RETURNS_RETAINED parser_do_conditional( parse
 }
 
 
-
 static MulleScionNot  * NS_RETURNS_RETAINED parser_do_not( parser *p)
 {
    MulleScionExpression  *expr;
@@ -1157,6 +1156,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    s = parser_do_key_path( p);
    while( [s hasPrefix:@"self."])
       s = [s substringFromIndex:5];
+   
    if( [s isEqualToString:@"nil"])
       return( [MulleScionNumber newWithNumber:nil
                                    lineNumber:p->memo.lineNumber]);
@@ -1247,7 +1247,8 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
 {
    MulleScionExpression          *right;
    unsigned char                 operator;
-   
+
+redo:
    parser_skip_whitespace( p);
    
    /* get the operator */
@@ -1301,7 +1302,8 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
                                   retainedRightExpression:right
                                                lineNumber:p->memo.lineNumber]);
    case '[' :
-      return( parser_do_indexing( p, left, right));
+         left = parser_do_indexing( p, left, right);
+         return( _parser_do_expression( p, left));
 
    case '?' :
       return( parser_do_conditional( p, left, right));

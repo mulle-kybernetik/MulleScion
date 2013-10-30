@@ -472,9 +472,6 @@
 
 /* Begin PBXFileReference section */
 		410300721701DBE200197713 /* libMulleScionTemplates.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionTemplates.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4103009A1701DF7900197713 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
-		410300B01701EE2D00197713 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		410300B31701EE2D00197713 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		410B32DD16DB6971005D0EAD /* if.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = if.scion; path = ../dox/if.scion; sourceTree = "<group>"; };
 		410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+NSCoding.h"; sourceTree = "<group>"; };
 		410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+NSCoding.m"; sourceTree = "<group>"; };
@@ -727,9 +724,6 @@
 				41BC1BD5181AF0B900A90E06 /* libz.dylib */,
 				41764B8F16DA511200560FCF /* Foundation.framework */,
 				4121DB0316DD2B6900BFD60C /* libz.dylib */,
-				4103009A1701DF7900197713 /* libz.dylib */,
-				410300B01701EE2D00197713 /* UIKit.framework */,
-				410300B31701EE2D00197713 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1651,6 +1645,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
+				DYLIB_CURRENT_VERSION = 1848.2;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScionTemplates-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1766,6 +1761,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
+				DYLIB_CURRENT_VERSION = 1848.2;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScionTemplates-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1779,6 +1775,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
+				DYLIB_CURRENT_VERSION = 1848.2;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScionTemplates-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";

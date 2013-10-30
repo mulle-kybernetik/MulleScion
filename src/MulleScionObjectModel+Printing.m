@@ -1389,7 +1389,7 @@ static BOOL  isTrue( id value)
    otherValue = [self->right_ valueWithLocalVariables:locals
                                            dataSource:dataSource];
    if( [value respondsToSelector:@selector( objectAtIndex:)])
-      result = [value objectAtIndex:[otherValue unsignedLongValue]];
+      result = [value objectAtIndex:[otherValue integerValue]]; // must be a NSNumber or NSString (?)
    else
       result = [value valueForKeyPath:[otherValue description]];
 

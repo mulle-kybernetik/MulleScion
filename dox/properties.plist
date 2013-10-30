@@ -10,6 +10,10 @@
 	<date>2013-02-24T20:09:15Z</date>
 	<key>test</key>
 	<string>Test</string>
+	<key>deep</key>
+	<array>
+		<dict><key>name</key><string>VfL</string></dict>
+	</array>
 	<key>list</key>
 	<array>
 		<string>value for 0</string>

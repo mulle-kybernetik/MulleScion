@@ -191,7 +191,7 @@ static NSDictionary  *getInfoFromArguments( void)
    return( info);
    
 usage:
-   fprintf( stderr, "%s [-w] <template> <propertylist|-|none> [output]", [processName cString]);
+   fprintf( stderr, "%s [-w] <template> <propertylist|-|none> [output]\n", [processName cString]);
    return( nil);
 }
 
