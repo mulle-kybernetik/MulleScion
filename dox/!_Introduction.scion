@@ -1,11 +1,35 @@
-To try out these example compile the project and put mulle-scion into your path.
+# Give it a try
+
+To try out these examples compile the project and put mulle-scion into your path.
 It's a commandline program.
 
 Run this example with:
 
    mulle-scion '!_Introduction.scion' properties.plist
 
-In a MulleScion template expressions are filled with properties from an object. 
+
+# General Structure
+
+Comments are enclosed in '{' '#' and '#' '}'
+
+Expressions, i.e. values that produce output are enclosed in '{' '{' and '}' '}'
+
+Commands are enclosed in '{' '%' and  '%' '}'. You can have multiple commands, 
+if you separate them with semicolons. Commands do not produce output. Everything
+betwee commends, expressions and commands is copied verbatim to the output.
+
+
+# Commands
+
+MulleScionTemplates has a small assortment of logic commands like
+if else endif, for endfor, while endwhile together with various preprocessing
+commands like define, block and template. Look at the documentation of each
+keyword for more information
+
+
+# Expressions
+
+In a MulleScion template expressions are filled with properties from an object.
 That object can be anything NSObject based. The data is accessed through 
 key value coding. Anything between two curly brackets '{' is called an 
 expression. The expresssion is evaluated and the resulting value is added to 
@@ -28,8 +52,11 @@ pipe is substituted for self in the right side.
 when={{ name | [self stringByReplacingOccurrencesOfString:@" 1848" withString:@""] }}
 ....
 
-As that gets unwieldy, you can use a define to make common calls nice to read.
 
+
+# Key Value Coding
+
+As that gets unwieldy, you can use a define to make common calls nice to read.
 ....
 {% define no1848 = [self stringByReplacingOccurrencesOfString:@" 1848"
                                                      withString:@""] %}
@@ -50,15 +77,7 @@ The bag contains {{ bag.@count }} entries
 
 But with dots separated by spaces you can do even more complicated KVC.
 
-With if then else you do your usual logic
 
-...
-{% if YES %}
- Yes
-{% else %}
- No
-{% endif %}
-...
 
 
 

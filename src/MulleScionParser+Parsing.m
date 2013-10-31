@@ -397,7 +397,6 @@ static void   parser_skip_after_newline( parser *p)
 }
 
 
-
 static macro_type   parser_skip_text_until_scion_end( parser *p, int type)
 {
    unsigned char   c;
@@ -780,6 +779,12 @@ static NSString   *parser_get_string( parser *p)
 static unsigned char   parser_peek_character( parser *p)
 {
    return( p->curr < p->sentinel ? *p->curr : 0);
+}
+
+
+static unsigned char   parser_peek2_character( parser *p)
+{
+   return( p->curr + 1 < p->sentinel ? p->curr[ 1] : 0);
 }
 
 
@@ -2059,6 +2064,39 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
 }
 
 
+//
+// one or more semicolon separated commands
+//
+static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
+{
+   MulleScionObject   *car;
+   MulleScionObject   *cdr;
+   unsigned char      c;
+   
+   //
+   // allow empty commands, i don't like parser_peek2_character
+   // but couldn't think of something better
+   //
+   if( parser_peek_character( p) == '%' && parser_peek2_character( p) == '}')
+      return( nil);
+
+   car = parser_do_command( p);
+   if( ! car)
+      return( car);
+   
+   parser_skip_whitespace( p);
+   c = parser_peek_character( p);
+   if( c != ';')
+      return( car);
+   parser_next_character( p);
+
+   parser_skip_whitespace( p);
+   cdr        = parser_do_commands( p);
+   car->next_ = cdr;
+   return( car);
+}
+
+
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_block_break_on_extends_skip_others( parser *p)
 {
    NSString   *s;
@@ -2165,7 +2203,7 @@ retry:
       
    case command :
       parser_skip_whitespace( p);
-      next = parser_do_command( p);
+      next = parser_do_commands( p);
       if( ! [next isTemplate])
          parser_finish_command( p);
       if( ! next && p->inMacro)
@@ -2174,7 +2212,7 @@ retry:
    }
    
    //
-   // the problem, is that the analyzer things with NS_CONSUMED that the
+   // the problem, is that the analyzer thinks with NS_CONSUMED that the
    // object is dead, while we know it's alive
    //
    if( next)

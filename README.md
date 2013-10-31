@@ -63,8 +63,8 @@ This is the general architecture of *MulleScionTemplates*
 ![](/dox/MulleScionTemplatesDataFlow.png "Data Flow Sketch")
 ![](http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/raw/master/dox/MulleScionTemplatesDataFlow.png "Data Flow Sketch")
 
-*MulleScionTemplates* is a work in progress, it's extremely fresh and little 
-used (yet).
+*MulleScionTemplates* is a work in progress, but it is already put to use in a 
+commercial project.
 
 
 
