@@ -1,0 +1,2 @@
+{% foo=YES %}
+{{ defined( @"foo") ? @"18" : @"no" }}{{ ! defined( @"bar") ? @"48" : @"no" }}

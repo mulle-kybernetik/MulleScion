@@ -1,0 +1,5 @@
+{% macro name( prefix, name, year) %}
+{{ prefix }} {{ name }} {{ year }}
+{% endmacro %}
+{##}
+{{ name( @"VfL", @"Bochum", @"1848") }}

@@ -1,0 +1,8 @@
+{% 
+   x=0
+   if 1 and 
+      not 0 
+         x=1;         
+   endif
+%}
+{{ x }}

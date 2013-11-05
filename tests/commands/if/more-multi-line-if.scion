@@ -1,0 +1,8 @@
+{% 
+    x=@"0";
+    if [x hasSuffix:@"0"] and 
+       not [x hasPrefix:@"1"]
+       x=@"1"
+    endif   
+%}
+{{ x }}

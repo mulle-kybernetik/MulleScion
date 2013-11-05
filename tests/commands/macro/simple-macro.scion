@@ -1,0 +1,6 @@
+{% macro simple( s) %}
+{{ s }}
+{% endmacro %} {# endmacro should snarf last linefeed #}
+{##}
+{##}
+{{ simple( @"VfL Bochum 1848") }}

@@ -1,0 +1,8 @@
+{% x=YES;
+   while x
+	x=NO
+%}
+1
+{%
+   endwhile
+%}

@@ -1,0 +1,2 @@
+{% file="foo.scion" %}
+{{ [file hasSuffix:@".sciox"] and [file hasPrefix:@"foo"] }}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>string</key>
+	<string>VfL Bochum 1848</string>
+	<key>integer</key>
+	<integer>2</integer>
+	<key>date</key>
+	<date>2013-02-24T20:09:15Z</date>
+	<key>array</key>
+	<array>
+		<string>value for 0</string>
+		<string>value for 1</string>
+	</array>
+	<key>dictionary</key>
+	<dict>
+		<key>a</key>
+		<string>value for a</string>
+		<key>b</key>
+		<string>value for b</string>
+	</dict>
+</dict>
+</plist>

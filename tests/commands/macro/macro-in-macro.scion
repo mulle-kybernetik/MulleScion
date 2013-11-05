@@ -1,0 +1,19 @@
+{# confusing re- and abuse of name as macro name and parameter,
+   but it should just work
+#} 
+{% macro name( name, year) %}
+{{ name }} {{ year }}
+{% endmacro %}
+{#
+  because name() is now defined as a macro it will be replace in a macro
+  call. The macro call happens at the time of parsage. Therefore 
+  immediately at line 13
+#}
+{% macro stress( name) %}
+{% name( year=name, name=@"VfL Bochum") %}
+{% endmacro %}
+{#
+  expanded this reads now
+   {{ @"VfL Bochum" }} {{ name }}
+#}
+{{ stress( @"1848") }}

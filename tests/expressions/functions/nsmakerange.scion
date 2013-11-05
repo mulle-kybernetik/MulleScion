@@ -1,0 +1,2 @@
+{% range = NSMakeRange( 18, 48) %}
+{{ range.location }}{{ range.length }}

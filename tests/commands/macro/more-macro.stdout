@@ -1,0 +1,18 @@
+
+
+// want change here
+// want change only in second I guess
+
+x  // change all
+x  // change left only
+  // dont change target
+x  // change left only
+1  // change all
+
+// dont' change target
+
+ 
+ x// change first parameter value only
+
+// only change expr (second)
+

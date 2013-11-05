@@ -1,0 +1,27 @@
+{% macro description( description, xxx) %}
+ {{ description }}
+ {{ xxx }}
+{% endmacro %}
+
+{% macro stress( description) %}
+{% if description %}     // want change here
+{% endif %}
+{% while not description %}  // want change here
+{% endwhile %}
+{% for description in description %}  // want change only in second I guess
+{% endfor %}
+
+{{ description ? description : description }}  // change all
+{{ description | description }}  // change left only
+{{ description | [description withKey:description] }}  // dont change target
+{{ description . description }}  // change left only
+{{ description and description or description and not description }}  // change all
+
+{% [description call:description] %}         // dont' change target
+
+{% description( xxx=description, description=xxx) %} // change first parameter value only
+
+{% set description = description %}  // only change expr (second)
+{% endmacro %}
+
+{{ stress( @"x") }}

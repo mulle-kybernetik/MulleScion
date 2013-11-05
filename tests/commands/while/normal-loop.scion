@@ -1,0 +1,8 @@
+{% array=@( 1, 2, 3);
+   rover=[array objectEnumerator];
+   while x = [rover nextObject]
+%}
+{{ x }}
+{%
+   endwhile
+%}
