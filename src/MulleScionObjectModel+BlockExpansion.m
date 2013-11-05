@@ -104,6 +104,9 @@
    MulleScionObject   *owner;
    MulleScionBlock    *chain;
    NSMutableArray     *stack;
+   NSAutoreleasePool  *pool;
+   
+   pool  = [NSAutoreleasePool new];
    
    stack = [NSMutableArray array];
    
@@ -136,6 +139,8 @@
       [owner replaceOwnedBlockWith:chain];
       owner = chain;
    }
+   
+   [pool release];
 }
 
 @end

@@ -84,7 +84,9 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 - (BOOL) isPipe;
 - (BOOL) isDot;
 - (BOOL) isIndexing;
+
 - (BOOL) isJustALinefeed;
+- (BOOL) isDictionaryKey;
 
 - (Class) terminatorClass;
 
@@ -97,6 +99,9 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 {
    id    value_;         // convenient to serialize
 }
+
+- (id) value;
+
 @end
 
 

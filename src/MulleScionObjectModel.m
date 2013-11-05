@@ -120,6 +120,7 @@
 - (BOOL) isExtends    { return( NO); }
 - (BOOL) isIncludes   { return( NO); }
 
+- (BOOL) isDictionaryKey { return( NO); }
 - (BOOL) isJustALinefeed { return( NO); }
 
    
@@ -166,6 +167,16 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    
    value_ = [value copy];
    return( self);
+}
+
+
+//
+// the exception of the rule, that we don't access the values in the parse
+// but it's needed to get stuff out for dictionaries
+//
+- (id) value
+{
+   return( value_);
 }
 
 
@@ -249,6 +260,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( newMulleScionValueObject( self, value, nr));
 }
 
+
+- (BOOL) isDictionaryKey
+{
+   return( YES);
+}
+
 @end
 
 
@@ -261,6 +278,11 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 {
    NSParameterAssert( ! value || [value isKindOfClass:[NSString class]]);
    return( newMulleScionValueObject( self, value, nr));
+}
+
+- (BOOL) isDictionaryKey
+{
+   return( YES);
 }
 
 @end
@@ -590,6 +612,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    case MulleScionGreaterThan          : return( @">");
    case MulleScionLessThanOrEqualTo    : return( @"<=");
    case MulleScionGreaterThanOrEqualTo : return( @">=");
+   case MulleScionNoComparison         : return( @"???");  // should never happen!
    }
 }
 

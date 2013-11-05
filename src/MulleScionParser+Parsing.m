@@ -831,7 +831,7 @@ static int   parser_grab_text_until_command( parser *p, char *command)
 }
 
 
-static void   parser_grab_text_until_quote( parser *p)
+static int   parser_grab_text_until_quote( parser *p)
 {
    unsigned char   c;
    int             escaped;
@@ -859,9 +859,10 @@ static void   parser_grab_text_until_quote( parser *p)
       if( c == '"')
       {
          p->curr--;
-         break;
+         return( 1);
       }
    }
+   return( 0);
 }
 
 
@@ -1039,7 +1040,9 @@ static NSString  *parser_do_string( parser *p)
    NSCParameterAssert( parser_peek_character( p) == '"');
    
    parser_skip_peeked_character( p, '\"');   // skip '"'
-   parser_grab_text_until_quote( p);
+   if( ! parser_grab_text_until_quote( p))
+      parser_error( p, "a closing '\"' was expected");
+
    s = parser_get_string( p);
    parser_skip_peeked_character( p, '\"');   // skip '"'
    parser_skip_whitespace( p);
@@ -1097,10 +1100,11 @@ static NSMutableDictionary  *parser_do_dictionary( parser *p)
 
       parser_skip_peeked_character( p, ',');
       keyExpr = parser_do_expression( p);
-         
+      if( ! [keyExpr isDictionaryKey])
+         parser_error( p, "a number or string as a key was expected");
       [dict setObject:expr
-               forKey:keyExpr];
-
+               forKey:[keyExpr value]];
+      [keyExpr release];
       [expr release];
    }
    return( dict);
@@ -1732,7 +1736,7 @@ static void   parser_finish_command( parser *p)
 
 typedef enum
 {
-   ImplicitSetOpcode = 0,
+   ImplicitSetOpcode = 0,  // still used ??
 
    BlockOpcode,
    DefineOpcode,
