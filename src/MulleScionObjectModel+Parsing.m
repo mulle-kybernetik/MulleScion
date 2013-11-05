@@ -84,4 +84,21 @@
    return( obj);
 }
 
+
+- (BOOL) snarfsScion
+{
+   return( NO);
+}
+
+@end
+
+
+@implementation MulleScionTemplate (Parsing)
+
+
+- (BOOL) snarfsScion
+{
+   return( YES);
+}
+
 @end

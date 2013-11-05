@@ -59,12 +59,14 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 + (id) newWithLineNumber:(NSUInteger) nr;
 - (id) initWithLineNumber:(NSUInteger) nr;
 
+- (BOOL) isLexpr;
+
 - (BOOL) isTemplate;
 - (BOOL) isIdentifier;
 - (BOOL) isTerminator;
 - (BOOL) isFunction;
 - (BOOL) isMethod;
-- (BOOL) isVariableAssignment;  // not a set though
+- (BOOL) isParameterAssignment;  // not a set though
 
 - (BOOL) isIf;
 - (BOOL) isElse;
@@ -81,6 +83,8 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 
 - (BOOL) isPipe;
 - (BOOL) isDot;
+- (BOOL) isIndexing;
+- (BOOL) isJustALinefeed;
 
 - (Class) terminatorClass;
 
@@ -113,11 +117,14 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 + (id) newWithRetainedString:(NSString *) NS_CONSUMED s
                   lineNumber:(NSUInteger) nr;
 
+- (BOOL) isJustALinefeed;
+
 @end
 
 
 @interface MulleScionExpression : MulleScionValueObject
 @end
+
 
 
 // if nil, it's nil...
@@ -147,6 +154,14 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 + (id) newWithArray:(NSArray *) s
          lineNumber:(NSUInteger) nr;
 
+@end
+
+
+@interface MulleScionDictionary : MulleScionExpression
+   
++ (id) newWithDictionary:(NSDictionary *) s
+              lineNumber:(NSUInteger) nr;
+   
 @end
 
 
@@ -214,7 +229,8 @@ typedef enum
    MulleScionLessThan,
    MulleScionGreaterThan,
    MulleScionLessThanOrEqualTo,
-   MulleScionGreaterThanOrEqualTo
+   MulleScionGreaterThanOrEqualTo,
+   MulleScionNoComparison = 0xFF
 } MulleScionComparisonOperator;
 
 
@@ -248,9 +264,8 @@ typedef enum
 @end
 
 
-
-// like assignment, but prints if just in an expession
-@interface MulleScionVariableAssignment : MulleScionIdentifierExpression
+// is this really an expression ???
+@interface MulleScionParameterAssignment : MulleScionIdentifierExpression
 {
 @public
    MulleScionExpression   *expression_;
@@ -260,10 +275,24 @@ typedef enum
       retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
               lineNumber:(NSUInteger) nr;
 
-- (NSString *) expression;
+- (MulleScionExpression *) expression;
 
 @end
 
+
+//
+// used in if, while. NOT used in set/for and also not used as a
+// subexpression
+//
+@interface MulleScionAssignmentExpression : MulleScionExpression
+{
+   MulleScionExpression   *right_;
+}
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr;
+@end
 
 
 @interface MulleScionMethod : MulleScionExpression
@@ -291,7 +320,6 @@ typedef enum
             retainedMiddleExpression:(MulleScionExpression *) NS_CONSUMED middle
              retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
                           lineNumber:(NSUInteger) nr;
-
 @end
 
 
@@ -313,23 +341,6 @@ typedef enum
 
 
 
-@interface MulleScionSet : MulleScionCommand
-{
-   NSString               *identifier_;
-   MulleScionExpression   *expression_;
-}
-
-+ (id) newWithIdentifier:(NSString *) identifier
-      retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
-              lineNumber:(NSUInteger) nr;
-@end
-
-
-// "for" is pretty much the same as an assignment, just looped
-@interface MulleScionFor : MulleScionSet
-@end
-
-
 @interface MulleScionEndFor : MulleScionTerminator
 @end
 
@@ -342,6 +353,24 @@ typedef enum
 + (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED expr
                       lineNumber:(NSUInteger) nr;
 
+@end
+
+
+@interface MulleScionSet : MulleScionCommand
+{
+   MulleScionExpression   *left_;
+   MulleScionExpression   *right_;
+}
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr;
+
+@end
+
+
+// "for" is pretty much the same as an assignment, just looped
+@interface MulleScionFor : MulleScionSet
 @end
 
 

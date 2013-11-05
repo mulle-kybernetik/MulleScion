@@ -70,6 +70,8 @@
 
 - (id) initWithLineNumber:(NSUInteger) nr
 {
+   NSParameterAssert( (NSInteger) nr >= 0);
+   
    lineNumber_ = nr;
    return( self);
 }
@@ -87,12 +89,14 @@
 }
 
 
-- (BOOL) isIdentifier { return( NO); }
+- (BOOL) isIdentifier  { return( NO); }
+- (BOOL) isLexpr       { return( NO); }
+
 - (BOOL) isTerminator { return( NO); }
 - (BOOL) isTemplate   { return( NO); }
 - (BOOL) isFunction   { return( NO); }
 - (BOOL) isMethod     { return( NO); }
-- (BOOL) isVariableAssignment { return( NO); }
+- (BOOL) isParameterAssignment { return( NO); }
 
 - (BOOL) isSet        { return( NO); }
 
@@ -111,11 +115,14 @@
 
 - (BOOL) isPipe       { return( NO); }
 - (BOOL) isDot        { return( NO); }
+- (BOOL) isIndexing   { return( NO); }
 
 - (BOOL) isExtends    { return( NO); }
 - (BOOL) isIncludes   { return( NO); }
 
+- (BOOL) isJustALinefeed { return( NO); }
 
+   
 - (Class) terminatorClass
 {
    return( Nil);
@@ -129,6 +136,8 @@
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionValueObject
 
@@ -170,6 +179,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionTemplate
 
 - (id) initWithFilename:(NSString *) name
@@ -197,6 +208,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionPlainText
 
 + (id) newWithRetainedString:(NSString *) NS_CONSUMED s
@@ -211,13 +224,21 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( p);
 }
 
+- (BOOL) isJustALinefeed
+{
+   return( [self->value_ isEqualToString:@"\n"]);
+}
+   
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionExpression
 @end
 
 
+#pragma mark -
 
 @implementation MulleScionNumber
 
@@ -231,6 +252,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
 
 @implementation MulleScionString
 
@@ -244,14 +266,18 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionSelector
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionArray
 
 + (id) newWithArray:(NSArray *) value
-          lineNumber:(NSUInteger) nr
+         lineNumber:(NSUInteger) nr
 {
    NSParameterAssert( ! value || [value isKindOfClass:[NSArray class]]);
    return( newMulleScionValueObject( self, value, nr));
@@ -259,6 +285,22 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+#pragma mark -
+
+@implementation MulleScionDictionary
+   
++ (id) newWithDictionary:(NSDictionary *) value
+              lineNumber:(NSUInteger) nr
+{
+   NSParameterAssert( ! value || [value isKindOfClass:[NSDictionary class]]);
+   return( newMulleScionValueObject( self, value, nr));
+}
+
+@end
+
+
+
+#pragma mark -
 
 @implementation MulleScionIdentifierExpression
 
@@ -275,9 +317,16 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( value_);
 }
 
+   
+- (BOOL) hasIdentifier
+{
+   return( YES);
+}
+   
 @end
 
 
+#pragma mark -
 
 @implementation MulleScionVariable
 
@@ -286,8 +335,15 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( YES);
 }
 
+- (BOOL) isLexpr
+{
+   return( YES);
+}
+
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionFunction
 
@@ -328,6 +384,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionMethod
 
 + (id) newWithRetainedTarget:(MulleScionExpression *) NS_CONSUMED target
@@ -366,13 +424,15 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
-@implementation MulleScionVariableAssignment
+#pragma mark -
+
+@implementation MulleScionParameterAssignment
 
 + (id) newWithIdentifier:(NSString *) s
       retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
               lineNumber:(NSUInteger) nr
 {
-   MulleScionVariableAssignment   *p;
+   MulleScionParameterAssignment   *p;
 
    NSParameterAssert( [s isKindOfClass:[NSString class]] && [s length]);
    NSParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
@@ -403,13 +463,15 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 }
 
 
-- (BOOL) isVariableAssignment
+- (BOOL) isParameterAssignment
 {
    return( YES);
 }
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionOperatorExpression
 
@@ -423,6 +485,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionUnaryOperatorExpression
 
@@ -440,6 +504,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionBinaryOperatorExpression
 
@@ -468,6 +534,31 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
+
+@implementation  MulleScionAssignmentExpression
+
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr
+{
+   MulleScionAssignmentExpression   *p;
+   
+   NSParameterAssert( [left isLexpr]);
+   NSParameterAssert( [right isKindOfClass:[MulleScionExpression class]]);
+   
+   p = newMulleScionValueObject( self, nil, nr);
+   p->value_ = left;
+   p->right_ = right;
+   return( p);
+}
+
+@end
+
+
+
+#pragma mark -
 
 @implementation MulleScionComparison
 
@@ -505,6 +596,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionNot
 
 - (NSString *) operator
@@ -514,6 +607,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionAnd
 
@@ -525,6 +620,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionOr
 
 - (NSString *) operator
@@ -535,6 +632,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionIndexing
 
 - (NSString *) operator
@@ -542,8 +641,22 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( @"[]");
 }
 
+   
+- (BOOL) isIndexing
+{
+   return( YES);
+}
+
+
+- (BOOL) isLexpr
+{
+   return( YES);
+}
+
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionPipe
 
@@ -561,6 +674,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionDot
 
 - (BOOL) isDot
@@ -571,12 +686,13 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 - (NSString *) operator
 {
-   return( @",");
+   return( @".");
 }
-
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionConditional
 
@@ -600,6 +716,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionCommand
 
@@ -645,6 +763,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 }
 
 
+#pragma mark -
+
 - (MulleScionObject *) terminateToElse:(MulleScionObject *) curr
 {
    Class        cls;
@@ -677,6 +797,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionTerminator
 
 - (BOOL) isTerminator
@@ -687,38 +809,30 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark - 
+
 @implementation MulleScionSet
 
-- (NSString *) commandName
-{
-   return( @"");
-}
-
-+ (id) newWithIdentifier:(NSString *) s
-      retainedExpression:(MulleScionExpression *) NS_CONSUMED expr
-              lineNumber:(NSUInteger) nr
++ (id) newWithRetainedLeftExpression:(MulleScionExpression *) NS_CONSUMED left
+             retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
+                          lineNumber:(NSUInteger) nr
 {
    MulleScionSet   *p;
    
-   NSParameterAssert( [s isKindOfClass:[NSString class]] && [s length]);
-   NSParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
+   p = [self newWithLineNumber:nr];
+   p->left_  = left;
+   p->right_ = right;
    
-   p              = [self newWithLineNumber:nr];
-   p->identifier_ = [s copy];
-   p->expression_ = expr;
    return( p);
 }
 
 
-- (void) dealloc
+- (NSString *) commandName
 {
-   [expression_ release];
-   [identifier_ release];
-   
-   [super dealloc];
+   return( @""); // O RLY ?
 }
 
-
+   
 - (BOOL) isSet
 {
    return( YES);
@@ -726,6 +840,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionFor
 
@@ -759,6 +875,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionExpressionCommand
 
 + (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED expr
@@ -783,6 +901,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionIf
 
 - (BOOL) isIf
@@ -800,6 +920,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionElse
 
 - (BOOL) isElse
@@ -810,6 +932,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionEndIf
 
 - (BOOL) isEndIf
@@ -819,6 +943,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionWhile
 
@@ -836,6 +962,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionEndWhile
 
 - (BOOL) isEndWhile
@@ -845,6 +973,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionBlock
 
@@ -898,6 +1028,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionEndBlock
 
 - (BOOL) isEndBlock
@@ -907,6 +1039,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionMethodCall
 
@@ -918,6 +1052,8 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionFunctionCall
 
 - (NSString *) commandName
@@ -928,15 +1064,21 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionFilter
 
 @end
 
 
+#pragma mark -
+
 @implementation MulleScionEndFilter
 
 @end
 
+
+#pragma mark -
 
 @implementation MulleScionMacro
 

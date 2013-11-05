@@ -119,7 +119,7 @@
    if( NSDebugEnabled)
 # endif
       if( [template respondsToSelector:@selector( mulleScionDescription)])
-         NSLog( @"Parsed Template:\n%@", [template count] <= 1848 ? template : @"too large to print");
+         NSLog( @"Parsed Template:\n%@", [template count] <= 100000 ? template : @"too large to print");
 #endif
    
    pool = [NSAutoreleasePool new];
@@ -131,7 +131,7 @@
    if( NSDebugEnabled)
 # endif
       if( [template respondsToSelector:@selector( mulleScionDescription)])
-         NSLog( @"Template after block expansion:\n%@", [template count] <= 1848 ? template : @"too large to print");
+         NSLog( @"Template after block expansion:\n%@", [template count] <= 100000 ? template : @"too large to print");
 #endif
    
    [outer release];

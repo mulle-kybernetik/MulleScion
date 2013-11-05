@@ -40,8 +40,10 @@
 
 @implementation MulleMutableLineNumber
 
-- (void) setUnsignedInteger:(NSUInteger) value;
+- (void) setUnsignedInteger:(NSUInteger) value
 {
+   NSParameterAssert( (NSInteger) value >= 0);
+   
    lineNumber_ = value;
 }
 

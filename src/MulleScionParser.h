@@ -60,6 +60,4 @@
                         reason:(NSString *) reason;
 - (NSString *) fileName;
 
-
-
 @end

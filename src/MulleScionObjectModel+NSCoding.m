@@ -42,7 +42,7 @@
 
 + (void) load
 {
-   [self setVersion:1848];
+   [self setVersion:1850];  // sry had to change something, old stuff not loading anymore
 }
 
 
@@ -72,10 +72,10 @@
     
 - (id) initWithCoder:(NSCoder *) decoder
 {
-   unsigned long  lineNumber;
-   id             next;
+   long  lineNumber;
+   id    next;
    
-   [decoder decodeValuesOfObjCTypes:"L@", &lineNumber, &next];
+   [decoder decodeValuesOfObjCTypes:"l@", &lineNumber, &next];
 
    self = [self initWithLineNumber:lineNumber];
    assert( self);
@@ -87,10 +87,12 @@
 
 - (void) encodeWithCoder:(NSCoder *) encoder
 {
-   unsigned long  lineNumber;
-
+   long  lineNumber;
+   
+   //   printf( "%s\n", @encode( long));
+   NSParameterAssert( lineNumber_ < 100000);
    lineNumber = lineNumber_;
-   [encoder encodeValuesOfObjCTypes:"L@", &lineNumber, &next_];
+   [encoder encodeValuesOfObjCTypes:"l@", &lineNumber, &next_];
 }
 
 @end
@@ -117,7 +119,28 @@
 @end
 
 
-@implementation MulleScionVariableAssignment ( NSCoding )
+@implementation MulleScionAssignmentExpression ( NSCoding )
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   self = [super initWithCoder:decoder];
+   assert( self);
+   
+   [decoder decodeValuesOfObjCTypes:"@", &right_];
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   [super encodeWithCoder:encoder];
+   [encoder encodeValuesOfObjCTypes:"@", &right_];
+}
+
+@end
+
+
+@implementation MulleScionParameterAssignment ( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
@@ -256,27 +279,6 @@
 @end
 
 
-@implementation MulleScionSet ( NSCoding )
-
-- (id) initWithCoder:(NSCoder *) decoder
-{
-   self = [super initWithCoder:decoder];
-   assert( self);
-   
-   [decoder decodeValuesOfObjCTypes:"@@", &identifier_, &expression_];
-   return( self);
-}
-
-
-- (void) encodeWithCoder:(NSCoder *) encoder
-{
-   [super encodeWithCoder:encoder];
-   [encoder encodeValuesOfObjCTypes:"@@", &identifier_, &expression_];
-}
-
-@end
-
-
 @implementation MulleScionExpressionCommand ( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
@@ -296,6 +298,28 @@
 }
 
 @end
+
+
+@implementation MulleScionSet ( NSCoding)
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   self = [super initWithCoder:decoder];
+   assert( self);
+   
+   [decoder decodeValuesOfObjCTypes:"@@", &left_, &right_];
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   [super encodeWithCoder:encoder];
+   [encoder encodeValuesOfObjCTypes:"@@", &left_, &right_];
+}
+
+@end
+
 
 
 @implementation MulleScionBlock ( NSCoding)

@@ -49,5 +49,6 @@
 - (MulleScionObject *) behead;
 - (MulleScionObject *) tail;
 - (NSUInteger) count;
+- (BOOL) snarfsScion;
 
 @end

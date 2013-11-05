@@ -94,6 +94,7 @@ typedef struct _parser
    
    parser_memo          memo;
    parser_memo          memo_scion;
+   parser_memo          memo_interesting;
    
    MulleScionObject     *first;
    macro_type           type;
@@ -184,53 +185,169 @@ static inline void   parser_set_filename( parser *p, NSString *s)
    p->fileName = s;
 }
 
-
+//
+// there is no return, stuff just leaks and we abort
+//
 static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
 {
-
    NSString       *reason;
-   size_t         len;
-   unsigned char  *s;
+   NSString       *s;
+   size_t         p_len;
+   size_t         s_len;
+   size_t         i;
    va_list        args;
-   char           *prefix;
+   unsigned char  *prefix;
+   unsigned char  *suffix;
    
    if( p->parser_do_error)
    {
       va_start( args, c_format);
       reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
                                        arguments:args] autorelease];
-
-      prefix  = "";
-      s   = (unsigned char *) p->memo_scion.curr - 2;
-      len = p->curr - p->memo_scion.curr;
-      if( len < 3)
-      {
-         s   = &p->memo.curr[ -16];
-         len = 16;
-         
-         if( s < p->buf)
-         {
-            s   = p->buf;
-            len = p->curr - p->buf;
-         }
-      }
-
-      if( len > 64)
-      {
-         s      = &s[ len - 64];
-         prefix = "...";
-         len    = 64;
-      }
-      
-      reason = [NSString stringWithFormat:@"at '%s%.*s': %@", prefix, (int) len, (char *) s, reason];
       va_end( args);
+
+      //
+      // p->memo_scion.curr is about the start of the parsed object
+      // p->curr is where the parsage failed, try to print something interesting
+      // near the parse failure (totally heuristic), but not too much
+      //
+      p_len = p->curr - p->memo_interesting.curr;
+      if( p_len > 32)
+         p_len = 32;
+      if( p_len < 12)
+         p_len += 3;
+
+      s_len  = p_len >= 6 ? 12 : 12 + 6 - p_len;
+      prefix = &p->curr[ -p_len];
+      suffix = &p->curr[ 1];
+
+      if( prefix < p->buf)
+      {
+         prefix = p->buf;
+         p_len  = p->curr - p->buf;
+      }
+
+      if( &suffix[ s_len] > p->sentinel)
+         s_len  = p->sentinel - p->curr;
+      
+      // stop tail at linefeed
+      for( i = 0; i < s_len; i++)
+         if( suffix[ i] == '\r' || suffix[ i] == '\n' || suffix[ i] == ';' || suffix[ i] == '}' || suffix[ i] == '%')
+            break;
+      s_len = i;
+
+      // terminal escape sequences
+#if HAVE_TERMINAL
+#define RED   "\033[01;31m"
+#define NONE  "\033[00m"
+#else
+#define RED   ""
+#define NONE  ""
+#endif
+      
+      s = [NSString stringWithFormat:@"%.*s" RED "%c" NONE "%.*s", (int) p_len, prefix, *p->curr, (int) s_len, suffix];
+      s = [s stringByReplacingOccurrencesOfString:@"\n"
+                                       withString:@" "];
+      s = [s stringByReplacingOccurrencesOfString:@"\r"
+                                       withString:@""];
+      s = [s stringByReplacingOccurrencesOfString:@"\t"
+                                       withString:@" "];
+      s = [s stringByReplacingOccurrencesOfString:@"\""
+                                       withString:@"\\\""];
+      s = [s stringByReplacingOccurrencesOfString:@"'"
+                                       withString:@"\\'"];
+      
+      s = [NSString stringWithFormat:@"near \"%@\", %@", s, reason];
    
-      (*p->parser_do_error)( p->self, p->sel, p->fileName, p->memo.lineNumber, reason);
+      (*p->parser_do_error)( p->self, p->sel, p->fileName, p->memo.lineNumber, s);
    }
    abort();
 }
 
+   
+static unsigned char    *unescaped_string_if_needed( unsigned char *s,
+                                                     NSUInteger len,
+                                                     NSUInteger *result_len)
+{
+   unsigned char   *memo;
+   unsigned char   *unescaped;
+   unsigned char   *src;
+   unsigned char   *dst;
+   unsigned char   *sentinel;
+   unsigned char   c;
+   int             escaped;
+   size_t          copy_len;
+   
+   assert( s);
+   assert( len);
+   assert( result_len);
+   
+   unescaped = NULL;
+   dst       = NULL;
+   memo      = s;
+   sentinel  = &s[ len];
 
+   escaped   = 0;
+   
+   for( src = s; src < sentinel; src++)
+   {
+      c = *src;
+      
+      if( escaped)
+      {
+         escaped = 0;
+         switch( c)
+         {
+            case 'a'  : c = '\a'; break;
+            case 'b'  : c = '\b'; break;
+            case 'f'  : c = '\f'; break;
+            case 'n'  : c = '\n'; break;
+            case 'r'  : c = '\r'; break;
+            case 't'  : c = '\t'; break;
+            case 'v'  : c = '\v'; break;
+            case '\"' : c = '\"'; break;
+            case '\'' : c = '\''; break;
+            case '?'  : c = '?';  break;
+            case '\\' : c = '\\'; break;
+            
+            // can't do numeric codes yet
+         }
+         *dst++ = c;
+         continue;
+      }
+      
+      if( c == '\\')
+      {
+         escaped = 1;
+         if( ! unescaped)
+         {
+            unescaped = malloc( len);
+            if( ! unescaped)
+               [NSException raise:NSMallocException
+                           format:@"can't allocate %ld bytes", (long) len];
+
+            copy_len = (ptrdiff_t) (src - memo);
+            memcpy( unescaped, memo, copy_len);
+            dst = &unescaped[ copy_len];
+         }
+         continue;
+      }
+      
+      if( dst)
+         *dst++ = c;
+   }
+   
+   assert( ! escaped);  // malformed, but so what ?
+   
+   *result_len = dst - unescaped;
+   
+   // maybe a little bit pedantic ?
+   if( unescaped)
+      unescaped = realloc( unescaped, *result_len);
+   
+   return( unescaped);
+}
+   
 # pragma mark -
 # pragma mark Tokenizing 
 
@@ -247,12 +364,10 @@ static inline void   parser_recall( parser *p, parser_memo *memo)
    p->lineNumber = memo->lineNumber;
 }
 
-
 static inline void   parser_nl( parser *p)
 {
    p->lineNumber++;
 }
-
 
 //
 // this will stop at '{{' or '{%' even if they are in the middle of
@@ -274,7 +389,7 @@ static macro_type   parser_grab_text_until_scion( parser *p)
 
       if( c == '\n')
          parser_nl( p);
-      
+
       if( c == '"')
          inquote = ! inquote;
       
@@ -317,7 +432,7 @@ static macro_type   parser_grab_text_until_scion_end( parser *p)
    {
       if( c == '\n')
          parser_nl( p);
-      
+
       if( c == '"')
          inquote = ! inquote;
       if( inquote)
@@ -367,6 +482,21 @@ static void   parser_skip_white_if_terminated_by_newline( parser *p)
 }
 
 
+static void   parser_skip_whitespace_until_newline( parser *p)
+{
+   unsigned char   c;
+      
+   for( ; p->curr < p->sentinel; p->curr++)
+   {
+      c = *p->curr;
+      if( c == '\n')
+         break;
+      if( c > ' ')
+         break;
+   }
+}
+
+   
 static void   parser_skip_whitespace( parser *p)
 {
    unsigned char   c;
@@ -387,12 +517,14 @@ static void   parser_skip_after_newline( parser *p)
 {
    unsigned char   c;
    
-   c = 0;
    for( ; p->curr < p->sentinel;)
    {
       c = *p->curr++;
       if( c == '\n')
+      {
+         parser_nl( p);
          break;
+      }
    }
 }
 
@@ -754,14 +886,28 @@ static NSString   * NS_RETURNS_RETAINED parser_get_memorized_retained_string( pa
 }
 
 
-static NSString   * NS_RETURNS_RETAINED parser_get_retained_string( parser *p)
+static NSString   * NS_RETURNS_RETAINED parser_get_retained_string( parser *p) 
 {
-   NSUInteger   length;
-   NSString     *s;
+   NSUInteger      length;
+   NSUInteger      unescaped_length;
+   NSString        *s;
+   unsigned char   *unescaped;
    
    length = p->curr - p->memo.curr ;
    if( ! length)
       return( nil);
+   
+   unescaped = unescaped_string_if_needed( p->memo.curr, length, &unescaped_length);
+   
+   if( unescaped)
+   {
+      s = [[NSString alloc] initWithBytesNoCopy:unescaped
+                                         length:unescaped_length
+                                       encoding:NSUTF8StringEncoding
+                                   freeWhenDone:YES];
+      return( s);
+   }
+   
    
    s = [[NSString alloc] initWithBytes:p->memo.curr
                                 length:length
@@ -788,17 +934,56 @@ static unsigned char   parser_peek2_character( parser *p)
 }
 
 
+static inline unsigned char   parser_next_character( parser *p)
+{
+   unsigned char   c;
+   
+   if( p->curr >= p->sentinel)
+      return( 0);
+   c = *p->curr++;
+   if( c == '\n')
+      parser_nl( p);
+   return( c);
+}
+
+
+// unused it seems
 static void   parser_undo_character( parser *p)
 {
    if( p->curr <= p->buf)
       parser_error( p, "internal buffer underflow");
-   p->curr--;
+   if( *--p->curr == '\n')
+      p->lineNumber--;
 }
 
 
-static inline unsigned char   parser_next_character( parser *p)
+static inline void  parser_skip_peeked_character( parser *p, char c)
 {
-   return( p->curr < p->sentinel ? *p->curr++ : 0);
+   assert( p->curr < p->sentinel);
+   assert( *p->curr == c);
+   p->curr++;
+}
+
+
+static inline void   parser_peek_expected_character( parser *p, char expect, char *error)
+{
+   unsigned char   c;
+   
+   if( p->curr >= p->sentinel)
+      parser_error( p, "end of file reached, %s", error);
+   
+   c = *p->curr;
+   if( c != expect)
+      parser_error( p, error);
+   if( c == '\n')
+      parser_nl( p);
+}
+
+
+static inline void   parser_next_expected_character( parser *p, char expect, char *error)
+{
+   parser_peek_expected_character( p, expect, error);
+   p->curr++;
 }
 
 
@@ -812,7 +997,7 @@ static NSString  *parser_do_key_path( parser *p)
    parser_grab_text_until_key_path_end( p);
    s = parser_get_string( p);
    if( ! s)
-      parser_error( p, "key path expected");
+      parser_error( p, "a key path was expected");
    parser_skip_whitespace( p);
    return( s);
 }
@@ -825,7 +1010,7 @@ static NSString  *parser_do_identifier( parser *p)
    parser_grab_text_until_identifier_end( p);
    s = parser_get_string( p);
    if( ! s)
-      parser_error( p, "identifier expected");
+      parser_error( p, "an identifier was expected");
    parser_skip_whitespace( p);
    return( s);
 }
@@ -839,7 +1024,7 @@ static NSNumber *parser_do_number( parser *p)
    isFloat = parser_grab_text_until_number_end( p);
    s       = parser_get_string( p);
    if( ! s)
-      parser_error( p, "number expected");
+      parser_error( p, "a number was expected");
    parser_skip_whitespace( p);
    if( isFloat)
       return( [NSNumber numberWithDouble:[s doubleValue]]);
@@ -853,10 +1038,10 @@ static NSString  *parser_do_string( parser *p)
    
    NSCParameterAssert( parser_peek_character( p) == '"');
    
-   parser_next_character( p);   // skip '"'
+   parser_skip_peeked_character( p, '\"');   // skip '"'
    parser_grab_text_until_quote( p);
    s = parser_get_string( p);
-   parser_next_character( p); // skip "
+   parser_skip_peeked_character( p, '\"');   // skip '"'
    parser_skip_whitespace( p);
    
    return( s ? s : @"");
@@ -869,15 +1054,67 @@ static MulleScionExpression * NS_RETURNS_RETAINED  parser_do_expression( parser 
 
 static inline MulleScionExpression * NS_RETURNS_RETAINED  parser_do_unary_expression( parser *p);
 
-
-static NSMutableArray   *parser_do_array( parser *p)
+static NSMutableDictionary  *parser_do_dictionary( parser *p)
 {
-   NSMutableArray         *array;
+   NSMutableDictionary    *dict;
    MulleScionExpression   *expr;
+   MulleScionExpression   *keyExpr;
    unsigned char           c;
    
-   NSCParameterAssert( parser_peek_character( p) == '(');
-   parser_next_character( p);
+   NSCParameterAssert( parser_peek_character( p) == '{');
+   parser_skip_peeked_character( p, '{');   // skip '"'
+   
+   dict = [NSMutableDictionary dictionary];
+   expr  = nil;
+   for(;;)
+   {
+      parser_skip_whitespace( p);
+      c = parser_peek_character( p);
+      if( c == '}')
+      {
+         parser_skip_peeked_character( p, '}');
+         break;
+      }
+      
+      if( c == ',')
+      {
+         if( ! expr)
+            parser_error( p, "a lonely comma in an array was found");
+         parser_skip_peeked_character( p, ',');
+      }
+      else
+      {
+         if( expr)
+            parser_error( p, "a comma or closing curly brackets was expected");
+      }
+      
+      expr = parser_do_expression( p);
+      
+      parser_skip_whitespace( p);
+      c = parser_peek_character( p);
+      if( c != ',')
+         parser_error( p, "a comma and a key was expected");
+
+      parser_skip_peeked_character( p, ',');
+      keyExpr = parser_do_expression( p);
+         
+      [dict setObject:expr
+               forKey:keyExpr];
+
+      [expr release];
+   }
+   return( dict);
+}
+
+   
+static NSMutableArray   *parser_do_array_or_arguments( parser *p, int allow_arguments)
+{
+   NSMutableArray                   *array;
+   MulleScionExpression             *expr;
+   MulleScionIdentifierExpression   *key;
+   unsigned char                    c;
+   
+   parser_skip_peeked_character( p, '(');
 
    array = [NSMutableArray array];
    expr  = nil;
@@ -887,24 +1124,48 @@ static NSMutableArray   *parser_do_array( parser *p)
       c = parser_peek_character( p);
       if( c == ')')
       {
-         parser_next_character( p);
+         parser_skip_peeked_character( p, ')');
          break;
       }
       
-      if( c == ',')
+      if( c == '=' && allow_arguments)
       {
+         MulleScionExpression   *value;
+         
          if( ! expr)
-            parser_error( p, "lonely comma in array");
-         parser_next_character( p);
+            parser_error( p, "a lonely '=' without a key in an argument list was found");
+         if( ! [expr isIdentifier])
+            parser_error( p, "an identifier before '=' was expected");
+
+         key  = (MulleScionIdentifierExpression *) [expr retain];
+         [array removeLastObject];
+
+         parser_skip_peeked_character( p, '=');
+         value = parser_do_expression( p);
+         if( ! value)
+            parser_error( p, "a value after '=' was expected");
+         
+         expr  = [MulleScionParameterAssignment newWithIdentifier:[key identifier]
+                                               retainedExpression:value
+                                                       lineNumber:[key lineNumber]];
+         [key release];
       }
       else
       {
-         if( expr)
-            parser_error( p, "comma or closing parenthesis expected");
+         if( c == ',')
+         {
+            if( ! expr)
+               parser_error( p, "a lonely comma in an array was found");
+            parser_skip_peeked_character( p, ',');
+         }
+         else
+         {
+            if( expr)
+               parser_error( p, "a comma or closing parenthesis was expected");
+         }
+         
+         expr = parser_do_expression( p);
       }
-
-      expr = parser_do_expression( p);
-      
       [array addObject:expr];
       [expr release];
    }
@@ -912,6 +1173,18 @@ static NSMutableArray   *parser_do_array( parser *p)
 }
 
 
+static NSMutableArray   *parser_do_array( parser *p)
+{
+   return( parser_do_array_or_arguments( p, NO));
+}
+
+          
+static NSMutableArray   *parser_do_arguments( parser *p)
+{
+   return( parser_do_array_or_arguments( p, YES));
+}
+
+   
 static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
 {
    NSMutableString        *selBuf;
@@ -923,8 +1196,7 @@ static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
    int                    hasColon;
    unsigned char          c;
    
-   NSCParameterAssert( parser_peek_character( p) == '[');
-   parser_next_character( p);   // skip '['
+   parser_skip_peeked_character( p, '[');
    parser_skip_whitespace( p);
    
    line   = p->memo.lineNumber;
@@ -933,7 +1205,7 @@ static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
    hasColon = parser_grab_text_until_selector_end( p, YES);
    selName  = parser_get_string( p);
    if( ! selName)
-      parser_error( p, "selector expected");
+      parser_error( p, "a selector was expected");
    
    arguments = nil;
    if( hasColon)
@@ -947,8 +1219,6 @@ static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
          for(;;)
          {
             expr = parser_do_expression( p);
-            if( ! expr)
-               parser_error( p, "expression expected");
             [arguments addObject:expr];
             [expr release];
          
@@ -959,7 +1229,7 @@ static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
 
             parser_error( p, "sorry but varargs isn't in the cards yet");
             
-            parser_next_character( p);
+            parser_skip_peeked_character( p, ',');
             parser_skip_whitespace( p);
          }
          
@@ -976,8 +1246,7 @@ static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
    }
    
    parser_skip_whitespace( p);
-   if( parser_next_character( p) != ']')
-      parser_error( p, "closing ']' expected");
+   parser_next_expected_character( p, ']', "a closing ']' was expected");
    
    return( [MulleScionMethod newWithRetainedTarget:target
                                         methodName:selName
@@ -1022,7 +1291,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED parser_do_function_or_macro( pars
    
    NSCParameterAssert( parser_peek_character( p) == '(');
    
-   arguments       = parser_do_array( p);
+   arguments       = parser_do_arguments( p);
    macro           = [p->macroTable objectForKey:identifier];
    p->wasMacroCall = macro != nil;
    if( macro)
@@ -1038,39 +1307,34 @@ static MulleScionFunction  * NS_RETURNS_RETAINED parser_do_function( parser *p, 
 {
    NSMutableArray   *arguments;
    
-   arguments = parser_do_array( p);
+   arguments = parser_do_arguments( p);
    return( [MulleScionFunction newWithIdentifier:identifier
                                        arguments:arguments
                                       lineNumber:p->memo.lineNumber]);
 }
 
 
-static MulleScionVariableAssignment  * NS_RETURNS_RETAINED parser_do_assignment( parser *p, NSString *identifier)
-{
-   MulleScionExpression  *expr;
-   
-   NSCParameterAssert( parser_peek_character( p) == '=');
-   parser_next_character( p);
-   parser_skip_whitespace( p);
-   
-   expr = parser_do_expression( p);
-   return( [MulleScionVariableAssignment newWithIdentifier:identifier
-                                       retainedExpression:expr
-                                               lineNumber:p->memo.lineNumber]);
-}
+//static MulleScionParameterAssignment  * NS_RETURNS_RETAINED parser_do_assignment( parser *p, NSString *identifier)
+//{
+//   MulleScionExpression  *expr;
+//   
+//   NSCParameterAssert( parser_peek_character( p) == '=');
+//   parser_next_character( p);
+//   parser_skip_whitespace( p);
+//   
+//   expr = parser_do_expression( p);
+//   return( [MulleScionParameterAssignment newWithIdentifier:identifier
+//                                       retainedExpression:expr
+//                                               lineNumber:p->memo.lineNumber]);
+//}
 
 
 static MulleScionIndexing  * NS_RETURNS_RETAINED parser_do_indexing( parser *p,
                                                                      MulleScionExpression * NS_CONSUMED left,
                                                                      MulleScionExpression * NS_CONSUMED right)
 {
-   unsigned char   c;
-   
    parser_skip_whitespace( p);
-   
-   c = parser_next_character( p);
-   if( c != ']')
-      parser_error( p, "closing ']' expected");
+   parser_next_expected_character( p, ']', "a closing ']' was expected");
    
    return( [MulleScionIndexing newWithRetainedLeftExpression:left
                                      retainedRightExpression:right
@@ -1082,12 +1346,10 @@ static MulleScionConditional  * NS_RETURNS_RETAINED parser_do_conditional( parse
                                                                            MulleScionExpression * NS_CONSUMED middle)
 {
    MulleScionExpression   *right;
-   unsigned char          c;
    
    parser_skip_whitespace( p);
-   c = parser_next_character( p);
-   if( c != ':')
-      parser_error( p, "conditional ':' expected");
+   parser_next_expected_character( p, ':', "a conditional ':' was expected");
+
    right = parser_do_expression( p);
    return( [MulleScionConditional newWithRetainedLeftExpression:left
                                        retainedMiddleExpression:middle
@@ -1112,47 +1374,46 @@ static MulleScionNot  * NS_RETURNS_RETAINED parser_do_not( parser *p)
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_parenthesized_expression(  parser *p)
 {
    MulleScionExpression  *expr;
-   unsigned char         c;
    
-   parser_next_character( p);
+   parser_skip_peeked_character( p, '(');
 
    expr = parser_do_expression( p);
    
    parser_skip_whitespace( p);
-   c = parser_peek_character( p);
-   if( c != ')')
-      parser_error( p, "closing ')' in parenthesis expression expected. (Hint: prefix arrays with @)");
+   parser_next_expected_character( p, ')', "a closing ')' was expected. (Hint: prefix arrays with @)");
+   
    return( expr);
 }
 
 
 static MulleScionSelector * NS_RETURNS_RETAINED  parser_do_selector(  parser *p)
 {
-   unsigned char         c;
-   NSString              *selectorName;
+   NSString   *selectorName;
    
    parser_skip_whitespace( p);
 
-   c = parser_next_character( p);
-   if( c != '(')
-      parser_error(p, "expected '(' after selector");
+   parser_next_expected_character( p, '(', "a '(' after the selector keyword was expected");
    parser_skip_whitespace( p);
 
    parser_grab_text_until_selector_end( p, NO);
    selectorName  = parser_get_string( p);
    if( ! [selectorName length])
-      parser_error(p, "selector name expected");
+      parser_error(p, "a selector name was expected");
    
    parser_skip_whitespace( p);
-   c = parser_next_character( p);
-   if( c != ')')
-      parser_error(p, "expected closing ')' after selector");
+   parser_next_expected_character( p, ')', "a closing ')' after the selector name was expected");
 
    return( [MulleScionSelector newWithString:selectorName
                                   lineNumber:p->memo.lineNumber]);
 }
 
 
+//case '=' : parser_next_character( p);
+//c = parser_peek_character( p);
+//parser_undo_character( p);
+//if( c == '=')
+//break;
+//return( parser_do_assignment( p, s));
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_macro( parser *p, int allowMacroCall)
 {
    NSString              *s;
@@ -1166,13 +1427,13 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    hasAt = (c == '@');
    if( hasAt)  // skip adorning '@'s
    {
-      parser_next_character( p);
+      parser_skip_peeked_character( p, '@');
       c = parser_peek_character( p);
    }
    
    switch( c)
    {
-   case '!' : parser_next_character( p);
+   case '!' : parser_skip_peeked_character( p, '!');
               return( parser_do_not( p));
    case '"' : return( [MulleScionString newWithString:parser_do_string( p)
                                            lineNumber:p->memo.lineNumber]);
@@ -1181,6 +1442,10 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    case '+' : case '-' : case '.' :  // valid starts of FP nrs
       return( [MulleScionNumber newWithNumber:parser_do_number( p)
                                    lineNumber:p->memo.lineNumber]);
+   case '{' :  if( hasAt)
+                  return( [MulleScionDictionary newWithDictionary:parser_do_dictionary( p)
+                                                       lineNumber:p->memo.lineNumber]);
+               break;
    case '(' :  if( hasAt)
                   return( [MulleScionArray newWithArray:parser_do_array( p)
                                              lineNumber:p->memo.lineNumber]);
@@ -1204,6 +1469,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
                                    lineNumber:p->memo.lineNumber]);
    if( [s isEqualToString:@"not"])
       return( parser_do_not( p));
+   
    if( [s isEqualToString:@"selector"])
       return( parser_do_selector( p));
    
@@ -1211,12 +1477,6 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    c = parser_peek_character( p);
    switch( c )
    {
-   case '=' : parser_next_character( p);
-              c = parser_peek_character( p);
-              parser_undo_character( p);
-              if( c == '=')
-                 break;
-              return( parser_do_assignment( p, s));
    case '(' : if( allowMacroCall)
                  return( parser_do_function_or_macro( p, s));
               return( parser_do_function( p, s));
@@ -1265,17 +1525,28 @@ static MulleScionComparisonOperator  parser_check_comparison_op( parser *p, char
    c = parser_peek_character( p);
    flag = (c == '=');
    if( flag)
-      parser_next_character( p);
+      parser_skip_peeked_character( p, '=');
    
    switch( d)
    {
    case '<' : return( flag ? MulleScionLessThanOrEqualTo : MulleScionLessThan);
    case '>' : return( flag ? MulleScionGreaterThanOrEqualTo : MulleScionGreaterThan);
    case '!' : if( ! flag) break; return( MulleScionNotEqual);
-   case '=' : if( ! flag) break; return( MulleScionNotEqual);
    }
 
-   parser_error( p, "unexpected character %c", d);
+   parser_error( p, "an unexpected character %c was found", d);
+}
+
+
+static MulleScionComparisonOperator  parser_check_equal_or_set_op( parser *p, char c)
+{
+   c = parser_peek2_character( p);
+   if( c != '=')
+      return( MulleScionNoComparison);
+   
+   parser_skip_peeked_character( p, '=');
+   parser_skip_peeked_character( p, '=');
+   return( MulleScionEqual);
 }
 
 
@@ -1299,7 +1570,7 @@ redo:
    case '|' : if( parser_next_matching_string( p, "||", 2))
                  operator = 'o';
               else
-                 parser_next_character( p);
+                 parser_skip_peeked_character( p, '|');
               break;
    case 'a' : if( ! parser_next_matching_string( p, "and", 3))
                  return( left);
@@ -1309,13 +1580,24 @@ redo:
               break;
    case '<' :
    case '>' :
-   case '!' :
-   case '=' : operator = parser_check_comparison_op( p, operator); break;
+   case '!' : operator = parser_check_comparison_op( p, operator);
+              break;
+         
+   case '=' : operator = parser_check_equal_or_set_op( p, operator);
+              if( operator == MulleScionNoComparison)
+                 return( left);
+              break;
    case '?' :
-   case '[' :
    case '.' : // the irony, that I have to support "modern" ObjC to do C :)
-         parser_next_character( p);
-         break;
+              parser_skip_peeked_character( p, operator);
+              break;
+         // this is problematic, because it could also be the start of a
+         // unrelated method call... so lets request a new line between
+   case '[' :
+              if( p->lineNumber != [left lineNumber])
+                 return( left);
+              parser_skip_peeked_character( p, operator);
+              break;
    }
    
    parser_skip_whitespace( p);
@@ -1346,13 +1628,13 @@ redo:
          
    case '|' :
       if( ! [right isMethod] && ! [right isPipe] && ! [right isIdentifier])
-         parser_error( p, "identifier expected after '|'");
+         parser_error( p, "an identifier was expected after '|'");
       return( [MulleScionPipe newWithRetainedLeftExpression:left
                                     retainedRightExpression:right
                                                  lineNumber:p->memo.lineNumber]);
    case '.' :
       if( ! [right isMethod] && ! [right isPipe] && ! [right isDot] && ! [right isIdentifier])
-         parser_error( p, "identifier expected after '.'");
+         parser_error( p, "an identifier was expected after '.'");
       return( [MulleScionDot newWithRetainedLeftExpression:left
                                    retainedRightExpression:right
                                                 lineNumber:p->memo.lineNumber]);
@@ -1361,7 +1643,7 @@ redo:
 }
 
 // this is the path to arithmetic expression also, but DO NOT WANT right now
-// chief use is rea
+//
 static MulleScionExpression * NS_RETURNS_RETAINED  parser_do_expression( parser *p)
 {
    MulleScionExpression  *left;
@@ -1429,9 +1711,10 @@ static void   parser_finish_expression( parser *p)
 {
    macro_type  end_type;
    
+   // shouldn't be lenient here, only accepting whitespace until scion
    end_type = parser_grab_text_until_scion_end( p);
    if( end_type != expression)
-      parser_error( p, "non matching closer found instead of '}}'");
+      parser_error( p, "a non matching closer was found instead of '}}'");
 }
 
 
@@ -1443,7 +1726,7 @@ static void   parser_finish_command( parser *p)
    parser_skip_white_until_scion_or_after_newline( p);
    
    if( end_type != command)
-      parser_error( p, "non matching closer found instead of '%}'");
+      parser_error( p, "a non matching closer was found instead of '%}'");
 }
 
 
@@ -1489,13 +1772,12 @@ static char   *mnemonics[] =
    "extends",
    "filter",
    "for",
-   "for",
    "if",
    "includes",
    "macro",
    "set",
    "verbatim",
-   "while",
+   "while"
 };
 
 // LAYME!!
@@ -1575,7 +1857,7 @@ static void  parser_do_whole_block_to_block_table( parser *p)
    parser_skip_whitespace( p);
    identifier = parser_do_identifier( p);
    if( ! [identifier length])
-      parser_error( p, "identifier expected");
+      parser_error( p, "an identifier was expected");
    parser_finish_command( p);
    
    block     = [MulleScionBlock newWithIdentifier:identifier
@@ -1601,7 +1883,7 @@ static void  parser_do_whole_block_to_block_table( parser *p)
    }
 
    if( ! next)
-      parser_error( p, "endblock expected");
+      parser_error( p, "an endblock was expected");
    
    [p->blocksTable setObject:block
                      forKey:identifier];
@@ -1622,7 +1904,7 @@ static MulleScionBlock * NS_RETURNS_RETAINED  parser_do_block( parser *p, NSUInt
    
    identifier = parser_do_identifier( p);
    if( ! [identifier length])
-      parser_error( p, "identifier expected");
+      parser_error( p, "an identifier was expected");
    
    return( [MulleScionBlock newWithIdentifier:identifier
                                      fileName:p->fileName
@@ -1690,17 +1972,17 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_includes( parser *p, BO
    if( parser_peek_character( p) != '"')
    {
       if( ! allowVerbatim || ! parser_next_matching_string( p, "verbatim", 8))
-         parser_error( p, "filename expected as a quoted string");
+         parser_error( p, "a filename was expected as a quoted string");
 
       parser_skip_whitespace( p);
       if( parser_peek_character( p) != '"')
-         parser_error( p, "filename expected as a quoted string");
+         parser_error( p, "a filename was expected a expected as a quoted string");
       verbatim = YES;
    }
    
    fileName = parser_do_string( p);
    if( ! [fileName length])
-      parser_error( p, "filename expected as a quoted string");
+      parser_error( p, "a filename was expected as a quoted string");
    
    if( verbatim)
    {
@@ -1782,94 +2064,157 @@ static MulleScionMethodCall  *NS_RETURNS_RETAINED parser_do_method_call( parser 
                                                 lineNumber:line]);
 }
 
-
-static MulleScionSet  * NS_RETURNS_RETAINED parser_do_set( parser *p, NSUInteger line)
+typedef struct
 {
-   MulleScionExpression  *expr;
-   unsigned char         c;
-   NSString              *identifier;
-   
-   identifier = parser_do_identifier( p);
-   if( ! [identifier length])
-      parser_error( p, "identifier expected");
-   
-   c = parser_next_character( p);
-   if( c != '=')
-      parser_error( p, "'=' expected in set command");
+   MulleScionExpression   *lexpr;
+   MulleScionExpression   *expr;
+   char                   *separator;
+   int                    allow_expr_only;
+} assignment_or_expr_info;
 
-   parser_skip_whitespace( p);
-   expr = parser_do_expression( p);
-   
-   return([MulleScionSet newWithIdentifier:identifier
-                        retainedExpression:expr
-                                lineNumber:line]);
+
+static void  init_assignment_or_expr_info( assignment_or_expr_info *p, char *separator, int allow_expr_only)
+{
+   p->lexpr           = nil;
+   p->expr            = nil;
+   p->separator       = separator;
+   p->allow_expr_only = allow_expr_only;
 }
 
 
+static int   _parser_do_assignment_or_expr( parser *p, assignment_or_expr_info *info,  NSUInteger line)
+{
+   parser_memo     memo;
+   unsigned char   *s;
+   
+   NSCParameterAssert( info->expr && ! info->lexpr);
+   
+   parser_memorize( p, &memo);
+   for( s = (unsigned char *) info->separator; *s; s++)
+      if( *s != parser_next_character( p))
+      {
+         if( info->allow_expr_only)
+         {
+            parser_recall( p, &memo);
+            return( NO);
+         }
+         parser_error( p, "\'%s\' expected", info->separator);
+      }
+   
+   if( ! [info->expr isLexpr])
+      parser_error( p, "left side not an assignable expression");
+   
+   info->lexpr = info->expr;
+   parser_skip_whitespace( p);
+   info->expr = parser_do_expression( p);
+   
+   return( YES);
+}
 
-static MulleScionObject  * NS_RETURNS_RETAINED parser_do_implicit_set( parser *p, NSString *identifier, NSUInteger line)
+
+static int   parser_do_assignment_or_expr( parser *p, assignment_or_expr_info *info, NSUInteger line)
+{
+   info->expr = parser_do_expression( p);
+   return( _parser_do_assignment_or_expr( p, info, line));
+}
+
+
+static MulleScionSet  * NS_RETURNS_RETAINED parser_do_set( parser *p, NSUInteger line)
+{
+   assignment_or_expr_info   info;
+   
+   init_assignment_or_expr_info( &info, "=", NO);
+   parser_do_assignment_or_expr( p, &info, line);
+   return( [MulleScionSet newWithRetainedLeftExpression:info.lexpr
+                                retainedRightExpression:info.expr
+                                         lineNumber:line]);
+}
+
+
+static MulleScionObject  * NS_RETURNS_RETAINED parser_do_implicit_set( parser *p, MulleScionExpression * NS_CONSUMED lexpr, NSUInteger line)
 {
    MulleScionExpression  *expr;
    unsigned char         c;
    char                  *suggestion;
+   NSString              *identifier;
+   
+   NSCParameterAssert( [lexpr isIndexing] || [lexpr isIdentifier]);
    
    c = parser_peek_character( p);
-   if( c == '(')  // we iz a function call
-      return( parser_do_function_call( p, identifier));
-   
    if( c != '=')
    {
-      suggestion = parser_best_match_for_string( p, identifier);
-      if( suggestion)
-         parser_error( p, "unknown keyword \"%@\" (did you mean \"%s\" ?)", identifier, suggestion);
-      parser_error( p, "unknown keyword \"%@\" (maybe you forgot the keyword \"set\" ?)", identifier);
+      if( [lexpr isIdentifier])
+      {
+         identifier = [(MulleScionVariable *)  lexpr identifier];
+         suggestion = parser_best_match_for_string( p, identifier);
+         if( suggestion)
+            parser_error( p, "unknown keyword \"%@\" (did you mean \"%s\" ?)", identifier, suggestion);
+      }
+      parser_error( p, "unknown keyword (maybe you forgot the keyword \"set\" ?)");
    }
-   parser_next_character( p);
+   
+   parser_skip_peeked_character( p, '=');
    parser_skip_whitespace( p);
    expr = parser_do_expression( p);
    
-   return([MulleScionSet newWithIdentifier:identifier
-                        retainedExpression:expr
-                                lineNumber:line]);
+   return( [MulleScionSet newWithRetainedLeftExpression:lexpr
+                                retainedRightExpression:expr
+                                             lineNumber:line]);
 }
 
 
 static MulleScionFor  * NS_RETURNS_RETAINED parser_do_for( parser *p, NSUInteger line)
 {
-   NSString               *identifier;
-   NSString               *s;
-   MulleScionExpression   *expr;
+   assignment_or_expr_info   info;
    
-   parser_skip_whitespace( p);
-   identifier = parser_do_identifier( p);
-   
-   parser_skip_whitespace( p);
-   s = parser_do_identifier( p);
-   if( ! [s isEqualToString:@"in"])
-      parser_error( p, "keyword \"in\" expected in for statement");
-   
-   expr = parser_do_expression( p);
-   return( [MulleScionFor newWithIdentifier:identifier
-                         retainedExpression:expr
-                                 lineNumber:line]);
+   init_assignment_or_expr_info( &info, "in", NO);
+   parser_do_assignment_or_expr( p, &info, line);
+   return( [MulleScionFor newWithRetainedLeftExpression:info.lexpr
+                                retainedRightExpression:info.expr
+                                             lineNumber:line]);
 }
 
 
 static MulleScionIf  * NS_RETURNS_RETAINED parser_do_if( parser *p, NSUInteger line)
 {
-   MulleScionExpression   *expr;
+   assignment_or_expr_info   info;
+   MulleScionExpression      *expr;
+   int                       is_assignment;
+
+   init_assignment_or_expr_info( &info, "=", YES);
+   is_assignment =  parser_do_assignment_or_expr( p, &info, line);
+
+   expr = info.expr;
+   if( is_assignment)
+   {
+      expr = [MulleScionAssignmentExpression newWithRetainedLeftExpression:info.lexpr
+                                                   retainedRightExpression:info.expr
+                                                                lineNumber:line];
+   }
    
-   expr = parser_do_expression( p);
    return( [MulleScionIf newWithRetainedExpression:expr
                                      lineNumber:line]);
 }
 
 
+// while expr || while lexpr = expr
 static MulleScionWhile  * NS_RETURNS_RETAINED parser_do_while( parser *p, NSUInteger line)
 {
-   MulleScionExpression   *expr;
+   assignment_or_expr_info   info;
+   MulleScionExpression      *expr;
+   int                       is_assignment;
    
-   expr = parser_do_expression( p);
+   init_assignment_or_expr_info( &info, "=", YES);
+   is_assignment =  parser_do_assignment_or_expr( p, &info, line);
+   
+   expr = info.expr;
+   if( is_assignment)
+   {
+      expr = [MulleScionAssignmentExpression newWithRetainedLeftExpression:info.lexpr
+                                                   retainedRightExpression:info.expr
+                                                                lineNumber:line];
+   }
+   
    return( [MulleScionWhile newWithRetainedExpression:expr
                                            lineNumber:line]);
 }
@@ -1890,15 +2235,13 @@ static MulleScionFilter  * NS_RETURNS_RETAINED parser_do_filter( parser *p, NSUI
 
 static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NSUInteger line)
 {
-   MulleScionVariableAssignment   *expr;
-   MulleScionExpression          *right;
-   NSString                      *identifier;
+   MulleScionExpression   *expr;
+   NSString               *identifier;
    
-   expr = (MulleScionVariableAssignment *) parser_do_unary_expression( p);
-   if( ! [expr isVariableAssignment])
-      parser_error( p, "identifier with assignment expected");
-
-   identifier = [(MulleScionVariableAssignment *) expr identifier];
+   identifier = parser_do_identifier( p);
+   if( ! identifier)
+      parser_error( p, "an identifier after define was expected");
+   
    if( [identifier hasPrefix:@"MulleScion"] || [identifier hasPrefix:@"__"])
       parser_error( p, "you can't define internal constants");
 
@@ -1908,13 +2251,13 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
    if( [p->definitionTable objectForKey:identifier])
       parser_error( p, "\"%@\" is already defined", identifier);
    
-   right             = expr->expression_;
-   expr->expression_ = nil;
+   parser_skip_whitespace( p);
+   parser_next_expected_character( p, '=', "a '=' was expected after the identifier");
    
-   [p->definitionTable setObject:right
+   expr = parser_do_expression( p);
+   
+   [p->definitionTable setObject:expr
                           forKey:identifier];
-   
-   [right release];
    [expr release];
    
    return( nil);
@@ -1927,9 +2270,9 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSU
    MulleScionFunction  *function;
    macro_type          last_type;
    MulleScionObject    *node;
+   MulleScionObject    *last;
    MulleScionMacro     *macro;
    NSString            *identifier;
-   unsigned char       c;
    
    if( p->inMacro)
       parser_error( p, "no macro definitions in a macro definition.");
@@ -1938,20 +2281,18 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSU
    identifier = parser_do_identifier( p);
    
    parser_skip_whitespace( p);
-   c = parser_peek_character( p);
-   if( c != '(')
-      parser_error( p, "'(' after identifier expected");
+   parser_peek_expected_character( p, '(', "'(' after identifier expected");
 
    function = [parser_do_function( p, identifier) autorelease];
    
-   identifier = [(MulleScionVariableAssignment *) function identifier];
+   identifier = [(MulleScionParameterAssignment *) function identifier];
    if( [identifier hasPrefix:@"MulleScion"])
       parser_error( p, "you can't define MulleScion macros");
    
    if( [p->macroTable objectForKey:identifier])
       parser_error( p, "macro %@ is already defined", identifier);
 
-   // complete macro command closing
+   // macro %} must be a terminated by %}\n
    parser_finish_command( p);
    
    // now just grab stuff until we hit an endmacro
@@ -1960,12 +2301,27 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSU
    last_type  = eof;
    p->inMacro = YES;
 
-   for( node = root; node; node = parser_next_object( p, node, &last_type));
+   for( last = nil, node = root; node; last = node, node = parser_next_object( p, node, &last_type));
 
    p->inMacro = NO;
    if( last_type != command)
       parser_error( p, "endmacro expected", identifier);
    
+   //
+   // take out single trailing linefeed from macro, which is just ugly
+   //
+   if( last)
+   {
+      while( last->next_)
+         last = last->next_;
+   
+      if( [last isJustALinefeed])
+      {
+         for( node = root; node->next_ != last; node = node->next_);
+         node->next_ = nil;
+         [last release];
+      }
+   }
    
    macro = [MulleScionMacro newWithIdentifier:identifier
                                      function:function
@@ -1975,8 +2331,11 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSU
    [p->macroTable setObject:macro
                      forKey:identifier];
    [macro autorelease];
-   
-   p->curr -= 2;  // dial back to undfinish endmacro command
+
+   parser_undo_character( p);
+   if( parser_peek_character( p) == '\n')
+      parser_undo_character( p);
+   parser_undo_character( p);
    
    return( nil);
 }
@@ -2000,7 +2359,10 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_verbatim( parser *p, 
    
    // completely forget about endverbatim
    parser_skip_text_until_scion_end( p, '%');
-   p->curr -= 2;  // but dial back for verbatim to finish nicely
+   
+   parser_undo_character( p);
+   parser_undo_character( p);
+
    if( ! s)
       return( nil);
 
@@ -2019,81 +2381,131 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_endmacro( parser *p, 
 
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
 {
-   NSString          *s;
-   NSUInteger        line;
-   unsigned char     c;
-   MulleScionOpcode  op;
-   
+   NSUInteger             line;
+   unsigned char          c;
+   MulleScionOpcode       op;
+   MulleScionExpression   *expr;
+   NSString               *identifier;
+
    line = p->lineNumber;
-   c    = parser_peek_character( p);
-   if( c == '[')
-      return( parser_do_method_call( p, line));
    
-   s    = parser_do_identifier( p);
+   parser_grab_text_until_identifier_end( p);
+   identifier = parser_get_string( p);
    parser_skip_whitespace( p);
    
-   op = parser_opcode_for_string( p, s);
+   if( identifier)
+   {
+      op = parser_opcode_for_string( p, identifier);
+
    //if( p->inMacro && op != EndmacroOpcode)
    //   parser_error( p, "no commands in macros");
       
-   switch( op)
-   {
-   case ImplicitSetOpcode : return( parser_do_implicit_set( p, s, line));
-
-   case BlockOpcode    : return( parser_do_block( p, line));
-   case DefineOpcode   : return( parser_do_define( p, line));
-   case ElseOpcode     : return( [MulleScionElse newWithLineNumber:line]);
-   case EndblockOpcode : return( [MulleScionEndBlock newWithLineNumber:line]);
-   case EndfilterOpcode: return( [MulleScionEndFilter newWithLineNumber:line]);
-   case EndforOpcode   : return( [MulleScionEndFor newWithLineNumber:line]);
-   case EndifOpcode    : return( [MulleScionEndIf newWithLineNumber:line]);
-   case EndmacroOpcode : return( parser_do_endmacro( p, line));
-   case EndverbatimOpcode : parser_error( p, "stray endverbatim command");
-   case EndwhileOpcode : return( [MulleScionEndWhile newWithLineNumber:line]);
-   case ExtendsOpcode  : return( parser_do_extends( p));
-   case FilterOpcode   : return( parser_do_filter( p, line));
-   case ForOpcode      : return( parser_do_for( p, line));
-   case IfOpcode       : return( parser_do_if( p, line));
-   case IncludesOpcode : return( parser_do_includes( p, YES));
-   case MacroOpcode    : return( parser_do_macro( p, line));
-   case SetOpcode      : return( parser_do_set( p, line));
-   case VerbatimOpcode : return( parser_do_verbatim( p, line));
-   case WhileOpcode    : return( parser_do_while( p, line));
+      switch( op)
+      {
+         case BlockOpcode    : return( parser_do_block( p, line));
+         case DefineOpcode   : return( parser_do_define( p, line));
+         case ElseOpcode     : return( [MulleScionElse newWithLineNumber:line]);
+         case EndblockOpcode : return( [MulleScionEndBlock newWithLineNumber:line]);
+         case EndfilterOpcode: return( [MulleScionEndFilter newWithLineNumber:line]);
+         case EndforOpcode   : return( [MulleScionEndFor newWithLineNumber:line]);
+         case EndifOpcode    : return( [MulleScionEndIf newWithLineNumber:line]);
+         case EndmacroOpcode : return( parser_do_endmacro( p, line));
+         case EndverbatimOpcode : parser_error( p, "stray endverbatim command");
+         case EndwhileOpcode : return( [MulleScionEndWhile newWithLineNumber:line]);
+         case ExtendsOpcode  : return( parser_do_extends( p));
+         case FilterOpcode   : return( parser_do_filter( p, line));
+         case ForOpcode      : return( parser_do_for( p, line));
+         case IfOpcode       : return( parser_do_if( p, line));
+         case IncludesOpcode : return( parser_do_includes( p, YES));
+         case MacroOpcode    : return( parser_do_macro( p, line));
+         case SetOpcode      : return( parser_do_set( p, line));
+         case VerbatimOpcode : return( parser_do_verbatim( p, line));
+         case WhileOpcode    : return( parser_do_while( p, line));
+      }
+   
+      //
+      // otherwise an implicit set or macro call
+      // dial back and parse expression properly, somewhat wasted effort...
+      //
+      parser_recall( p, &p->memo);
+      expr = (MulleScionIdentifierExpression *) parser_do_expression_or_macro( p);
+      if( expr)
+      {
+         if( p->wasMacroCall)
+            return( expr);
+         return( parser_do_implicit_set( p, expr, line));
+      }
+      return( nil);
    }
-   return( nil);  // for gcc
+   
+   c  = parser_peek_character( p);
+   if( c == '[')
+      return( parser_do_method_call( p, line));
+   
+   // hmmm....
+   parser_error( p, "an unexpected character '%c' at then begin of a command was found", c);
+   return( nil);
 }
 
 
 //
 // one or more semicolon separated commands
 //
-static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
+static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_command_or_nothing( parser *p)
 {
-   MulleScionObject   *car;
-   MulleScionObject   *cdr;
+   MulleScionObject   *expr;
    unsigned char      c;
    
+   parser_memorize( p, &p->memo_interesting);
+
+   // skip semicolons
+   for( ;;)
+   {
+      parser_skip_whitespace( p);
+      c = parser_peek_character( p);
+      if( c != ';')
+         break;
+
+      parser_skip_peeked_character( p, ';');
+   }
+
    //
    // allow empty commands, i don't like parser_peek2_character
    // but couldn't think of something better
    //
    if( parser_peek_character( p) == '%' && parser_peek2_character( p) == '}')
       return( nil);
-
-   car = parser_do_command( p);
-   if( ! car)
-      return( car);
    
    parser_skip_whitespace( p);
-   c = parser_peek_character( p);
-   if( c != ';')
-      return( car);
-   parser_next_character( p);
+   expr = parser_do_command( p);
+   return( expr);
+}
 
-   parser_skip_whitespace( p);
-   cdr        = parser_do_commands( p);
-   car->next_ = cdr;
-   return( car);
+
+static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
+{
+   MulleScionObject   *first;
+   MulleScionObject   *expr;
+   MulleScionObject   *next;
+ 
+   expr = _parser_do_command_or_nothing( p);
+   if( ! expr)
+      return( expr);
+
+   // commands like includes, extends, block, endblock can not be in multiline
+   // statements
+   
+   if( [expr snarfsScion])
+      return( expr);
+   
+   first = expr;
+   while( next = _parser_do_command_or_nothing( p))
+   {
+      NSCParameterAssert( ! next->next_);
+      expr->next_ = next;
+      expr        = next;
+   }
+   return( first);
 }
 
 
@@ -2128,7 +2540,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED _parser_next_object_after_extend(
    obj = nil;
 retry:
    type = parser_grab_text_until_scion( p);
-   parser_next_character( p);
+   parser_next_character( p);  // laissez faire
    parser_next_character( p);
    
    *last_type = type;
@@ -2197,6 +2609,7 @@ retry:
       
    case expression :
       parser_skip_whitespace( p);
+      parser_memorize( p, &p->memo_interesting);
       next = parser_do_expression_or_macro( p);
       parser_finish_expression( p);
       break;
@@ -2204,7 +2617,7 @@ retry:
    case command :
       parser_skip_whitespace( p);
       next = parser_do_commands( p);
-      if( ! [next isTemplate])
+      if( ! [next snarfsScion])
          parser_finish_command( p);
       if( ! next && p->inMacro)
          return( nil);  // endmacro ...
