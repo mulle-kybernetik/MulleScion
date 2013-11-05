@@ -24,7 +24,8 @@ appended. The directory of this path will become your root for included
 templates.
 .It Ar plist  
 Path to a property list file. If you give '-' as a path, the property list will 
-be read from standard input. You can also give 'none' for no property list.
+be read from standard input. You can also give 'none' for no property list. If 
+this parameter is omitted, it defaults to standard input.
 .It Ar outputfile
 The output file to write the output to. If this parameter is omitted, the 
 output is written to standard output.
@@ -40,11 +41,31 @@ port on 18048 on the localhost interface.
 .Pp                     
 .Pp
 .Sh ENVIRONMENT     
-.Bl -tag -width "MulleScionCacheDirectory" -indent 
+.Bl -tag -width "outputfile" -indent 
 .It Ev MulleScionCacheDirectory
 If set this will enable the caching of compiled templates to the specified 
 directory. Changes to source templates are not tracked. Use a dependency 
 tracker like make for that. 
+.El                      
+.Bl -tag -width "outputfile" -indent 
+.It Ev MulleScionDumpPreBlockExpansion
+If set to a filepath or '-' a a dump of the template will be created before 
+block expansion. Technically a dump should be the equivalent of your template.
+.El                      
+.Bl -tag -width "outputfile" -indent 
+.It Ev MulleScionDumpPostBlockExpansion
+If set to a filepath or '-' a a dump of the template will be created after 
+block expansion. 
+.El                      
+.Bl -tag -width "outputfile" -indent 
+.It Ev MulleScionTracePreBlockExpansion
+Filepath or '-' to create a trace of the template after block expansion. 
+A trace is more readable and easier to debug than a dump.
+.El                      
+.Bl -tag -width "outputfile" -indent 
+.It Ev MulleScionTracePostBlockExpansion
+Filepath or '-' to create a trace of the template after block expansion. 
+This is the most common kind of debug output to generate.
 .El                      
 .Sh SEE ALSO 
 .Xr make 1 

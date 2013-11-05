@@ -40,6 +40,8 @@
 #import "MulleScionParser+Parsing.h"
 #import "MulleScionObjectModel+Parsing.h"
 #import "MulleScionObjectModel+BlockExpansion.h"
+#import "NSFileHandle+MulleOutputFileHandle.h"
+#import "MulleScionObjectModel+TraceDescription.h"
 #if ! TARGET_OS_IPHONE
 # import <Foundation/NSDebug.h>
 #endif
@@ -100,41 +102,81 @@
 }
 
 
+static void   _dump( MulleScionTemplate *self, NSString *path, NSString *blurb, SEL sel)
+{
+   NSFileHandle   *fout;
+   char           *s;
+   NSData         *nl;
+   
+   fout = [NSFileHandle mulleOutputFileHandleWithFilename:path];
+   if( ! fout)
+   {
+      NSLog( @"couldn't create trace file \"%@\"", path);
+      return;
+   }
+
+   nl = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
+   if( blurb)
+   {
+      [fout writeData:[blurb dataUsingEncoding:NSUTF8StringEncoding]];
+      [fout writeData:nl];
+   }
+   [fout writeData:[[self performSelector:sel] dataUsingEncoding:NSUTF8StringEncoding]];
+   [fout writeData:nl];
+}
+
+
+static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL sel)
+{
+   NSAutoreleasePool   *pool;
+   char                *s;
+   NSString            *path;
+   
+   s = env ? getenv( env) : "-";
+   if( ! s || ! *s)
+      return;
+   
+   pool = [NSAutoreleasePool new];
+   path = [NSString stringWithCString:s];
+   _dump( self, path, blurb, sel);
+   [pool release];
+}
+
+
+#define MULLE_SCION_DUMP_PRE_EXPAND     "MulleScionDumpPreBlockExpansion"
+#define MULLE_SCION_DUMP_POST_EXPAND    "MulleScionDumpPostBlockExpansion"
+
+// in debug mode always trace
+#if DEBUG
+# define MULLE_SCION_TRACE_PRE_EXPAND   NULL
+# define MULLE_SCION_TRACE_POST_EXPAND  NULL
+#else
+# define MULLE_SCION_TRACE_PRE_EXPAND   "MulleScionTracePreBlockExpansion"
+# define MULLE_SCION_TRACE_POST_EXPAND  "MulleScionTracePostBlockExpansion"
+#endif
+
+
 - (MulleScionTemplate *) template
 {
    MulleScionTemplate      *template;
    NSMutableDictionary     *blockTable;
-   NSAutoreleasePool       *pool;
-   NSAutoreleasePool       *outer;
+   NSAutoreleasePool        *pool;
    
-   outer      = [NSAutoreleasePool new];
+   pool       = [NSAutoreleasePool new];
    blockTable = [NSMutableDictionary dictionary];
+   template   = [self templateParsedWithBlockTable:blockTable];
 
-   pool = [NSAutoreleasePool new];
-   template = [[self templateParsedWithBlockTable:blockTable] retain];
-   [pool release];
-
-#if ! TARGET_OS_IPHONE
-# ifndef DEBUG
-   if( NSDebugEnabled)
-# endif
-      if( [template respondsToSelector:@selector( mulleScionDescription)])
-         NSLog( @"Parsed Template:\n%@", [template count] <= 100000 ? template : @"too large to print");
-#endif
+   dump( template, MULLE_SCION_TRACE_PRE_EXPAND, @"BEFORE BLOCK EXPANSION:", @selector( traceDescription));
+   dump( template, MULLE_SCION_DUMP_PRE_EXPAND,  @"BEFORE BLOCK EXPANSION:", @selector( templateDescription));
    
-   pool = [NSAutoreleasePool new];
    [template expandBlocksUsingTable:blockTable];
+   
+   dump( template, MULLE_SCION_DUMP_POST_EXPAND, @"AFTER BLOCK EXPANSION:", @selector( traceDescription));
+   dump( template, MULLE_SCION_DUMP_POST_EXPAND, @"AFTER BLOCK EXPANSION:", @selector( templateDescription));
+   
+   [template retain];
    [pool release];
    
-#if ! TARGET_OS_IPHONE
-# ifndef DEBUG
-   if( NSDebugEnabled)
-# endif
-      if( [template respondsToSelector:@selector( mulleScionDescription)])
-         NSLog( @"Template after block expansion:\n%@", [template count] <= 100000 ? template : @"too large to print");
-#endif
-   
-   [outer release];
    return( [template autorelease]);
 }
 

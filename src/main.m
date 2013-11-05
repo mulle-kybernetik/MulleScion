@@ -37,6 +37,7 @@
 
 #import "MulleScion.h"
 #import "MulleMongoose.h"
+#import "NSFileHandle+MulleOutputFileHandle.h"
 
 
 static NSFileHandle  *outputStreamWithInfo( NSDictionary *info);
@@ -181,20 +182,7 @@ static NSFileHandle   *outputStreamWithInfo( NSDictionary *info)
    NSFileHandle   *stream;
    
    outputName = [info objectForKey:@"output"];
-   if( [outputName isEqualToString:@"-"])
-      return( [NSFileHandle fileHandleWithStandardOutput]);
-   [[NSFileManager defaultManager] createFileAtPath:outputName
-                                           contents:[NSData data]
-                                         attributes:nil];
-   stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
-   if( ! stream)
-      [[NSFileManager defaultManager] createFileAtPath:outputName
-                                              contents:[NSData data]
-                                            attributes:nil];
-   else
-      [stream truncateFileAtOffset:0];
-
-   stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
+   stream     = [NSFileHandle mulleOutputFileHandleWithFilename:outputName];
    if( ! stream)
       NSLog( @"failed to create output file \"%@\"", outputName);
    return( stream);

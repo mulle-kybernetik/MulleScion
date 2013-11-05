@@ -36,6 +36,7 @@
 
 
 #import "MulleScionObjectModel.h"
+#import "MulleScionObjectModel+TraceDescription.h"
 
 #import "MulleScionDataSourceProtocol.h"
 #import "MulleScionOutputProtocol.h"

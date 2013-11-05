@@ -38,15 +38,9 @@
 #import "MulleScionObjectModel.h"
 
 
-#ifndef DONT_HAVE_MULLE_SCION_DESCRIPTION
-//
-// OPTIONAL: sometimes useful for debugging
-//
-@interface MulleScionObject ( Description)
+@interface MulleScionObject ( TraceDescription)
 
-- (NSString *) description;
-- (NSString *) shortDescription;
+- (NSString *) traceDescription;
+- (NSString *) templateDescription;
 
 @end
-
-#endif
