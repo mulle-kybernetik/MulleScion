@@ -1,6 +1,9 @@
-Set is used to asssing values to variables. You may omit the Set keyword if you
+Set is used to assigning values to variables. You may omit the Set keyword if you
 want.
 
-{% set foo = @"value" %}
-{{ foo }}
+{% set foo = [NSMutableDictionary dictionary];
+   foo[ @"key"] = @"a value"
+%}
+
+{{ foo[ @"key"] }}
 

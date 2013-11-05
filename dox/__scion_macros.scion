@@ -1,11 +1,10 @@
 {% macro html_file_list_table( subdivision=4, wrapper="?wrapper=_wrapper.scion", file_list) %}
- {% MulleScionForSubdivisionLength = subdivision %}
- {% MulleScionForOpener = "	<tr><td>" %}
- {% MulleScionForSeparator = "</td><td>" %}
- {% MulleScionForCloser = "</td></tr>" %}
- {% MulleScionForSubdivisionOpener = MulleScionForOpener %}
- {% MulleScionForSubdivisionCloser = "</td></tr>
-" %}
+ {% MulleScionForSubdivisionLength = subdivision;
+    MulleScionForOpener = "	<tr><td>";
+    MulleScionForSeparator = "</td><td>";
+    MulleScionForCloser = "</td></tr>";
+    MulleScionForSubdivisionOpener = MulleScionForOpener;
+    MulleScionForSubdivisionCloser = "</td></tr>\n" %}
  <table>
   {% for file in file_list %}{{ file#.header }}<a href="{{ file | urlEscapedString }}{{ wrapper }}">{{ [file isEqualToString:@"dot.scion"] ? @"." : [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
  </table>

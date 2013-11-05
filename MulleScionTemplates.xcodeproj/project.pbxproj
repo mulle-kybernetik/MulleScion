@@ -82,7 +82,6 @@
 		4121DB0416DD2B6900BFD60C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4121DB0316DD2B6900BFD60C /* libz.dylib */; };
 		414A840616E50D4A0084AE1E /* index.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A716E39BF200C4D68A /* index.scion */; };
 		414A840816E50D4E0084AE1E /* _wrapper.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56B416E3E95C00C4D68A /* _wrapper.scion */; };
-		414A840916E50D4F0084AE1E /* __scion_defines.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51AD16E5045300D3B0AD /* __scion_defines.scion */; };
 		414A840A16E50D510084AE1E /* __scion_macros.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51AE16E505A800D3B0AD /* __scion_macros.scion */; };
 		414A840B16E50D540084AE1E /* __scion_banner.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AD16E3D1FF00C4D68A /* __scion_banner.scion */; };
 		414A840C16E50D550084AE1E /* __scion_navigation.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A916E3CF3F00C4D68A /* __scion_navigation.scion */; };
@@ -210,6 +209,8 @@
 		41F12D4016E25B9100120E63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41F12D4116E25B9F00120E63 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4121DB0316DD2B6900BFD60C /* libz.dylib */; };
 		41F12D4616E274D200120E63 /* MulleScionNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F12D4516E274D200120E63 /* MulleScionNull.m */; };
+		41FE9FD718281F77005E7A41 /* RELEASENOTES in Resources */ = {isa = PBXBuildFile; fileRef = 41FE9FD618281F77005E7A41 /* RELEASENOTES */; };
+		41FE9FD818281F77005E7A41 /* RELEASENOTES in Resources */ = {isa = PBXBuildFile; fileRef = 41FE9FD618281F77005E7A41 /* RELEASENOTES */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -404,7 +405,6 @@
 				414A840C16E50D550084AE1E /* __scion_navigation.scion in CopyFiles */,
 				414A840A16E50D510084AE1E /* __scion_macros.scion in CopyFiles */,
 				414A840B16E50D540084AE1E /* __scion_banner.scion in CopyFiles */,
-				414A840916E50D4F0084AE1E /* __scion_defines.scion in CopyFiles */,
 				414A842716E529780084AE1E /* ~spaces.scion in CopyFiles */,
 				414A840816E50D4E0084AE1E /* _wrapper.scion in CopyFiles */,
 			);
@@ -544,6 +544,7 @@
 		4190DC6C16DEC5F400FC4471 /* filter.scion */ = {isa = PBXFileReference; lastKnownFileType = text; name = filter.scion; path = ../dox/filter.scion; sourceTree = "<group>"; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
 		41BC1BD5181AF0B900A90E06 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
+		41CCC55C18254FB00081FA1C /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 		41CD2F0D181FE17300FBBEB4 /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
 		41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionPrintingException.h; sourceTree = "<group>"; };
 		41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionPrintingException.m; sourceTree = "<group>"; };
@@ -579,9 +580,7 @@
 		41EA51A716E4E61A00D3B0AD /* block.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = block.scion; sourceTree = "<group>"; };
 		41EA51A816E4E63500D3B0AD /* set.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = set.scion; sourceTree = "<group>"; };
 		41EA51AB16E4E7D900D3B0AD /* extends.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = extends.scion; sourceTree = "<group>"; };
-		41EA51AD16E5045300D3B0AD /* __scion_defines.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = __scion_defines.scion; sourceTree = "<group>"; };
 		41EA51AE16E505A800D3B0AD /* __scion_macros.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __scion_macros.scion; sourceTree = "<group>"; };
-		41EA51B016E50BED00D3B0AD /* ~stress-macro.scion */ = {isa = PBXFileReference; lastKnownFileType = text; name = "~stress-macro.scion"; path = "../dox/~stress-macro.scion"; sourceTree = "<group>"; };
 		41EC7F951821BE3900142613 /* #!.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "#!.scion"; sourceTree = "<group>"; };
 		41ECE09616DC363E00E891A0 /* _simple_base.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = _simple_base.scion; path = ../dox/_simple_base.scion; sourceTree = "<group>"; };
 		41ECE09716DC367200E891A0 /* ~simple_extends.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "~simple_extends.scion"; path = "../dox/~simple_extends.scion"; sourceTree = "<group>"; };
@@ -589,6 +588,7 @@
 		41F12D3D16E25B4200120E63 /* MulleScionTemplates.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MulleScionTemplates.c; sourceTree = "<group>"; };
 		41F12D4416E274D100120E63 /* MulleScionNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionNull.h; sourceTree = "<group>"; };
 		41F12D4516E274D200120E63 /* MulleScionNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionNull.m; sourceTree = "<group>"; };
+		41FE9FD618281F77005E7A41 /* RELEASENOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RELEASENOTES; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -696,11 +696,13 @@
 			isa = PBXGroup;
 			children = (
 				41DEE8A117DF22190042A439 /* README.md */,
+				41FE9FD618281F77005E7A41 /* RELEASENOTES */,
 				41CD2F0D181FE17300FBBEB4 /* INSTALL */,
 				414A842816E52DF50084AE1E /* LICENSE */,
 				41764B9116DA511200560FCF /* src */,
 				41764B8E16DA511200560FCF /* Frameworks */,
 				41764B9416DA511200560FCF /* dox */,
+				41CCC55C18254FB00081FA1C /* tests */,
 				41764B8D16DA511200560FCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -757,7 +759,6 @@
 				414A842616E5288A0084AE1E /* MulleScionTemplatesDataFlow.png */,
 				41DD56A716E39BF200C4D68A /* index.scion */,
 				41DD56B416E3E95C00C4D68A /* _wrapper.scion */,
-				41EA51AD16E5045300D3B0AD /* __scion_defines.scion */,
 				41EA51AE16E505A800D3B0AD /* __scion_macros.scion */,
 				41DD56AD16E3D1FF00C4D68A /* __scion_banner.scion */,
 				41DD56A916E3CF3F00C4D68A /* __scion_navigation.scion */,
@@ -793,7 +794,6 @@
 				41ECE09716DC367200E891A0 /* ~simple_extends.scion */,
 				410B32EF16DBD5DC005D0EAD /* ~extends.scion */,
 				4121DAED16DCCE0B00BFD60C /* ~spaces.scion */,
-				41EA51B016E50BED00D3B0AD /* ~stress-macro.scion */,
 				410B32EE16DBD5D4005D0EAD /* _footer.scion */,
 				410B32EB16DBD57B005D0EAD /* _base.scion */,
 				410B32EC16DBD5BC005D0EAD /* _header.scion */,
@@ -1164,6 +1164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41B07E261820215A0003B67F /* README.md in Resources */,
+				41FE9FD718281F77005E7A41 /* RELEASENOTES in Resources */,
 				41B07E271820215A0003B67F /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1173,6 +1174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41188249181E87F5003F06CD /* README.md in Resources */,
+				41FE9FD818281F77005E7A41 /* RELEASENOTES in Resources */,
 				41B07E28182021720003B67F /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1456,6 +1458,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1465,7 +1468,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1848.2;
+				DYLIB_CURRENT_VERSION = 1848.3;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1496,6 +1499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1507,7 +1511,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1848.2;
+				DYLIB_CURRENT_VERSION = 1848.3;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1551,6 +1555,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1562,7 +1567,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1848.2;
+				DYLIB_CURRENT_VERSION = 1848.3;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (

@@ -1,0 +1,22 @@
+v1848.3  !!massive changes!!
+
+your compiled scionz files are incompatible now. Throw them away
+and rebuild your caches
+
+you used to be able to have random trash after valid scion code, which was nice
+for documentation. That doesn't work anymore in most cases
+
+you can now write multiline scripts, but some keywords need still to be 
+enclosed as singles in {% %} like macro, block, endblock, extends and maybe
+some others
+
+there are the beginnings of a test suite, check out the tests folder. there is
+a simple shellscript that runs the tests
+
+lots of smaller fixes, whose content one might glean from the git comments
+
+
+v1848.2
+
+your scionz files are incompatible now. Throw them away
+and rebuild the caches

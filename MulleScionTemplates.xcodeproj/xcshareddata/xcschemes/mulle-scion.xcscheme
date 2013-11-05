@@ -44,7 +44,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "${PROJECT_DIR}"
+      customWorkingDirectory = "$(PROJECT_DIR)"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -54,7 +54,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "( sleep 2 ; open &quot;http://127.0.0.1:18048/index.scion&quot; ) &amp;">
+               scriptText = "# doesn&apos;t work&#10;# if [ &quot;$START_WEBSERVER&quot; = &quot;YES&quot; ]&#10;#then&#10;   ( sleep 2 ; open &quot;http://127.0.0.1:18048/index.scion&quot; ) &amp;&#10;#fi&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -73,11 +73,31 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./dox/self.scion"
+            argument = "./tests/expressions/operators/comparisons/smaller/smaller-2.scion"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./tests/commands/macro/macro-in-macro.scion"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./tests/commands/includes/includes.scion"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./tests/commands/if/method-after-if.scion"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./dox/set.scion"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "./dox/properties.plist"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "none"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -86,6 +106,11 @@
             key = "MulleScionCacheDirectory"
             value = "/tmp/cache"
             isEnabled = "NO">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "START_WEBSERVER"
+            value = "YES"
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
