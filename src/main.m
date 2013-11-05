@@ -44,6 +44,23 @@ static NSDictionary  *getInfoFromArguments( void);
 static id            acquirePropertyList( NSString *s);
 
 
+@interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
+   @end
+
+
+@implementation NSFileHandle ( MulleScionOutput)
+   
+- (void) appendString:(NSString *) s
+{
+   NSData             *data;
+      
+   data = [s dataUsingEncoding:NSUTF8StringEncoding];
+   [self writeData:data];
+}
+   
+@end
+
+
 /* #####
    ##### #####  CODE SPECIFIC FOR MULLE SCION
    ##### */
@@ -59,24 +76,6 @@ static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
                 forKey:@"MulleScionPropertyListName"];
    return( sanitize);
 }
-
-
-@interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
-@end
-
-
-@implementation NSFileHandle ( MulleScionOutput)
-
-- (void) appendString:(NSString *) s
-{
-   NSData             *data;
-   
-   data = [s dataUsingEncoding:NSUTF8StringEncoding];
-   [self writeData:data];
-}
-
-@end
-
 
 
 static int   run( NSString *template,
@@ -100,26 +99,6 @@ static int   run( NSString *template,
 /*       #####
    ##### #####
          ##### */
-
-static int _main(int argc, const char * argv[])
-{
-   NSFileHandle        *stream;
-   NSDictionary        *info;
-   
-   info = getInfoFromArguments();
-   if( ! info)
-      return( -3);
-
-   stream = outputStreamWithInfo( info);
-   if( ! stream)
-      return( -2);
-         
-   return( run( [info objectForKey:@"MulleScionRootTemplate"],
-                [info objectForKey:@"plist"],
-                stream,
-                localVariablesFromInfo( info)));
-}
-
 
 static id   acquirePropertyList( NSString *s)
 {
@@ -245,6 +224,26 @@ static void  loadBundles( void)
          exit( 1);
       }
    }
+}
+
+
+static int _main(int argc, const char * argv[])
+{
+   NSFileHandle        *stream;
+   NSDictionary        *info;
+   
+   info = getInfoFromArguments();
+   if( ! info)
+      return( -3);
+   
+   stream = outputStreamWithInfo( info);
+   if( ! stream)
+      return( -2);
+   
+   return( run( [info objectForKey:@"MulleScionRootTemplate"],
+               [info objectForKey:@"plist"],
+               stream,
+               localVariablesFromInfo( info)));
 }
 
 
