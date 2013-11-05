@@ -65,10 +65,7 @@
 
 - (NSString *) shortDescription
 {
-   NSString  *s;
-   
-   s = [self _description];
-   return( [NSString stringWithFormat:@"%ld: %@", (long) lineNumber_, s]);
+   return( [self _description]);
 }
 
 
@@ -86,12 +83,6 @@
 
 
 @implementation MulleScionPlainText ( Description)
-
-- (NSString *) _descriptionSeparator
-{
-   return( @"");
-}
-
 
 - (NSString *) _description
 {
@@ -121,18 +112,17 @@ static NSString   *shortenedString( NSString *s, size_t max)
    NSString     *s;
 
    s = shortenedString( [self _description], 64);
-   return( [NSString stringWithFormat:@"%ld: %@", (long) lineNumber_, s]);
+   return( [NSString stringWithFormat:@"\"%@\"", s]);
 }
 
 
-- (NSString *) description
+- (NSString *) mulleScionDescription
 {
    NSString  *s;
    
-   s = [self _description];
-   if( next_)
-      return( [NSString stringWithFormat:@"%ld: %@%@", (long) lineNumber_, s, [next_ description]]);
-   return( s);
+   s = [self shortDescription];
+   s = [[s componentsSeparatedByString:@"\n"] componentsJoinedByString:@"\\n"];
+   return( [NSString stringWithFormat:@"\"%@\"", s]);
 }
 
 @end
@@ -142,7 +132,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 
 - (NSString *) _description
 {
-   return( [NSString stringWithFormat:@"%ld: template %@", (long) lineNumber_, value_]);
+   return( [NSString stringWithFormat:@"template %@", value_]);
 }
 
 @end
@@ -151,6 +141,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @interface NSObject ( MulleScionDescription)
 
 - (NSString *) mulleScionDescription;
+
 @end
 
 
@@ -179,10 +170,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 
 - (NSString *) shortDescription
 {
-   NSString     *s;
-   
-   s = shortenedString( value_, 64);
-   return( [NSString stringWithFormat:@"%ld: @\"%@\"", (long) lineNumber_, s]);
+   return( shortenedString( value_, 64));
 }
 
 
@@ -196,15 +184,9 @@ static NSString   *shortenedString( NSString *s, size_t max)
 
 @implementation MulleScionSelector( Description)
 
-- (NSString *) shortDescription
+- (NSString *) _description
 {
-   return( [NSString stringWithFormat:@"%ld: @selector( %@)", (long) lineNumber_, value_]);
-}
-
-
-- (NSString *) mulleScionDescription
-{
-   return( [NSString stringWithFormat:@"@selector( %@)", value_]);
+   return( [NSString stringWithFormat:@"%@selector( %@)", value_]);
 }
 
 @end
@@ -213,17 +195,13 @@ static NSString   *shortenedString( NSString *s, size_t max)
 
 @implementation MulleScionExpression ( Description)
 
-- (NSString *) _descriptionSeparator
-{
-   return( @"");
-}
-
 - (NSString *) _description
 {
    return( [NSString stringWithFormat:@"{{ %@ }}", [self mulleScionDescription]]);
 }
 
 @end
+
 
 @implementation MulleScionArray ( Description)
 
@@ -247,6 +225,32 @@ static NSString   *shortenedString( NSString *s, size_t max)
    return( s);
 }
 
+@end
+
+
+@implementation MulleScionDictionary ( Description)
+   
+- (NSString *) mulleScionDescription
+{
+   NSMutableString   *s;
+   NSEnumerator      *rover;
+   id                key, value;
+   
+   s = [NSMutableString string];
+   rover = [value_ keyEnumerator];
+   
+   [s appendFormat:@"@{"];
+   while( key = [rover nextObject])
+   {
+      value = [value_ objectForKey:key];
+      [s appendFormat:@" %@,", [value mulleScionDescription]];
+      [s appendFormat:@" %@", [key mulleScionDescription]];
+   }
+   [s appendString:@"}"];
+   
+   return( s);
+}
+   
 @end
 
 
@@ -402,7 +406,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
    NSString   *command;
    
    command = [self _commandDescription];
-   return( [NSString stringWithFormat:@"%@%@ = %@", command, identifier_, [expression_ mulleScionDescription]]);
+   return( [NSString stringWithFormat:@"%@%@ = %@", command, [left_ mulleScionDescription], [right_ mulleScionDescription]]);
 }
 
 @end
@@ -415,7 +419,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
    NSString   *command;
    
    command = [self _commandDescription];
-   return( [NSString stringWithFormat:@"%@%@ in %@", command, identifier_, [expression_ mulleScionDescription]]);
+   return( [NSString stringWithFormat:@"%@%@ in %@", command, [left_ mulleScionDescription], [right_ mulleScionDescription]]);
 }
 
 @end
