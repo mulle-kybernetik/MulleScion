@@ -1,12 +1,39 @@
-#!/bin/sh  
-
+#!/bin/bash -m
+#
 #  scion-tests.sh
 #  MulleScionTemplates
 #
 #  Created by Nat! on 01.11.13.
 #  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
 
+# check if running a single test or all
 
+executable=`basename $0`
+executable=`basename $executable .sh`
+
+if [ "$executable" = "run-all-scion-tests" ]
+then
+   TEST=""
+   VERBOSE=yes
+   if [ "$1" = "-q" ]
+   then
+      VERBOSE=no
+      shift
+   fi
+else
+   TEST="$1"
+   shift
+fi
+
+trace_ignore()
+{
+  return 0
+}
+
+trap trace_ignore 5
+
+
+# parse optional parameters 
 if [ -x "../Build/Products/Debug/mulle-scion" ]
 then
    MULLE_SCION=${1:-../Build/Products/Debug/mulle-scion}
@@ -98,6 +125,8 @@ run()
    local output
    local errput
    local random
+   local fail
+   local match
 
    template="$1"
    plist="$2"
@@ -108,28 +137,64 @@ run()
    random=`mktemp -t "mulle-scion"`
    output="$random.stdout"
    errput="$random.stderr"
+   errors=`basename $template .scion`.errors
    pretty_template=`rel_pwd "$root"`/$template
 
+   if [ "$VERBOSE" = "yes" ]
+   then
+      echo "$root"/"$template"
+   fi
+
    RUNS=`expr $RUNS + 1`
-   cat "$stdin" | $MULLE_SCION "$template" "$plist" > "$output" 2> "$errput"
+
+   # plz2shutthefuckup bash
+   set +m 
+   set +b
+   set +v
+   # denied, will always print TRACE/BPT
+
+   $MULLE_SCION "$template" "$plist" < "$stdin" > "$output" 2> "$errput"
+
    if [ $? -ne 0 ]
    then
-      if [ ! -f "$template".should-crash ]
+      if [ ! -f "$errors" ]
       then
          echo "TEMPLATE CRASHED: \"$pretty_template\"" >& 2
          echo "DIAGNOSTICS:" >& 2
          cat  "$errput"
          exit 1
+      else
+         fail=0        
+         while read expect
+         do
+            match=`grep "$expect" "$errput"`
+            if [ "$match" = "" ]
+            then
+               if [ $fail -eq 0 ]
+               then
+                  echo "TEMPLATE FAILED TO PRODUCE ERRORS: \"$pretty_template\"" >& 2
+                  fail=1
+               fi 
+               echo "   $expect" >&2
+            fi
+         done < "$errors"
+         if [ $fail -eq 1 ]
+         then
+            exit 1
+         fi
+         rm "$output" "$errput" 2> /dev/null
+         return 0
       fi
    else
-      if [ -f "$template".should-crash ]
+      if [ -f "$errors" ]
       then
          echo "TEMPLATE FAILED TO CRASH: \"$pretty_template\"" >& 2
-         echo "DIAGNOSTICS:" >& 2
+         echo "DIAGNOSTICS:" >&2
          cat  "$errput"
          exit 1
       fi
    fi
+
 
    if [ "$stdout" != "-" ]
    then
@@ -169,6 +234,7 @@ run()
          exit 3
       fi
    fi
+   rm "$output" "$errput" 2> /dev/null
 }
 
 
@@ -256,7 +322,7 @@ scan_directory()
 
    root="$1"
 
-   for i in *
+   for i in [^_]*
    do
       if [ -d "$i" ]
       then
@@ -316,13 +382,45 @@ absolute_path_if_relative()
 MULLE_SCION=`absolute_path_if_relative "$MULLE_SCION"`
 
 test_binary "$MULLE_SCION"
-scan_directory "$DIR"
 
-if [ "$RUNS" -ne 0 ]
+if [ "$TEST" = "" ]
 then
-   echo "All tests ($RUNS) passed successfully"
+   scan_directory "$DIR"
+
+   if [ "$RUNS" -ne 0 ]
+   then
+       echo "All tests ($RUNS) passed successfully"
+   else
+      echo "no tests found" >&2
+      exit 1
+   fi
 else
-   echo "no tests found" >&2
-   exit 1
+    dirname=`dirname "$TEST"`
+    if [ "$dirname" = "" ]
+    then
+       dirname="."
+    fi
+    file=`basename "$TEST"`
+    filename=`basename "$file" .scion`
+  
+    if [ "$file" = "$filename" ]
+    then
+       echo "error: template file must have .scion extension" >& 2
+       exit 1
+    fi
+  
+    if [ ! -f "$TEST" ]
+    then
+       echo "error: template file not found" >& 2
+       exit 1
+    fi
+  
+    old=`pwd`
+    cd "$dirname"
+    run_test "$filename" "$dirname"
+    rval=$?
+    cd "$old"
+    exit $rval    
 fi
+
 

@@ -5,10 +5,10 @@ any regular template text.
 There is a special includes called includes verbatim. It reads the contents of
 a file but doesn't parse it.
 
-Here we include ~spaces.scion and have the comments parsed away
+Here we include _spaces.scion and have the comments parsed away
 
-{% includes "~spaces.scion" %}
+{% includes "_spaces.scion" %}
 
 and the file included verbatim
 
-{% includes verbatim "~spaces.scion" %}
+{% includes verbatim "_spaces.scion" %}

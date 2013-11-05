@@ -1,6 +1,6 @@
 .DS_Store
-MulleScionTemplates.xcodeproj/project.xcworkspace
-MulleScionTemplates.xcodeproj/xcuserdata
+project.xcworkspace/
+xcuserdata/
 *.pch
 *~
 Build

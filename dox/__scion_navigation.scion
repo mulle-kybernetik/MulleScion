@@ -3,10 +3,8 @@
    fileManager = [NSFileManager defaultManager];
    for file in [[fileManager directoryContentsAtPath:@"/tmp"] sortedArrayUsingSelector:@selector( compare:)]
       if [file hasSuffix:@".scion"] and 
-         not [file hasPrefix:@"~"] and
          not [file hasPrefix:@"_"] and 
          not [file hasPrefix:@"index."] and 
-         not [file hasPrefix:@"error"]
          [result addObject:file];
       endif
    endfor 

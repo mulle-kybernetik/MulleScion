@@ -1,0 +1,1 @@
+run-all-scion-tests.sh

@@ -49,7 +49,7 @@ create_dot()
 }
 
 
-output=`basename "$input" .h`.dot
+output=dox/`basename "$input" .h`.dot
 
 create_dot "$input" "LR" i > "$output"
 

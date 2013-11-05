@@ -1,0 +1,7 @@
+{% 
+   dict = @{ @"xxx", @"name" }
+   deep = @( dict) 
+ %}
+{{ deep[ 0] }}
+{{ deep[ 0].name }}
+{{ deep[ 0].name.class }}
