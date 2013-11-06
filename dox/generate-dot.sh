@@ -5,7 +5,7 @@
 # coded by Nat!
 # ###########################################################################
 
-input=${1:-"src/MulleScionObjectModel.h"}
+input=${1:-"../src/MulleScionObjectModel.h"}
 shift
 open=${1:-yes}
 shift

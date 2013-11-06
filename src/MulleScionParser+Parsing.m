@@ -343,7 +343,12 @@ static unsigned char    *unescaped_string_if_needed( unsigned char *s,
    
    // maybe a little bit pedantic ?
    if( unescaped)
+   {
       unescaped = realloc( unescaped, *result_len);
+      if( ! unescaped)
+         [NSException raise:NSMallocException
+                     format:@"can't shrink down to %ld bytes", (long) *result_len];
+   }
    
    return( unescaped);
 }

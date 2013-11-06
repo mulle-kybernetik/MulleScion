@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface NSFileHandle (MulleOutputFileHandle)
 
 + (NSFileHandle *) mulleOutputFileHandleWithFilename:(NSString *) outputName;
++ (NSFileHandle *) mulleErrorFileHandleWithFilename:(NSString *) outputName;
 
 @end

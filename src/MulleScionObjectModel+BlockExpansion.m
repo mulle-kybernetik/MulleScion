@@ -68,28 +68,30 @@
 }
 
 
-// replacement must be copy
-- (void) replaceOwnedBlockWith:(MulleScionBlock *) NS_CONSUMED replacement
+// replacement must be a copy
+- (MulleScionBlock *) replaceOwnedBlockWith:(MulleScionBlock *) NS_CONSUMED replacement
 {
    MulleScionBlock      *block;
    MulleScionObject     *endBlock;
-   MulleScionObject     *replacementEnd;
+   MulleScionObject     *endReplacement;
    
    NSParameterAssert( [replacement isBlock]);
    NSParameterAssert( [self->next_ isBlock]);
    
-   replacementEnd = [replacement tail];
+   endReplacement = [replacement tail];
    block          = (MulleScionBlock *) self->next_;
    endBlock       = [block terminateToEnd:block->next_];
    
    NSParameterAssert( [endBlock isEndBlock]);
-   NSParameterAssert( [replacementEnd isEndBlock]);
+   NSParameterAssert( [endReplacement isEndBlock]);
    
    self->next_           = replacement;
-   replacementEnd->next_ = endBlock->next_;
+   endReplacement->next_ = endBlock->next_;
    endBlock->next_       = nil;
    
    [block release];
+   
+   return( replacement);
 }
 
 @end
@@ -136,8 +138,7 @@
       }
       
       chain = [chain copyWithZone:NULL];
-      [owner replaceOwnedBlockWith:chain];
-      owner = chain;
+      owner = [owner replaceOwnedBlockWith:chain];
    }
    
    [pool release];

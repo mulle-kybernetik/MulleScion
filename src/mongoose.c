@@ -590,7 +590,7 @@ static void sockaddr_to_string(char *buf, size_t len,
   // Only Windoze Vista (and newer) have inet_ntop()
   strncpy(buf, inet_ntoa(usa->sin.sin_addr), len);
 #else
-  inet_ntop(usa->sa.sa_family, (void *) &usa->sin.sin_addr, buf, len);
+  inet_ntop(usa->sa.sa_family, (void *) &usa->sin.sin_addr, buf, (socklen_t) len);
 #endif
 }
 

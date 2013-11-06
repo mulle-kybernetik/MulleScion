@@ -1403,7 +1403,6 @@ static BOOL  isTrue( id value)
 
       default                 :
          comparisonResult = [value compare:otherValue];
-         flag = NO;
          switch( comparisonResult)
          {
          case NSOrderedSame       :

@@ -11,11 +11,12 @@
 @implementation NSFileHandle (MulleOutputFileHandle)
 
 + (NSFileHandle *) mulleOutputFileHandleWithFilename:(NSString *) outputName
+                                            selector:(SEL) sel
 {
    NSFileHandle   *stream;
    
    if( [outputName isEqualToString:@"-"])
-      return( [NSFileHandle fileHandleWithStandardOutput]);
+      return( [NSFileHandle performSelector:sel]);
    [[NSFileManager defaultManager] createFileAtPath:outputName
                                            contents:[NSData data]
                                          attributes:nil];
@@ -29,6 +30,20 @@
    
    stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
    return( stream);
+}
+
+
++ (NSFileHandle *) mulleOutputFileHandleWithFilename:(NSString *) outputName
+{
+   return( [self mulleOutputFileHandleWithFilename:outputName
+                                          selector:@selector( fileHandleWithStandardOutput)]);
+}
+
+
++ (NSFileHandle *) mulleErrorFileHandleWithFilename:(NSString *) outputName
+{
+   return( [self mulleOutputFileHandleWithFilename:outputName
+                                          selector:@selector( fileHandleWithStandardError)]);
 }
 
 @end

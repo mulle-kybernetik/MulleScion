@@ -104,25 +104,25 @@
 
 static void   _dump( MulleScionTemplate *self, NSString *path, NSString *blurb, SEL sel)
 {
-   NSFileHandle   *fout;
-   char           *s;
+   NSFileHandle   *stream;
    NSData         *nl;
    
-   fout = [NSFileHandle mulleOutputFileHandleWithFilename:path];
-   if( ! fout)
+   stream = [NSFileHandle mulleErrorFileHandleWithFilename:path];
+   if( ! path)
    {
-      NSLog( @"couldn't create trace file \"%@\"", path);
+      if( ! stream)
+         NSLog( @"failed to create trace/dump file \"%@\"", path);
       return;
    }
 
    nl = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
    if( blurb)
    {
-      [fout writeData:[blurb dataUsingEncoding:NSUTF8StringEncoding]];
-      [fout writeData:nl];
+      [stream writeData:[blurb dataUsingEncoding:NSUTF8StringEncoding]];
+      [stream writeData:nl];
    }
-   [fout writeData:[[self performSelector:sel] dataUsingEncoding:NSUTF8StringEncoding]];
-   [fout writeData:nl];
+   [stream writeData:[[self performSelector:sel] dataUsingEncoding:NSUTF8StringEncoding]];
+   [stream writeData:nl];
 }
 
 
