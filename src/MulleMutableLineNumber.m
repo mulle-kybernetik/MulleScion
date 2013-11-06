@@ -42,8 +42,6 @@
 
 - (void) setUnsignedInteger:(NSUInteger) value
 {
-   NSParameterAssert( (NSInteger) value >= 0);
-   
    lineNumber_ = value;
 }
 

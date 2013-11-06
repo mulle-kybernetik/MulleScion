@@ -72,8 +72,8 @@
     
 - (id) initWithCoder:(NSCoder *) decoder
 {
-   long  lineNumber;
-   id    next;
+   uint32_t  lineNumber;
+   id        next;
    
    [decoder decodeValuesOfObjCTypes:"l@", &lineNumber, &next];
 
@@ -87,11 +87,9 @@
 
 - (void) encodeWithCoder:(NSCoder *) encoder
 {
-   long  lineNumber;
+   uint32_t  lineNumber;
    
-   //   printf( "%s\n", @encode( long));
-   NSParameterAssert( lineNumber_ < 100000);
-   lineNumber = lineNumber_;
+   lineNumber = (uint32_t) lineNumber_;
    [encoder encodeValuesOfObjCTypes:"l@", &lineNumber, &next_];
 }
 
