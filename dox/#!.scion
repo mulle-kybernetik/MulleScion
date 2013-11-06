@@ -17,14 +17,14 @@ Lets run a simple example.
                          encoding:NSUTF8StringEncoding] autorelease];
    components = [s componentsSeparatedByString:@"\n"];
 
-   white      = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-   dict       = @{};
+   white = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+   dict  = @{};
 
    for line in components 
        line = [line stringByTrimmingCharactersInSet:white];
-       if not [line hasPrefix:@"#"] ;
+       if not [line hasPrefix:@"#"]
           keyValue = [line componentsSeparatedByString:@"="];
-          if keyValue.@count == 2 ;
+          if keyValue.@count == 2 
              set dict[ keyValue[ 0]] = keyValue[ 1];
           endif
        endif

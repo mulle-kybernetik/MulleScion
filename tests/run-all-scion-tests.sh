@@ -30,7 +30,7 @@ trace_ignore()
   return 0
 }
 
-trap trace_ignore 5
+trap trace_ignore 5 6
 
 
 # parse optional parameters 
