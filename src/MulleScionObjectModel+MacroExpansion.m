@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+VariableSubstitution.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 28.02.13.
 //

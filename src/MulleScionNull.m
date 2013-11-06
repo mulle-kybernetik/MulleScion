@@ -1,6 +1,6 @@
 //
 //  MulleScionNull.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 02.03.13.
 //

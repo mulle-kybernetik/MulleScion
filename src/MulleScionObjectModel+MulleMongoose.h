@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+MulleMongoose.h
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 03.03.13.
 //
@@ -34,7 +34,7 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <MulleScionTemplates/MulleScionTemplates.h>
+#import <MulleScion/MulleScion.h>
 
 
 @interface MulleScionTemplate (MulleMongoose)

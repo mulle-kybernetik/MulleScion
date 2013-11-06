@@ -12,7 +12,7 @@
 .Op Ar outputfile 
 .Sh DESCRIPTION   
 .Nm
-is a standalone renderer for MulleScionTemplates files. 
+is a standalone renderer for MulleScion files. 
 .Pp               
 These are the arguments you can give to 
 .Nm
@@ -48,32 +48,37 @@ directory. Changes to source templates are not tracked. Use a dependency
 tracker like make for that. 
 .El                      
 .Bl -tag -width "outputfile" -indent 
-.It Ev MulleScionDumpPreBlockExpansion
-If set to a filepath or '-' a a dump of the template will be created before 
-block expansion. Technically a dump should be the equivalent of your template.
-.El                      
+.It Ev MulleScionDescriptionPreBlockExpansion
+If set to a filepath or '-' the template will be printed out before
+block expansion. 
+.El
 .Bl -tag -width "outputfile" -indent 
-.It Ev MulleScionDumpPostBlockExpansion
-If set to a filepath or '-' a a dump of the template will be created after 
+.It Ev MulleScionDescriptionPostBlockExpansion
+If set to a filepath or '-' the template will be printed out before
 block expansion. 
 .El                      
 .Bl -tag -width "outputfile" -indent 
-.It Ev MulleScionTracePreBlockExpansion
-Filepath or '-' to create a trace of the template after block expansion. 
+.It Ev MulleScionDumpPreBlockExpansion
+Filepath or '-' to create a dump of the template after block expansion.
 A trace is more readable and easier to debug than a dump.
 .El                      
 .Bl -tag -width "outputfile" -indent 
-.It Ev MulleScionTracePostBlockExpansion
-Filepath or '-' to create a trace of the template after block expansion. 
+.It Ev MulleScionDumpPostBlockExpansion
+Filepath or '-' to create a dump of the template after block expansion.
 This is the most common kind of debug output to generate.
 .El                      
+.Bl -tag -width "outputfile" -indent 
+.It Ev MulleScionTrace
+Setting this environment value turns on a limited tracing facility during
+the rendering of a template.
+.El
 .Sh SEE ALSO 
 .Xr make 1 
 .Sh AUTHOR
 Coded by Nat! for Mulle kybernetiK. There should be a homepage for 
-MulleScionTemplates at 
+MulleScion at 
 .Pp
-http://www.mulle-kybernetik.com/software/git/MulleScionTemplates
+http://www.mulle-kybernetik.com/software/git/MulleScion
 .Pp
 The webserver is based on mongoose by Sergey Lyubka. 
 .Pp

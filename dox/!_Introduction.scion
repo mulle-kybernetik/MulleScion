@@ -16,12 +16,12 @@ Expressions, i.e. values that produce output are enclosed in '{' '{' and '}' '}'
 
 Commands are enclosed in '{' '%' and  '%' '}'. You can have multiple commands, 
 if you separate them with semicolons. Commands do not produce output. Everything
-betwee commends, expressions and commands is copied verbatim to the output.
+between commends, expressions and commands is copied verbatim to the output.
 
 
 # Commands
 
-MulleScionTemplates has a small assortment of logic commands like
+MulleScion has a small assortment of logic commands like
 if else endif, for endfor, while endwhile together with various preprocessing
 commands like define, block and template. Look at the documentation of each
 keyword for more information
@@ -77,6 +77,24 @@ The bag contains {{ bag.@count }} entries
 
 But with dots separated by spaces you can do even more complicated KVC.
 
+
+# Multiline support
+
+You can place multiple commands within one'{' '%' and  '%' '}'container. 
+Separate the commands with semicolon or newlines. For convenience you can mix
+output expressions '{' '{' '}' '}' with commands. The above example then could
+be written equivalently as
+
+....
+The bag contains {{ bag.@count }} entries
+{% 
+  if defined( "bag")
+     for item in [bag allKeys]
+        {{ @"   " }} {{ [bag objectForKey:item] }} {{ @"\n" }}
+     endfor
+  endif 
+ %}
+...
 
 
 

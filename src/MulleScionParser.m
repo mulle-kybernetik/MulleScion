@@ -1,6 +1,6 @@
 //
 //  MulleScionParser.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 24.02.13.
 //
@@ -123,6 +123,11 @@ static void   _dump( MulleScionTemplate *self, NSString *path, NSString *blurb, 
    }
    [stream writeData:[[self performSelector:sel] dataUsingEncoding:NSUTF8StringEncoding]];
    [stream writeData:nl];
+   if( blurb)
+   {
+      [stream writeData:nl];
+      [stream writeData:nl];
+   }
 }
 
 
@@ -143,16 +148,15 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
 }
 
 
-#define MULLE_SCION_DUMP_PRE_EXPAND     "MulleScionDumpPreBlockExpansion"
-#define MULLE_SCION_DUMP_POST_EXPAND    "MulleScionDumpPostBlockExpansion"
+#define MULLE_SCION_DESCRIPTION_PRE_EXPAND     "MulleScionDescriptionPreBlockExpansion"
+#define MULLE_SCION_DESCRIPTION_POST_EXPAND    "MulleScionDescriptionPostBlockExpansion"
+#define MULLE_SCION_DUMP_PRE_EXPAND            "MulleScionDumpPreBlockExpansion"
+#define MULLE_SCION_DUMP_POST_EXPAND           "MulleScionDumpPostBlockExpansion"
 
 // in debug mode always trace
 #if DEBUG
-# define MULLE_SCION_TRACE_PRE_EXPAND   NULL
-# define MULLE_SCION_TRACE_POST_EXPAND  NULL
-#else
-# define MULLE_SCION_TRACE_PRE_EXPAND   "MulleScionTracePreBlockExpansion"
-# define MULLE_SCION_TRACE_POST_EXPAND  "MulleScionTracePostBlockExpansion"
+# undef MULLE_SCION_DUMP_POST_EXPAND
+# define MULLE_SCION_DUMP_POST_EXPAND  NULL
 #endif
 
 
@@ -166,13 +170,13 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
    blockTable = [NSMutableDictionary dictionary];
    template   = [self templateParsedWithBlockTable:blockTable];
 
-   dump( template, MULLE_SCION_TRACE_PRE_EXPAND, @"BEFORE BLOCK EXPANSION:", @selector( traceDescription));
-   dump( template, MULLE_SCION_DUMP_PRE_EXPAND,  @"BEFORE BLOCK EXPANSION:", @selector( templateDescription));
+   dump( template, MULLE_SCION_DUMP_PRE_EXPAND,         @"BEFORE BLOCK EXPANSION:", @selector( dumpDescription));
+   dump( template, MULLE_SCION_DESCRIPTION_PRE_EXPAND,  @"BEFORE BLOCK EXPANSION:", @selector( templateDescription));
    
    [template expandBlocksUsingTable:blockTable];
    
-   dump( template, MULLE_SCION_DUMP_POST_EXPAND, @"AFTER BLOCK EXPANSION:", @selector( traceDescription));
-   dump( template, MULLE_SCION_DUMP_POST_EXPAND, @"AFTER BLOCK EXPANSION:", @selector( templateDescription));
+   dump( template, MULLE_SCION_DUMP_POST_EXPAND,         @"AFTER BLOCK EXPANSION:", @selector( dumpDescription));
+   dump( template, MULLE_SCION_DESCRIPTION_POST_EXPAND,  @"AFTER BLOCK EXPANSION:", @selector( templateDescription));
    
    [template retain];
    [pool release];

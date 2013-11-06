@@ -1,6 +1,6 @@
 //
 //  NSObject+MulleScionDataSource.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 27.02.13.
 //
@@ -136,7 +136,8 @@
                 arguments:(NSArray *) arguments
            localVariables:(NSMutableDictionary *) locals
 {
-   id  value;
+   id      value;
+   BOOL    flag;
    
    NSParameterAssert( [identifier isKindOfClass:[NSString class]]);
    NSParameterAssert( ! arguments || [arguments isKindOfClass:[NSArray class]]);
@@ -148,8 +149,12 @@
    if( [identifier isEqualToString:@"defined"])
    {
       MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
-      value  = MulleScionPrintingValidatedArgument( arguments, 0, [NSString class], locals);
-      return( [NSNumber numberWithBool: [locals objectForKey:value] ? YES : NO]);
+      value = MulleScionPrintingValidatedArgument( arguments, 0, [NSString class], locals);
+      flag  = [self mulleScionValueForKeyPath:value
+                               localVariables:locals] != nil;
+      if( ! flag)
+         flag = [locals valueForKeyPath:value] != nil;
+      return( [NSNumber numberWithBool:flag]);
    }
 
    if( [identifier isEqualToString:@"NSMakeRange"])

@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+Parsing.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 01.03.13.
 //

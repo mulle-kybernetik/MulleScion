@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+Debug.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 25.02.13.
 //
@@ -41,15 +41,14 @@
 // templateDescription should output something that is right parsable back into
 // an identical functioning template
 //
-// templateDescription is used to actually generate printable output from the printer
-//             do not override
 // debugDescription just displays terse information about a single object
 //
 // traceDescription is a somewhat terser technical trace dump, that's useful
-// for debugging of the whole chain
+// for debugging of a single element
 //
+// dumpDescription is dumps a chain of traceDescriptions
 //
-static NSString   *shortenedString( NSString *s, size_t max)
+NSString   *mulleShortenedString( NSString *s, size_t max)
 {
    NSUInteger   length;
    
@@ -66,6 +65,126 @@ static NSString   *shortenedString( NSString *s, size_t max)
 }
 
 
+// it's . A . Lie
+NSString   *mulleEscapedString( NSString *s)
+{
+   return( [[s componentsSeparatedByString:@"\n"] componentsJoinedByString:@"\\n"]);
+}
+
+
+NSString   *mulleEscapedShortenedString( NSString *s, size_t max)
+{
+   return( mulleEscapedString( mulleShortenedString( s, max)));
+}
+
+
+@implementation NSString ( TraceValueDescription)
+
+static Class   NSPlaceholderStringClass;
+
++ (void) load
+{
+   NSPlaceholderStringClass = [[[self alloc] autorelease] class];
+}
+
+
+- (NSString *) traceValueDescription
+{
+   if( isa == NSPlaceholderStringClass)
+      return( @"NSPlaceholderStringClass");
+   
+   return( [NSString stringWithFormat:@"@\"%@\"", self]);
+}
+
+@end
+
+
+
+@implementation NSObject ( TraceValueDescription)
+
+
+- (NSString *) traceValueDescription
+{
+   return( [self description]);
+}
+
+@end
+
+
+@implementation NSArray ( TraceValueDescription)
+
+- (NSString *) traceValueDescription
+{
+   id                item;
+   id                old;
+   NSMutableString   *s;
+   NSEnumerator      *rover;
+   
+   // this code gets arounf the if in the while, there is no other point to
+   // this, just sport :D
+   s     = [NSMutableString stringWithFormat:@"@("];
+   rover = [self objectEnumerator];
+   old   = [rover nextObject];
+   if( old)
+   {
+      [s appendString:@" "];
+      while( item = [rover nextObject])
+      {
+         [s appendString:[old traceValueDescription]];
+         [s appendString:@", "];
+         old = item;
+      }
+      [s appendString:[old traceValueDescription]];
+   }
+   [s appendString:@")"];
+   
+   return( s);
+}
+
+@end
+
+
+@implementation NSDictionary ( TraceValueDescription)
+
+- (NSString *) traceValueDescription
+{
+   id                key;
+   id                oldKey;
+   id                oldValue;
+   NSMutableString   *s;
+   NSEnumerator      *rover;
+   
+   // this code gets arounf the if in the while, there is no other point to
+   // this, just sport :D
+   s      = [NSMutableString stringWithFormat:@"@{"];
+   rover  = [[[self allKeys] sortedArrayUsingSelector:@selector( compare:)] objectEnumerator];
+   oldKey = [rover nextObject];
+   if( oldKey)
+   {
+      [s appendString:@" "];
+      oldValue = [self objectForKey:oldKey];
+      while( key = [rover nextObject])
+      {
+         [s appendString:[oldValue traceValueDescription]];
+         [s appendString:@", "];
+         [s appendString:[oldKey traceValueDescription]];
+         [s appendString:@", "];
+         oldKey   = key;
+         oldValue = [self objectForKey:key];
+      }
+      [s appendString:[oldValue traceValueDescription]];
+      [s appendString:@", "];
+      [s appendString:[oldKey traceValueDescription]];
+   }
+   [s appendString:@"}"];
+   
+   return( s);
+}
+
+@end
+
+
+
 @implementation MulleScionObject ( TraceDescription)
 
 
@@ -75,18 +194,20 @@ static NSString   *shortenedString( NSString *s, size_t max)
 }
 
 
-- (NSString *) _traceDescriptionSeparator
+- (NSString *) _dumpDescriptionSeparator
 {
    return( @"\n");
 }
 
 
+// just the object
 - (NSString *) _templateDescription
 {
    return( @"");
 }
 
 
+// chain
 - (NSString *) templateDescription
 {
    NSString  *s;
@@ -98,19 +219,21 @@ static NSString   *shortenedString( NSString *s, size_t max)
 }
 
 
-- (NSString *) _traceDescription
+// just the object
+- (NSString *) traceDescription
 {
    return( [self shortDescription]);
 }
 
 
-- (NSString *) traceDescription
+// chain
+- (NSString *) dumpDescription
 {
    NSString  *s;
    
-   s = [self _traceDescription];
+   s = [self traceDescription];
    if( next_)
-      return( [NSString stringWithFormat:@"%ld: %@%@%@", (long) lineNumber_, s, [next_ _traceDescriptionSeparator], [next_ traceDescription]]);
+      return( [NSString stringWithFormat:@"%ld: %@%@%@", (long) lineNumber_, s, [next_ _dumpDescriptionSeparator], [next_ dumpDescription]]);
    return( [NSString stringWithFormat:@"%ld: %@", (long) lineNumber_, s]);
 }
 
@@ -120,7 +243,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
    NSString  *s;
    
    s = [self _templateDescription];
-   s = shortenedString( s, 64);
+   s = mulleShortenedString( s, 64);
    if( [s length])
       return( [NSString stringWithFormat:@"<%@ %p = \"%@\">", isa, self, s]);
    return( [NSString stringWithFormat:@"<%@ %p>", isa, self]);
@@ -136,8 +259,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-
-@implementation MulleScionPlainText ( Description)
+@implementation MulleScionPlainText ( TraceDescription)
 
 - (NSString *) _templateDescription
 {
@@ -149,8 +271,8 @@ static NSString   *shortenedString( NSString *s, size_t max)
 {
    NSString     *s;
    
-   s = shortenedString( [self _templateDescription], 64);
-   s = [[s componentsSeparatedByString:@"\n"] componentsJoinedByString:@"\\n"];
+   s = mulleShortenedString( [self _templateDescription], 64);
+   s = mulleEscapedString( s);
    return( [NSString stringWithFormat:@"\"%@\"", s]);
 }
 
@@ -158,9 +280,9 @@ static NSString   *shortenedString( NSString *s, size_t max)
 
 
 
-@implementation MulleScionTemplate ( Description)
+@implementation MulleScionTemplate ( TraceDescription)
 
-- (NSString *) _traceDescription
+- (NSString *) traceDescription
 {
    return( [NSString stringWithFormat:@"template %@", value_]);
 }
@@ -193,7 +315,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionValueObject ( Description)
+@implementation MulleScionValueObject ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -208,11 +330,11 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionString ( Description)
+@implementation MulleScionString ( TraceDescription)
 
 - (NSString *) shortDescription
 {
-   return( shortenedString( value_, 64));
+   return( mulleShortenedString( value_, 64));
 }
 
 
@@ -224,7 +346,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionSelector( Description)
+@implementation MulleScionSelector( TraceDescription)
 
 - (NSString *) _templateDescription
 {
@@ -235,7 +357,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 
 
 
-@implementation MulleScionExpression ( Description)
+@implementation MulleScionExpression ( TraceDescription)
 
 - (NSString *) _templateDescription
 {
@@ -245,7 +367,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionArray ( Description)
+@implementation MulleScionArray ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -270,7 +392,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionDictionary ( Description)
+@implementation MulleScionDictionary ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -296,7 +418,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionFunction ( Description)
+@implementation MulleScionFunction ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -325,7 +447,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionMethod ( Description)
+@implementation MulleScionMethod ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -364,7 +486,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionNot ( Description)
+@implementation MulleScionNot ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -375,7 +497,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionBinaryOperatorExpression ( Description)
+@implementation MulleScionBinaryOperatorExpression ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -386,7 +508,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionIndexing ( Description)
+@implementation MulleScionIndexing ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -397,7 +519,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionConditional ( Description)
+@implementation MulleScionConditional ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -408,7 +530,7 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@implementation MulleScionTerminator ( Description)
+@implementation MulleScionTerminator ( TraceDescription)
 
 - (NSString *) commandDescription
 {
@@ -418,14 +540,14 @@ static NSString   *shortenedString( NSString *s, size_t max)
 @end
 
 
-@interface MulleScionCommand ( Description)
+@interface MulleScionCommand ( TraceDescription)
 
 - (NSString *) _commandDescription;
 
 @end
 
 
-@implementation MulleScionCommand ( Description)
+@implementation MulleScionCommand ( TraceDescription)
 
 - (NSString *) _templateDescriptionSeparator
 {

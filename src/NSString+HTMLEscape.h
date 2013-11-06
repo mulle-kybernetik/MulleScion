@@ -1,6 +1,6 @@
 //
 //  NSString+HTMLEscape.h
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 04.03.13.
 //

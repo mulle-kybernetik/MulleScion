@@ -1,0 +1,7 @@
+{# unplesant corner case, this looks like it should work but KVC
+   can't access this method for some reason #}
+{% 
+  for item in bag.allKeys
+       {{ bag[ item] }}
+  endfor
+ %}

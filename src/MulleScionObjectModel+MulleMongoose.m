@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+MulleMongoose.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 03.03.13.
 //

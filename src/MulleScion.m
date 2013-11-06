@@ -1,6 +1,6 @@
 //
 //  MulleScion.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 25.02.13.
 //
@@ -39,6 +39,14 @@
 #import "MulleScionPrinter.h"
 #import "MulleScionParser.h"
 #import "MulleScionTemplate+CompressedArchive.h"
+
+#ifndef PROJECT_VERSION
+# error "specify project version on command line -DPROJECT_VERSION=1848.x"
+#endif
+
+#define STRINGIFY(x) #x
+
+char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 
 
 @implementation MulleScionTemplate ( Convenience)

@@ -1,14 +1,14 @@
 Includes predicatably reads in another file. It's like copy/paste but 
-MulleScionTemplates does the work for you. The contents are parsed just like
+MulleScion does the work for you. The contents are parsed just like
 any regular template text.
 
 There is a special includes called includes verbatim. It reads the contents of
 a file but doesn't parse it.
 
-Here we include _spaces.scion and have the comments parsed away
+Here we include set.scion and have the comments parsed away
 
-{% includes "_spaces.scion" %}
+{% includes "set.scion" %}
 
 and the file included verbatim
 
-{% includes verbatim "_spaces.scion" %}
+{% includes verbatim "set.scion" %}

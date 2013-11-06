@@ -1,6 +1,6 @@
 //
 //  MulleScionException.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 27.02.13.
 //

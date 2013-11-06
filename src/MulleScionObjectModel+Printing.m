@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+Printing.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 24.02.13.
 //
@@ -37,6 +37,7 @@
 
 #import "MulleScionObjectModel+Printing.h"
 
+#import "MulleScionObjectModel+TraceDescription.h"
 #import "MulleMutableLineNumber.h"
 #import "MulleScionNull.h"
 #import "MulleScionPrintingException.h"
@@ -49,6 +50,21 @@
 # import <objc/runtime.h>
 #endif
 
+#ifndef NO_TRACE
+# undef HAVE_TRACE
+# define HAVE_TRACE
+#endif
+
+#if defined( HAVE_TRACE) & ! defined( NO_TRACE_EVAL)
+# undef HAVE_TRACE_EVAL
+# define HAVE_TRACE_EVAL
+#endif
+
+#if defined( HAVE_TRACE) & ! defined( NO_TRACE_RENDER)
+# undef HAVE_TRACE_RENDER
+# define HAVE_TRACE_RENDER
+#endif
+
 
 NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";
 NSString   *MulleScionCurrentFileKey          = @"__FILE__";
@@ -58,6 +74,7 @@ NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
 NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
 NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
 NSString   *MulleScionSelfReplacementKey      = @"__SELF_REPLACEMENT__";
+NSString   *MulleScionTraceKey                = @"__TRACE__";
 
 NSString   *MulleScionForOpenerKey            = @"MulleScionForOpener";
 NSString   *MulleScionForSeparatorKey         = @"MulleScionForSeparator";
@@ -69,19 +86,22 @@ NSString   *MulleScionForSubdivisionCloserKey = @"MulleScionForSubdivisionCloser
 NSString   *MulleScionEvenKey                 = @"MulleScionEven";
 NSString   *MulleScionOddKey                  = @"MulleScionOdd";
 
+static BOOL   trace;
 
-#if 0
-# define TRACE_RENDER( self, s, locals, dataSource)   fprintf( stderr, "%ld: %s\n", (long) [self lineNumber], [self shortDescription] cString])
+// THIS IS NOT REALLY WORKING WELL BUT BETTER THAN NOTHING I GUESS
+
+#ifdef HAVE_TRACE_RENDER
+# define TRACE_RENDER( self, s, locals, dataSource)  if( trace) fprintf( stderr, "%ld: %s\n", (long) [self lineNumber], [[self traceDescription] UTF8String])
 #else
 # define TRACE_RENDER( self, s, locals, dataSource)
 #endif
 
 
-#if 0
-# define TRACE_EVAL_BEGIN( self, value)               fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: -->%@ (%@)", (long) [self lineNumber],[self shortDescription], value] cString])
-# define TRACE_EVAL_END( self, value)                 fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <--%@ (%@)", (long) [self lineNumber],[self shortDescription], value] cString])
-# define TRACE_EVAL_CONT( self, value)                fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld:    %@ (%@)", (long) [self lineNumber],[self shortDescription], value] cString])
-# define TRACE_EVAL_BEGIN_END( self, value, result)   fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <->%@ (%@->%@)", (long) [self lineNumber],[self shortDescription], value, result] cString])
+#ifdef HAVE_TRACE_EVAL
+# define TRACE_EVAL_BEGIN( self, value)               if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: -->%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_END( self, value)                 if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <--%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_CONT( self, value)                if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld:    %@ :: %@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_BEGIN_END( self, value, result)   if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <->%@ :: %@->%@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64), mulleEscapedShortenedString( [result traceValueDescription], 64)] UTF8String])
 #else
 # define TRACE_EVAL_BEGIN( self, value)
 # define TRACE_EVAL_END( self, value)
@@ -246,6 +266,19 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
 
    [locals setObject:[NSNumber numberWithUnsignedLong:NSNotFound]
               forKey:@"NSNotFound"];
+   
+#if defined( HAVE_TRACE)
+# ifndef DEBUG
+   trace = getenv( "MulleScionTrace") != NULL;
+# else
+   trace = YES;
+# endif
+   if( trace)
+      NSLog( @"warning trace support very experimental and incomplete");
+   
+   [locals setObject:[NSNumber numberWithBool:trace]
+              forKey:MulleScionTraceKey];
+#endif
    return( locals);
 }
 
@@ -352,6 +385,11 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 {
    // SECURITY HOLE: FUNNEL THROUGH DATASOURCE
    
+#ifdef HAVE_TRACE
+   if( [value_ isEqualToString:MulleScionTraceKey])
+      trace = [valueToSet boolValue];
+#endif
+   TRACE_EVAL_CONT( self, valueToSet);
    [locals takeValue:valueToSet
           forKeyPath:value_];
 }
@@ -1069,6 +1107,8 @@ static BOOL  isTrue( id value)
    curr = self->next_;
 
    flag = isTrue( value);
+   TRACE_EVAL_BEGIN_END( self, value, [NSNumber numberWithBool:flag]);
+   
    if( flag)
       curr = [self renderBlock:curr
                           into:s
@@ -1173,7 +1213,9 @@ static BOOL  isTrue( id value)
 
    value = [right_ valueWithLocalVariables:locals
                                 dataSource:dataSource];
-
+   
+   TRACE_EVAL_CONT( right_, value);
+   
    if( [value isKindOfClass:[NSEnumerator class]])
       rover = value;
    else
@@ -1212,6 +1254,8 @@ static BOOL  isTrue( id value)
    while( key = next)
    {
       next               = [rover nextObject];
+      
+      TRACE_EVAL_CONT( self, key);
       
       isFirst            = i == 0;
       isLast             = ! next;

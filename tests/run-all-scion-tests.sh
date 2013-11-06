@@ -1,7 +1,7 @@
 #!/bin/bash -m
 #
 #  scion-tests.sh
-#  MulleScionTemplates
+#  MulleScion
 #
 #  Created by Nat! on 01.11.13.
 #  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
@@ -142,7 +142,7 @@ run()
 
    if [ "$VERBOSE" = "yes" ]
    then
-      echo "$root"/"$template"
+      echo `rel_pwd "$root"`/"$template"
    fi
 
    RUNS=`expr $RUNS + 1`

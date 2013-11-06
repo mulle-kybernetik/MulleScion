@@ -1,4 +1,4 @@
-Within MulleScionTemplates you can use regular Objective-C method call syntax.
+Within MulleScion you can use regular Objective-C method call syntax.
 
 {{ [NSDate date] }}
 

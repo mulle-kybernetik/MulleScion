@@ -1,6 +1,6 @@
 //
 //  MulleScionParser+Parsing.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 26.02.13.
 //
@@ -2388,6 +2388,21 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_endmacro( parser *p, 
 }
 
 
+static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_print( parser *p, NSUInteger line)
+{
+   MulleScionExpression   *expr;
+   
+   parser_skip_peeked_character( p, '{');
+   expr = parser_do_expression( p);
+   
+   parser_skip_whitespace( p);
+   parser_next_expected_character( p, '}', "closing }} expected");
+   parser_next_expected_character( p, '}', "closing }} expected");
+   return( expr);
+}
+
+
+
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
 {
    NSUInteger             line;
@@ -2451,7 +2466,19 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    if( c == '[')
       return( parser_do_method_call( p, line));
    
-   // hmmm....
+   // handle inline print commans
+   if( c == '{')
+   {
+      parser_skip_peeked_character( p, '{');
+      c  = parser_peek_character( p);
+      
+      if( c == '{')
+         return( parser_do_print( p, line));
+
+      parser_error( p, "a lonely '{' was found, when a command was expected");
+   }
+   
+      // hmmm....
    parser_error( p, "an unexpected character '%c' at then begin of a command was found", c);
    return( nil);
 }

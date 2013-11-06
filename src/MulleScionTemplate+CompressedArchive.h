@@ -1,6 +1,6 @@
 //
 //  MulleScionTemplate+CompressedArchive.h
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 26.02.13.
 //

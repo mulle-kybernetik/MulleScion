@@ -16,19 +16,14 @@ Lets run a simple example.
    s     = [[[NSString alloc] initWithData:data
                          encoding:NSUTF8StringEncoding] autorelease];
    components = [s componentsSeparatedByString:@"\n"];
-%}
-{{ components.@count }}
-{%
-   white      = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-   dict       = [NSMutableDictionary dictionary];
 
-   for line in components ;
+   white      = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+   dict       = @{};
+
+   for line in components 
        line = [line stringByTrimmingCharactersInSet:white];
        if not [line hasPrefix:@"#"] ;
           keyValue = [line componentsSeparatedByString:@"="];
-%}
->>>{{ keyValue.class }}/{{ keyValue.@count }}<<<
-{%
           if keyValue.@count == 2 ;
              set dict[ keyValue[ 0]] = keyValue[ 1];
           endif
@@ -37,6 +32,6 @@ Lets run a simple example.
 %}
 
 hostconfig:
-{% for key in dict.allKeys %}
+{% for key in [[dict allKeys] sortedArrayUsingSelector:@selector( compare:)] %}
    {{ key }} = {{ dict[ key] }}
 {% endfor %}

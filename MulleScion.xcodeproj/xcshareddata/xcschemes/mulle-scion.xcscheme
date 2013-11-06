@@ -17,7 +17,7 @@
                BlueprintIdentifier = "41764B8B16DA511200560FCF"
                BuildableName = "mulle-scion"
                BlueprintName = "mulle-scion"
-               ReferencedContainer = "container:MulleScionTemplates.xcodeproj">
+               ReferencedContainer = "container:MulleScion.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "41764B8B16DA511200560FCF"
             BuildableName = "mulle-scion"
             BlueprintName = "mulle-scion"
-            ReferencedContainer = "container:MulleScionTemplates.xcodeproj">
+            ReferencedContainer = "container:MulleScion.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# doesn&apos;t work&#10;# if [ &quot;$START_WEBSERVER&quot; = &quot;YES&quot; ]&#10;#then&#10;   ( sleep 2 ; open &quot;http://127.0.0.1:18048/index.scion&quot; ) &amp;&#10;#fi&#10;">
+               scriptText = "# doesn&apos;t work&#10;# if [ &quot;$START_WEBSERVER&quot; = &quot;YES&quot; ]&#10;#then&#10;  ( sleep 2 ; open &quot;http://127.0.0.1:18048/index.scion&quot; ) &amp;&#10;#fi&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "41764B8B16DA511200560FCF"
             BuildableName = "mulle-scion"
             BlueprintName = "mulle-scion"
-            ReferencedContainer = "container:MulleScionTemplates.xcodeproj">
+            ReferencedContainer = "container:MulleScion.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -73,7 +73,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./tests/expressions/operators/comparisons/smaller/smaller-2.scion"
+            argument = "./tests/syntax/inline-print.scion"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -85,7 +85,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./tests/commands/if/method-after-if.scion"
+            argument = "./tests/commands/for/array-for.scion "
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -93,7 +93,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./dox/properties.plist"
+            argument = "./tests/commands/for/default.plist"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -128,7 +128,7 @@
             BlueprintIdentifier = "41764B8B16DA511200560FCF"
             BuildableName = "mulle-scion"
             BlueprintName = "mulle-scion"
-            ReferencedContainer = "container:MulleScionTemplates.xcodeproj">
+            ReferencedContainer = "container:MulleScion.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

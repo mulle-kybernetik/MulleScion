@@ -1,6 +1,6 @@
 <html>
    <head>
-       <title>{% block scion_title %}MulleScionTemplates{% endblock %}</title>
+       <title>{% block scion_title %}MulleScion{% endblock %}</title>
         {% block scion_header_additions %}{% endblock %}
    </head>
    <body>

@@ -1,6 +1,6 @@
 //
 //  NSFileHandle+MulleOpenWithInfo.m
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 05.11.13.
 //  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.

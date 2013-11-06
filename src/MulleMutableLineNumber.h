@@ -1,6 +1,6 @@
 //
 //  NSLineCountNumber.h
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 25.02.13.
 //

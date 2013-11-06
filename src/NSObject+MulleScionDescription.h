@@ -1,6 +1,6 @@
 //
 //  NSObject+MulleScionDescription.h
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 24.02.13.
 //

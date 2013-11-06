@@ -39,7 +39,7 @@
 #import "MulleMongoose.h"
 
 #import <Foundation/Foundation.h>
-#import <MulleScionTemplates/MulleScionTemplates.h>
+#import <MulleScion/MulleScion.h>
 #import "MulleScionObjectModel+MulleMongoose.h"
 #import "NSString+HTMLEscape.h"
 
@@ -107,7 +107,7 @@ static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
 
 
 #if DONT_LINK_AGAINST_MULLE_SCION_TEMPLATES
-   bundle   = [NSBundle bundleWithPath:@"/Library/Frameworks/MulleScionTemplates.framework"];
+   bundle   = [NSBundle bundleWithPath:@"/Library/Frameworks/MulleScion.framework"];
    if( ! [bundle load])
       response = @"mulle scion templates not installed";
    else

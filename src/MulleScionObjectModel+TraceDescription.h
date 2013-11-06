@@ -1,6 +1,6 @@
 //
 //  MulleScionObjectModel+Debug.h
-//  MulleScionTemplates
+//  MulleScion
 //
 //  Created by Nat! on 25.02.13.
 //
@@ -38,9 +38,21 @@
 #import "MulleScionObjectModel.h"
 
 
+@interface NSObject ( TraceValueDescription)
+
+- (NSString *) traceValueDescription;
+
+@end
+
+
 @interface MulleScionObject ( TraceDescription)
 
 - (NSString *) traceDescription;
+- (NSString *) dumpDescription;
 - (NSString *) templateDescription;
 
 @end
+
+NSString   *mulleShortenedString( NSString *s, size_t max);
+NSString   *mulleEscapedString( NSString *s);
+NSString   *mulleEscapedShortenedString( NSString *s, size_t max);

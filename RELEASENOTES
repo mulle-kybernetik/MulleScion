@@ -1,3 +1,18 @@
+v1848.4  
+
+renamed to MulleScion, because now it's more than just a template engine, it's
+also somewhat useful as a little standalone Obj-C interpreter. Also 
+MulleScionTemplates was just too long.
+
+The MulleScionConvenience has been renamed to just MulleScion.
+
+There is now some rudimentary tracing support available. Just going to become
+better over time.
+
+{{ }} can now be placed inside {% %} which makes templates with a lot of logic
+and little output that much more managable.
+
+
 v1848.3  !!massive changes!!
 
 your compiled scionz files are incompatible now. Throw them away
