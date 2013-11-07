@@ -144,9 +144,16 @@ static int   mulle_mongoose_begin_request( struct mg_connection *conn)
 {
    NSAutoreleasePool   *pool;
    int                 rval;
+   NSData              *utf8Data;
    
    pool = [NSAutoreleasePool new];
+NS_DURING
    rval = _mulle_mongoose_begin_request( conn);
+NS_HANDLER
+   utf8Data = [[localException description] dataUsingEncoding:NSUTF8StringEncoding];
+   mulle_write_response( conn, (void *) [utf8Data bytes], [utf8Data length]);
+   rval = 1;
+NS_ENDHANDLER
    [pool release];
    return( rval);
 }

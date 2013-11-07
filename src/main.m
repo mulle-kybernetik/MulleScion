@@ -239,7 +239,7 @@ int main( int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
-
+   
 #ifndef DONT_HAVE_WEBSERVER
    if( argc > 1 && ! strcmp( argv[ 1], "-w"))
    {
@@ -250,8 +250,12 @@ int main( int argc, const char * argv[])
 #endif
    
    pool = [NSAutoreleasePool new];
+NS_DURING
    rval = _main( argc, argv);
-   
+NS_HANDLER
+   NSLog( @"%@", localException);
+   rval = -4;
+NS_ENDHANDLER
 #if defined( DEBUG) || defined( PROFILE)
    [pool release];
 #endif

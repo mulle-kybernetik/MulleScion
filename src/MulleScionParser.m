@@ -162,9 +162,9 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
 
 - (MulleScionTemplate *) template
 {
-   MulleScionTemplate      *template;
-   NSMutableDictionary     *blockTable;
-   NSAutoreleasePool        *pool;
+   MulleScionTemplate     *template;
+   NSMutableDictionary    *blockTable;
+   NSAutoreleasePool      *pool;
    
    pool       = [NSAutoreleasePool new];
    blockTable = [NSMutableDictionary dictionary];

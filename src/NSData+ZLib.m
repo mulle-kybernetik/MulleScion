@@ -58,7 +58,7 @@
    switch( uncompress( [dst mutableBytes], &len, buf, decompressedSize))
    {
    case Z_DATA_ERROR :
-      [NSException raise:NSGenericException
+      [NSException raise:NSInvalidArgumentException
                   format:@"Incoming ZLib data %@ was corrupted", self];
       break;
 
@@ -85,7 +85,7 @@
    switch( uncompress( [dst mutableBytes], &len, [self bytes], [self length]))
    {
    case Z_DATA_ERROR :
-      [NSException raise:NSGenericException
+      [NSException raise:NSInvalidArgumentException
                   format:@"Incoming ZLib data %@ was corrupted", self];
       break;
       
