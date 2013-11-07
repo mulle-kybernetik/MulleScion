@@ -65,16 +65,17 @@ NSString   *mulleShortenedString( NSString *s, size_t max)
 }
 
 
-// it's . A . Lie
-NSString   *mulleEscapedString( NSString *s)
+
+NSString   *mulleLinefeedEscapedString( NSString *s)
 {
-   return( [[s componentsSeparatedByString:@"\n"] componentsJoinedByString:@"\\n"]);
+   return( [s stringByReplacingOccurrencesOfString:@"\n"
+                                        withString:@"\\n"]);
 }
 
 
-NSString   *mulleEscapedShortenedString( NSString *s, size_t max)
+NSString   *mulleLinefeedEscapedShortenedString( NSString *s, size_t max)
 {
-   return( mulleEscapedString( mulleShortenedString( s, max)));
+   return( mulleLinefeedEscapedString( mulleShortenedString( s, max)));
 }
 
 
@@ -220,7 +221,7 @@ static Class   NSPlaceholderStringClass;
 // just the object
 - (NSString *) traceDescription
 {
-   return( mulleEscapedShortenedString( [self _templateDescription], 64));
+   return( mulleLinefeedEscapedShortenedString( [self _templateDescription], 64));
 }
 
 
@@ -262,7 +263,7 @@ static Class   NSPlaceholderStringClass;
 {
    NSString     *s;
    
-   s = mulleEscapedShortenedString( value_, 64);
+   s = mulleLinefeedEscapedShortenedString( value_, 64);
    return( [NSString stringWithFormat:@"\"%@\"", s]);
 }
 

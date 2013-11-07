@@ -12,6 +12,11 @@ better over time.
 {{ }} can now be placed inside {% %} which makes templates with a lot of logic
 and little output that much more managable.
 
+used google-toolbox-code for htmlEscapedString, which now adds some Apache2 Licensing
+terms to this project. Or say #define NO_APACHE_LICENSE and get the old crufty
+functionality back.
+
+
 
 v1848.3  !!massive changes!!
 

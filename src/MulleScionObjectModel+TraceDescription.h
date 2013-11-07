@@ -54,5 +54,5 @@
 @end
 
 NSString   *mulleShortenedString( NSString *s, size_t max);
-NSString   *mulleEscapedString( NSString *s);
-NSString   *mulleEscapedShortenedString( NSString *s, size_t max);
+NSString   *mulleLinefeedEscapedString( NSString *s);
+NSString   *mulleLinefeedEscapedShortenedString( NSString *s, size_t max);

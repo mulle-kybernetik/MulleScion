@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 415DA59E182BBC8200F654F7 /* Build configuration list for PBXAggregateTarget "grab google-toolbox-for-mac from code.google.com" */;
+			buildPhases = (
+				415DA5A2182BBC9300F654F7 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "grab google-toolbox-for-mac from code.google.com";
+			productName = "grab google-toolbox-for-mac from code.google.com";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		410300731701DBE200197713 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		4103007F1701DC3400197713 /* MulleScionObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */; };
@@ -108,6 +122,8 @@
 		415DA591182BA17600F654F7 /* NSFileHandle+MulleOutputFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F0CDD418296756000057D5 /* NSFileHandle+MulleOutputFileHandle.m */; };
 		415DA592182BA23300F654F7 /* NSFileHandle+MulleOutputFileHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		415DA593182BA36D00F654F7 /* NSFileHandle+MulleOutputFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F0CDD418296756000057D5 /* NSFileHandle+MulleOutputFileHandle.m */; };
+		415DA59A182BBB0000F654F7 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */; };
+		415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA59B182BBB3B00F654F7 /* GTMDefines.h */; };
 		41764B9016DA511200560FCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41764B9316DA511200560FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9216DA511200560FCF /* main.m */; };
 		41764B9716DA511200560FCF /* mulle-scion.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
@@ -213,6 +229,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		415DA5A3182BBD5500F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 415DA59D182BBC8200F654F7;
+			remoteInfo = "grab google-toolbox-for-mac from code.google.com";
+		};
 		41D6DF3216DE52A1004833D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 41764B8416DA511200560FCF /* Project object */;
@@ -474,6 +497,9 @@
 		414A842516E528890084AE1E /* MulleScionTemplatesDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionTemplatesDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionTemplatesDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionTemplatesDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		415DA59B182BBB3B00F654F7 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../google-toolbox-for-mac/GTMDefines.h"; sourceTree = "<group>"; };
 		41764B8C16DA511200560FCF /* mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41764B8F16DA511200560FCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		41764B9216DA511200560FCF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -732,6 +758,9 @@
 		41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */ = {
 			isa = PBXGroup;
 			children = (
+				415DA59B182BBB3B00F654F7 /* GTMDefines.h */,
+				415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */,
+				415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */,
 				41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */,
 				41DD56BC16E4145000C4D68A /* NSString+HTMLEscape.h */,
 				41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */,
@@ -824,6 +853,7 @@
 				41D6DF8816DE5415004833D6 /* MulleScionPrintingException.h in Headers */,
 				41D6DF8916DE5415004833D6 /* MulleScionObjectModel+Printing.h in Headers */,
 				41D6DF8C16DE5415004833D6 /* MulleScionParser.h in Headers */,
+				415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */,
 				41D6DF8F16DE5415004833D6 /* MulleScionObjectModel+TraceDescription.h in Headers */,
 				41D6DF8616DE5415004833D6 /* NSObject+MulleScionDescription.h in Headers */,
 				41F0CDD718296888000057D5 /* NSFileHandle+MulleOutputFileHandle.h in Headers */,
@@ -919,6 +949,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				415DA5A4182BBD5500F654F7 /* PBXTargetDependency */,
 				41D6DF5616DE537C004833D6 /* PBXTargetDependency */,
 			);
 			name = MulleScionPrinter;
@@ -1051,6 +1082,7 @@
 				41D6DED816DE509E004833D6 /* MulleScionPrinter */,
 				41D6DF5B16DE53AE004833D6 /* MulleScion (OSX Framework) */,
 				41DCF5D6181E824A00A98EDB /* MulleScion (iOS Framework) */,
+				415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */,
 			);
 		};
 /* End PBXProject section */
@@ -1079,6 +1111,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		415DA5A2182BBC9300F654F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -d $PROJECT_DIR/google-toolbox-for-mac ]\nthen\n( cd $PROJECT_DIR ;\n  svn checkout http://google-toolbox-for-mac.googlecode.com/svn/trunk/ google-toolbox-for-mac\n)\n\nfi\n\n# could optionally also \"update\" tidy\n\n";
+			showEnvVarsInLog = 0;
+		};
 		41DCF5D5181E824A00A98EDB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1158,6 +1204,7 @@
 				41D6DEE816DE50F4004833D6 /* MulleScionObjectModel+Printing.m in Sources */,
 				41D6DEEA16DE50FD004833D6 /* NSValue+CheatAndHack.m in Sources */,
 				41D6DEE916DE50F6004833D6 /* MulleMutableLineNumber.m in Sources */,
+				415DA59A182BBB0000F654F7 /* GTMNSString+HTML.m in Sources */,
 				41F12D4616E274D200120E63 /* MulleScionNull.m in Sources */,
 				41DD56BE16E4145000C4D68A /* NSString+HTMLEscape.m in Sources */,
 			);
@@ -1221,6 +1268,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		415DA5A4182BBD5500F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */;
+			targetProxy = 415DA5A3182BBD5500F654F7 /* PBXContainerItemProxy */;
+		};
 		41D6DF3316DE52A1004833D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 41D6DED816DE509E004833D6 /* MulleScionPrinter */;
@@ -1330,6 +1382,27 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Profile;
+		};
+		415DA59F182BBC8200F654F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		415DA5A0182BBC8200F654F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		415DA5A1182BBC8200F654F7 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;
 		};
@@ -1736,6 +1809,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		415DA59E182BBC8200F654F7 /* Build configuration list for PBXAggregateTarget "grab google-toolbox-for-mac from code.google.com" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				415DA59F182BBC8200F654F7 /* Debug */,
+				415DA5A0182BBC8200F654F7 /* Release */,
+				415DA5A1182BBC8200F654F7 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		41764B8716DA511200560FCF /* Build configuration list for PBXProject "MulleScion" */ = {
 			isa = XCConfigurationList;

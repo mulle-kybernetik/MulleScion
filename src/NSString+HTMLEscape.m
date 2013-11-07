@@ -36,10 +36,19 @@
 
 
 #import "NSString+HTMLEscape.h"
+#import "GTMNSString+HTML.h"
 
 
 @implementation NSString (HTMLEscape)
 
+#ifndef  NO_APACHE_LICENSE
+
+- (NSString *) htmlEscapedString
+{
+   return( [self gtm_stringByEscapingForAsciiHTML]);
+}
+
+#else 
 
 static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
 {
@@ -94,6 +103,8 @@ static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
    return( [NSString stringWithCharacters:(unichar *) [data bytes]
                                    length:len]);
 }
+
+#endif
 
 
 - (NSString *) urlEscapedString
