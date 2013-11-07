@@ -98,10 +98,10 @@ static BOOL   trace;
 
 
 #ifdef HAVE_TRACE_EVAL
-# define TRACE_EVAL_BEGIN( self, value)               if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: -->%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
-# define TRACE_EVAL_END( self, value)                 if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <--%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
-# define TRACE_EVAL_CONT( self, value)                if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld:    %@ :: %@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
-# define TRACE_EVAL_BEGIN_END( self, value, result)   if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <->%@ :: %@->%@", (long) [self lineNumber], [self traceDescription], mulleEscapedShortenedString( [value traceValueDescription], 64), mulleEscapedShortenedString( [result traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_BEGIN( self, value)               if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: -->%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_END( self, value)                 if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <--%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_CONT( self, value)                if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld:    %@ :: %@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
+# define TRACE_EVAL_BEGIN_END( self, value, result)   if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <->%@ :: %@->%@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64), mulleLinefeedEscapedShortenedString( [result traceValueDescription], 64)] UTF8String])
 #else
 # define TRACE_EVAL_BEGIN( self, value)
 # define TRACE_EVAL_END( self, value)

@@ -18,6 +18,43 @@
 			name = "grab google-toolbox-for-mac from code.google.com";
 			productName = "grab google-toolbox-for-mac from code.google.com";
 		};
+		415DA5A5182BC9E300F654F7 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 415DA5A6182BC9E300F654F7 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				415DA5C9182BCAE800F654F7 /* PBXTargetDependency */,
+				415DA5CB182BCAE800F654F7 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+		415DA5B4182BCAAF00F654F7 /* OSX */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 415DA5B5182BCAB000F654F7 /* Build configuration list for PBXAggregateTarget "OSX" */;
+			buildPhases = (
+			);
+			dependencies = (
+				415DA5BF182BCAC200F654F7 /* PBXTargetDependency */,
+				415DA5C3182BCAC700F654F7 /* PBXTargetDependency */,
+				415DA5C1182BCAC700F654F7 /* PBXTargetDependency */,
+			);
+			name = OSX;
+			productName = OSX;
+		};
+		415DA5B9182BCAB500F654F7 /* iOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 415DA5BA182BCAB500F654F7 /* Build configuration list for PBXAggregateTarget "iOS" */;
+			buildPhases = (
+			);
+			dependencies = (
+				415DA5C7182BCAD200F654F7 /* PBXTargetDependency */,
+				415DA5C5182BCAD200F654F7 /* PBXTargetDependency */,
+			);
+			name = iOS;
+			productName = IOS;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -235,6 +272,55 @@
 			proxyType = 1;
 			remoteGlobalIDString = 415DA59D182BBC8200F654F7;
 			remoteInfo = "grab google-toolbox-for-mac from code.google.com";
+		};
+		415DA5BE182BCAC200F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41764B8B16DA511200560FCF;
+			remoteInfo = "mulle-scion";
+		};
+		415DA5C0182BCAC700F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF2316DE523D004833D6;
+			remoteInfo = "MulleScion (OSX Library)";
+		};
+		415DA5C2182BCAC700F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF5B16DE53AE004833D6;
+			remoteInfo = "MulleScion (OSX Framework)";
+		};
+		415DA5C4182BCAD200F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 410300711701DBE200197713;
+			remoteInfo = "MulleScion (iOS Library)";
+		};
+		415DA5C6182BCAD200F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41DCF5D6181E824A00A98EDB;
+			remoteInfo = "MulleScion (iOS Framework)";
+		};
+		415DA5C8182BCAE800F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 415DA5B4182BCAAF00F654F7;
+			remoteInfo = OSX;
+		};
+		415DA5CA182BCAE800F654F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41764B8416DA511200560FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 415DA5B9182BCAB500F654F7;
+			remoteInfo = IOS;
 		};
 		41D6DF3216DE52A1004833D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -758,10 +844,10 @@
 		41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */ = {
 			isa = PBXGroup;
 			children = (
+				41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */,
 				415DA59B182BBB3B00F654F7 /* GTMDefines.h */,
 				415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */,
 				415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */,
-				41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */,
 				41DD56BC16E4145000C4D68A /* NSString+HTMLEscape.h */,
 				41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */,
 				4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */,
@@ -1074,6 +1160,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				415DA5A5182BC9E300F654F7 /* All */,
+				415DA5B4182BCAAF00F654F7 /* OSX */,
+				415DA5B9182BCAB500F654F7 /* iOS */,
 				41764B8B16DA511200560FCF /* mulle-scion */,
 				41D6DF2316DE523D004833D6 /* MulleScion (OSX Library) */,
 				410300711701DBE200197713 /* MulleScion (iOS Library) */,
@@ -1273,6 +1362,41 @@
 			target = 415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */;
 			targetProxy = 415DA5A3182BBD5500F654F7 /* PBXContainerItemProxy */;
 		};
+		415DA5BF182BCAC200F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41764B8B16DA511200560FCF /* mulle-scion */;
+			targetProxy = 415DA5BE182BCAC200F654F7 /* PBXContainerItemProxy */;
+		};
+		415DA5C1182BCAC700F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF2316DE523D004833D6 /* MulleScion (OSX Library) */;
+			targetProxy = 415DA5C0182BCAC700F654F7 /* PBXContainerItemProxy */;
+		};
+		415DA5C3182BCAC700F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D6DF5B16DE53AE004833D6 /* MulleScion (OSX Framework) */;
+			targetProxy = 415DA5C2182BCAC700F654F7 /* PBXContainerItemProxy */;
+		};
+		415DA5C5182BCAD200F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 410300711701DBE200197713 /* MulleScion (iOS Library) */;
+			targetProxy = 415DA5C4182BCAD200F654F7 /* PBXContainerItemProxy */;
+		};
+		415DA5C7182BCAD200F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41DCF5D6181E824A00A98EDB /* MulleScion (iOS Framework) */;
+			targetProxy = 415DA5C6182BCAD200F654F7 /* PBXContainerItemProxy */;
+		};
+		415DA5C9182BCAE800F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 415DA5B4182BCAAF00F654F7 /* OSX */;
+			targetProxy = 415DA5C8182BCAE800F654F7 /* PBXContainerItemProxy */;
+		};
+		415DA5CB182BCAE800F654F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 415DA5B9182BCAB500F654F7 /* iOS */;
+			targetProxy = 415DA5CA182BCAE800F654F7 /* PBXContainerItemProxy */;
+		};
 		41D6DF3316DE52A1004833D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 41D6DED816DE509E004833D6 /* MulleScionPrinter */;
@@ -1400,6 +1524,69 @@
 			name = Release;
 		};
 		415DA5A1182BBC8200F654F7 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Profile;
+		};
+		415DA5A7182BC9E300F654F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		415DA5A8182BC9E300F654F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		415DA5A9182BC9E300F654F7 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Profile;
+		};
+		415DA5B6182BCAB000F654F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		415DA5B7182BCAB000F654F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		415DA5B8182BCAB000F654F7 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Profile;
+		};
+		415DA5BB182BCAB500F654F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		415DA5BC182BCAB500F654F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		415DA5BD182BCAB500F654F7 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1816,6 +2003,33 @@
 				415DA59F182BBC8200F654F7 /* Debug */,
 				415DA5A0182BBC8200F654F7 /* Release */,
 				415DA5A1182BBC8200F654F7 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		415DA5A6182BC9E300F654F7 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				415DA5A7182BC9E300F654F7 /* Debug */,
+				415DA5A8182BC9E300F654F7 /* Release */,
+				415DA5A9182BC9E300F654F7 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		415DA5B5182BCAB000F654F7 /* Build configuration list for PBXAggregateTarget "OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				415DA5B6182BCAB000F654F7 /* Debug */,
+				415DA5B7182BCAB000F654F7 /* Release */,
+				415DA5B8182BCAB000F654F7 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		415DA5BA182BCAB500F654F7 /* Build configuration list for PBXAggregateTarget "iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				415DA5BB182BCAB500F654F7 /* Debug */,
+				415DA5BC182BCAB500F654F7 /* Release */,
+				415DA5BD182BCAB500F654F7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
