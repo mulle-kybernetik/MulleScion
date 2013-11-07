@@ -486,7 +486,7 @@ static void   parser_skip_white_if_terminated_by_newline( parser *p)
    }
 }
 
-
+#if 0
 static void   parser_skip_whitespace_until_newline( parser *p)
 {
    unsigned char   c;
@@ -500,6 +500,7 @@ static void   parser_skip_whitespace_until_newline( parser *p)
          break;
    }
 }
+#endif
 
    
 static void   parser_skip_whitespace( parser *p)
@@ -2054,6 +2055,7 @@ static MulleScionTemplate * NS_RETURNS_RETAINED  parser_do_extends( parser *p)
 }
 
 
+#if 0
 static MulleScionFunctionCall  * NS_RETURNS_RETAINED  parser_do_function_call( parser *p, NSString *identifier)
 {
    MulleScionExpression  *expr;
@@ -2062,6 +2064,7 @@ static MulleScionFunctionCall  * NS_RETURNS_RETAINED  parser_do_function_call( p
    return( [MulleScionFunctionCall newWithRetainedExpression:expr
                                                   lineNumber:p->memo.lineNumber]);
 }
+#endif
 
 
 static MulleScionMethodCall  *NS_RETURNS_RETAINED parser_do_method_call( parser *p, NSUInteger line)

@@ -184,9 +184,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-
 @implementation MulleScionObject ( TraceDescription)
-
 
 - (NSString *) _templateDescriptionSeparator
 {
@@ -222,7 +220,7 @@ static Class   NSPlaceholderStringClass;
 // just the object
 - (NSString *) traceDescription
 {
-   return( [self shortDescription]);
+   return( mulleEscapedShortenedString( [self _templateDescription], 64));
 }
 
 
@@ -249,13 +247,6 @@ static Class   NSPlaceholderStringClass;
    return( [NSString stringWithFormat:@"<%@ %p>", isa, self]);
 }
 
-
-// DO NOT CHANGE THIS CLEVERLY
-- (NSString *) shortDescription
-{
-   return( [self _templateDescription]);
-}
-
 @end
 
 
@@ -267,12 +258,11 @@ static Class   NSPlaceholderStringClass;
 }
 
 
-- (NSString *) shortDescription
+- (NSString *) traceDescription
 {
    NSString     *s;
    
-   s = mulleShortenedString( [self _templateDescription], 64);
-   s = mulleEscapedString( s);
+   s = mulleEscapedShortenedString( value_, 64);
    return( [NSString stringWithFormat:@"\"%@\"", s]);
 }
 
@@ -332,7 +322,7 @@ static Class   NSPlaceholderStringClass;
 
 @implementation MulleScionString ( TraceDescription)
 
-- (NSString *) shortDescription
+- (NSString *) _traceDescription
 {
    return( mulleShortenedString( value_, 64));
 }
@@ -565,6 +555,7 @@ static Class   NSPlaceholderStringClass;
    
    return( [NSString stringWithFormat:@"%@%@", command, spacer]);
 }
+
 
 - (NSString *) commandDescription
 {

@@ -41,6 +41,13 @@
 #import "MulleScionPrintingException.h"
 
 
+@interface NSObject ( OldMethods)
+
++ (void) poseAs:(Class) cls;
+
+@end
+
+
 //
 // execution of arbitrary methods, can be a huge security hole if the template
 // is writable for users

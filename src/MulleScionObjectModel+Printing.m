@@ -274,7 +274,7 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
    trace = YES;
 # endif
    if( trace)
-      NSLog( @"warning trace support very experimental and incomplete");
+      NSLog( @"warning trace support is very experimental and incomplete");
    
    [locals setObject:[NSNumber numberWithBool:trace]
               forKey:MulleScionTraceKey];
