@@ -16,6 +16,12 @@ used google-toolbox-code for htmlEscapedString, which now adds some Apache2 Lice
 terms to this project. Or say #define NO_APACHE_LICENSE and get the old crufty
 functionality back.
 
+the repository on github will be only pushed to for "releases" the continous
+development is going to happen on Mulle kybernetiK.
+
+mulle:  http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/
+github: https://github.com/mulle-nat/MulleScionTemplates/
+
 
 
 v1848.3  !!massive changes!!
