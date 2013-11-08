@@ -67,3 +67,11 @@ extern NSString   *MulleScionOddKey;
 
 @end
 
+NSString  *MulleScionFilteredString( NSString *value,
+                                    NSMutableDictionary *locals,
+                                    id <MulleScionDataSource> dataSource);
+
+void   MulleScionRenderString( NSString *value,
+                               id <MulleScionOutput> output,
+                               NSMutableDictionary *locals,
+                               id <MulleScionDataSource> dataSource);

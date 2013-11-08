@@ -2460,6 +2460,8 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
       {
          if( p->wasMacroCall)
             return( expr);
+         //if( [expr isFunction])  // not that great an idea, produces surprising
+         //   return( expr);       // output as a side effect
          return( parser_do_implicit_set( p, expr, line));
       }
       return( nil);

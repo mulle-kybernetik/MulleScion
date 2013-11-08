@@ -48,6 +48,7 @@
 # import <objc/objc-class.h>
 #else
 # import <objc/runtime.h>
+# import "NSObject+iOS_KVC_Compatibility.h"
 #endif
 
 #ifndef NO_TRACE
@@ -173,10 +174,9 @@ static void   popFileName( NSMutableDictionary *locals)
 }
 
 
-static void   MulleScionRenderString( NSString *value,
-                                      id <MulleScionOutput> output,
-                                      NSMutableDictionary *locals,
-                                      id <MulleScionDataSource> dataSource)
+NSString  *MulleScionFilteredString( NSString *value,
+                                     NSMutableDictionary *locals,
+                                     id <MulleScionDataSource> dataSource)
 {
    MulleScionExpression  *filter;
    
@@ -199,11 +199,24 @@ static void   MulleScionRenderString( NSString *value,
       }
    }
    
-   if( value)
-   {
-      NSCParameterAssert( [value isKindOfClass:[NSString class]]);
-      [output appendString:value];
-   }
+   return( value);
+}
+
+
+void   MulleScionRenderString( NSString *value,
+                               id <MulleScionOutput> output,
+                               NSMutableDictionary *locals,
+                               id <MulleScionDataSource> dataSource)
+{
+   NSString     *s;
+   NSUInteger   len;
+
+   s   = MulleScionFilteredString( value, locals, dataSource);
+   if( ! s)
+      return;
+
+   NSCParameterAssert( [s isKindOfClass:[NSString class]]);
+   [output appendString:s];
 }
 
 @end
@@ -1433,16 +1446,27 @@ static BOOL  isTrue( id value)
 
    TRACE_EVAL_BEGIN( self, value);
    
-   if( value == MulleScionNull)
-      value = nil;
-   
+   if( ! value)
+   {
+#if DEBUG
+      abort();
+#endif
+      value = MulleScionNull;
+   }
+
    otherValue = [self->right_ valueWithLocalVariables:locals
                                            dataSource:dataSource];
-   if( otherValue == MulleScionNull)
-      otherValue = nil;
+   if( ! otherValue)
+   {
+#if DEBUG
+      abort();
+#endif
+      otherValue = MulleScionNull;
+   }
+   
    switch( comparison_)
    {
-      case MulleScionEqual    : flag =   [value isEqual:otherValue]; break;
+      case MulleScionEqual    : flag = [value isEqual:otherValue]; break;
       case MulleScionNotEqual : flag = ! [value isEqual:otherValue]; break;
 
       default                 :

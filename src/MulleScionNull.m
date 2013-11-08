@@ -47,4 +47,27 @@ id   MulleScionNull;
    MulleScionNull = self;
 }
 
+
++ (id) allocWithZone:(NSZone *) zone
+{
+#ifdef DEBUG
+   abort();
+#endif
+   return( [MulleScionNull retain]);
+}
+
+
+- (BOOL) isEqual:(id) other
+{
+   return( self == other);
+}
+
+
+- (BOOL) compare:(id) other
+{
+   if( self == other)
+      return( NSOrderedSame);
+   return( self < other ? NSOrderedAscending : NSOrderedDescending);
+}
+
 @end

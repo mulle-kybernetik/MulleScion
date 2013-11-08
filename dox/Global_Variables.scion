@@ -28,6 +28,24 @@ __FILTER_STACK__                The previous filter chains
 __SELF_REPLACEMENT__            The object that the identifier 'self' gets 
                                 replaced with
 
+Predefined Variables
+====================
+
+A small selection of Foundation constants is predefined for convenience.
+
+NSNotFound
+
+NSOrderedAscending
+NSOrderedDescending
+NSOrderedSame
+
+NSASCIIStringEncoding
+NSISOLatin1StringEncoding
+NSMacOSRomanStringEncoding
+NSUTF32StringEncoding
+NSUTF8StringEncoding
+NSUnicodeStringEncoding
+
 
 Variables available through mulle-scion
 =======================================

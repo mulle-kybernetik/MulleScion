@@ -39,6 +39,7 @@
 
 #import "MulleScionObjectModel+Printing.h"
 #import "MulleScionPrintingException.h"
+#import "NSObject+MulleScionDescription.h"
 
 
 @interface NSObject ( OldMethods)
@@ -175,6 +176,19 @@
       return( [NSValue valueWithRange:range]);
    }
    
+   // same as {{}} but returns length of output string
+   
+   if( [identifier isEqualToString:@"filter"])
+   {
+      NSString   *string;
+      id         value;
+      
+      MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
+      value  = MulleScionPrintingValidatedArgument( arguments, 0, Nil, locals);
+      string = [value mulleScionDescriptionWithLocalVariables:locals];
+      string = MulleScionFilteredString( string, locals, self);
+      return( string);
+   }
    [NSException raise:NSInvalidArgumentException
                format:@"\"%@\" %@: unknown function \"%@\"",
     [locals valueForKey:MulleScionCurrentFileKey],

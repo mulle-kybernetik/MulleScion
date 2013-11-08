@@ -14,3 +14,12 @@ back to original.
 {% filter lowercaseString| [[self componentsSeparatedByString:@"/"] componentsJoinedByString:@"-"] %}
 THIS/IS/POSSIBLE
 {% endfilter %}
+
+There is also function filter available. This will push a string argument 
+through the currently active filter.
+
+{% low=@"low" %}
+{% filter uppercaseString %}
+{% high = filter( low) %}
+{% endfilter %}
+{{ low }} -> {{ high }}

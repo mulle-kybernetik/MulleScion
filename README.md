@@ -112,6 +112,17 @@ projects. See https://github.com/kstenerud/iOS-Universal-Framework for more
 details about using "real frameworks" with Xcode.
 
 
+SITES
+=============
+The main development site is Mulle kybernetiK. 
+
+http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/
+
+releases are pushed to github
+
+github: https://github.com/mulle-nat/MulleScionTemplates/
+
+
 TODO
 =============
 It would be nice to have delayed evaluation for render results.
