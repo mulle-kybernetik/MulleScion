@@ -95,8 +95,6 @@ C-strings, although *MulleScion* tries to be as helpful as possible.
 
 *MulleScion* do not do arithmetic or bitwise logic, quite on purpose.
 
-*MulleScion* do not support the `@{ }` syntax to create dictionaries.
-
 *MulleScion* `&&` and `||` have no operator precedence, use parentheses
 
 *MulleScion* don't prevent you from trying stupid things.

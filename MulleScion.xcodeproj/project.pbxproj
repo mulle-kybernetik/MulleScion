@@ -583,8 +583,8 @@
 		4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CheatAndHack.m"; sourceTree = "<group>"; };
 		4121DB1216DD779800BFD60C /* dot.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dot.scion; path = ../dox/dot.scion; sourceTree = "<group>"; };
 		4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionDataSourceProtocol.h; sourceTree = "<group>"; };
-		414A842516E528890084AE1E /* MulleScionTemplatesDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionTemplatesDataFlow.graffle; sourceTree = "<group>"; };
-		414A842616E5288A0084AE1E /* MulleScionTemplatesDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionTemplatesDataFlow.png; sourceTree = "<group>"; };
+		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
+		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"; sourceTree = "<group>"; };
@@ -811,8 +811,8 @@
 			isa = PBXGroup;
 			children = (
 				41764B9616DA511200560FCF /* mulle-scion.1 */,
-				414A842516E528890084AE1E /* MulleScionTemplatesDataFlow.graffle */,
-				414A842616E5288A0084AE1E /* MulleScionTemplatesDataFlow.png */,
+				414A842516E528890084AE1E /* MulleScionDataFlow.graffle */,
+				414A842616E5288A0084AE1E /* MulleScionDataFlow.png */,
 				41DD56A716E39BF200C4D68A /* index.scion */,
 				41DD56B416E3E95C00C4D68A /* _wrapper.scion */,
 				41EA51AE16E505A800D3B0AD /* __scion_macros.scion */,
@@ -2015,6 +2015,7 @@
 				415DA5A1182BBC8200F654F7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		415DA5A6182BC9E300F654F7 /* Build configuration list for PBXAggregateTarget "All" */ = {
 			isa = XCConfigurationList;
@@ -2024,6 +2025,7 @@
 				415DA5A9182BC9E300F654F7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		415DA5B5182BCAB000F654F7 /* Build configuration list for PBXAggregateTarget "OSX" */ = {
 			isa = XCConfigurationList;
@@ -2033,6 +2035,7 @@
 				415DA5B8182BCAB000F654F7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		415DA5BA182BCAB500F654F7 /* Build configuration list for PBXAggregateTarget "iOS" */ = {
 			isa = XCConfigurationList;
@@ -2042,6 +2045,7 @@
 				415DA5BD182BCAB500F654F7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		41764B8716DA511200560FCF /* Build configuration list for PBXProject "MulleScion" */ = {
 			isa = XCConfigurationList;
