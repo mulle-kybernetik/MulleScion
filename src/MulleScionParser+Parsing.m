@@ -2015,7 +2015,7 @@ NS_DURING
                                        macroTable:p->macroTable
                                   dependencyTable:p->dependencyTable];
 NS_HANDLER
-   parser_error( p, "%@", [localException reason]);
+   parser_error( p, "\n%@", [localException reason]);
 NS_ENDHANDLER
    if( ! inferior)
       parser_error( p, "could not load include file \"%@\"", fileName);
@@ -2471,7 +2471,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    if( c == '[')
       return( parser_do_method_call( p, line));
    
-   // handle inline print commans
+   // handle inline print commands
    if( c == '{')
    {
       parser_skip_peeked_character( p, '{');
@@ -2484,7 +2484,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    }
    
       // hmmm....
-   parser_error( p, "an unexpected character '%c' at then begin of a command was found", c);
+   parser_error( p, "an unexpected character '%c' at the beginning of a command was found", c);
    return( nil);
 }
 
