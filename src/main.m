@@ -42,7 +42,7 @@
 
 static NSFileHandle  *outputStreamWithInfo( NSDictionary *info);
 static NSDictionary  *getInfoFromArguments( void);
-static id            acquirePropertyList( NSString *s);
+static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
 
 
 @interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
@@ -101,11 +101,13 @@ static int   run( NSString *template,
    ##### #####
          ##### */
 
-static id   acquirePropertyList( NSString *s)
+static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
 {
    NSData    *data;
    NSString  *error;
+   NSBundle  *bundle;
    id        plist;
+   Class     cls;
    
    if( [s isEqualToString:@"none"])
       return( [NSDictionary dictionary]);
@@ -113,17 +115,52 @@ static id   acquirePropertyList( NSString *s)
    if( [s isEqualToString:@"-"])
       data = [[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile];
    else
-      data = [NSData dataWithContentsOfFile:s];
-   
-   error = nil;
-   plist = [NSPropertyListSerialization propertyListFromData:data
-                                            mutabilityOption:NSPropertyListImmutable
-                                                      format:NULL
-                                            errorDescription:&error];
-   if( ! plist)
    {
-      NSLog( @"property list failure: %@", error);
-      return( nil);
+      if( [[s pathExtension] isEqualToString:@"plist"])
+      {
+         data = [NSData dataWithContentsOfFile:s];
+   
+         error = nil;
+         plist = [NSPropertyListSerialization propertyListFromData:data
+                                                  mutabilityOption:NSPropertyListImmutable
+                                                            format:NULL
+                                                  errorDescription:&error];
+         if( ! plist)
+         {
+            NSLog( @"property list failure: %@", error);
+            return( nil);
+         
+         }
+      }
+      else
+      {
+         bundle = [NSBundle bundleWithPath:s];
+         cls    = [bundle principalClass];
+         if( ! cls)
+         {
+            NSLog( @"bundle \"%@\" load failure", s);
+            return( nil);
+         }
+         
+         if( ! [cls respondsToSelector:@selector( mulleScionDataSource)])
+         {
+            NSLog( @"bundle's principal class \"%@\" does not respond to +mulleScionDataSource", cls);
+            return( nil);
+         }
+         
+         plist = [cls performSelector:@selector( mulleScionDataSource)];
+         if( ! plist)
+         {
+            NSLog( @"bundle's principal class \"%@\" returned nil for +mulleScionDataSource", cls);
+            return( nil);
+         }
+
+         if( ! [plist respondsToSelector:@selector( valueForKeyPath:)])
+         {
+            NSLog( @"bundle's dataSource\"%@\" does not respond to -valueForKeyPath:", [plist class]);
+            return( nil);
+         }
+      }
    }
    return( plist);
 }
@@ -155,11 +192,11 @@ static NSDictionary  *getInfoFromArguments( void)
    if( ! [outputName length])
       outputName = @"-";
    
-   plist = acquirePropertyList( plistName);
+   plist = acquirePropertyListOrDataSourceFromBundle( plistName);
    if( ! plist)
       goto usage;
    [info setObject:plist
-            forKey:@"plist"];
+            forKey:@"dataSource"];
    
    [info setObject:templateName
             forKey:@"MulleScionRootTemplate"];
@@ -171,7 +208,7 @@ static NSDictionary  *getInfoFromArguments( void)
    return( info);
    
 usage:
-   fprintf( stderr, "%s [-w] <template> [propertylist|-|none] [output]\n", [processName cString]);
+   fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [output]\n", [processName cString]);
    return( nil);
 }
 
@@ -229,7 +266,7 @@ static int _main(int argc, const char * argv[])
       return( -2);
    
    return( run( [info objectForKey:@"MulleScionRootTemplate"],
-               [info objectForKey:@"plist"],
+               [info objectForKey:@"dataSource"],
                stream,
                localVariablesFromInfo( info)));
 }
