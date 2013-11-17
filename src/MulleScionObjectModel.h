@@ -456,3 +456,16 @@ typedef enum
 
 @end
 
+
+@interface MulleScionRequires : MulleScionCommand
+{
+   NSString   *identifier_;
+}
+
++ (id) newWithIdentifier:(NSString *) identifier
+              lineNumber:(NSUInteger) nr;
+
+- (NSString *) identifier;
+
+@end
+

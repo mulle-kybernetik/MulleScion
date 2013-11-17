@@ -36,7 +36,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "MulleScionObjectModel+Printing.h"
+#import "MulleScionOutputProtocol.h"
 
 
 @class MulleScionTemplate;

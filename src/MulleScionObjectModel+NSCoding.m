@@ -356,3 +356,25 @@
 }
 @end
 #endif
+
+
+@implementation MulleScionRequires ( NSCoding)
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   self = [super initWithCoder:decoder];
+   assert( self);
+   
+   [decoder decodeValuesOfObjCTypes:"@", &identifier_];
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   [super encodeWithCoder:encoder];
+   [encoder encodeValuesOfObjCTypes:"@", &identifier_];
+}
+
+@end
+

@@ -36,7 +36,9 @@
 
 
 #import "MulleScionPrinter.h"
+
 #import "MulleScionObjectModel.h"
+#import "MulleScionObjectModel+Printing.h"
 
 
 

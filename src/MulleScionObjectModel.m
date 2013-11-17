@@ -1162,3 +1162,34 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @end
 
+
+#pragma mark -
+
+@implementation MulleScionRequires
+
++ (id) newWithIdentifier:(NSString *) identifier
+              lineNumber:(NSUInteger) nr;
+{
+   MulleScionRequires   *p;
+   
+   NSParameterAssert( [identifier isKindOfClass:[NSString class]]);
+   
+   p = [super newWithLineNumber:nr];
+   p->identifier_ = [identifier copy];
+   
+   return( p);
+}
+
+- (void) dealloc
+{
+   [identifier_ release];
+   [super dealloc];
+}
+
+- (NSString *) identifier
+{
+   return( identifier_);
+}
+
+@end
+

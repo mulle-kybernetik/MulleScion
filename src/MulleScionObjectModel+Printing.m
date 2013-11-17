@@ -208,10 +208,9 @@ void   MulleScionRenderString( NSString *value,
                                NSMutableDictionary *locals,
                                id <MulleScionDataSource> dataSource)
 {
-   NSString     *s;
-   NSUInteger   len;
+   NSString   *s;
 
-   s   = MulleScionFilteredString( value, locals, dataSource);
+   s = MulleScionFilteredString( value, locals, dataSource);
    if( ! s)
       return;
 
@@ -1880,6 +1879,107 @@ static BOOL  isTrue( id value)
    }
    else
       [locals removeObjectForKey:MulleScionCurrentFilterKey];
+   
+   [pool release];
+   
+   return( self->next_);
+}
+
+@end
+
+
+static NSBundle  *search( NSFileManager *manager, NSString *identifier, NSString *path, NSString *subdir, NSString *extension)
+{
+   NSDirectoryEnumerator  *rover;
+   NSString               *item;
+   NSAutoreleasePool      *pool;
+   NSBundle               *bundle;
+   
+   bundle = nil;
+   pool = [NSAutoreleasePool new];
+   if( subdir)
+      path = [path stringByAppendingPathComponent:subdir];
+
+   if( getenv( "MULLESCION_DUMP_BUNDLE_SEARCHPATH"))
+      NSLog( @"Searching %@ with %@ extension", path, extension ? extension : @"any");
+   
+   rover = [manager enumeratorAtPath:path];
+   
+   while( item = [rover nextObject])
+   {
+      if( ! [[[rover fileAttributes] objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory])
+         continue;
+      [rover skipDescendents];
+         
+      if( extension && ! [[item pathExtension] isEqualToString:extension])
+         continue;
+      
+      bundle = [NSBundle bundleWithPath:[path stringByAppendingPathComponent:item]];
+      if( [[bundle bundleIdentifier] isEqualToString:identifier])
+         break;
+      bundle = nil;
+   }
+
+   [bundle retain];
+   [pool release];
+   return( [bundle autorelease]);
+}
+
+
+static NSBundle  *searchForBundleInDirectory( NSFileManager *manager, NSString *identifier, NSString *path)
+{
+   NSBundle   *bundle;
+   
+   bundle = search( manager, identifier, path, @"Frameworks", @"framework");
+   if( ! bundle)
+      bundle = search( manager, identifier, path, @"PlugIns", nil);
+   
+   return( bundle);
+}
+
+
+#pragma mark -
+
+@implementation MulleScionRequires ( Printing)
+
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+                   localVariables:(NSMutableDictionary *) locals
+                       dataSource:(id <MulleScionDataSource>) dataSource
+{
+   NSAutoreleasePool    *pool;
+   NSBundle             *bundle;
+   NSArray              *directories;
+   NSString             *path;
+   NSEnumerator         *rover;
+   NSFileManager        *manager;
+   
+   TRACE_RENDER( self, s, locals, dataSource);
+   
+   pool = [NSAutoreleasePool new];
+   
+   updateLineNumber( self, locals);
+   bundle = [NSBundle bundleWithIdentifier:identifier_];
+   if( ! bundle)
+   {
+      manager = [NSFileManager defaultManager];
+      bundle  = searchForBundleInDirectory( manager, identifier_, [[NSBundle mainBundle] builtInPlugInsPath]);
+      if( ! bundle)
+      {
+         // search through frameworks
+         directories = NSSearchPathForDirectoriesInDomains( NSLibraryDirectory, NSAllDomainsMask, YES);
+
+         rover = [directories objectEnumerator];
+         while( path = [rover nextObject])
+         {
+            bundle = searchForBundleInDirectory( manager, identifier_, path);
+            if( bundle)
+               break;
+         }
+      }
+   }
+   
+   if( ! [bundle load])
+      MulleScionPrintingException( NSInvalidArgumentException, locals, @"could not %@ bundle with identifier \"%@\"", bundle ? @"load" : @"locate", identifier_);
    
    [pool release];
    

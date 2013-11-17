@@ -1760,6 +1760,7 @@ typedef enum
    IfOpcode,
    IncludesOpcode,
    MacroOpcode,
+   RequiresOpcode,
    SetOpcode,
    VerbatimOpcode,
    WhileOpcode
@@ -1785,6 +1786,7 @@ static char   *mnemonics[] =
    "if",
    "includes",
    "macro",
+   "requires",
    "set",
    "verbatim",
    "while"
@@ -1814,6 +1816,7 @@ static int   _parser_opcode_for_string( parser *p, NSString *s)
             if( [s isEqualToString:@"endwhile"]) return( EndwhileOpcode);
             if( [s isEqualToString:@"endmacro"]) return( EndmacroOpcode);
             if( [s isEqualToString:@"includes"]) return( IncludesOpcode);
+            if( [s isEqualToString:@"requires"]) return( RequiresOpcode);
             if( [s isEqualToString:@"verbatim"]) return( VerbatimOpcode); break;
    case 9 : if( [s isEqualToString:@"endfilter"]) return( EndfilterOpcode); break;
    case 11: if( [s isEqualToString:@"endverbatim"]) return( EndverbatimOpcode); break;
@@ -1957,6 +1960,21 @@ static NSString  * NS_RETURNS_RETAINED parser_remove_hashbang_from_string_if_des
    s    = [[s substringFromIndex:range.location + 1] retain];
    [memo release];
    return( s);
+}
+
+
+static MulleScionObject * NS_RETURNS_RETAINED  parser_do_requires( parser *p, NSUInteger line)
+{
+   NSString               *identifier;
+   
+   parser_skip_whitespace( p);
+   
+   identifier = parser_do_string( p);
+   if( ! [identifier length])
+      parser_error( p, "a bundle identifier was expected as a quoted string");
+   
+   return( [MulleScionRequires newWithIdentifier:identifier
+                                      lineNumber:line]);
 }
 
 /*
@@ -2445,6 +2463,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
          case IfOpcode       : return( parser_do_if( p, line));
          case IncludesOpcode : return( parser_do_includes( p, YES));
          case MacroOpcode    : return( parser_do_macro( p, line));
+         case RequiresOpcode : return( parser_do_requires( p, line));
          case SetOpcode      : return( parser_do_set( p, line));
          case VerbatimOpcode : return( parser_do_verbatim( p, line));
          case WhileOpcode    : return( parser_do_while( p, line));
