@@ -2255,6 +2255,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Debug;
@@ -2263,6 +2264,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Release;
@@ -2291,6 +2293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Profile;
@@ -2549,6 +2552,7 @@
 				412905431830E99800489CE5 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		412E8002182D2F80008A7FCC /* Build configuration list for PBXNativeTarget "MulleScionGraphviz (iOS Library)" */ = {
 			isa = XCConfigurationList;

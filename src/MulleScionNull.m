@@ -70,4 +70,10 @@ id   MulleScionNull;
    return( self < other ? NSOrderedAscending : NSOrderedDescending);
 }
 
+
+- (id) valueForUndefinedKey:(NSString *) key
+{
+   return( nil);
+}
+
 @end
