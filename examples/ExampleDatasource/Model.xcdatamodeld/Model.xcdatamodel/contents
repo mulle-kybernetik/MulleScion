@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Club" representedClassName="Club" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="liga" maxCount="1" deletionRule="Nullify" destinationEntity="Liga" inverseName="clubs" inverseEntity="Liga" syncable="YES"/>
+    </entity>
+    <entity name="Liga" representedClassName="Liga" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="clubs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Club" inverseName="liga" inverseEntity="Club" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Liga" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Club" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

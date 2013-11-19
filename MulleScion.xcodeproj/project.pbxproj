@@ -677,11 +677,6 @@
 		4121DB1216DD779800BFD60C /* dot.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dot.scion; path = ../dox/dot.scion; sourceTree = "<group>"; };
 		4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionDataSourceProtocol.h; sourceTree = "<group>"; };
 		412905341830E99800489CE5 /* MulleScion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = MulleScion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		412905381830E99800489CE5 /* xxx-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "xxx-Info.plist"; sourceTree = "<group>"; };
-		4129053A1830E99800489CE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4129053C1830E99800489CE5 /* xxx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xxx-Prefix.pch"; sourceTree = "<group>"; };
-		4129053D1830E99800489CE5 /* xxx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxx.h; sourceTree = "<group>"; };
-		4129053E1830E99800489CE5 /* xxx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = xxx.m; sourceTree = "<group>"; };
 		412E8006182D2F80008A7FCC /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41348F90182E569A00367335 /* libSystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.dylib; path = usr/lib/libSystem.dylib; sourceTree = SDKROOT; };
 		41348F92182E56A500367335 /* crt1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = crt1.o; path = usr/lib/crt1.o; sourceTree = SDKROOT; };
@@ -904,26 +899,6 @@
 			name = MulleScionLibrary;
 			sourceTree = "<group>";
 		};
-		412905361830E99800489CE5 /* xxx */ = {
-			isa = PBXGroup;
-			children = (
-				4129053D1830E99800489CE5 /* xxx.h */,
-				4129053E1830E99800489CE5 /* xxx.m */,
-				412905371830E99800489CE5 /* Supporting Files */,
-			);
-			path = xxx;
-			sourceTree = "<group>";
-		};
-		412905371830E99800489CE5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				412905381830E99800489CE5 /* xxx-Info.plist */,
-				412905391830E99800489CE5 /* InfoPlist.strings */,
-				4129053C1830E99800489CE5 /* xxx-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		41764B8316DA511200560FCF = {
 			isa = PBXGroup;
 			children = (
@@ -934,7 +909,6 @@
 				41764B9116DA511200560FCF /* src */,
 				41764B9416DA511200560FCF /* dox */,
 				41CCC55C18254FB00081FA1C /* tests */,
-				412905361830E99800489CE5 /* xxx */,
 				41764B8E16DA511200560FCF /* Frameworks */,
 				41764B8D16DA511200560FCF /* Products */,
 			);
@@ -1919,17 +1893,6 @@
 			targetProxy = 41FAEE0D182D28C4002CD114 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		412905391830E99800489CE5 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4129053A1830E99800489CE5 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4103007B1701DBE200197713 /* Debug */ = {

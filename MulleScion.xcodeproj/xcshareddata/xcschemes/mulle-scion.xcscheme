@@ -73,6 +73,14 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "../MulleScionDrake/src/Resources/default.scion"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./examples/Build/Products/Debug/ExampleDatasource.bundle"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "./tests/syntax/inline-print.scion"
             isEnabled = "NO">
          </CommandLineArgument>
