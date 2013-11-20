@@ -12,6 +12,12 @@
 @interface NSObject ( MulleGraphviz)
 
 - (NSString *) mulleDotDescription;
+- (NSString *) mulleDotDescriptionLeftToRight;
+
+@end
+
+
+@interface NSObject ( MulleGraphvizSubclassing)
 
 - (NSMutableDictionary *) mulleGraphvizAttributes;
 - (NSMutableDictionary *) mulleGraphvizChildrenByName;

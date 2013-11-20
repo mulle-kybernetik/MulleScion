@@ -12,6 +12,38 @@
 
 
 @implementation  NSObject ( MulleGraphviz)
+   
+- (NSString *) mulleDotDescriptionLeftToRight:(BOOL) dir
+{
+   NSMutableString   *s;
+   
+   s = [NSMutableString string];
+   [s appendFormat:@"digraph %@\n{\n", [self mulleGraphvizName]];
+   if( dir)
+   [s appendString:@"\trankdir=LR;\n"];
+   [s appendString:@"\tnode [shape=none];\n\n"];
+   [s appendString:[self mulleGraphvizDescription]];
+   [s appendString:@"}"];
+   
+   return( s);
+}
+   
+   
+- (NSString *) mulleDotDescription
+{
+   return( [self mulleDotDescriptionLeftToRight:NO]);
+}
+   
+   
+- (NSString *) mulleDotDescriptionLeftToRight
+{
+   return( [self mulleDotDescriptionLeftToRight:YES]);
+}
+   
+@end
+
+
+@implementation NSObject ( MulleGraphvizSubclassing)
 
 - (NSString *) mulleGraphvizName
 {
@@ -87,21 +119,6 @@
          [s appendFormat:@"\n%@", [child mulleGraphvizDescription]];
       }
    }
-   
-   return( s);
-}
-
-
-- (NSString *) mulleDotDescription
-{
-   NSMutableString   *s;
-   
-   s = [NSMutableString string];
-   [s appendFormat:@"digraph %@\n{\n", [self mulleGraphvizName]];
-   //   [s appendString:@"\trankdir=LR;\n"];
-   [s appendString:@"\tnode [shape=none];\n\n"];
-   [s appendString:[self mulleGraphvizDescription]];
-   [s appendString:@"}"];
    
    return( s);
 }

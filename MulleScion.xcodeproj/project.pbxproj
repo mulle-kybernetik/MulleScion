@@ -232,7 +232,6 @@
 		41F12D4616E274D200120E63 /* MulleScionNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F12D4516E274D200120E63 /* MulleScionNull.m */; };
 		41FAED6A182D275E002CD114 /* MulleScionObjectModel+TraceDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32E616DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.m */; };
 		41FAED6B182D275E002CD114 /* NSFileHandle+MulleOutputFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F0CDD418296756000057D5 /* NSFileHandle+MulleOutputFileHandle.m */; };
-		41FAED6C182D275E002CD114 /* MulleScionObjectModel+Graphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */; };
 		41FAED6D182D275E002CD114 /* MulleScionTemplate+CompressedArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0616DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.m */; };
 		41FAED6E182D275E002CD114 /* MulleScionObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */; };
 		41FAED6F182D275E002CD114 /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
@@ -1723,7 +1722,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				41FAED6B182D275E002CD114 /* NSFileHandle+MulleOutputFileHandle.m in Sources */,
-				41FAED6C182D275E002CD114 /* MulleScionObjectModel+Graphviz.m in Sources */,
 				41FAED6D182D275E002CD114 /* MulleScionTemplate+CompressedArchive.m in Sources */,
 				41FAED6E182D275E002CD114 /* MulleScionObjectModel.m in Sources */,
 				41FAED6F182D275E002CD114 /* NSData+ZLib.m in Sources */,
@@ -2178,6 +2176,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
 				DYLIB_CURRENT_VERSION = 1848.5;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2186,6 +2185,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -2199,6 +2201,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
 				DYLIB_CURRENT_VERSION = 1848.5;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2206,6 +2209,9 @@
 					NS_BLOCK_ASSERTIONS,
 					NDEBUG,
 				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_CFLAGS = (
 					"-DPROJECT_VERSION=${DYLIB_CURRENT_VERSION}",
@@ -2236,6 +2242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
 				DYLIB_CURRENT_VERSION = 1848.5;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2244,6 +2251,9 @@
 					NDEBUG,
 					PROFILE,
 				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				OTHER_CFLAGS = (
 					"-DPROJECT_VERSION=${DYLIB_CURRENT_VERSION}",
