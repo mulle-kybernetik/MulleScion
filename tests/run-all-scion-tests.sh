@@ -80,38 +80,9 @@ search_plist()
 }
 
 
-canonical_dirname()
+relpath()
 {
-   local dir
-
-   dir=`echo "$1" | sed '/\/$/s/^\(.*\)\/$/\1/'`
-   echo "$dir/"
-}
-
-
-rel_dir()
-{
-   local root
-   local dir
-   local count
-
-   root=`canonical_dirname $1`
-   dir=`canonical_dirname $2`
-
-   if [ "$dir" = "$root" ]
-   then
-      echo "."
-      return 0
-   fi
-
-   count=`echo -n "$1" | wc -c | awk '{ print $1 }'`
-   echo -n "$2" | awk "{ print substr( \$0, $count+1) }"
-}
-
-
-rel_pwd()
-{
-   rel_dir "$1" `pwd`
+   python -c "import os.path; print os.path.relpath('$1', '$2')"
 }
 
 
@@ -138,11 +109,11 @@ run()
    output="$random.stdout"
    errput="$random.stderr"
    errors=`basename $template .scion`.errors
-   pretty_template=`rel_pwd "$root"`/$template
+   pretty_template=`relpath "$root"`/$template `pwd`
 
    if [ "$VERBOSE" = "yes" ]
    then
-      echo `rel_pwd "$root"`/"$template"
+      echo `relpath "$root"`/"$template" `pwd`
    fi
 
    RUNS=`expr $RUNS + 1`
