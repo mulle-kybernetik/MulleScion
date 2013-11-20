@@ -103,3 +103,6 @@
 @end
 
 #endif
+
+
+extern char   MulleScionFrameworkVersion[];

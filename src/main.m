@@ -209,6 +209,7 @@ static NSDictionary  *getInfoFromArguments( void)
    
 usage:
    fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [output]\n", [processName cString]);
+   fprintf( stderr, "v%s", MulleScionFrameworkVersion);
    return( nil);
 }
 
