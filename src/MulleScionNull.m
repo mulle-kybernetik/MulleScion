@@ -57,13 +57,13 @@ id   MulleScionNull;
 }
 
 
-- (BOOL) isEqual:(id) other
++ (BOOL) isEqual:(id) other
 {
    return( self == other);
 }
 
 
-- (BOOL) compare:(id) other
++ (BOOL) compare:(id) other
 {
    if( self == other)
       return( NSOrderedSame);
@@ -71,7 +71,7 @@ id   MulleScionNull;
 }
 
 
-- (id) valueForUndefinedKey:(NSString *) key
++ (id) valueForUndefinedKey:(NSString *) key
 {
    return( nil);
 }
