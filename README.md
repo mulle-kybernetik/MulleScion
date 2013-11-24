@@ -64,8 +64,14 @@ This is the general architecture of *MulleScion*
 ![](http://www.mulle-kybernetik.com/software/git/MulleScion/raw/master/dox/MulleScionDataFlow.png "Data Flow Sketch")
 
 *MulleScion* is currently still pretty much a "happy path" project, but 
-it is already used in a commercial project.
+it is being used in a commercial project. 
 
+TOOLS
+=============
+There is an interactive editor
+available for OS X called [MulleScionDrake](http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/),
+which allows you to edit a HTML scion template and preview the results at the
+same time.
 
 
 DOCUMENTATION
@@ -88,16 +94,16 @@ other way (define, macro, ObjC category on NSString).
 LIMITATIONS
 =============
 Because you can execute arbitrary ObjC methods, and have access to Key Value
-Coding, MulleScion can pretty much do anything. *MulleScion* use 
-`NSInvocation` for method calls, and that usually can not do variable arguments. 
-So that will be a problem. Be wary of anything using structs and C-Arrays and 
+Coding, MulleScion can pretty much do anything. *MulleScion* uses
+`NSInvocation` for method calls. That means there will be problems with variable 
+arguments methods. Be wary of anything using structs and C-Arrays and
 C-strings, although *MulleScion* tries to be as helpful as possible.
 
-*MulleScion* do not do arithmetic or bitwise logic, quite on purpose.
+*MulleScion* does not do arithmetic or bitwise logic, quite on purpose.
 
-*MulleScion* `&&` and `||` have no operator precedence, use parentheses
+*MulleScion* `&&` and `||` have no operator precedence, use parentheses.
 
-*MulleScion* don't prevent you from trying stupid things.
+*MulleScion* doesn't prevent you from trying stupid things.
 
 The documentation is not very good, actually it is just more or less a 
 collection of test cases with comments...
@@ -105,26 +111,23 @@ collection of test cases with comments...
 
 iOS SUPPORT
 =============
-There is a target that produces a "real framework" that you can add to your iOS
-projects. See https://github.com/kstenerud/iOS-Universal-Framework for more 
-details about using "real frameworks" with Xcode.
+There is iOS Support :)
 
 
 SITES
 =============
 The main development site is Mulle kybernetiK. 
 
-http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/
+[http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/]()
 
 releases are pushed to github
 
-github: https://github.com/mulle-nat/MulleScionTemplates/
+[https://github.com/mulle-nat/MulleScion/]()
 
 
 TODO
 =============
-It would be nice to have delayed evaluation for render results.
-Get rid of MulleScionNull except for printing a nil value.
+It might be nice to have delayed evaluation for render results. More tests.
 
 
 AUTHOR
