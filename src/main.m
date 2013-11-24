@@ -75,6 +75,9 @@ static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
                 forKey:@"MulleScionRootTemplate"];
    [sanitize setObject:[info objectForKey:@"MulleScionPropertyListName"]
                 forKey:@"MulleScionPropertyListName"];
+   [sanitize setObject:[info objectForKey:@"__ARGV__"]
+                forKey:@"__ARGV__"];
+   
    return( sanitize);
 }
 
@@ -176,6 +179,7 @@ static NSDictionary  *getInfoFromArguments( void)
    NSString              *outputName;
    id                    plist;
    NSMutableDictionary   *info;
+   NSArray               *argv;
    
    info         = [NSMutableDictionary dictionary];
    arguments    = [[NSProcessInfo processInfo] arguments];
@@ -184,6 +188,7 @@ static NSDictionary  *getInfoFromArguments( void)
    templateName = [rover nextObject];
    plistName    = [rover nextObject];
    outputName   = [rover nextObject];
+   argv         = [rover allObjects];
    
    if( ! [templateName length])
       goto usage;
@@ -204,11 +209,14 @@ static NSDictionary  *getInfoFromArguments( void)
             forKey:@"MulleScionPropertyListName"];
    [info setObject:outputName
             forKey:@"output"];
+   if( argv)
+      [info setObject:argv
+               forKey:@"__ARGV__"];
    
    return( info);
    
 usage:
-   fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [output]\n", [processName cString]);
+   fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [-|outputfile] [arguments]\n", [processName cString]);
    fprintf( stderr, "v%s", MulleScionFrameworkVersion);
    return( nil);
 }

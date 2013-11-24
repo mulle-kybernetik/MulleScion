@@ -66,14 +66,14 @@
 # define HAVE_TRACE_RENDER
 #endif
 
-
-NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";
+NSString   *MulleScionArgumentsKey            = @"__ARGV__";
 NSString   *MulleScionCurrentFileKey          = @"__FILE__";
 NSString   *MulleScionPreviousFilesKey        = @"__FILE_STACK__";
-NSString   *MulleScionCurrentLineKey          = @"__LINE__";
-NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
 NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
 NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
+NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
+NSString   *MulleScionCurrentLineKey          = @"__LINE__";
+NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";
 NSString   *MulleScionSelfReplacementKey      = @"__SELF_REPLACEMENT__";
 NSString   *MulleScionTraceKey                = @"__TRACE__";
 
