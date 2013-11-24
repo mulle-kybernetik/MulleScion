@@ -83,7 +83,7 @@ search_plist()
 relpath()
 {
    python -c "import os.path; print os.path.relpath('$1', '$2')"
-}
+} 
 
 
 run()
@@ -109,11 +109,12 @@ run()
    output="$random.stdout"
    errput="$random.stderr"
    errors=`basename $template .scion`.errors
-   pretty_template=`relpath "$root"`/$template `pwd`
-
+   
+   pwd=`pwd`
+   pretty_template=`relpath "$pwd"/"$template" "$root"`
    if [ "$VERBOSE" = "yes" ]
    then
-      echo `relpath "$root"`/"$template" `pwd`
+      echo "$pretty_template"
    fi
 
    RUNS=`expr $RUNS + 1`
