@@ -10,6 +10,7 @@
 .Ar template      
 .Ar plist         
 .Op Ar outputfile 
+.Op Ar arguments 
 .Sh DESCRIPTION   
 .Nm
 is a standalone renderer for MulleScion files. 
@@ -21,14 +22,18 @@ These are the arguments you can give to
 .It Ar template  
 path to the MulleScionTemplate. If the file has no extension a .scion will be 
 appended. The directory of this path will become your root for included 
-templates.
+templates. If the path starts with a '{' this argument is treated as an inline 
+script instead.
 .It Ar plist  
 Path to a property list file. If you give '-' as a path, the property list will 
 be read from standard input. You can also give 'none' for no property list. If 
 this parameter is omitted, it defaults to standard input.
 .It Ar outputfile
-The output file to write the output to. If this parameter is omitted, the 
+The output file to write the output to. If this parameter is '-' or omitted, the 
 output is written to standard output.
+.It Ar arguments
+All other trailing arguments are collected and are available as an array in the
+MulleScion variable __ARGV__.
 .El                      
 .Bl -tag -width "XXXXXXXXXX" -indent 
 .It Fl w 
@@ -72,6 +77,25 @@ This is the most common kind of debug output to generate.
 Setting this environment value turns on a limited tracing facility during
 the rendering of a template.
 .El
+.Sh EXAMPLES
+.Pp
+.Dl "mulle-scion my_template.scion a_datasource.plist output.txt"
+.Pp
+Fill template file my_template.scion with data from a_datasource.plist and write it to
+output.txt.
+
+.Pp
+.Dl "mulle-scion '{{ [__ARGV__[ 0] stringByResolvingSymlinksInPath] }}' none - /tmp/.."
+.Pp
+Use mulle-scion to resolve a symlink path /tmp/.. . The script is inlined, there is no property 
+list for a datasource and the output is routed to stdout.
+.Pp
+.Dl "mulle-scion -w ~/Library/Bundles/MyWebServer.bundle"
+.Pp
+start a webserver for /tmp and load ~/Library/Bundles/MyWebServer.bundle. The bundle 
+could be adding compiled functionality to the test templates.
+
+
 .Sh SEE ALSO 
 .Xr make 1 
 .Sh AUTHOR

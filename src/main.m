@@ -82,21 +82,43 @@ static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
 }
 
 
-static int   run( NSString *template,
+static int   run( NSString *fileName,
                   id <MulleScionDataSource> src,
                   id < MulleScionOutput> dst,
                   NSDictionary *locals)
 {
-   if( ! [MulleScionTemplate writeToOutput:dst
-                              templateFile:template
-                                dataSource:src
-                            localVariables:locals])
+   MulleScionParser    *parser;
+   NSData              *data;
+   MulleScionTemplate  *template;
+   
+   //
+   // if fileName stars with '{' assume, that it's a command line template
+   //
+   if( [fileName hasPrefix:@"{"]) //  on her milk white neck ... the devil's mark
    {
-      NSLog( @"Template file \"%@\" could not be read", template);
-      return( -1);
+      data     = [fileName dataUsingEncoding:NSUTF8StringEncoding];
+      parser   = [[[MulleScionParser alloc] initWithData:data
+                                                fileName:@"cmdline"] autorelease];
+      template = [parser template];
+      
+      if( template)
+      {
+         [template writeToOutput:dst
+                      dataSource:src
+                  localVariables:locals];
+         return( 0);
+      }
    }
-
-   return( 0);
+   
+   
+   if( [MulleScionTemplate writeToOutput:dst
+                            templateFile:fileName
+                              dataSource:src
+                          localVariables:locals])
+      return( 0);
+   
+   NSLog( @"Template \"%@\" could not be read", fileName);
+   return( -1);
 }
 
 
@@ -189,6 +211,8 @@ static NSDictionary  *getInfoFromArguments( void)
    plistName    = [rover nextObject];
    outputName   = [rover nextObject];
    argv         = [rover allObjects];
+
+   NSLog( @"arguments: %@", argv);
    
    if( ! [templateName length])
       goto usage;
