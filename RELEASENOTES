@@ -1,4 +1,13 @@
-v1848.4  
+v1848.5
+
+bunch of fixes. Added an example how to write a non-plist datasource, in this
+case using CoreData.
+
+added a requires keyword for dynamic loading of bundles from within a scion
+script (experimental)
+
+
+v1848.4
 
 renamed to MulleScion, because now it's more than just a template engine, it's
 also somewhat useful as a little standalone Obj-C interpreter. Also 
