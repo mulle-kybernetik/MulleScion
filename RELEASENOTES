@@ -1,3 +1,9 @@
+v1848.6
+
+add __ARGV__ parsage to mulle-scion. Now you can use mulle-scion as an awk 
+replacement in other shell scripts, if you so desire.
+
+
 v1848.5
 
 bunch of fixes. Added an example how to write a non-plist datasource, in this

@@ -38,5 +38,5 @@
 /* the MulleMongoose part is just quickly hacked together stuff to serve
  * .scion pages. Don't use this 4 real.
  */
-void  mulle_mongoose_main( void);
+void  mulle_mongoose_main( void *datasource, char **options);
 

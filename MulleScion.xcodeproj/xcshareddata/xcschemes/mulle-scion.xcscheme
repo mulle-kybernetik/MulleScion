@@ -54,7 +54,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# doesn&apos;t work&#10;# if [ &quot;$START_WEBSERVER&quot; = &quot;YES&quot; ]&#10;#then&#10;  ( sleep 2 ; open &quot;http://127.0.0.1:18048/index.scion&quot; ) &amp;&#10;#fi&#10;">
+               scriptText = "# doesn&apos;t work&#10;# if [ &quot;$START_WEBSERVER&quot; = &quot;YES&quot; ]&#10;#then&#10;  ( sleep 2 ; open &quot;http://127.0.0.1:18048&quot; ) &amp;&#10;#fi&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>

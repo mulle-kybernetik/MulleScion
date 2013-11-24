@@ -57,7 +57,7 @@
 #include "mongoose.h"
 
 
-/* this code is just for demo purposes */
+/* this code is just for demo purposes. */
 #pragma mark -
 #pragma mark ObjC Interfacing
 
@@ -81,6 +81,25 @@ static void   mulle_write_response( struct mg_connection *conn, void *buf, size_
 }
 
 
+// just cheap hax for now
+static NSURL   *_mulle_scion_url_from_request_info( struct mg_request_info   *info)
+{
+   NSURL      *url;
+   NSString   *s;
+   NSString   *ext;
+   
+   s    = [NSString stringWithCString:info->uri];
+   if( [s hasPrefix:@"/"])
+      s = [s substringFromIndex:1];
+   s    = [s urlEscapedString];
+   if( ! [s length])
+      return( [NSURL URLWithString:@"index.scion"]);
+
+   url  = [NSURL URLWithString:s];
+   return( url);
+}
+
+
 static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
 {
    NSURL                    *url;
@@ -90,49 +109,28 @@ static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
    NSDictionary             *plist;
    NSBundle                 *bundle;
    struct mg_request_info   *info;
-   Class                    cls;
    MulleScionTemplate       *template;
    NSString                 *response;
    NSData                   *utf8Data;
    
    info = mg_get_request_info( conn);
-   s    = [NSString stringWithCString:info->uri];
-   if( [s hasPrefix:@"/"])
-      s = [s substringFromIndex:1];
-   s    = [s urlEscapedString];
-   url  = [NSURL URLWithString:s];
-   ext  = [[url lastPathComponent] pathExtension];
-   if( ! [ext hasSuffix:@"scion"])
+   url  = _mulle_scion_url_from_request_info( info);
+   
+   NSLog( @"%s -> %@", info->uri, url);
+   if( ! url)
       return( 0);
 
-
-#if DONT_LINK_AGAINST_MULLE_SCION_TEMPLATES
-   bundle   = [NSBundle bundleWithPath:@"/Library/Frameworks/MulleScion.framework"];
-   if( ! [bundle load])
-      response = @"mulle scion templates not installed";
+   plist    = info->user_data;
+   query    = [NSString stringWithCString:info->query_string ? info->query_string : ""];
+   template = [[[MulleScionTemplate alloc] initWithContentsOfFile:[url path]
+                                                    optionsString:query] autorelease];
+   if( template)
+      response = [template descriptionWithDataSource:plist
+                                      localVariables:nil];
    else
-#endif
-   {
-      cls      = NSClassFromString( @"MulleScionTemplate");
-      plist    = [NSDictionary dictionaryWithContentsOfFile:@"properties.plist"];
-      if( ! plist)
-         response = @"properties.plist not found";
-      else
-      {
-         query    = [NSString stringWithCString:info->query_string ? info->query_string : ""];
-         //NS_DURING
-         template = [[[cls alloc] initWithContentsOfFile:[url path]
-                                           optionsString:query] autorelease];
-         response = [template descriptionWithDataSource:plist
-                                         localVariables:nil];
-         //      NS_HANDLER
-         //         response = [localException description];
-         //      NS_ENDHANDLER
-         if( ! response)
-            response = @"template not found";
-      }
-   }
-
+      response = @"template not found";
+   NSCParameterAssert( response);
+   
    utf8Data = [response dataUsingEncoding:NSUTF8StringEncoding];
    mulle_write_response( conn, (void *) [utf8Data bytes], [utf8Data length]);
    
@@ -176,12 +174,12 @@ static void   mulle_mongoose_end_request( struct mg_connection *conn, int reply_
  */
 static struct   mg_context *ctx;      // Set by start_mongoose()
 static int     exit_flag;
-static char    server_name[ 40];        // Set by init_server_name()
+static char    server_name[ 80];        // Set by init_server_name()
 
 
 static void init_server_name(void)
 {
-   snprintf(server_name, sizeof(server_name), "mulle-scion web server (mongoose v. %s)",
+   snprintf(server_name, sizeof(server_name), "mulle-scion web server (mongoose v. %.32s)",
             mg_version());
 }
 
@@ -199,29 +197,38 @@ static int log_message( const struct mg_connection *conn, const char *message)
 }
 
 
-static void start_mongoose()
+static void   start_mongoose( void  *datasource, char **options)
 {
    struct mg_callbacks callbacks;
-   static char *options[] =
-   {
-      "document_root",   "/tmp",
-      "listening_ports", "127.0.0.1:18048",
-      "num_threads", "1",
-      NULL
-   };
+   NSString   *dir;
+   char       **p;
+
    /* Setup signal handler: quit on Ctrl-C */
    signal(SIGTERM, signal_handler);
    signal(SIGINT, signal_handler);
    
    /* Start Mongoose */
    memset(&callbacks, 0, sizeof(callbacks));
-   callbacks.log_message  = &log_message;
+   callbacks.log_message   = &log_message;
    callbacks.begin_request = mulle_mongoose_begin_request;
    callbacks.end_request   = (void *) mulle_mongoose_end_request;
 
-   [[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/tmp"];
+   /* make it nice for the future */
+   for( p = options; *p; p++)
+   {
+      if( strcmp( *p, "document_root"))
+         continue;
+      if( *++p)
+      {
+         dir = [NSString stringWithCString:*p];
+         if( [dir hasSuffix:@".scion"])
+            dir = [dir stringByDeletingLastPathComponent];
+         [[NSFileManager defaultManager] changeCurrentDirectoryPath:dir];
+      }
+      break;
+   }
    
-   ctx = mg_start( &callbacks, NULL, (void *) options);
+   ctx = mg_start( &callbacks, datasource, (void *) options);
    if (ctx == NULL)
    {
       NSLog( @"Failed to start mulle-scion web server.");
@@ -230,23 +237,36 @@ static void start_mongoose()
 }
 
 
-void    mulle_mongoose_main()
+void    _mulle_mongoose_main( void *datasource, char **options)
 {
    init_server_name();
 
-   start_mongoose();
+   start_mongoose( datasource, options);
 
-   NSLog(@"%s started on port(s) %s",
+   NSLog( @"%s started on port(s) %s",
           server_name, mg_get_option(ctx, "listening_ports"));
 
    while( exit_flag == 0)
       sleep( 1);
 
-   NSLog(@"Exiting on signal %d, waiting for all threads to finish...",
+   NSLog( @"Exiting on signal %d, waiting for all threads to finish...",
           exit_flag);
    mg_stop( ctx);
    
    NSLog( @"%s", " done.\n");
+}
+
+
+void   mulle_mongoose_main( void *datasource, char **options)
+{
+   NSAutoreleasePool  *pool;
+   
+   NSCParameterAssert( datasource);
+   NSCParameterAssert( options);
+   
+   pool = [NSAutoreleasePool new];
+   _mulle_mongoose_main( datasource, options);
+   [pool release];
 }
 
 #endif

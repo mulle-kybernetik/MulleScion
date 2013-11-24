@@ -305,16 +305,33 @@ static int _main(int argc, const char * argv[])
 }
 
 
+static char    *default_options[] =
+{
+   "document_root",   "/tmp",
+   "listening_ports", "127.0.0.1:18048",
+   "num_threads", "1",
+   "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
+   NULL
+};
+
+
 int main( int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
-   
 #ifndef DONT_HAVE_WEBSERVER
+   id                  plist;
+
    if( argc > 1 && ! strcmp( argv[ 1], "-w"))
    {
       loadBundles();
-      mulle_mongoose_main();
+      plist = [NSDictionary dictionaryWithContentsOfFile:@"/tmp/properties.plist"];
+      if( ! plist)
+      {
+         NSLog( @"/tmp/properties.plist not found");
+         return( 5);
+      }
+      mulle_mongoose_main( plist, default_options);
       return( 0);
    }
 #endif
