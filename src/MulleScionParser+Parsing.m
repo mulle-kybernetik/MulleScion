@@ -117,10 +117,10 @@ static void   parser_skip_after_newline( parser *p);
 
 static void   parser_skip_initial_hashbang_line_if_present( parser *p)
 {
-   assert( p->lineNumber == 1);
    if( p->sentinel - p->buf < 4)
       return;
 
+   assert( p->lineNumber == 1);
    if( memcmp( "#!", p->buf, 2))
       return;
    
