@@ -68,8 +68,7 @@ it is being used in a commercial project.
 
 TOOLS
 =============
-There is an interactive editor
-available for OS X called [MulleScionDrake](http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/),
+There is an interactive editor available for OS X called [MulleScionDrake](http://www.mulle-kybernetik.com/software/git/MulleScionTemplates/),
 which allows you to edit a HTML scion template and preview the results at the
 same time.
 

@@ -1,15 +1,50 @@
 Mac OS X
 ========
-sudo chmod 777 /Library/Frameworks
-xcodebuild -scheme mulle-scion 
+	xcodebuild -target OSX
+
+will produce all OS X outputs. You have the choice between a "normal" 
+dynamically linked framework MulleScion.framework or a shared library 
+libMulleScion.a with a set of include headers.
+
+It will also produce the mulle-scion executable.
 
 
-iOS X
+iOS 1
 =====
-Get https://github.com/kstenerud/iOS-Universal-Framework and
-install "Real Framework".
+	xcodebuild -target iOS
 
-xcodebuild -scheme "MulleScion (iOS Framework)"
+to produce a shared library libMulleScion.a with a set of include headers.
 
-copy resulting framework to your project. Don't forget to force_load it.
+
+iOS 2
+=====
+
+Get [https://github.com/kstenerud/iOS-Universal-Framework]() and
+install "Real Framework". Then
+
+	xcodebuild -target "MulleScion (iOS Framework)"
+
+will produce a framework that you can add to your project. 
+
+
+Tips
+====
+
+Avoid compile errors by using something like
+
+	HEADER_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../MulleScion/Build/Products/Debug-iphonesimulator
+
+or when using the framework
+
+	FRAMEWORK_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../MulleScion/Build/Products/Debug-iphonesimulator
+
+
+Avoid runtime errors by using 
+
+	OTHER_LDFLAGS = -ObjC
+
+or something like
+
+	OTHER_LDFLAGS = -force_load $(PROJECT_DIR)/lib/libMulleScion.a
+
 
