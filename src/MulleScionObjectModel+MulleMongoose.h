@@ -39,6 +39,8 @@
 
 @interface MulleScionTemplate (MulleMongoose)
 
+- (id) initWithString:(NSString *) s;
+
 - (id) initWithContentsOfFile:(NSString *) fileName
                       options:(NSDictionary *) info;
 

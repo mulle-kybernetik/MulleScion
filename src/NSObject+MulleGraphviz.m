@@ -12,11 +12,41 @@
 
 
 @implementation  NSObject ( MulleGraphviz)
+
++ (void) beginMulleGraphvizSet
+{
+   NSMutableSet   *set;
    
+   set = [NSMutableSet set];
+   [[[NSThread currentThread] threadDictionary] setObject:set
+                                                   forKey:@"MulleGraphVizSet"];
+   
+}
+
+
++ (void) endMulleGraphvizSet
+{
+   [[[NSThread currentThread] threadDictionary] removeObjectForKey:@"MulleGraphVizSet"];
+}
+
+
++ (NSMutableSet *) mulleGraphvizSet
+{
+   NSMutableSet   *set;
+   
+   set = [[[NSThread currentThread] threadDictionary] objectForKey:@"MulleGraphVizSet"];
+   return( set);
+}
+
+
 - (NSString *) mulleDotDescriptionLeftToRight:(BOOL) dir
 {
    NSMutableString   *s;
+   NSException       *exception;
    
+   exception = nil;
+   [isa beginMulleGraphvizSet];
+NS_DURING
    s = [NSMutableString string];
    [s appendFormat:@"digraph %@\n{\n", [self mulleGraphvizName]];
    if( dir)
@@ -24,6 +54,11 @@
    [s appendString:@"\tnode [shape=none];\n\n"];
    [s appendString:[self mulleGraphvizDescription]];
    [s appendString:@"}"];
+NS_HANDLER
+   exception = localException;
+NS_ENDHANDLER
+   [isa endMulleGraphvizSet];
+   [exception raise];
    
    return( s);
 }
@@ -63,6 +98,18 @@
 }
 
 
+- (NSString *) mulleGraphvizHeaderBackgroundColorName
+{
+   return( @"dodgerBlue");
+}
+
+
+- (NSString *) mulleGraphvizHeaderTextColorName
+{
+   return( @"black");
+}
+
+
 - (NSString *) mulleGraphvizDescription
 {
    
@@ -76,6 +123,13 @@
    NSUInteger        i, n;
    id                child;
    id                value;
+   NSMutableSet      *set;
+   
+   // nice, if nothing is active, this will just pass
+   set = [isa mulleGraphvizSet];
+   if( [set containsObject:self])
+      return( nil);
+   [set addObject:self];
    
    name           = [self mulleGraphvizName];
    dict           = [self mulleGraphvizAttributes];
@@ -84,7 +138,9 @@
    s = [NSMutableString string];
    [s appendFormat:@"\t%@ [label=<<TABLE>\n", name];
    [s appendFormat:@"\t\t<TR><TD COLSPAN=\"2\" BGCOLOR=\"%@\"><FONT COLOR=\"%@\">%@</FONT></TD></TR>\n",
-    @"dodgerBlue", @"black", [name htmlEscapedString]];
+    [self mulleGraphvizHeaderBackgroundColorName],
+    [self mulleGraphvizHeaderTextColorName],
+    [name htmlEscapedString]];
    
    rover = [dict keyEnumerator];
    while( key = [rover nextObject])
@@ -116,7 +172,8 @@
       for( i = 0; i < n; i++)
       {
          child = [children objectAtIndex:i];
-         [s appendFormat:@"\n%@", [child mulleGraphvizDescription]];
+         if( ! [set containsObject:child])
+            [s appendFormat:@"\n%@", [child mulleGraphvizDescription]];
       }
    }
    

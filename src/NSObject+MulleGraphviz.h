@@ -24,4 +24,7 @@
 - (NSString *) mulleGraphvizDescription;
 - (NSString *) mulleGraphvizName;
 
+- (NSString *) mulleGraphvizHeaderBackgroundColorName;
+- (NSString *) mulleGraphvizHeaderTextColorName;
+
 @end

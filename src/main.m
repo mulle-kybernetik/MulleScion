@@ -37,6 +37,7 @@
 
 #import "MulleScion.h"
 #import "MulleMongoose.h"
+#import "MulleScionObjectModel+MulleMongoose.h"
 #import "NSFileHandle+MulleOutputFileHandle.h"
 
 
@@ -96,11 +97,7 @@ static int   run( NSString *fileName,
    //
    if( [fileName hasPrefix:@"{"]) //  on her milk white neck ... the devil's mark
    {
-      data     = [fileName dataUsingEncoding:NSUTF8StringEncoding];
-      parser   = [[[MulleScionParser alloc] initWithData:data
-                                                fileName:@"cmdline"] autorelease];
-      template = [parser template];
-      
+      template = [[[MulleScionTemplate alloc] initWithString:fileName] autorelease];
       if( template)
       {
          [template writeToOutput:dst
@@ -329,7 +326,7 @@ int main( int argc, const char * argv[])
       if( ! plist)
       {
          NSLog( @"/tmp/properties.plist not found");
-         return( 5);
+         return( -5);
       }
       mulle_mongoose_main( plist, default_options);
       return( 0);

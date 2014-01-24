@@ -163,4 +163,22 @@ static BOOL fileExists( NSString *fileName)
    
 }
 
+
+#pragma mark -
+#pragma mark Convenience for mulle-scion
+   
+- (id) initWithString:(NSString *) s
+{
+   MulleScionParser    *parser;
+   NSData              *data;
+   MulleScionTemplate  *template;
+   
+   data     = [s dataUsingEncoding:NSUTF8StringEncoding];
+   parser   = [[[MulleScionParser alloc] initWithData:data
+                                             fileName:@"inline"] autorelease];
+   template = [parser template];
+   [self autorelease];
+   return( template);
+}
+   
 @end
