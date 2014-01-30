@@ -86,15 +86,16 @@ NS_ENDHANDLER
 }
 
 
+// premade dictionries, nicer for subclass code
 - (NSMutableDictionary *) mulleGraphvizAttributes
 {
-   return( nil);
+   return( [NSMutableDictionary dictionary]);
 }
 
 
 - (NSMutableDictionary *) mulleGraphvizChildrenByName
 {
-   return( nil);
+   return( [NSMutableDictionary dictionary]);
 }
 
 
