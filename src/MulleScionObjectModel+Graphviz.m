@@ -19,8 +19,7 @@
 {
    NSMutableDictionary   *lut;
    
-   lut = [NSMutableDictionary dictionary];
-   
+   lut = [super mulleGraphvizChildrenByName];
    if( next_)
       [lut setObject:[NSArray arrayWithObject:next_]
               forKey:@"next"];
@@ -32,7 +31,7 @@
 {
    NSMutableDictionary   *dict;
    
-   dict = [NSMutableDictionary dictionary];
+   dict = [super mulleGraphvizAttributes];
    [dict setObject:[NSNumber numberWithUnsignedInteger:lineNumber_]
             forKey:@"lineNumber"];
    return( dict);
