@@ -160,7 +160,7 @@ NS_ENDHANDLER
       for( i = 0; i < n; i++)
       {
          child = [children objectAtIndex:i];
-         [s appendFormat:@"\t%@ -> %@ [label=\"%@\"[ %lu]]; \n", name, [child mulleGraphvizName], key, (unsigned long) i];
+         [s appendFormat:@"\t%@ -> %@ [label=\"%@[ %lu]\"]; \n", name, [child mulleGraphvizName], key, (unsigned long) i];
       }
    }
    
