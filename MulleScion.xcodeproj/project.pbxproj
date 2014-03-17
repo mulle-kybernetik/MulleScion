@@ -162,6 +162,8 @@
 		414A842116E50D860084AE1E /* set.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A816E4E63500D3B0AD /* set.scion */; };
 		414A842416E51B460084AE1E /* __page.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AA16E3CFF300C4D68A /* __page.scion */; };
 		415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA59B182BBB3B00F654F7 /* GTMDefines.h */; };
+		41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
+		41665B4B18D70811005DF9BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41665B4A18D70811005DF9BF /* libz.dylib */; };
 		41741ADC18303A290065E5FD /* requires.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41741ADB183036440065E5FD /* requires.scion */; };
 		41764B9016DA511200560FCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41764B9316DA511200560FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9216DA511200560FCF /* main.m */; };
@@ -176,7 +178,6 @@
 		41B07E25182001DF0003B67F /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
 		41B07E261820215A0003B67F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		41B07E271820215A0003B67F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 414A842816E52DF50084AE1E /* LICENSE */; };
-		41BC1BD6181AF0B900A90E06 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41BC1BD5181AF0B900A90E06 /* libz.dylib */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41CD2F0E181FE67C00FBBEB4 /* README.md in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
@@ -682,6 +683,7 @@
 		415DA59B182BBB3B00F654F7 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../google-toolbox-for-mac/GTMDefines.h"; sourceTree = "<group>"; };
 		415DA5D3182BED2100F654F7 /* NSObject+iOS_KVC_Compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+iOS_KVC_Compatibility.h"; sourceTree = "<group>"; };
 		415DA5D4182BED2100F654F7 /* NSObject+iOS_KVC_Compatibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+iOS_KVC_Compatibility.m"; sourceTree = "<group>"; };
+		41665B4A18D70811005DF9BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		41741ADB183036440065E5FD /* requires.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = requires.scion; sourceTree = "<group>"; };
 		41764B8C16DA511200560FCF /* mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41764B8F16DA511200560FCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -711,7 +713,6 @@
 		41AEA21D182D0A7200840887 /* NSObject+MulleGraphviz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MulleGraphviz.h"; sourceTree = "<group>"; };
 		41AEA21E182D0A7200840887 /* NSObject+MulleGraphviz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MulleGraphviz.m"; sourceTree = "<group>"; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
-		41BC1BD5181AF0B900A90E06 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		41C04B29182D2C2C00CD973E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		41C04B2C182D2C2D00CD973E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		41CCC55C18254FB00081FA1C /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
@@ -763,7 +764,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41BC1BD6181AF0B900A90E06 /* libz.dylib in Frameworks */,
 				410300731701DBE200197713 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -780,6 +780,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41665B4B18D70811005DF9BF /* libz.dylib in Frameworks */,
 				411EEAAD182D311F00361ADF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -928,12 +929,12 @@
 		41764B8E16DA511200560FCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41665B4A18D70811005DF9BF /* libz.dylib */,
 				41348F99182E57C900367335 /* libgcc_s.1.dylib */,
 				41348F97182E577D00367335 /* libobjc.dylib */,
 				41348F94182E56E900367335 /* gcrt1.o */,
 				41348F92182E56A500367335 /* crt1.o */,
 				41348F90182E569A00367335 /* libSystem.dylib */,
-				41BC1BD5181AF0B900A90E06 /* libz.dylib */,
 				41764B8F16DA511200560FCF /* Foundation.framework */,
 				4121DB0316DD2B6900BFD60C /* libz.dylib */,
 				41C04B29182D2C2C00CD973E /* XCTest.framework */,
@@ -1613,6 +1614,7 @@
 				411EEAB8182D314C00361ADF /* MulleScionTemplate+CompressedArchive.m in Sources */,
 				411EEAB9182D314C00361ADF /* NSFileHandle+MulleOutputFileHandle.m in Sources */,
 				411EEABA182D314C00361ADF /* MulleScionObjectModel+TraceDescription.m in Sources */,
+				41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */,
 				411EEABB182D314C00361ADF /* NSObject+iOS_KVC_Compatibility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
