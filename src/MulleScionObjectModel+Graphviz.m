@@ -5,11 +5,20 @@
 //  Created by Nat! on 08.11.13.
 //  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
 //
-
-#import "NSObject+MulleGraphviz.h"
-
 #import "MulleScionObjectModel.h"
-#import "NSString+HTMLEscape.h"
+
+
+@interface NSObject ( MulleGraphvizSubclassing)
+
+- (NSMutableDictionary *) mulleGraphvizAttributes;
+- (NSMutableDictionary *) mulleGraphvizChildrenByName;
+- (NSString *) mulleGraphvizDescription;
+- (NSString *) mulleGraphvizName;
+
+- (NSString *) mulleGraphvizHeaderBackgroundColorName;
+- (NSString *) mulleGraphvizHeaderTextColorName;
+
+@end
 
 
 // a beginning, not the end

@@ -1,3 +1,11 @@
+v1848.7
+
+* outsourced NSObject+MulleGraphviz because I need it in other code
+too and the dependency on MulleScion was annoying.
+
+* fixed some bad code in commandline tool, that reads the property list
+
+
 v1848.6
 
 * add __ARGV__ parsage to mulle-scion. Now you can use mulle-scion as an awk 

@@ -122,14 +122,48 @@ static int   run( NSString *fileName,
 /*       #####
    ##### #####
          ##### */
+static id   acquireDataSourceFromBundle( NSString *s)
+{
+   NSString  *error;
+   NSBundle  *bundle;
+   id        plist;
+   Class     cls;
+   
+   bundle = [NSBundle bundleWithPath:s];
+   cls    = [bundle principalClass];
+   if( ! cls)
+   {
+      NSLog( @"bundle \"%@\" load failure", s);
+      return( nil);
+   }
+   
+   if( ! [cls respondsToSelector:@selector( mulleScionDataSource)])
+   {
+      NSLog( @"bundle's principal class \"%@\" does not respond to +mulleScionDataSource", cls);
+      return( nil);
+   }
+   
+   plist = [cls performSelector:@selector( mulleScionDataSource)];
+   if( ! plist)
+   {
+      NSLog( @"bundle's principal class \"%@\" returned nil for +mulleScionDataSource", cls);
+      return( nil);
+   }
+   
+   if( ! [plist respondsToSelector:@selector( valueForKeyPath:)])
+   {
+      NSLog( @"bundle's dataSource\"%@\" does not respond to -valueForKeyPath:", [plist class]);
+      return( nil);
+   }
+   return( plist);
+}
+
 
 static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
 {
    NSData    *data;
    NSString  *error;
-   NSBundle  *bundle;
    id        plist;
-   Class     cls;
    
    if( [s isEqualToString:@"none"])
       return( [NSDictionary dictionary]);
@@ -137,53 +171,19 @@ static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
    if( [s isEqualToString:@"-"])
       data = [[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile];
    else
-   {
       if( [[s pathExtension] isEqualToString:@"plist"])
-      {
          data = [NSData dataWithContentsOfFile:s];
-   
-         error = nil;
-         plist = [NSPropertyListSerialization propertyListFromData:data
-                                                  mutabilityOption:NSPropertyListImmutable
-                                                            format:NULL
-                                                  errorDescription:&error];
-         if( ! plist)
-         {
-            NSLog( @"property list failure: %@", error);
-            return( nil);
-         
-         }
-      }
       else
-      {
-         bundle = [NSBundle bundleWithPath:s];
-         cls    = [bundle principalClass];
-         if( ! cls)
-         {
-            NSLog( @"bundle \"%@\" load failure", s);
-            return( nil);
-         }
-         
-         if( ! [cls respondsToSelector:@selector( mulleScionDataSource)])
-         {
-            NSLog( @"bundle's principal class \"%@\" does not respond to +mulleScionDataSource", cls);
-            return( nil);
-         }
-         
-         plist = [cls performSelector:@selector( mulleScionDataSource)];
-         if( ! plist)
-         {
-            NSLog( @"bundle's principal class \"%@\" returned nil for +mulleScionDataSource", cls);
-            return( nil);
-         }
-
-         if( ! [plist respondsToSelector:@selector( valueForKeyPath:)])
-         {
-            NSLog( @"bundle's dataSource\"%@\" does not respond to -valueForKeyPath:", [plist class]);
-            return( nil);
-         }
-      }
-   }
+         return( acquireDataSourceFromBundle( s));
+   
+   error = nil;
+   plist = [NSPropertyListSerialization propertyListFromData:data
+                                            mutabilityOption:NSPropertyListImmutable
+                                                      format:NULL
+                                            errorDescription:&error];
+   if( ! plist)
+      NSLog( @"property list failure: %@", error);
+   
    return( plist);
 }
 

@@ -124,9 +124,7 @@
 		412905631830EAD800489CE5 /* MulleScion.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		412905641830EAD800489CE5 /* NSData+ZLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0016DD251900BFD60C /* NSData+ZLib.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		412E7FEA182D2F80008A7FCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
-		412E8007182D2F9B008A7FCC /* NSObject+MulleGraphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA21E182D0A7200840887 /* NSObject+MulleGraphviz.m */; };
 		412E8008182D2F9B008A7FCC /* MulleScionObjectModel+Graphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */; };
-		412E8009182D2FA6008A7FCC /* NSObject+MulleGraphviz.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41AEA21D182D0A7200840887 /* NSObject+MulleGraphviz.h */; };
 		4146F1EB182D318D0020594C /* MulleObjCCompilerSettings.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; };
 		4146F1EC182D318D0020594C /* MulleScionObjectModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; };
 		4146F1ED182D318D0020594C /* MulleScionObjectModel+NSCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; };
@@ -172,8 +170,6 @@
 		41AC169B182D3CD700F2C8D8 /* NSObject+MulleScionDescription.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; };
 		41AEA207182D097300840887 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41AEA21B182D0A3A00840887 /* MulleScionObjectModel+Graphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */; };
-		41AEA21F182D0A7200840887 /* NSObject+MulleGraphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA21E182D0A7200840887 /* NSObject+MulleGraphviz.m */; };
-		41AEA220182D0D3A00840887 /* NSObject+MulleGraphviz.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41AEA21D182D0A7200840887 /* NSObject+MulleGraphviz.h */; };
 		41AEA22B182D20FB00840887 /* libMulleScionGraphviz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41AEA214182D097300840887 /* libMulleScionGraphviz.a */; };
 		41B07E25182001DF0003B67F /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
 		41B07E261820215A0003B67F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
@@ -508,7 +504,6 @@
 			dstPath = "include/${PROJECT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				412E8009182D2FA6008A7FCC /* NSObject+MulleGraphviz.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +564,6 @@
 			dstPath = "include/${PROJECT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				41AEA220182D0D3A00840887 /* NSObject+MulleGraphviz.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,8 +704,6 @@
 		4190DC6C16DEC5F400FC4471 /* filter.scion */ = {isa = PBXFileReference; lastKnownFileType = text; name = filter.scion; path = ../dox/filter.scion; sourceTree = "<group>"; };
 		41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Graphviz.m"; sourceTree = "<group>"; };
 		41AEA214182D097300840887 /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		41AEA21D182D0A7200840887 /* NSObject+MulleGraphviz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MulleGraphviz.h"; sourceTree = "<group>"; };
-		41AEA21E182D0A7200840887 /* NSObject+MulleGraphviz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MulleGraphviz.m"; sourceTree = "<group>"; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
 		41C04B29182D2C2C00CD973E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		41C04B2C182D2C2D00CD973E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -883,7 +875,6 @@
 			children = (
 				41DCAF7D16DE5C6800C5A74E /* MulleScion */,
 				41D6DF4F16DE532F004833D6 /* MulleScionFoundation */,
-				41AEA1F5182D095200840887 /* MulleScionGraphviz */,
 				41D6DEA016DE28EE004833D6 /* MulleScionParser */,
 				41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */,
 				41D6DEA116DE291F004833D6 /* ZLib */,
@@ -954,6 +945,7 @@
 				41DD56B516E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.h */,
 				41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */,
 				4121DB0816DD410D00BFD60C /* MulleScionLibrary */,
+				41CD1AB818E98595003A7191 /* Graphviz */,
 				41DCAF6E16DE557100C5A74E /* MulleScion-Info.plist */,
 			);
 			path = src;
@@ -1002,8 +994,6 @@
 		41AEA1F5182D095200840887 /* MulleScionGraphviz */ = {
 			isa = PBXGroup;
 			children = (
-				41AEA21D182D0A7200840887 /* NSObject+MulleGraphviz.h */,
-				41AEA21E182D0A7200840887 /* NSObject+MulleGraphviz.m */,
 				41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */,
 			);
 			name = MulleScionGraphviz;
@@ -1019,6 +1009,14 @@
 				41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */,
 			);
 			name = "HTML Escaping";
+			sourceTree = "<group>";
+		};
+		41CD1AB818E98595003A7191 /* Graphviz */ = {
+			isa = PBXGroup;
+			children = (
+				41AEA1F5182D095200840887 /* MulleScionGraphviz */,
+			);
+			name = Graphviz;
 			sourceTree = "<group>";
 		};
 		41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */ = {
@@ -1631,7 +1629,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				412E8007182D2F9B008A7FCC /* NSObject+MulleGraphviz.m in Sources */,
 				412E8008182D2F9B008A7FCC /* MulleScionObjectModel+Graphviz.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1651,7 +1648,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41AEA21F182D0A7200840887 /* NSObject+MulleGraphviz.m in Sources */,
 				41AEA21B182D0A3A00840887 /* MulleScionObjectModel+Graphviz.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2167,7 +2163,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1848.5;
+				DYLIB_CURRENT_VERSION = 1848.7;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2192,7 +2188,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1848.5;
+				DYLIB_CURRENT_VERSION = 1848.7;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NS_BLOCK_ASSERTIONS,
@@ -2233,7 +2229,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1848;
-				DYLIB_CURRENT_VERSION = 1848.5;
+				DYLIB_CURRENT_VERSION = 1848.7;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NS_BLOCK_ASSERTIONS,

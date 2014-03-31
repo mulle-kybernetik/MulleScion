@@ -176,7 +176,7 @@ static BOOL fileExists( NSString *fileName)
    data     = [s dataUsingEncoding:NSUTF8StringEncoding];
    parser   = [[[MulleScionParser alloc] initWithData:data
                                              fileName:@"inline"] autorelease];
-   template = [parser template];
+   template = [[parser template] retain];
    [self autorelease];
    return( template);
 }
