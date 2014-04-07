@@ -1559,7 +1559,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -d $PROJECT_DIR/google-toolbox-for-mac ]\nthen\n( cd $PROJECT_DIR ;\n  svn checkout http://google-toolbox-for-mac.googlecode.com/svn/trunk/ google-toolbox-for-mac\n)\n\nfi\n\n# could optionally also \"update\" tidy\n\n";
+			shellScript = "if [ ! -d \"$PROJECT_DIR\"/google-toolbox-for-mac ]\nthen\n( cd \"$PROJECT_DIR\" ;\n  svn checkout http://google-toolbox-for-mac.googlecode.com/svn/trunk/ google-toolbox-for-mac\n)\n\nfi\n\n# could optionally also \"update\" tidy\n\n";
 			showEnvVarsInLog = 0;
 		};
 		41741ADD18303A560065E5FD /* Remove Library */ = {
