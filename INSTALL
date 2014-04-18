@@ -6,14 +6,15 @@ will produce all OS X outputs. You have the choice between a "normal"
 dynamically linked framework MulleScion.framework or a shared library 
 libMulleScion.a with a set of include headers.
 
-It will also produce the mulle-scion executable.
+It will also produce the mulle-scion executable. This will place the 
+Framework in /Library/Frameworks and mulle-scion in /usr/local/bin.
 
 
 iOS 1
 =====
 	xcodebuild -target iOS
 
-to produce a shared library libMulleScion.a with a set of include headers.
+to produce a static library libMulleScion.a with a set of include headers.
 
 
 iOS 2

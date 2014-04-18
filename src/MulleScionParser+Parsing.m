@@ -102,6 +102,7 @@ typedef struct _parser
    void                 (*parser_do_error)( id self, SEL sel, NSString *filename, NSUInteger line, NSString *message);
    id                   self;
    SEL                  sel;
+   int                  skipComments;
    int                  inMacro;
    int                  allowMacroCall;
    int                  wasMacroCall;
@@ -369,20 +370,24 @@ static inline void   parser_recall( parser *p, parser_memo *memo)
    p->lineNumber = memo->lineNumber;
 }
 
+
 static inline void   parser_nl( parser *p)
 {
    p->lineNumber++;
 }
 
+
 //
 // this will stop at '{{' or '{%' even if they are in the middle of
-// quotes. To print {{ use {{ "{{" }}
+// quotes or comments. To print {{ use {{ "{{" }}
 //
 static macro_type   parser_grab_text_until_scion( parser *p)
 {
    unsigned char   c, d;
    int             inquote;
    
+   assert( p->skipComments <= 0);
+
    parser_memorize( p, &p->memo);
    
    inquote = 0;
@@ -443,6 +448,12 @@ static macro_type   parser_grab_text_until_scion_end( parser *p)
       if( inquote)
          continue;
       
+      if( c == '#' && p->skipComments > 0)
+      {
+         parser_skip_after_newline( p);
+         continue;
+      }
+      
       d = c;
       c = *p->curr++;
       
@@ -461,12 +472,46 @@ static macro_type   parser_grab_text_until_scion_end( parser *p)
    return( eof);
 }
 
+# pragma mark -
+# pragma mark whitespace
+
+static void   parser_skip_whitespace( parser *p)
+{
+   unsigned char   c;
+   
+   for( ; p->curr < p->sentinel; p->curr++)
+   {
+      c = *p->curr;
+      switch( c)
+      {
+      case '\n' :
+         parser_nl( p);
+         break;
+         
+      case '#'  :
+         if( p->skipComments > 0)
+         {
+            parser_skip_after_newline( p);
+            --p->curr; // because we add it again in for
+            break;
+         }
+         return;
+         
+      default :
+         if( c > ' ')
+            return;
+      }
+   }
+}
+
 
 static void   parser_skip_white_if_terminated_by_newline( parser *p)
 {
    parser_memo   memo;
    unsigned char   c;
    
+   assert( p->skipComments <= 0);
+
    parser_memorize( p, &memo);
    
    for( ; p->curr < p->sentinel;)
@@ -486,37 +531,7 @@ static void   parser_skip_white_if_terminated_by_newline( parser *p)
    }
 }
 
-#if 0
-static void   parser_skip_whitespace_until_newline( parser *p)
-{
-   unsigned char   c;
-      
-   for( ; p->curr < p->sentinel; p->curr++)
-   {
-      c = *p->curr;
-      if( c == '\n')
-         break;
-      if( c > ' ')
-         break;
-   }
-}
-#endif
-
    
-static void   parser_skip_whitespace( parser *p)
-{
-   unsigned char   c;
-   
-   for( ; p->curr < p->sentinel; p->curr++)
-   {
-      c = *p->curr;
-      if( c == '\n')
-         parser_nl( p);
-      
-      if( c > ' ')
-         break;
-   }
-}
 
 
 static void   parser_skip_after_newline( parser *p)
@@ -532,37 +547,6 @@ static void   parser_skip_after_newline( parser *p)
          break;
       }
    }
-}
-
-
-static macro_type   parser_skip_text_until_scion_end( parser *p, int type)
-{
-   unsigned char   c;
-   unsigned char   d;
-   int             inquote;
-   
-   inquote = 0;
-   c       = 0;
-   
-   for( ; p->curr < p->sentinel;)
-   {
-      d = c;
-      c = *p->curr++;
-      if( c == '\n')
-      {
-         parser_nl( p);
-         continue;
-      }
-      if( c == '"')
-         inquote = ! inquote;
-      if( inquote)
-         continue;
-      
-      if( c == '}')
-         if( d == type)
-            return( comment);
-   }
-   return( eof);
 }
 
 
@@ -589,6 +573,12 @@ static void   parser_skip_white_until_scion_or_after_newline( parser *p)
       if( inquote)
          continue;
       
+      if( c == '#' && p->skipComments > 0)
+      {
+         parser_skip_after_newline( p);
+         break;
+      }
+      
       if( c > ' ')
       {
          p->curr--;
@@ -610,6 +600,39 @@ static void   parser_skip_white_until_scion_or_after_newline( parser *p)
          }
       }
    }
+}
+
+
+static macro_type   parser_skip_text_until_scion_end( parser *p, int type)
+{
+   unsigned char   c;
+   unsigned char   d;
+   int             inquote;
+   
+   assert( p->skipComments <= 0);
+   
+   inquote = 0;
+   c       = 0;
+   
+   for( ; p->curr < p->sentinel;)
+   {
+      d = c;
+      c = *p->curr++;
+      if( c == '\n')
+      {
+         parser_nl( p);
+         continue;
+      }
+      if( c == '"')
+         inquote = ! inquote;
+      if( inquote)
+         continue;
+      
+      if( c == '}')
+         if( d == type)
+            return( comment);
+   }
+   return( eof);
 }
 
 
@@ -1368,6 +1391,18 @@ static MulleScionConditional  * NS_RETURNS_RETAINED parser_do_conditional( parse
 }
 
 
+static MulleScionLog  * NS_RETURNS_RETAINED parser_do_log( parser *p, NSUInteger line)
+{
+   MulleScionExpression  *expr;
+   
+   parser_skip_whitespace( p);
+   
+   expr = parser_do_unary_expression( p);
+   return( [MulleScionLog newWithRetainedExpression:expr
+                                         lineNumber:line]);
+}
+
+
 static MulleScionNot  * NS_RETURNS_RETAINED parser_do_not( parser *p)
 {
    MulleScionExpression  *expr;
@@ -1690,6 +1725,7 @@ static inline MulleScionObject  *parser_next_object( parser *p,  MulleScionObjec
    return( curr);
 }
 
+
 static MulleScionObject  *_parser_next_object_after_extend( parser *p, macro_type *last_type);
 
 static inline MulleScionObject  *parser_next_object_after_extend( parser *p, macro_type *last_type)
@@ -1759,6 +1795,7 @@ typedef enum
    ForOpcode,
    IfOpcode,
    IncludesOpcode,
+   LogOpcode,
    MacroOpcode,
    RequiresOpcode,
    SetOpcode,
@@ -1785,6 +1822,7 @@ static char   *mnemonics[] =
    "for",
    "if",
    "includes",
+   "log",
    "macro",
    "requires",
    "set",
@@ -1802,7 +1840,8 @@ static int   _parser_opcode_for_string( parser *p, NSString *s)
    {
    case 2 : if( [s isEqualToString:@"if"]) return( IfOpcode); break;
    case 3 : if( [s isEqualToString:@"set"]) return( SetOpcode);
-            if( [s isEqualToString:@"for"]) return( ForOpcode); break;
+            if( [s isEqualToString:@"for"]) return( ForOpcode);
+            if( [s isEqualToString:@"log"]) return( LogOpcode); break;
    case 4 : if( [s isEqualToString:@"else"]) return( ElseOpcode); break;
    case 5 : if( [s isEqualToString:@"endif"]) return( EndifOpcode);
             if( [s isEqualToString:@"while"]) return( WhileOpcode);
@@ -1984,7 +2023,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_requires( parser *p, NS
  * and builds up the blockTable, all other stuff is discarded. This works
  * recursively.
  */
-static MulleScionObject * NS_RETURNS_RETAINED  parser_do_includes( parser *p, BOOL allowVerbatim)
+static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_includes( parser *p, BOOL allowVerbatim)
 {
    MulleScionTemplate     *inferior;
    MulleScionTemplate     *marker;
@@ -2052,13 +2091,27 @@ NS_ENDHANDLER
 }
 
 
-static MulleScionTemplate * NS_RETURNS_RETAINED  parser_do_extends( parser *p)
+static MulleScionObject * NS_RETURNS_RETAINED  parser_do_includes( parser *p, BOOL allowVerbatim)
+{
+   MulleScionObject   *obj;
+   int                memo;
+   
+   memo            = p->skipComments;
+   p->skipComments = 0;
+   obj             = _parser_do_includes( p, allowVerbatim);
+   p->skipComments = memo;
+
+   return( obj);
+}
+
+
+static MulleScionTemplate * NS_RETURNS_RETAINED  _parser_do_extends( parser *p)
 {
    MulleScionTemplate    *inferior;
    macro_type            last_type;
    MulleScionObject      *obj;
    
-   inferior  = (MulleScionTemplate *) parser_do_includes( p, NO);
+   inferior  = (MulleScionTemplate *) _parser_do_includes( p, NO);
    last_type = command;
    
    for(;;)
@@ -2070,6 +2123,20 @@ static MulleScionTemplate * NS_RETURNS_RETAINED  parser_do_extends( parser *p)
          break;
    }
    return( inferior);
+}
+
+
+static MulleScionObject * NS_RETURNS_RETAINED  parser_do_extends( parser *p)
+{
+   MulleScionObject   *obj;
+   int                memo;
+   
+   memo            = p->skipComments;
+   p->skipComments = 0;
+   obj             = _parser_do_extends( p);
+   p->skipComments = memo;
+
+   return( obj);
 }
 
 
@@ -2168,7 +2235,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED parser_do_implicit_set( parser *p
    char                  *suggestion;
    NSString              *identifier;
    
-   NSCParameterAssert( [lexpr isIndexing] || [lexpr isIdentifier]);
+   NSCParameterAssert( [lexpr isFunction] || [lexpr isIndexing] || [lexpr isIdentifier]);
    
    c = parser_peek_character( p);
    if( c != '=')
@@ -2294,7 +2361,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
 }
 
 
-static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSUInteger line)
+static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NSUInteger line)
 {
    MulleScionTemplate  *root;
    MulleScionFunction  *function;
@@ -2371,7 +2438,20 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSU
 }
 
 
-static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_verbatim( parser *p, NSUInteger line)
+static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_macro( parser *p, NSUInteger line)
+{
+   MulleScionObject   *obj;
+   int                memo;
+   
+   memo            = p->skipComments;
+   p->skipComments = 0;
+   obj             = _parser_do_macro( p, line);
+   p->skipComments = memo;
+   return( obj);
+}
+
+
+static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_verbatim( parser *p, NSUInteger line)
 {
    parser_memo   plaintext_start;
    parser_memo   plaintext_end;
@@ -2399,6 +2479,20 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_verbatim( parser *p, 
    return( [MulleScionPlainText newWithRetainedString:s
                                            lineNumber:plaintext_start.lineNumber]);
 }
+
+
+static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_verbatim( parser *p, NSUInteger line)
+{
+   MulleScionObject   *obj;
+   int                memo;
+   
+   memo            = p->skipComments;
+   p->skipComments = 0;
+   obj             = _parser_do_verbatim( p, line);
+   p->skipComments = memo;
+   return( obj);
+}
+
 
 
 static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_endmacro( parser *p, NSUInteger line)
@@ -2462,6 +2556,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
          case ForOpcode      : return( parser_do_for( p, line));
          case IfOpcode       : return( parser_do_if( p, line));
          case IncludesOpcode : return( parser_do_includes( p, YES));
+         case LogOpcode      : return( parser_do_log( p, line));
          case MacroOpcode    : return( parser_do_macro( p, line));
          case RequiresOpcode : return( parser_do_requires( p, line));
          case SetOpcode      : return( parser_do_set( p, line));
@@ -2542,7 +2637,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_command_or_nothing( pa
 }
 
 
-static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
+static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_commands( parser *p)
 {
    MulleScionObject   *first;
    MulleScionObject   *expr;
@@ -2553,7 +2648,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
       return( expr);
 
    // commands like includes, extends, block, endblock can not be in multiline
-   // statements
+   // statements (and neither can requires now, just because)
    
    if( [expr snarfsScion])
       return( expr);
@@ -2566,6 +2661,19 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
       expr        = next;
    }
    return( first);
+}
+
+
+static MulleScionObject * NS_RETURNS_RETAINED  parser_do_commands( parser *p)
+{
+   MulleScionObject   *obj;
+
+   assert( p->skipComments <= 0);
+   
+   p->skipComments++;
+   obj = _parser_do_commands( p);
+   p->skipComments--;
+   return( obj);
 }
 
 

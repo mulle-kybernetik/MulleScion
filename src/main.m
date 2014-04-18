@@ -63,6 +63,7 @@ static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
 @end
 
 
+
 /* #####
    ##### #####  CODE SPECIFIC FOR MULLE SCION
    ##### */
@@ -209,8 +210,6 @@ static NSDictionary  *getInfoFromArguments( void)
    outputName   = [rover nextObject];
    argv         = [rover allObjects];
 
-   NSLog( @"arguments: %@", argv);
-   
    if( ! [templateName length])
       goto usage;
    if( ! [plistName length])
@@ -304,7 +303,7 @@ static int _main(int argc, const char * argv[])
 
 static char    *default_options[] =
 {
-   "document_root",   "/tmp",
+   "document_root",   "/tmp/MulleScionDox",
    "listening_ports", "127.0.0.1:18048",
    "num_threads", "1",
    "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
@@ -322,10 +321,10 @@ int main( int argc, const char * argv[])
    if( argc > 1 && ! strcmp( argv[ 1], "-w"))
    {
       loadBundles();
-      plist = [NSDictionary dictionaryWithContentsOfFile:@"/tmp/properties.plist"];
+      plist = [NSDictionary dictionaryWithContentsOfFile:@"/tmp/MulleScionDox/properties.plist"];
       if( ! plist)
       {
-         NSLog( @"/tmp/properties.plist not found");
+         NSLog( @"/tmp/MulleScionDox/properties.plist not found");
          return( -5);
       }
       mulle_mongoose_main( plist, default_options);

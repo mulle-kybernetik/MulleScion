@@ -102,3 +102,14 @@
 }
 
 @end
+
+
+
+@implementation MulleScionRequires(Parsing)
+
+- (BOOL) snarfsScion
+{
+   return( YES);
+}
+
+@end

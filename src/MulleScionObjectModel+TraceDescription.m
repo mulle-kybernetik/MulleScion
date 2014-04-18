@@ -306,16 +306,28 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
+
+@implementation NSNull (ExpressionDescription)
+
+- (NSString *) _expressionDescription
+{
+   return( @"<NSNull>");
+}
+
+@end
+
+
+
 @implementation MulleScionValueObject ( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
-   return( [value_ _expressionDescription]);
+   return( value_ ? [value_ _expressionDescription] : @"<nil>");
 }
 
 - (NSString *) _templateExpression
 {
-   return( [value_ _expressionDescription]);
+   return( value_ ? [value_ _expressionDescription] : @"<nil>");
 }
 
 @end

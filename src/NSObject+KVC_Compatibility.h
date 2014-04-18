@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+//
+// use this also on OS X to get rid of warning, should check systems
+// version to see if this is available
+//
 @interface NSObject (iOS_KVC_Compatibility)
 
 - (void) takeValue:(id) value

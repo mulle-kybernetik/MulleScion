@@ -76,4 +76,10 @@ id   MulleScionNull;
    return( nil);
 }
 
+
+- (NSString *) description
+{
+   return( @"nil");
+}
+
 @end

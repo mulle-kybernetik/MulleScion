@@ -34,9 +34,9 @@ trap trace_ignore 5 6
 
 
 # parse optional parameters 
-if [ -x "../Build/Products/Debug/mulle-scion" ]
+if [ -x "../?uild/Products/Debug/mulle-scion" ]
 then
-   MULLE_SCION=${1:-../Build/Products/Debug/mulle-scion}
+   MULLE_SCION=${1:-../?uild/Products/Debug/mulle-scion}
 else
    MULLE_SCION=${1:-mulle-scion}
 fi
@@ -336,7 +336,9 @@ test_binary()
    then
       echo "$MULLE_SCION is wrong executable" >&2
       exit 1
-   fi 
+   fi
+ 
+   echo "using $MULLE_SCION to test" >&2 
 }
 
 

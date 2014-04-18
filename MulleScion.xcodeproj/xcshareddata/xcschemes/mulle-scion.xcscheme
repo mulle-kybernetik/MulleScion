@@ -54,7 +54,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# doesn&apos;t work&#10;# if [ &quot;$START_WEBSERVER&quot; = &quot;YES&quot; ]&#10;#then&#10;  ( sleep 2 ; open &quot;http://127.0.0.1:18048&quot; ) &amp;&#10;#fi&#10;">
+               scriptText = "">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -70,6 +70,14 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-w"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/tmp/MulleScionDrakeTemp.scion /Volumes/Source/srcC/Dienstag/Teamgeist/build/Products/Debug/TeamgeistModel.bundle "
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/tmp/turn-on-trace.scion"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -118,10 +126,30 @@
          <EnvironmentVariable
             key = "START_WEBSERVER"
             value = "YES"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "DYLD_INSERT_LIBRARIES"
+            value = "/usr/lib/libgmalloc.dylib"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "MallocGuardEdges"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "MallocScribble"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction

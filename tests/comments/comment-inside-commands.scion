@@ -1,0 +1,4 @@
+++{%  
+    foo=@"x";  # and a comment
+# {% evil comment %}
+%}++

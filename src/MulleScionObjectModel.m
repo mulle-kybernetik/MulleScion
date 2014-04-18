@@ -621,6 +621,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 #pragma mark -
 
+@implementation MulleScionLog
+@end
+
+
+#pragma mark -
+
 @implementation MulleScionNot
 
 - (NSString *) operator

@@ -1,3 +1,21 @@
+v1848.8  
+
+* allow # comments within {% %}
+
+* mulle-scion now builds into /usr/local/bin in Release setting
+
+* the demo webserver root is now /tmp/MulleScionDox
+
+* fixed requires dox
+
+* made requires a single line command, like include or extends, just because
+it "felt right"
+
+* remove some extraneous debug output and runtime warnings
+
+* new scheme "Show Documentation in Browser"
+
+
 v1848.7
 
 * outsourced NSObject+MulleGraphviz because I need it in other code

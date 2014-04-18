@@ -361,6 +361,10 @@ typedef enum
 @end
 
 
+@interface MulleScionLog : MulleScionExpressionCommand
+@end
+
+
 @interface MulleScionSet : MulleScionCommand
 {
    MulleScionExpression   *left_;

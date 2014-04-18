@@ -81,8 +81,8 @@ in the `dox`folder. For each command or feature there should be a separate
 template file that documents it. mulle-scion, the command line utility, contains 
 a small quickly hacked together webserver that can present the documentation 
 using *MulleScion* itself.
-In Xcode just run `mulle-scion` and it should setup the webserver and open your 
-browser to the right address.
+In Xcode just run `Show Documentation in Webserver` and it should setup the 
+webserver and open your browser to the right address.
 
 MulleScion is very similar to TWIG, so you can glean much of relevance from 
 <http://twig.sensiolabs.org>. If you see a feature in TWIG but don't see it in 

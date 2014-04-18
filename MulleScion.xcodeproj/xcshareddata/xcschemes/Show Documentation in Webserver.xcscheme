@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "415DA5B4182BCAAF00F654F7"
-               BuildableName = "OSX"
-               BlueprintName = "OSX"
+               BlueprintIdentifier = "41770103190175F6002D0221"
+               BuildableName = "Show Documentation in Browser"
+               BlueprintName = "Show Documentation in Browser"
                ReferencedContainer = "container:MulleScion.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,6 +48,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "( sleep 2 ; open &quot;http://127.0.0.1:18048&quot; ) &amp;&#10;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -63,13 +72,6 @@
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "START_WEBSERVER"
-            value = "YES"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

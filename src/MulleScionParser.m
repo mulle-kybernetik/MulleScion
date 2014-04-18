@@ -46,6 +46,7 @@
 # import <Foundation/NSDebug.h>
 #endif
 
+
 @implementation MulleScionParser
 
 - (id) initWithData:(NSData *) data
@@ -152,12 +153,6 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
 #define MULLE_SCION_DESCRIPTION_POST_EXPAND    "MulleScionDescriptionPostBlockExpansion"
 #define MULLE_SCION_DUMP_PRE_EXPAND            "MulleScionDumpPreBlockExpansion"
 #define MULLE_SCION_DUMP_POST_EXPAND           "MulleScionDumpPostBlockExpansion"
-
-// in debug mode always trace
-#if DEBUG
-# undef MULLE_SCION_DUMP_POST_EXPAND
-# define MULLE_SCION_DUMP_POST_EXPAND  NULL
-#endif
 
 
 - (MulleScionTemplate *) template

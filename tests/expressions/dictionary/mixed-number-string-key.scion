@@ -1,0 +1,12 @@
+{# test that 1848 is matched either as a string or a nsnumber in a dictionary 
+   but that "4630" only matches a string 
+ #}
+{% 
+   bag = [NSMutableDictionary dictionary];
+   [bag setObject:"Bochum"
+           forKey:"4630"];
+   [bag setObject:@"VfL"
+           forKey:1848];
+%}
+{{ bag[ "1848"] }} {{ bag[ 4630] }}
+{{ bag[ 1848] }} {{ bag[ "4630"] }}
