@@ -14,6 +14,9 @@
 @implementation Example
 
 
+# pragma mark -
+# pragma mark Example specific code
+
 - (NSURL *) databaseURL
 {
    return( [NSURL fileURLWithPath:@"/tmp/example.sqlite"]);
@@ -49,6 +52,19 @@
 }
 
 
++ (id) mulleScionDataSource
+{
+   Example   *p;
+   
+   p = [[self new] autorelease];
+   [p createDemoDataIfNeeded];
+   return( p);
+}
+
+
+# pragma mark -
+# pragma mark Helper method, not accessed by mulle-scion
+
 - (id) valueForKey:(NSString *) key
 {
    NSArray   *objects;
@@ -59,8 +75,9 @@
    return( objects);
 }
 
+
 # pragma mark -
-# pragma mark Hooks for mulle-scion
+# pragma mark Hook for mulle-scion
 
 - (id) valueForKeyPath:(NSString *) keyPath
 {
@@ -81,16 +98,6 @@ NS_HANDLER
    // just ignore
 NS_ENDHANDLER
    return( nil);
-}
-
-
-+ (id) mulleScionDataSource
-{
-   Example   *p;
-   
-   p = [[self new] autorelease];
-   [p createDemoDataIfNeeded];
-   return( p);
 }
 
 @end

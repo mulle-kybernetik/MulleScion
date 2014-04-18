@@ -113,15 +113,9 @@
 		413AFCD4183BC2710055F936 /* ExampleDatasource */ = {
 			isa = PBXGroup;
 			children = (
-				4162B203183BC2F20034CC68 /* Club.h */,
-				4162B204183BC2F20034CC68 /* Club.m */,
+				41FC554A18FEBBF3006B9ED6 /* CoreData Model */,
 				4162B205183BC2F20034CC68 /* Example.h */,
 				4162B206183BC2F20034CC68 /* Example.m */,
-				4162B207183BC2F20034CC68 /* ExampleBase.h */,
-				4162B208183BC2F20034CC68 /* ExampleBase.m */,
-				4162B209183BC2F20034CC68 /* Liga.h */,
-				4162B20A183BC2F20034CC68 /* Liga.m */,
-				4162B20B183BC2F20034CC68 /* Model.xcdatamodeld */,
 				4162B1FE183BC2C90034CC68 /* TestExampleDatasource */,
 				413AFCD5183BC2710055F936 /* Supporting Files */,
 			);
@@ -143,6 +137,20 @@
 				4162B1FF183BC2C90034CC68 /* main.m */,
 			);
 			path = TestExampleDatasource;
+			sourceTree = "<group>";
+		};
+		41FC554A18FEBBF3006B9ED6 /* CoreData Model */ = {
+			isa = PBXGroup;
+			children = (
+				4162B203183BC2F20034CC68 /* Club.h */,
+				4162B204183BC2F20034CC68 /* Club.m */,
+				4162B209183BC2F20034CC68 /* Liga.h */,
+				4162B20A183BC2F20034CC68 /* Liga.m */,
+				4162B20B183BC2F20034CC68 /* Model.xcdatamodeld */,
+				4162B207183BC2F20034CC68 /* ExampleBase.h */,
+				4162B208183BC2F20034CC68 /* ExampleBase.m */,
+			);
+			name = "CoreData Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

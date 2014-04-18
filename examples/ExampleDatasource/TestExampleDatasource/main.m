@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+//
+// to make things a little more interesting (and more useful for use in
+// MulleScionDrake) the actual code is separated out into a bundle
+//
 int main(int argc, const char * argv[])
 {
 

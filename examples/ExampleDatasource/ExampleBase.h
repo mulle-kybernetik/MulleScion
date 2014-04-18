@@ -8,7 +8,11 @@
 
 #import <CoreData/CoreData.h>
 
-
+//
+// the ExampleBase contains code for the CoreData database interface
+// there is nothing MulleScion specific in here. The actual interfacing
+// to MulleScion is done in Example
+//
 @interface ExampleBase : NSObject
 {
    NSManagedObjectContext   *managedObjectContext_;

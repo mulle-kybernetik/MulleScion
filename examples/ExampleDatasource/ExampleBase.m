@@ -29,6 +29,8 @@
    bundle      = [NSBundle bundleForClass:isa];
    model       = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:bundle]];
 
+   NSAssert( [[model entityVersionHashesByName] count], @"No model found");
+   
    coordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model] autorelease];
 
    url         = [self databaseURL];
