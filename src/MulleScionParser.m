@@ -122,8 +122,10 @@ static void   _dump( MulleScionTemplate *self, NSString *path, NSString *blurb, 
       [stream writeData:[blurb dataUsingEncoding:NSUTF8StringEncoding]];
       [stream writeData:nl];
    }
+   
    [stream writeData:[[self performSelector:sel] dataUsingEncoding:NSUTF8StringEncoding]];
    [stream writeData:nl];
+   
    if( blurb)
    {
       [stream writeData:nl];
@@ -138,7 +140,7 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
    char                *s;
    NSString            *path;
    
-   s = env ? getenv( env) : "-";
+   s = getenv( env);
    if( ! s || ! *s)
       return;
    

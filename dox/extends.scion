@@ -12,3 +12,5 @@ again, so that the extends command can perform an include (See first step).
 {% extends "block.scion" %}
 
 {% block myblock %}Your block is now our block{% endblock %}
+
+extends can't be used in multi-line statements.

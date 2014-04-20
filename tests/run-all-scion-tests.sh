@@ -38,7 +38,7 @@ if [ -x "../?uild/Products/Debug/mulle-scion" ]
 then
    MULLE_SCION=${1:-../?uild/Products/Debug/mulle-scion}
 else
-   MULLE_SCION=${1:-mulle-scion}
+   MULLE_SCION=${1:-`which mulle-scion`}
 fi
 shift
 

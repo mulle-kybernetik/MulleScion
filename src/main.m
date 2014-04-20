@@ -89,7 +89,6 @@ static int   run( NSString *fileName,
                   id < MulleScionOutput> dst,
                   NSDictionary *locals)
 {
-   MulleScionParser    *parser;
    NSData              *data;
    MulleScionTemplate  *template;
    
@@ -107,13 +106,12 @@ static int   run( NSString *fileName,
          return( 0);
       }
    }
-   
-   
-   if( [MulleScionTemplate writeToOutput:dst
-                            templateFile:fileName
-                              dataSource:src
-                          localVariables:locals])
-      return( 0);
+   else
+      if( [MulleScionTemplate writeToOutput:dst
+                               templateFile:fileName
+                                 dataSource:src
+                             localVariables:locals])
+         return( 0);
    
    NSLog( @"Template \"%@\" could not be read", fileName);
    return( -1);

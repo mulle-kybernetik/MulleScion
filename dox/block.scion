@@ -9,3 +9,6 @@ A block can share an identifier, but this is more often than not a mistake :)
 On it's own a block contents are rendered as given into the template output. 
 Only in conjunction with "extends" does the block reveal its true use.
 
+
+Can block/endblock be used in multi-line statements ? Preferably not.
+

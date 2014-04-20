@@ -3,9 +3,13 @@ Define is something that is not in TWIG. A define is similiar to a preprocessor
 Subsitution is only within template brackets. Substitution is done during the
 compilation of the template. 
 
+
 {% define PC = [self stringByReplacingOccurrencesOfString:@"S04"
                                                withString:@"***"] %}
                                                  
 {% filter PC %}
   VfL vs. S04 = 4:0
 {% endfilter %}
+
+Define is a command, that can not appear in multi-line statements.
+

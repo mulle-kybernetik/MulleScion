@@ -78,7 +78,7 @@ The bag contains {{ bag.@count }} entries
 But with dots separated by spaces you can do even more complicated KVC.
 
 
-# Multiline support
+# Multiline commands
 
 You can place multiple commands within one'{' '%' and  '%' '}'container. 
 Separate the commands with semicolon or newlines. For convenience you can mix
@@ -95,6 +95,28 @@ The bag contains {{ bag.@count }} entries
   endif 
  %}
 ...
+
+Not all commands may appear in multiline commands. You should use
+
+block/endblock
+define
+extends
+includes
+macro
+requires
+verbatim
+
+only in single line commands.
+
+e.g. 
+
+{% define foo_1 = "bar"; x=foo_1 %}
+wrong={{ x }}
+{% define foo_2 = "bar" %}
+{% x=foo_2 %}
+right={{ x }}
+
+
 
 
 

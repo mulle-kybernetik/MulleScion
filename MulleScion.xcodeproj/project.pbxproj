@@ -63,6 +63,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 41770107190175F6002D0221 /* Build configuration list for PBXAggregateTarget "Show Documentation in Browser" */;
 			buildPhases = (
+				414A435219040B360020C6FF /* CopyFiles */,
 			);
 			dependencies = (
 				4177010B1901760E002D0221 /* PBXTargetDependency */,
@@ -142,37 +143,40 @@
 		4146F1EE182D318D0020594C /* MulleScionTemplate+CompressedArchive.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; };
 		4146F1EF182D318D0020594C /* NSFileHandle+MulleOutputFileHandle.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; };
 		4146F1F0182D318D0020594C /* MulleScionObjectModel+TraceDescription.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.h */; };
-		414A840616E50D4A0084AE1E /* index.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A716E39BF200C4D68A /* index.scion */; };
-		414A840816E50D4E0084AE1E /* _wrapper.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56B416E3E95C00C4D68A /* _wrapper.scion */; };
-		414A840A16E50D510084AE1E /* __scion_macros.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51AE16E505A800D3B0AD /* __scion_macros.scion */; };
-		414A840B16E50D540084AE1E /* __scion_banner.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AD16E3D1FF00C4D68A /* __scion_banner.scion */; };
-		414A840C16E50D550084AE1E /* __scion_navigation.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A916E3CF3F00C4D68A /* __scion_navigation.scion */; };
-		414A840D16E50D560084AE1E /* __scion_page.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AB16E3D14100C4D68A /* __scion_page.scion */; };
-		414A840E16E50D580084AE1E /* __scion_footer.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AC16E3D15C00C4D68A /* __scion_footer.scion */; };
-		414A840F16E50D5A0084AE1E /* properties.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAE16DAAAA400560FCF /* properties.plist */; };
-		414A841016E50D5B0084AE1E /* !_Introduction.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0B16DD5E0B00BFD60C /* !_Introduction.scion */; };
-		414A841116E50D5D0084AE1E /* Formatting_Options.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAFE16DD048800BFD60C /* Formatting_Options.scion */; };
-		414A841216E50D5E0084AE1E /* Global_Variables.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 411F98AD16E0FBE600738250 /* Global_Variables.scion */; };
-		414A841316E50D5F0084AE1E /* NSMakeRange.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0D16DD667900BFD60C /* NSMakeRange.scion */; };
-		414A841416E50D610084AE1E /* [].scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A316E37E7500C4D68A /* [].scion */; };
-		414A841516E50D620084AE1E /* |.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0916DD451C00BFD60C /* |.scion */; };
-		414A841616E50D640084AE1E /* block.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A716E4E61A00D3B0AD /* block.scion */; };
-		414A841716E50D650084AE1E /* define.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4178D2F716DFA5D0001C9FB0 /* define.scion */; };
-		414A841816E50D670084AE1E /* dot.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1216DD779800BFD60C /* dot.scion */; };
-		414A841916E50D680084AE1E /* extends.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51AB16E4E7D900D3B0AD /* extends.scion */; };
-		414A841A16E50D690084AE1E /* macro.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4178D2F916DFAC8C001C9FB0 /* macro.scion */; };
-		414A841B16E50D6B0084AE1E /* if.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32DD16DB6971005D0EAD /* if.scion */; };
-		414A841C16E50D6C0084AE1E /* filter.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4190DC6C16DEC5F400FC4471 /* filter.scion */; };
-		414A841D16E50D700084AE1E /* includes.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A516E4E42A00D3B0AD /* includes.scion */; };
-		414A841E16E50D810084AE1E /* while.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF916DCFD9D00BFD60C /* while.scion */; };
-		414A841F16E50D830084AE1E /* verbatim.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A516E397D800C4D68A /* verbatim.scion */; };
-		414A842016E50D850084AE1E /* for.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF116DCE0FB00BFD60C /* for.scion */; };
-		414A842116E50D860084AE1E /* set.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A816E4E63500D3B0AD /* set.scion */; };
-		414A842416E51B460084AE1E /* __page.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AA16E3CFF300C4D68A /* __page.scion */; };
+		414A435319040B530020C6FF /* index.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A716E39BF200C4D68A /* index.scion */; };
+		414A435419040B530020C6FF /* _wrapper.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56B416E3E95C00C4D68A /* _wrapper.scion */; };
+		414A435519040B530020C6FF /* __scion_macros.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51AE16E505A800D3B0AD /* __scion_macros.scion */; };
+		414A435619040B530020C6FF /* __scion_banner.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AD16E3D1FF00C4D68A /* __scion_banner.scion */; };
+		414A435719040B530020C6FF /* __scion_navigation.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A916E3CF3F00C4D68A /* __scion_navigation.scion */; };
+		414A435819040B530020C6FF /* __page.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AA16E3CFF300C4D68A /* __page.scion */; };
+		414A435919040B530020C6FF /* __scion_page.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AB16E3D14100C4D68A /* __scion_page.scion */; };
+		414A435A19040B530020C6FF /* __scion_footer.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56AC16E3D15C00C4D68A /* __scion_footer.scion */; };
+		414A435B19040B530020C6FF /* properties.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAE16DAAAA400560FCF /* properties.plist */; };
+		414A435C19040B530020C6FF /* !_Introduction.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0B16DD5E0B00BFD60C /* !_Introduction.scion */; };
+		414A435D19040B530020C6FF /* Formatting_Options.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAFE16DD048800BFD60C /* Formatting_Options.scion */; };
+		414A435E19040B530020C6FF /* Global_Variables.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 411F98AD16E0FBE600738250 /* Global_Variables.scion */; };
+		414A435F19040B530020C6FF /* NSMakeRange.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0D16DD667900BFD60C /* NSMakeRange.scion */; };
+		414A436019040B530020C6FF /* #!.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EC7F951821BE3900142613 /* #!.scion */; };
+		414A436119040B530020C6FF /* [].scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A316E37E7500C4D68A /* [].scion */; };
+		414A436219040B530020C6FF /* |.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0916DD451C00BFD60C /* |.scion */; };
+		414A436319040B530020C6FF /* block.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A716E4E61A00D3B0AD /* block.scion */; };
+		414A436419040B530020C6FF /* define.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4178D2F716DFA5D0001C9FB0 /* define.scion */; };
+		414A436519040B530020C6FF /* dot.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1216DD779800BFD60C /* dot.scion */; };
+		414A436619040B530020C6FF /* extends.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51AB16E4E7D900D3B0AD /* extends.scion */; };
+		414A436719040B530020C6FF /* filter.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4190DC6C16DEC5F400FC4471 /* filter.scion */; };
+		414A436819040B530020C6FF /* for.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF116DCE0FB00BFD60C /* for.scion */; };
+		414A436919040B530020C6FF /* if.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32DD16DB6971005D0EAD /* if.scion */; };
+		414A436A19040B530020C6FF /* includes.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A516E4E42A00D3B0AD /* includes.scion */; };
+		414A436B19040B530020C6FF /* log.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 414A435119040A120020C6FF /* log.scion */; };
+		414A436C19040B530020C6FF /* macro.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4178D2F916DFAC8C001C9FB0 /* macro.scion */; };
+		414A436D19040B530020C6FF /* requires.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41741ADB183036440065E5FD /* requires.scion */; };
+		414A436E19040B530020C6FF /* set.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EA51A816E4E63500D3B0AD /* set.scion */; };
+		414A436F19040B530020C6FF /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
+		414A437019040B530020C6FF /* verbatim.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A516E397D800C4D68A /* verbatim.scion */; };
+		414A437119040B530020C6FF /* while.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF916DCFD9D00BFD60C /* while.scion */; };
 		415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA59B182BBB3B00F654F7 /* GTMDefines.h */; };
 		41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
 		41665B4B18D70811005DF9BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41665B4A18D70811005DF9BF /* libz.dylib */; };
-		41741ADC18303A290065E5FD /* requires.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41741ADB183036440065E5FD /* requires.scion */; };
 		41764B9016DA511200560FCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41764B9316DA511200560FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9216DA511200560FCF /* main.m */; };
 		41764B9716DA511200560FCF /* mulle-scion.1 in Copy Files */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
@@ -181,11 +185,9 @@
 		41AEA207182D097300840887 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41AEA21B182D0A3A00840887 /* MulleScionObjectModel+Graphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */; };
 		41AEA22B182D20FB00840887 /* libMulleScionGraphviz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41AEA214182D097300840887 /* libMulleScionGraphviz.a */; };
-		41B07E25182001DF0003B67F /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
 		41B07E261820215A0003B67F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		41B07E271820215A0003B67F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 414A842816E52DF50084AE1E /* LICENSE */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
-		41CD2F0E181FE67C00FBBEB4 /* README.md in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41D6DEE516DE50ED004833D6 /* MulleScionDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */; };
 		41D6DEE616DE50EF004833D6 /* NSObject+MulleScionDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BAB16DA5E1600560FCF /* NSObject+MulleScionDescription.m */; };
@@ -232,7 +234,6 @@
 		41EC014C182D303500A17DBD /* MulleScionObjectModel+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD516E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m */; };
 		41EC014D182D303500A17DBD /* MulleScionObjectModel+BlockExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD216E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.m */; };
 		41EC014E182D303500A17DBD /* MulleScionObjectModel+MacroExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */; };
-		41EC7F961821BF8D00142613 /* #!.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41EC7F951821BE3900142613 /* #!.scion */; };
 		41F0CDD718296888000057D5 /* NSFileHandle+MulleOutputFileHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F12D4016E25B9100120E63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41F12D4116E25B9F00120E63 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4121DB0316DD2B6900BFD60C /* libz.dylib */; };
@@ -524,6 +525,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		414A435219040B360020C6FF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /tmp/MulleScionDox;
+			dstSubfolderSpec = 0;
+			files = (
+				414A435319040B530020C6FF /* index.scion in CopyFiles */,
+				414A435419040B530020C6FF /* _wrapper.scion in CopyFiles */,
+				414A435519040B530020C6FF /* __scion_macros.scion in CopyFiles */,
+				414A435619040B530020C6FF /* __scion_banner.scion in CopyFiles */,
+				414A435719040B530020C6FF /* __scion_navigation.scion in CopyFiles */,
+				414A435819040B530020C6FF /* __page.scion in CopyFiles */,
+				414A435919040B530020C6FF /* __scion_page.scion in CopyFiles */,
+				414A435A19040B530020C6FF /* __scion_footer.scion in CopyFiles */,
+				414A435B19040B530020C6FF /* properties.plist in CopyFiles */,
+				414A435C19040B530020C6FF /* !_Introduction.scion in CopyFiles */,
+				414A435D19040B530020C6FF /* Formatting_Options.scion in CopyFiles */,
+				414A435E19040B530020C6FF /* Global_Variables.scion in CopyFiles */,
+				414A435F19040B530020C6FF /* NSMakeRange.scion in CopyFiles */,
+				414A436019040B530020C6FF /* #!.scion in CopyFiles */,
+				414A436119040B530020C6FF /* [].scion in CopyFiles */,
+				414A436219040B530020C6FF /* |.scion in CopyFiles */,
+				414A436319040B530020C6FF /* block.scion in CopyFiles */,
+				414A436419040B530020C6FF /* define.scion in CopyFiles */,
+				414A436519040B530020C6FF /* dot.scion in CopyFiles */,
+				414A436619040B530020C6FF /* extends.scion in CopyFiles */,
+				414A436719040B530020C6FF /* filter.scion in CopyFiles */,
+				414A436819040B530020C6FF /* for.scion in CopyFiles */,
+				414A436919040B530020C6FF /* if.scion in CopyFiles */,
+				414A436A19040B530020C6FF /* includes.scion in CopyFiles */,
+				414A436B19040B530020C6FF /* log.scion in CopyFiles */,
+				414A436C19040B530020C6FF /* macro.scion in CopyFiles */,
+				414A436D19040B530020C6FF /* requires.scion in CopyFiles */,
+				414A436E19040B530020C6FF /* set.scion in CopyFiles */,
+				414A436F19040B530020C6FF /* self.scion in CopyFiles */,
+				414A437019040B530020C6FF /* verbatim.scion in CopyFiles */,
+				414A437119040B530020C6FF /* while.scion in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41764B8A16DA511200560FCF /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -534,46 +575,6 @@
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		41764BAF16DAC91900560FCF /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /tmp/MulleScionDox;
-			dstSubfolderSpec = 0;
-			files = (
-				41CD2F0E181FE67C00FBBEB4 /* README.md in CopyFiles */,
-				414A840616E50D4A0084AE1E /* index.scion in CopyFiles */,
-				414A841016E50D5B0084AE1E /* !_Introduction.scion in CopyFiles */,
-				414A841216E50D5E0084AE1E /* Global_Variables.scion in CopyFiles */,
-				41B07E25182001DF0003B67F /* self.scion in CopyFiles */,
-				414A841316E50D5F0084AE1E /* NSMakeRange.scion in CopyFiles */,
-				414A841416E50D610084AE1E /* [].scion in CopyFiles */,
-				414A841516E50D620084AE1E /* |.scion in CopyFiles */,
-				41EC7F961821BF8D00142613 /* #!.scion in CopyFiles */,
-				414A841616E50D640084AE1E /* block.scion in CopyFiles */,
-				414A841716E50D650084AE1E /* define.scion in CopyFiles */,
-				414A841816E50D670084AE1E /* dot.scion in CopyFiles */,
-				414A841916E50D680084AE1E /* extends.scion in CopyFiles */,
-				414A841B16E50D6B0084AE1E /* if.scion in CopyFiles */,
-				414A842016E50D850084AE1E /* for.scion in CopyFiles */,
-				414A841C16E50D6C0084AE1E /* filter.scion in CopyFiles */,
-				414A842116E50D860084AE1E /* set.scion in CopyFiles */,
-				414A841D16E50D700084AE1E /* includes.scion in CopyFiles */,
-				414A841F16E50D830084AE1E /* verbatim.scion in CopyFiles */,
-				414A841A16E50D690084AE1E /* macro.scion in CopyFiles */,
-				414A841E16E50D810084AE1E /* while.scion in CopyFiles */,
-				414A841116E50D5D0084AE1E /* Formatting_Options.scion in CopyFiles */,
-				414A840F16E50D5A0084AE1E /* properties.plist in CopyFiles */,
-				414A840E16E50D580084AE1E /* __scion_footer.scion in CopyFiles */,
-				414A842416E51B460084AE1E /* __page.scion in CopyFiles */,
-				414A840D16E50D560084AE1E /* __scion_page.scion in CopyFiles */,
-				41741ADC18303A290065E5FD /* requires.scion in CopyFiles */,
-				414A840C16E50D550084AE1E /* __scion_navigation.scion in CopyFiles */,
-				414A840A16E50D510084AE1E /* __scion_macros.scion in CopyFiles */,
-				414A840B16E50D540084AE1E /* __scion_banner.scion in CopyFiles */,
-				414A840816E50D4E0084AE1E /* _wrapper.scion in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		41AEA208182D097300840887 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -686,6 +687,7 @@
 		41348F94182E56E900367335 /* gcrt1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = gcrt1.o; path = usr/lib/gcrt1.o; sourceTree = SDKROOT; };
 		41348F97182E577D00367335 /* libobjc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libobjc.dylib; path = usr/lib/libobjc.dylib; sourceTree = SDKROOT; };
 		41348F99182E57C900367335 /* libgcc_s.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgcc_s.1.dylib; path = usr/lib/libgcc_s.1.dylib; sourceTree = SDKROOT; };
+		414A435119040A120020C6FF /* log.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = log.scion; sourceTree = "<group>"; };
 		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -994,11 +996,12 @@
 				4178D2F716DFA5D0001C9FB0 /* define.scion */,
 				4121DB1216DD779800BFD60C /* dot.scion */,
 				41EA51AB16E4E7D900D3B0AD /* extends.scion */,
-				4178D2F916DFAC8C001C9FB0 /* macro.scion */,
-				410B32DD16DB6971005D0EAD /* if.scion */,
 				4190DC6C16DEC5F400FC4471 /* filter.scion */,
-				41EA51A516E4E42A00D3B0AD /* includes.scion */,
 				4121DAF116DCE0FB00BFD60C /* for.scion */,
+				410B32DD16DB6971005D0EAD /* if.scion */,
+				41EA51A516E4E42A00D3B0AD /* includes.scion */,
+				414A435119040A120020C6FF /* log.scion */,
+				4178D2F916DFAC8C001C9FB0 /* macro.scion */,
 				41741ADB183036440065E5FD /* requires.scion */,
 				41EA51A816E4E63500D3B0AD /* set.scion */,
 				41B07E24182001800003B67F /* self.scion */,
@@ -1284,7 +1287,6 @@
 				41764B8816DA511200560FCF /* Sources */,
 				41764B8916DA511200560FCF /* Frameworks */,
 				41764B8A16DA511200560FCF /* Copy Files */,
-				41764BAF16DAC91900560FCF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2638,6 +2640,7 @@
 				41770106190175F6002D0221 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		41AEA210182D097300840887 /* Build configuration list for PBXNativeTarget "MulleScionGraphviz (OSX Library)" */ = {
 			isa = XCConfigurationList;

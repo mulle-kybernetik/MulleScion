@@ -12,3 +12,5 @@ Here we include set.scion and have the comments parsed away
 and the file included verbatim
 
 {% includes verbatim "set.scion" %}
+
+includes can't be used in multi-line statements.

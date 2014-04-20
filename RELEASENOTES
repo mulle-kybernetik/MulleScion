@@ -2,6 +2,8 @@ v1848.8
 
 * allow # comments within {% %}
 
+* added log command for debugging
+
 * mulle-scion now builds into /usr/local/bin in Release setting
 
 * the demo webserver root is now /tmp/MulleScionDox
@@ -14,6 +16,8 @@ it "felt right"
 * remove some extraneous debug output and runtime warnings
 
 * new scheme "Show Documentation in Browser"
+
+* updated documentation a bit regarding multi-line commands
 
 
 v1848.7

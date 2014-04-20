@@ -1,0 +1,9 @@
+the log command can be useful for debugging. It doesn't generate output text 
+like '{' '{'   '}' '}', but instead writes the value of it's expression to 
+stderr.
+
+So you will only see the output of log
+
+{% log @"you won't see this" %}
+
+in your logfiles or stderr.

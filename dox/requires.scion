@@ -15,3 +15,5 @@ directories.
 
 *  Turn on the MULLESCION_DUMP_BUNDLE_SEARCHPATH environment variable to see the
 paths searched.
+
+requires can't be used in multi-line statements.

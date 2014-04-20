@@ -19,3 +19,5 @@ This value {{ list }} is from the properties file
 {{ table( 1, 10, @( @"VfL", @"Bochum", @"1848")) }}
 
 And {{ list }} should now be as before the macro expansion
+
+Can macro/endmacro be used in multi-line statements ? Preferably not.

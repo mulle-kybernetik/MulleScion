@@ -554,7 +554,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    // static char         id_type[ 2] = { _C_ID, 0 };
 
-   NSParameterAssert( value);
+   NSParameterAssert( target);
    TRACE_EVAL_BEGIN( self, target);
 
    if( target == MulleScionNull)

@@ -78,7 +78,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/tmp/turn-on-trace.scion"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "../MulleScionDrake/src/Resources/default.scion"
@@ -93,8 +93,8 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./tests/commands/macro/macro-in-macro.scion"
-            isEnabled = "NO">
+            argument = "./tests/commands/define/define-1.scion"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "./tests/commands/includes/includes.scion"
