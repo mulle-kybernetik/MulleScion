@@ -48,7 +48,7 @@
 # import <objc/objc-class.h>
 #else
 # import <objc/runtime.h>
-# import "NSObject+iOS_KVC_Compatibility.h"
+# import "NSObject+KVC_Compatibility.h"
 #endif
 
 #ifndef NO_TRACE

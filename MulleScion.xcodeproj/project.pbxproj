@@ -1908,7 +1908,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				DYLIB_COMPATIBILITY_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
@@ -1921,7 +1920,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				DYLIB_COMPATIBILITY_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
@@ -1934,7 +1932,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				DYLIB_COMPATIBILITY_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
@@ -1947,7 +1944,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
 				SDKROOT = iphoneos;
@@ -1959,7 +1955,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
 				SDKROOT = iphoneos;
@@ -1971,7 +1966,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
 				SDKROOT = iphoneos;
@@ -1983,7 +1977,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
 				SDKROOT = iphoneos;
@@ -1995,7 +1988,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
 				SDKROOT = iphoneos;
@@ -2007,7 +1999,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
 				SDKROOT = iphoneos;
@@ -2058,7 +2049,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SDKROOT = iphoneos;
@@ -2070,7 +2060,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SDKROOT = iphoneos;
@@ -2082,7 +2071,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SDKROOT = iphoneos;
@@ -2309,7 +2297,6 @@
 		4178D30116E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionParser.dst;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = MulleScionParser;
 				SKIP_INSTALL = YES;
@@ -2319,7 +2306,6 @@
 		4178D30216E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionPrinter.dst;
 				PRODUCT_NAME = MulleScionPrinter;
 				SKIP_INSTALL = YES;
 			};
@@ -2328,7 +2314,6 @@
 		4178D30416E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScion.dst;
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = YES;
 			};
@@ -2350,7 +2335,6 @@
 		41AEA211182D097300840887 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionGraphviz.dst;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = YES;
 			};
@@ -2359,7 +2343,6 @@
 		41AEA212182D097300840887 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionGraphviz.dst;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = YES;
 			};
@@ -2368,7 +2351,6 @@
 		41AEA213182D097300840887 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionGraphviz.dst;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = YES;
 			};
@@ -2377,7 +2359,6 @@
 		41D6DEE316DE509F004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionPrinter.dst;
 				PRODUCT_NAME = MulleScionPrinter;
 				SKIP_INSTALL = YES;
 			};
@@ -2386,7 +2367,6 @@
 		41D6DEE416DE509F004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionPrinter.dst;
 				PRODUCT_NAME = MulleScionPrinter;
 				SKIP_INSTALL = YES;
 			};
@@ -2395,7 +2375,6 @@
 		41D6DF0E16DE51C9004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionParser.dst;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = MulleScionParser;
 				SKIP_INSTALL = YES;
@@ -2405,7 +2384,6 @@
 		41D6DF0F16DE51C9004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionParser.dst;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = MulleScionParser;
 				SKIP_INSTALL = YES;
@@ -2415,7 +2393,6 @@
 		41D6DF2E16DE523E004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScion.dst;
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = YES;
 			};
@@ -2424,7 +2401,6 @@
 		41D6DF2F16DE523E004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScion.dst;
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = YES;
 			};
@@ -2460,7 +2436,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
 				SDKROOT = iphoneos;
@@ -2472,7 +2447,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
 				SDKROOT = iphoneos;
@@ -2484,7 +2458,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				DSTROOT = /tmp/MulleScionTemplates__iOS_.dst;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
 				SDKROOT = iphoneos;
@@ -2495,7 +2468,6 @@
 		41FAED7E182D275E002CD114 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionFoundation.dst;
 				PRODUCT_NAME = MulleScionFoundation;
 				SKIP_INSTALL = YES;
 			};
@@ -2504,7 +2476,6 @@
 		41FAED7F182D275E002CD114 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionFoundation.dst;
 				PRODUCT_NAME = MulleScionFoundation;
 				SKIP_INSTALL = YES;
 			};
@@ -2513,7 +2484,6 @@
 		41FAED80182D275E002CD114 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/MulleScionFoundation.dst;
 				PRODUCT_NAME = MulleScionFoundation;
 				SKIP_INSTALL = YES;
 			};
