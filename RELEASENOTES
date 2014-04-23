@@ -1,4 +1,8 @@
-v1848.8  
+1848.9
+
+* added a podspec
+
+1848.8
 
 * allow # comments within {% %}
 

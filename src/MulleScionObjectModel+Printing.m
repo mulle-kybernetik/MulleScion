@@ -88,22 +88,103 @@ NSString   *MulleScionForSubdivisionCloserKey = @"MulleScionForSubdivisionCloser
 NSString   *MulleScionEvenKey                 = @"MulleScionEven";
 NSString   *MulleScionOddKey                  = @"MulleScionOdd";
 
-static BOOL   trace;
+static BOOL   isTracing;
 
 // THIS IS NOT REALLY WORKING WELL BUT BETTER THAN NOTHING I GUESS
 
 #ifdef HAVE_TRACE_RENDER
-# define TRACE_RENDER( self, s, locals, dataSource)  if( trace) fprintf( stderr, "%ld: %s\n", (long) [self lineNumber], [[self traceDescription] UTF8String])
+# define TRACE_RENDER( self, s, locals, dataSource)  if( isTracing) fprintf( stderr, "%ld: %s\n", (long) [self lineNumber], [[self traceDescription] UTF8String])
 #else
 # define TRACE_RENDER( self, s, locals, dataSource)
 #endif
 
 
 #ifdef HAVE_TRACE_EVAL
-# define TRACE_EVAL_BEGIN( self, value)               if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: -->%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
-# define TRACE_EVAL_END( self, value)                 if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <--%@ :: %@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
-# define TRACE_EVAL_CONT( self, value)                if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld:    %@ :: %@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)] UTF8String])
-# define TRACE_EVAL_BEGIN_END( self, value, result)   if( trace)  fprintf( stderr, "%s\n", [[NSString stringWithFormat:@"%ld: <->%@ :: %@->%@", (long) [self lineNumber], [self traceDescription], mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64), mulleLinefeedEscapedShortenedString( [result traceValueDescription], 64)] UTF8String])
+
+static void   _TRACE_EVAL_BEGIN( MulleScionObject *self, id value)
+{
+   NSString   *s;
+   
+   s = [NSString stringWithFormat:@"%ld: -->%@ :: %@",
+        (long) [self lineNumber],
+        [self traceDescription],
+        mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)];
+   fprintf( stderr, "%s\n", [s UTF8String]);
+}
+
+
+
+static inline void   _TRACE_EVAL_END( MulleScionObject *self, id value)
+{
+   NSString   *s;
+   
+   
+   s = [NSString stringWithFormat:@"%ld: <--%@ :: %@",
+                (long) [self lineNumber],
+                [self traceDescription],
+                mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)];
+   fprintf( stderr, "%s\n", [s UTF8String]);
+}
+
+
+static inline void   _TRACE_EVAL_CONT( MulleScionObject *self, id value)
+{
+   NSString   *s;
+   
+   if( ! isTracing)
+      return;
+   
+   s = [NSString stringWithFormat:@"%ld:    %@ :: %@",
+        (long) [self lineNumber],
+        [self traceDescription],
+        mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64)];
+   fprintf( stderr, "%s\n", [s UTF8String]);
+}
+
+
+
+static inline void   _TRACE_EVAL_BEGIN_END( MulleScionObject *self, id value, id result)
+{
+   NSString   *s;
+   
+   s = [NSString stringWithFormat:@"%ld: <->%@ :: %@->%@",
+        (long) [self lineNumber],
+        [self traceDescription],
+        mulleLinefeedEscapedShortenedString( [value traceValueDescription], 64),
+        mulleLinefeedEscapedShortenedString( [result traceValueDescription], 64)];
+   fprintf( stderr, "%s\n", [s UTF8String]);
+}
+
+static inline void   TRACE_EVAL_BEGIN( MulleScionObject *self, id value)
+{
+   if( ! isTracing)
+      return;
+   _TRACE_EVAL_BEGIN( self, value);
+}
+
+
+static inline void   TRACE_EVAL_END( MulleScionObject *self, id value)
+{
+   if( ! isTracing)
+      return;
+   _TRACE_EVAL_END( self, value);
+}
+
+
+static inline void   TRACE_EVAL_CONT( MulleScionObject *self, id value)
+{
+   if( ! isTracing)
+      return
+      _TRACE_EVAL_CONT( self, value);
+}
+
+static inline void   TRACE_EVAL_BEGIN_END( MulleScionObject *self, id value, id result)
+{
+   if( ! isTracing)
+      return
+   _TRACE_EVAL_BEGIN_END( self, value, result);
+}
+
 #else
 # define TRACE_EVAL_BEGIN( self, value)
 # define TRACE_EVAL_END( self, value)
@@ -285,8 +366,8 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
               forKey:@"NSNotFound"];
    
 #if defined( HAVE_TRACE)
-   trace = getenv( "MulleScionTrace") != NULL;
-   [locals setObject:[NSNumber numberWithBool:trace]
+   isTracing = getenv( "MulleScionTrace") != NULL;
+   [locals setObject:[NSNumber numberWithBool:isTracing]
               forKey:MulleScionTraceKey];
 #endif
    return( locals);
@@ -400,8 +481,8 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 #ifdef HAVE_TRACE
    if( [value_ isEqualToString:MulleScionTraceKey])
    {
-      trace = [valueToSet boolValue];
-      NSLog( @"trace %s", trace ? "enabled" : "disabled");
+      isTracing = [valueToSet boolValue];
+      NSLog( @"trace %s", isTracing ? "enabled" : "disabled");
    }
 #endif
    TRACE_EVAL_CONT( self, valueToSet);

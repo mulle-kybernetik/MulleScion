@@ -8,6 +8,13 @@
 #import "MulleScionObjectModel.h"
 
 
-@interface MulleScionObjectModel (StringReplacement)
+
+// kind of a zombie source file, that's not being used at the moment
+@interface MulleScionObject (StringReplacement)
+
+- (void) replaceOccurrencesOfString:(NSString *) s
+                         withString:(NSString *) other
+                            options:(NSStringCompareOptions) options
+                    templateOptions:(unsigned int) flags;
 
 @end
