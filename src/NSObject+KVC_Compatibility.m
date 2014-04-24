@@ -15,7 +15,6 @@
 + (void) load
 {
    IMP   setValueForKeyPath;
-   IMP   takeValueForKeyPath;
    
    if( ! [self instancesRespondToSelector:@selector( setValue:forKeyPath:)])
       return;

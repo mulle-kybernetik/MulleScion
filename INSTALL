@@ -28,6 +28,21 @@ install "Real Framework". Then
 will produce a framework that you can add to your project. 
 
 
+CocoaPods
+=========
+
+MulleScion is available through [Mulle kybernetiK](www.mulle-kybernetik.co), to install
+it simply add the following line to your Podfile:
+
+    pod "MulleScion"
+
+and add 
+  
+    pod repo add Mulle-kybernetiK http://www.mulle-kybernetik.com/repositories/CocoaPodSpecs
+
+on the commandline.
+
+
 Tips
 ====
 

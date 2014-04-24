@@ -724,6 +724,7 @@
 		41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Graphviz.m"; sourceTree = "<group>"; };
 		41AEA214182D097300840887 /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
+		41B727041908F4FC004343E9 /* MulleScion.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MulleScion.podspec; sourceTree = SOURCE_ROOT; };
 		41C04B29182D2C2C00CD973E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		41C04B2C182D2C2D00CD973E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		41CCC55C18254FB00081FA1C /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
@@ -966,6 +967,7 @@
 				4121DB0816DD410D00BFD60C /* MulleScionLibrary */,
 				41CD1AB818E98595003A7191 /* Graphviz */,
 				41DCAF6E16DE557100C5A74E /* MulleScion-Info.plist */,
+				41B727041908F4FC004343E9 /* MulleScion.podspec */,
 			);
 			path = src;
 			sourceTree = "<group>";
