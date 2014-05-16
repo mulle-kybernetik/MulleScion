@@ -34,8 +34,10 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-
 #import "MulleScionObjectModel+TraceDescription.h"
+
+#import "MulleCommonObjCRuntime.h"
+
 
 //
 // templateDescription should output something that is right parsable back into
@@ -91,7 +93,7 @@ static Class   NSPlaceholderStringClass;
 
 - (NSString *) traceValueDescription
 {
-   if( isa == NSPlaceholderStringClass)
+   if( MulleGetClass( self) == NSPlaceholderStringClass)
       return( @"NSPlaceholderStringClass");
    
    return( [NSString stringWithFormat:@"@\"%@\"", self]);
@@ -244,8 +246,8 @@ static Class   NSPlaceholderStringClass;
    s = [self _templateDescription];
    s = mulleShortenedString( s, 64);
    if( [s length])
-      return( [NSString stringWithFormat:@"<%@ %p = \"%@\">", isa, self, s]);
-   return( [NSString stringWithFormat:@"<%@ %p>", isa, self]);
+      return( [NSString stringWithFormat:@"<%@ %p = \"%@\">", MulleGetClass( self), self, s]);
+   return( [NSString stringWithFormat:@"<%@ %p>", MulleGetClass( self), self]);
 }
 
 @end

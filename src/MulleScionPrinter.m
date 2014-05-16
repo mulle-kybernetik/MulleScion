@@ -46,7 +46,7 @@
 
 - (id) initWithDataSource:(id) dataSource
 {
-   // NSLog( @"<%@ %p lives>", isa, self);
+   // NSLog( @"<%@ %p lives>", MulleGetClass( self), self);
 
    if( ! dataSource)
    {
@@ -66,7 +66,7 @@
    [defaultlocals_ release];
 
    // Instruments apparently lies cold blooded :)
-   //NSLog( @"<%@ %p is dead>", isa, self);
+   //NSLog( @"<%@ %p is dead>", MulleGetClass( self), self);
    [super dealloc];
 }
 

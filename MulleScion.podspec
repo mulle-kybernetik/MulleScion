@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.4'
   s.requires_arc = false
-  s.compiler_flags = '-Wno-deprecated-objc-isa-usage', '-Wno-deprecated-declarations', "-DPROJECT_VERSION=#{s.version.to_s}"
+  s.compiler_flags = '-Wno-deprecated-objc-MulleGetClass( self)-usage', '-Wno-deprecated-declarations', "-DPROJECT_VERSION=#{s.version.to_s}"
   s.source_files = 'src/**/*.{c,m}', 'google-toolbox-for-mac/Foundation/GTMNSString+HTML.m'
   s.public_header_files = 'src/**/*.h', 'google-toolbox-for-mac/GTMDefines.h', 'google-toolbox-for-mac/Foundation/GTMNSString+HTML.h'
   # s.resources = 'Assets/*.png'

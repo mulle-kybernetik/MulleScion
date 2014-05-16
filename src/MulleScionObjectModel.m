@@ -34,9 +34,10 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-
 #import "MulleScionObjectModel.h"
+
 #import "MulleScionObjectModel+NSCoding.h"
+#import "MulleCommonObjCRuntime.h"
 
 
 @implementation MulleScionObject
@@ -83,7 +84,7 @@
 
 #if defined( DEBUG) && defined( SIMPLE_SCOREBOARD)
    // take the output, sort it and check for even alive/dead pattern
-   fprintf( stderr, "%0.*p dead  %s \n", (int) sizeof( void *) << 1, self, [NSStringFromClass( isa) cString]);  // sic!
+   fprintf( stderr, "%0.*p dead  %s \n", (int) sizeof( void *) << 1, self, [NSStringFromClass( MulleGetClass( self)) cString]);  // sic!
 #endif
    [super dealloc];
 }
@@ -754,7 +755,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 {
    NSString  *s;
    
-   s = NSStringFromClass( isa);
+   s = NSStringFromClass( MulleGetClass( self));
    if( [s hasPrefix:@"MulleScion"])
    {
       s = [s substringFromIndex:10];
@@ -776,7 +777,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    for( ; curr; curr = curr->next_)
    {
       cls = [curr class];
-      if( cls == isa)
+      if( cls == MulleGetClass( self))
       {
          ++stack;
          continue;
@@ -806,7 +807,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    for( ; curr; curr = curr->next_)
    {
       cls = [curr class];
-      if( cls == isa)
+      if( cls == MulleGetClass( self))
       {
          ++stack;
          continue;

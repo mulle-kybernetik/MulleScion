@@ -79,6 +79,7 @@
 		410300A81701DFBA00197713 /* MulleScion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; };
 		4107D723182D306B005317F0 /* MulleScionParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
 		4107D724182D306B005317F0 /* MulleScionParser+Parsing.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; };
+		410BF0071926AA7600838823 /* MulleCommonObjCRuntime.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410BF0061926AA7600838823 /* MulleCommonObjCRuntime.h */; };
 		410C7FD316E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD216E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.m */; };
 		410C7FD616E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD516E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m */; };
 		410C7FD716E0D85500DC2465 /* MulleScionObjectModel+BlockExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD116E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -554,6 +555,7 @@
 				414A436719040B530020C6FF /* filter.scion in CopyFiles */,
 				414A436819040B530020C6FF /* for.scion in CopyFiles */,
 				414A436919040B530020C6FF /* if.scion in CopyFiles */,
+				410BF0071926AA7600838823 /* MulleCommonObjCRuntime.h in CopyFiles */,
 				414A436A19040B530020C6FF /* includes.scion in CopyFiles */,
 				414A436B19040B530020C6FF /* log.scion in CopyFiles */,
 				414A436C19040B530020C6FF /* macro.scion in CopyFiles */,
@@ -657,6 +659,7 @@
 		410B32E616DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+TraceDescription.m"; sourceTree = "<group>"; };
 		410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleMutableLineNumber.h; sourceTree = "<group>"; };
 		410B32E916DB8A7D005D0EAD /* MulleMutableLineNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleMutableLineNumber.m; sourceTree = "<group>"; };
+		410BF0061926AA7600838823 /* MulleCommonObjCRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleCommonObjCRuntime.h; sourceTree = "<group>"; };
 		410C7FD116E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+BlockExpansion.h"; sourceTree = "<group>"; };
 		410C7FD216E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+BlockExpansion.m"; sourceTree = "<group>"; };
 		410C7FD416E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+Parsing.h"; sourceTree = "<group>"; };
@@ -957,6 +960,7 @@
 		41764B9116DA511200560FCF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				410BF0061926AA7600838823 /* MulleCommonObjCRuntime.h */,
 				41764B9216DA511200560FCF /* main.m */,
 				41DD569D16E376F600C4D68A /* mongoose.h */,
 				41DD569E16E376F600C4D68A /* mongoose.c */,

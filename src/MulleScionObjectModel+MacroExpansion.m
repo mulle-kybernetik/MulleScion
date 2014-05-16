@@ -34,10 +34,10 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-
 #import "MulleScionObjectModel+MacroExpansion.h"
 
 #import "MulleScionObjectModel+NSCoding.h"
+#import "MulleCommonObjCRuntime.h"
 
 // this is totally hackish
 
@@ -165,7 +165,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! result)
       return( nil);
    
-   copy = [isa newWithArray:result
+   copy = [MulleGetClass( self) newWithArray:result
                  lineNumber:self->lineNumber_];
    return( copy);
 }
@@ -186,7 +186,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! result)
       return( nil);
    
-   copy = [isa newWithDictionary:result
+   copy = [MulleGetClass( self) newWithDictionary:result
                       lineNumber:self->lineNumber_];
    return( copy);
 }
@@ -206,7 +206,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! result)
       return( nil);
    
-   copy = [isa newWithIdentifier:[self identifier]
+   copy = [MulleGetClass( self) newWithIdentifier:[self identifier]
                        arguments:result
                      lineNumber:self->lineNumber_];
    return( copy);
@@ -239,7 +239,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 
    if( ! result)
       result = self->arguments_;
-   copy   = [isa newWithRetainedTarget:copy1
+   copy   = [MulleGetClass( self) newWithRetainedTarget:copy1
                             methodName:NSStringFromSelector( self->action_)
                              arguments:result
                             lineNumber:[self lineNumber]];
@@ -264,7 +264,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! copy1)
       return( nil);
    
-   copy = [isa newWithRetainedExpression:copy1
+   copy = [MulleGetClass( self) newWithRetainedExpression:copy1
                               lineNumber:[self lineNumber]];
    return( copy);
 }
@@ -294,7 +294,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! copy2)
       copy2 = [right_ copyWithZone:NULL];
    
-   copy = [isa newWithRetainedLeftExpression:copy1
+   copy = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
                      retainedRightExpression:copy2
                                   lineNumber:[self lineNumber]];
    return( copy);
@@ -331,7 +331,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 
    if( ! copy2)
       copy2 = [right_ copyWithZone:NULL];
-   copy  = [isa newWithRetainedLeftExpression:copy1
+   copy  = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
                       retainedRightExpression:copy2
                                    lineNumber:[self lineNumber]];
    return( copy);
@@ -364,7 +364,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    
    if( ! copy2)
       copy2 = [right_ copyWithZone:NULL];
-   copy  = [isa newWithRetainedLeftExpression:copy1
+   copy  = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
                       retainedRightExpression:copy2
                                    lineNumber:[self lineNumber]];
    return( copy);
@@ -399,7 +399,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! copy3)
       copy3 = [right_ copyWithZone:NULL];
    
-   copy = [isa newWithRetainedLeftExpression:copy1
+   copy = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
                     retainedMiddleExpression:copy2
                      retainedRightExpression:copy3
                                   lineNumber:[self lineNumber]];
@@ -430,7 +430,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
       return( nil);
    
    copy1 = [value_ copyWithZone:NULL];
-   copy  = [isa newWithRetainedLeftExpression:copy1
+   copy  = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
                       retainedRightExpression:copy2
                                    lineNumber:[self lineNumber]];
    return( copy);
@@ -460,7 +460,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
       return( nil);
    
    copy1 = [left_ copyWithZone:NULL];
-   copy  = [isa newWithRetainedLeftExpression:copy1
+   copy  = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
                       retainedRightExpression:copy2
                                    lineNumber:[self lineNumber]];
    return( copy);
@@ -483,7 +483,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! copy1)
       return( nil);
    
-   copy = [isa newWithRetainedExpression:copy1
+   copy = [MulleGetClass( self) newWithRetainedExpression:copy1
                               lineNumber:[self lineNumber]];
    return( copy);
 }
@@ -508,7 +508,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! copy1)
       return( nil);
 
-   copy = [isa newWithIdentifier:identifier_
+   copy = [MulleGetClass( self) newWithIdentifier:identifier_
                         function:copy1
                             body:body_
                         fileName:value_

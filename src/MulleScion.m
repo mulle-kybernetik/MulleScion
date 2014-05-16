@@ -39,6 +39,7 @@
 #import "MulleScionPrinter.h"
 #import "MulleScionParser.h"
 #import "MulleScionTemplate+CompressedArchive.h"
+#import "MulleCommonObjCRuntime.h"
 
 #ifndef PROJECT_VERSION
 # error "specify project version on command line -DPROJECT_VERSION=1848.x"
@@ -153,12 +154,12 @@ static id   acquirePropertyList( NSString *s)
    NSString           *cachePath;
    NSString           *name;
    
-   isCaching = [isa isCacheEnabled];
+   isCaching = [MulleGetClass( self) isCacheEnabled];
    
    if( isCaching)
    {
       name      = [[fileName lastPathComponent] stringByDeletingPathExtension];
-      cacheDir  = [isa cacheDirectory];
+      cacheDir  = [MulleGetClass( self) cacheDirectory];
       if( ! cacheDir)
          cacheDir = [fileName stringByDeletingLastPathComponent];
       
@@ -187,7 +188,7 @@ static id   acquirePropertyList( NSString *s)
       if( ! [self writeArchive:cachePath])
       {
          NSLog( @"Cache write to %@ failed, caching turned off", cachePath);
-         [isa setCacheEnabled:NO];
+         [MulleGetClass( self) setCacheEnabled:NO];
       }
    }
 #endif
