@@ -46,7 +46,7 @@ static inline Class   MulleGetClass( id self)
 
 #import <objc/objc.h>
 
-static inline Class   MulleGetClass( self)
+static inline Class   MulleGetClass( id self)
 {
    return( ((struct objc_object *) self)->isa);
 }
