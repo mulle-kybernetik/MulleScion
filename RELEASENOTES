@@ -1,3 +1,14 @@
+1848.10
+
+*** This can break currently working templates, that contain unnoticed 
+    syntax errors! ***
+
+* the parser doesn't allow garbage inside mulle-scion tags anymore. It
+  used to parse {{ x = #<%$/&> }} because everything after "x " was
+  ignored, but it was just too confusing in real life use.
+ 
+
+
 1848.9
 
 * added a podspec

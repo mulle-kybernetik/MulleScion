@@ -1,1 +1,1 @@
-{{ [NSString stringWithString:@"VfL Bochum 1848"]; }}
+{{ [NSString stringWithString:@"VfL Bochum 1848"] }}

@@ -73,6 +73,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "./tests/expressions/functions/filter.scion"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "/tmp/MulleScionDrakeTemp.scion /Volumes/Source/srcC/Dienstag/Teamgeist/build/Products/Debug/TeamgeistModel.bundle "
             isEnabled = "NO">
          </CommandLineArgument>
@@ -94,7 +98,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "./tests/commands/define/define-1.scion"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "./tests/commands/includes/includes.scion"

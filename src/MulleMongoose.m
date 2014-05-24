@@ -86,7 +86,6 @@ static NSURL   *_mulle_scion_url_from_request_info( struct mg_request_info   *in
 {
    NSURL      *url;
    NSString   *s;
-   NSString   *ext;
    
    s    = [NSString stringWithCString:info->uri];
    if( [s hasPrefix:@"/"])
@@ -103,11 +102,8 @@ static NSURL   *_mulle_scion_url_from_request_info( struct mg_request_info   *in
 static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
 {
    NSURL                    *url;
-   NSString                 *s;
-   NSString                 *ext;
    NSString                 *query;
    NSDictionary             *plist;
-   NSBundle                 *bundle;
    struct mg_request_info   *info;
    MulleScionTemplate       *template;
    NSString                 *response;

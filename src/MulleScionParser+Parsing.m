@@ -73,7 +73,8 @@ typedef enum
    eof        = -1,
    expression = 0,
    command    = 1,
-   comment    = 2
+   comment    = 2,
+   garbage    = 3
 } macro_type;
 
 
@@ -258,7 +259,7 @@ static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
       s = [s stringByReplacingOccurrencesOfString:@"'"
                                        withString:@"\\'"];
       
-      s = [NSString stringWithFormat:@"near \"%@\", %@", s, reason];
+      s = [NSString stringWithFormat:@"at '%c' near \"%@\", %@", *p->curr, s, reason];
    
       (*p->parser_do_error)( p->self, p->sel, p->fileName, p->memo.lineNumber, s);
    }
@@ -429,48 +430,30 @@ static macro_type   parser_grab_text_until_scion( parser *p)
 }
 
 
-static macro_type   parser_grab_text_until_scion_end( parser *p)
+//
+// assume whitespace and leading comments have been removed
+//
+static macro_type   parser_next_scion_end( parser *p)
 {
    unsigned char   c, d;
-   int             inquote;
    
-   parser_memorize( p, &p->memo);
+   if( p->curr + 2 > p->sentinel)
+      return( eof);
    
-   inquote = 0;
-   c = p->curr > p->buf ? p->curr[ -1] : 0;
-   while( p->curr < p->sentinel)
+   d = *p->curr++;
+   c = *p->curr++;
+      
+   if( c == '}')
+      switch( d)
    {
-      if( c == '\n')
-         parser_nl( p);
-
-      if( c == '"')
-         inquote = ! inquote;
-      if( inquote)
-         continue;
-      
-      if( c == '#' && p->skipComments > 0)
-      {
-         parser_skip_after_newline( p);
-         continue;
-      }
-      
-      d = c;
-      c = *p->curr++;
-      
-      if( c == '}')
-      {
-         if( d == '}')
-            return( expression);
-         
-         if( d == '%')
-            return( command);
-         
-         if( d == '#')
-            return( comment);
-      }
+      case '}' : return( expression);
+      case '%' : return( command);
+      case '#' : return( comment);
    }
-   return( eof);
+   p->curr -= 2;
+   return( garbage);
 }
+
 
 # pragma mark -
 # pragma mark whitespace
@@ -496,6 +479,32 @@ static void   parser_skip_whitespace( parser *p)
             break;
          }
          return;
+         
+      default :
+         if( c > ' ')
+            return;
+      }
+   }
+}
+
+
+static void   parser_skip_whitespace_and_comments_always( parser *p)
+{
+   unsigned char   c;
+   
+   for( ; p->curr < p->sentinel; p->curr++)
+   {
+      c = *p->curr;
+      switch( c)
+      {
+      case '\n' :
+         parser_nl( p);
+         break;
+         
+      case '#'  :
+         parser_skip_after_newline( p);
+         --p->curr; // because we add it again in for
+         break;
          
       default :
          if( c > ' ')
@@ -531,8 +540,6 @@ static void   parser_skip_white_if_terminated_by_newline( parser *p)
    }
 }
 
-   
-
 
 static void   parser_skip_after_newline( parser *p)
 {
@@ -550,32 +557,16 @@ static void   parser_skip_after_newline( parser *p)
 }
 
 
-static void   parser_skip_white_until_scion_or_after_newline( parser *p)
+static void   parser_skip_white_until_after_newline( parser *p)
 {
    unsigned char   c;
-   unsigned char   d;
-   int             inquote;
    
-   inquote = 0;
-   c       = 0;
    for( ; p->curr < p->sentinel;)
    {
-      d = c;
       c = *p->curr++;
       if( c == '\n')
       {
          parser_nl( p);
-         break;
-      }
-      
-      if( c == '"')
-         inquote = ! inquote;
-      if( inquote)
-         continue;
-      
-      if( c == '#' && p->skipComments > 0)
-      {
-         parser_skip_after_newline( p);
          break;
       }
       
@@ -584,24 +575,12 @@ static void   parser_skip_white_until_scion_or_after_newline( parser *p)
          p->curr--;
          break;
       }
-      
-      if( d == '{')
-      {
-         if( c == '{')
-         {
-            p->curr -= 2;
-            break;
-         }
-         
-         if( c == '%')
-         {
-            p->curr -= 2;
-            break;
-         }
-      }
    }
 }
 
+
+# pragma mark -
+# pragma mark scion tags
 
 static macro_type   parser_skip_text_until_scion_end( parser *p, int type)
 {
@@ -837,7 +816,7 @@ static int   parser_grab_text_until_command( parser *p, char *command)
          ++stage;
          
       default :
-         if( stage == len)
+         if( (size_t) stage == len)
          {
             if( c <= ' ' || c == '%')
             {
@@ -1742,14 +1721,47 @@ static inline MulleScionObject  *parser_next_object_after_extend( parser *p, mac
 }
 
 
+static char  *_macro_type_names[] =
+{
+   "end of file",
+   "}}",
+   "%}",
+   "#}",
+   "garbage"
+};
+
+static char  **macro_type_names = &_macro_type_names[ 1];
+
+
+static void   parser_error_different_closer( parser *p, macro_type found, macro_type expected)
+{
+   assert( found >= -1 && found <= 3);
+   assert( expected >= -1 && expected <= 3);
+   
+   if( found == garbage)
+      parser_error( p, "a '%s' was expected",
+               macro_type_names[ expected]);
+   else
+      parser_error( p, "a '%s' was expected, but '%s' was found",
+               macro_type_names[ expected],
+               macro_type_names[ found]);
+}
+
+
+static inline void   parser_error_if_different_closer( parser *p, macro_type found, macro_type expected)
+{
+   if( found != expected)
+      parser_error_different_closer( p, found, expected);
+}
+
+
 static void   parser_finish_comment( parser *p)
 {
    macro_type  end_type;
    
    end_type = parser_skip_text_until_scion_end( p, '#');
    parser_skip_white_if_terminated_by_newline( p);
-   if( end_type != comment)
-      parser_error( p, "no comment closer found '#}'");
+   parser_error_if_different_closer( p, end_type, comment);
 }
 
 
@@ -1757,10 +1769,9 @@ static void   parser_finish_expression( parser *p)
 {
    macro_type  end_type;
    
-   // shouldn't be lenient here, only accepting whitespace until scion
-   end_type = parser_grab_text_until_scion_end( p);
-   if( end_type != expression)
-      parser_error( p, "a non matching closer was found instead of '}}'");
+   parser_skip_whitespace_and_comments_always( p);
+   end_type = parser_next_scion_end( p);
+   parser_error_if_different_closer( p, end_type, expression);
 }
 
 
@@ -1768,11 +1779,11 @@ static void   parser_finish_command( parser *p)
 {
    macro_type  end_type;
    
-   end_type = parser_grab_text_until_scion_end( p);
-   parser_skip_white_until_scion_or_after_newline( p);
-   
-   if( end_type != command)
-      parser_error( p, "a non matching closer was found instead of '%}'");
+   parser_skip_whitespace_and_comments_always( p);
+   end_type = parser_next_scion_end( p);
+   parser_skip_white_until_after_newline( p);
+
+   parser_error_if_different_closer( p, end_type, command);
 }
 
 
@@ -1886,7 +1897,7 @@ static char  *parser_best_match_for_string( parser *p, NSString *s)
    c_s    = (char *) [s cString];
    while( length)
    {
-      for( i = 0; i < sizeof( mnemonics) / sizeof( char *); i++)
+      for( i = 0; i < (int) (sizeof( mnemonics) / sizeof( char *)); i++)
          if( ! strncmp( mnemonics[ i], c_s, length))
             return( mnemonics[ i]);
       
@@ -2415,6 +2426,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
       if( [last isJustALinefeed])
       {
          for( node = root; node->next_ != last; node = node->next_);
+         
          node->next_ = nil;
          [last release];
       }
@@ -2429,12 +2441,14 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
                      forKey:identifier];
    [macro autorelease];
 
+#if 0
    parser_undo_character( p);
    if( parser_peek_character( p) == '\n')
       parser_undo_character( p);
    parser_undo_character( p);
-   
-   return( nil);
+#endif
+
+   return( macro);
 }
 
 
@@ -2789,6 +2803,8 @@ retry:
          parser_finish_command( p);
       if( ! next && p->inMacro)
          return( nil);  // endmacro ...
+      if( [next isMacro])
+         next = nil;
       break;
    }
    

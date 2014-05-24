@@ -1380,7 +1380,7 @@ static BOOL  isTrue( id value)
 
    // NOT SURE ABOUT THIS
    if( ! identifier)
-      return( curr);
+      goto done;
    
    info    = [NSMutableDictionary dictionary];
    infoKey = [NSString stringWithFormat:@"%@#", identifier];
@@ -1394,14 +1394,14 @@ static BOOL  isTrue( id value)
    next = [rover nextObject];
    while( key = next)
    {
-      next               = [rover nextObject];
+      next = [rover nextObject];
       
       TRACE_EVAL_CONT( self, key);
       
       isFirst            = i == 0;
       isLast             = ! next;
       isEven             = !(i & 1);
-      isSubdivisionEnd   = (i % division) == division - 1;
+      isSubdivisionEnd   = (i % division) == (NSUInteger) (division - 1);
       isSubdivisionStart = ! (i % division);
 
       [info setObject:[NSNumber numberWithInteger:i]
@@ -1452,6 +1452,7 @@ static BOOL  isTrue( id value)
    [locals removeObjectForKey:infoKey];
    [locals removeObjectForKey:identifier];   // always nil anyway
    
+done:
    [pool release];
    
    return( curr);

@@ -124,6 +124,8 @@
 - (BOOL) isDictionaryKey { return( NO); }
 - (BOOL) isJustALinefeed { return( NO); }
 
+- (BOOL) isMacro      { return( NO); }
+
    
 - (Class) terminatorClass
 {
@@ -1165,6 +1167,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 - (BOOL) isTemplate
 {
    return( NO);
+}
+
+
+- (BOOL) isMacro
+{
+   return( YES);
 }
 
 @end

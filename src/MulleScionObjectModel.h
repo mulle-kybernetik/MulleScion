@@ -88,6 +88,8 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 - (BOOL) isJustALinefeed;
 - (BOOL) isDictionaryKey;
 
+- (BOOL) isMacro;
+
 - (Class) terminatorClass;
 
 - (NSUInteger) lineNumber;

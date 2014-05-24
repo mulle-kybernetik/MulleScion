@@ -3,4 +3,4 @@
    mulleScionDescription and just output each element on
    a single line
 #}
-{{ @"VfL\nBochum\n1848\n"] }}
+{{ @"VfL\nBochum\n1848\n" }}

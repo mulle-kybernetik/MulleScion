@@ -89,8 +89,7 @@ static int   run( NSString *fileName,
                   id < MulleScionOutput> dst,
                   NSDictionary *locals)
 {
-   NSData              *data;
-   MulleScionTemplate  *template;
+   MulleScionTemplate   *template;
    
    //
    // if fileName stars with '{' assume, that it's a command line template
@@ -123,10 +122,9 @@ static int   run( NSString *fileName,
          ##### */
 static id   acquireDataSourceFromBundle( NSString *s)
 {
-   NSString  *error;
-   NSBundle  *bundle;
-   id        plist;
-   Class     cls;
+   NSBundle   *bundle;
+   id         plist;
+   Class      cls;
    
    bundle = [NSBundle bundleWithPath:s];
    cls    = [bundle principalClass];
