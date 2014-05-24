@@ -185,6 +185,31 @@ static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
 }
 
 
+static NSString  *processName( void)
+{
+   NSArray        *arguments;
+   NSEnumerator   *rover;
+
+   arguments = [[NSProcessInfo processInfo] arguments];
+   rover     = [arguments objectEnumerator];
+   return( [[rover nextObject] lastPathComponent]);
+}
+
+
+static void   usage( void)
+{
+   fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [-|outputfile] [arguments]\n", [processName() cString]);
+   fprintf( stderr, "v%s\n", MulleScionFrameworkVersion);
+   fprintf( stderr, "\t-w: start webserver for /tmp/MulleScionDox\n\n"
+   "\ttemplate: a MulleScion template\n"
+   "\tbundle: a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
+   "\tplist: any kind of plist(5)\n\n"
+   "\targuments: a list of arguments to be made available to the template via __ARGV__\n"
+   );
+}
+
+
+
 static NSDictionary  *getInfoFromArguments( void)
 {
    NSArray               *arguments;
@@ -232,8 +257,7 @@ static NSDictionary  *getInfoFromArguments( void)
    return( info);
    
 usage:
-   fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [-|outputfile] [arguments]\n", [processName cString]);
-   fprintf( stderr, "v%s", MulleScionFrameworkVersion);
+   usage();
    return( nil);
 }
 
@@ -277,7 +301,7 @@ static void  loadBundles( void)
 }
 
 
-static int _main(int argc, const char * argv[])
+static int   _main(int argc, const char * argv[])
 {
    NSFileHandle        *stream;
    NSDictionary        *info;
@@ -311,22 +335,30 @@ int main( int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
-#ifndef DONT_HAVE_WEBSERVER
-   id                  plist;
 
-   if( argc > 1 && ! strcmp( argv[ 1], "-w"))
+   if( argc > 1)
    {
-      loadBundles();
-      plist = [NSDictionary dictionaryWithContentsOfFile:@"/tmp/MulleScionDox/properties.plist"];
-      if( ! plist)
+#ifndef DONT_HAVE_WEBSERVER
+      if( ! strcmp( argv[ 1], "-w"))
       {
-         NSLog( @"/tmp/MulleScionDox/properties.plist not found");
-         return( -5);
+         id   plist;
+         loadBundles();
+         plist = [NSDictionary dictionaryWithContentsOfFile:@"/tmp/MulleScionDox/properties.plist"];
+         if( ! plist)
+         {
+            NSLog( @"/tmp/MulleScionDox/properties.plist not found");
+            return( -5);
+         }
+         mulle_mongoose_main( plist, default_options);
+         return( 0);
       }
-      mulle_mongoose_main( plist, default_options);
-      return( 0);
-   }
 #endif
+      if( ! strcmp( argv[ 1], "-h") || ! strcmp( argv[ 1], "--help"))
+      {
+         usage();
+         return( 0);
+      }
+   }
    
    pool = [NSAutoreleasePool new];
 NS_DURING

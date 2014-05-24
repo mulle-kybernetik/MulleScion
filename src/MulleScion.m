@@ -45,7 +45,8 @@
 # error "specify project version on command line -DPROJECT_VERSION=1848.x"
 #endif
 
-#define STRINGIFY(x) #x
+#define _STRINGIFY(x) #x
+#define STRINGIFY(x) _STRINGIFY( x)
 
 char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 
