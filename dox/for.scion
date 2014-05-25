@@ -88,7 +88,7 @@ MulleScionForSubdivisionCloser  Will be the value of .#footer whenever the
 Here is a more complex example, that lists the available NSTimeZones.
 
 <html>
-<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on {{ [NSDate date]] }} -->
+<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on {{ [NSDate date] }} -->
 <body>
 {# render an old skool HTML table #}
 {% MulleScionEven = "#DDDDDD" %}

@@ -56,7 +56,7 @@ when={{ name | [self stringByReplacingOccurrencesOfString:@" 1848" withString:@"
 
 # Key Value Coding
 
-As that gets unwieldy, you can use a define to make common calls nice to read.
+As that can becomen unwieldy, you can use a define to make common calls nicer to read.
 ....
 {% define no1848 = [self stringByReplacingOccurrencesOfString:@" 1848"
                                                      withString:@""] %}
@@ -96,7 +96,7 @@ The bag contains {{ bag.@count }} entries
  %}
 ...
 
-Not all commands may appear in multiline commands. You should use
+Not all commands may appear in multiline commands. You can use
 
 block/endblock
 define
@@ -107,15 +107,6 @@ requires
 verbatim
 
 only in single line commands.
-
-e.g. 
-
-{% define foo_1 = "bar"; x=foo_1 %}
-wrong={{ x }}
-{% define foo_2 = "bar" %}
-{% x=foo_2 %}
-right={{ x }}
-
 
 
 
