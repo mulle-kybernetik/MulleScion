@@ -71,6 +71,7 @@ NSString   *MulleScionCurrentFileKey          = @"__FILE__";
 NSString   *MulleScionPreviousFilesKey        = @"__FILE_STACK__";
 NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
 NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
+NSString   *MulleScionShouldFilterPlainTextKey = @"__SHOULD_FILTER_PLAINTEXT__";
 NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
 NSString   *MulleScionCurrentLineKey          = @"__LINE__";
 NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";
@@ -311,7 +312,6 @@ void   MulleScionRenderString( NSString *value,
 
 @implementation MulleScionTemplate ( Printing)
 
-
 static void   initLineNumber( NSMutableDictionary *locals)
 {
    MulleMutableLineNumber   *nr;
@@ -392,6 +392,8 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
    // trusted (writing OK, reading ? your choice!)
    //
    updateLineNumber( self, locals);
+   [locals setObject:[NSNumber numberWithBool:YES]
+              forKey:MulleScionShouldFilterPlainTextKey];
    [locals setObject:s
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
@@ -426,8 +428,10 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
    TRACE_RENDER( self, s, locals, dataSource);
 
    updateLineNumber( self, locals);
-   MulleScionRenderString( value_, s, locals, dataSource);
-   
+   if( [[locals objectForKey:MulleScionShouldFilterPlainTextKey] boolValue])
+      MulleScionRenderString( value_, s, locals, dataSource);
+   else
+      [s appendString:value_];
    return( self->next_);
 }
 

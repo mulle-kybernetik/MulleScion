@@ -181,8 +181,7 @@
    if( [identifier isEqualToString:@"filter"])
    {
       NSString   *string;
-      id         value;
-      
+
       MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
       value  = MulleScionPrintingValidatedArgument( arguments, 0, Nil, locals);
       string = [value mulleScionDescriptionWithLocalVariables:locals];

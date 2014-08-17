@@ -54,6 +54,7 @@ extern NSString   *MulleScionCurrentLineKey;
 extern NSString   *MulleScionCurrentFunctionKey;
 extern NSString   *MulleScionArgumentsKey;
 extern NSString   *MulleScionVersionKey;
+extern NSString   *MulleScionShouldFilterPlainTextKey;
 
 extern NSString   *MulleScionForOpenerKey;
 extern NSString   *MulleScionForSeparatorKey;

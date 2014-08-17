@@ -198,12 +198,13 @@ static NSString  *processName( void)
 
 static void   usage( void)
 {
-   fprintf( stderr, "%s [-w] <template> [bundle|propertylist|-|none] [-|outputfile] [arguments]\n", [processName() cString]);
+   fprintf( stderr, "%s [-w] <template> [bundle|plist|-|none] [-|outputfile] [arguments]\n", [processName() cString]);
    fprintf( stderr, "v%s\n", MulleScionFrameworkVersion);
-   fprintf( stderr, "\t-w: start webserver for /tmp/MulleScionDox\n\n"
-   "\ttemplate: a MulleScion template\n"
-   "\tbundle: a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
-   "\tplist: any kind of plist(5)\n\n"
+   fprintf( stderr,
+   "\t-w       : start webserver for /tmp/MulleScionDox\n\n"
+   "\ttemplate : a MulleScion template\n"
+   "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
+   "\tplist    : any kind of property list, see: plist(5)\n\n"
    "\targuments: a list of arguments to be made available to the template via __ARGV__\n"
    );
 }

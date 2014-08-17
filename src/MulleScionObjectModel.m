@@ -615,8 +615,9 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    case MulleScionGreaterThan          : return( @">");
    case MulleScionLessThanOrEqualTo    : return( @"<=");
    case MulleScionGreaterThanOrEqualTo : return( @">=");
-   case MulleScionNoComparison         : return( @"???");  // should never happen!
+   case MulleScionNoComparison         : break;  // should never happen!
    }
+   return( @"???");
 }
 
 @end

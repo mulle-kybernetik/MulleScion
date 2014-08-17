@@ -20,6 +20,14 @@ through the currently active filter.
 
 {% low=@"low" %}
 {% filter uppercaseString %}
-{% high = filter( low) %}
+   {% high = filter( low) %}
 {% endfilter %}
 {{ low }} -> {{ high }}
+
+Set the variable __SHOULD_FILTER_PLAINTEXT__ to NO to avoid filtering plaintext
+
+{% __SHOULD_FILTER_PLAINTEXT__ = NO %}
+{% filter uppercaseString %}
+  This won't get filtered, but {{ "this" }}. Convenient to wrap around HTML
+  code for example and setting the filter to htmlEscapedString.
+{% endfilter %}

@@ -140,15 +140,20 @@ static int   mulle_mongoose_begin_request( struct mg_connection *conn)
    int                 rval;
    NSData              *utf8Data;
    NSString            *string;
-   
+   NSMutableString     *tmp;
+
    pool   = [NSAutoreleasePool new];
 NS_DURING
    rval   = _mulle_mongoose_begin_request( conn);
 NS_HANDLER
    string = [[localException description] htmlEscapedString];
-   string = [string stringByReplacingOccurrencesOfString:@"\n"
-                                              withString:@"<BR>"];
-   utf8Data = [string dataUsingEncoding:NSUTF8StringEncoding];
+   tmp    = [[string mutableCopy] autorelease];
+   [tmp replaceOccurrencesOfString:@"\n"
+                        withString:@"<BR>"
+                           options:NSLiteralSearch
+                             range:NSMakeRange( 0, [tmp length])];
+
+   utf8Data = [tmp dataUsingEncoding:NSUTF8StringEncoding];
    mulle_write_response( conn, (void *) [utf8Data bytes], [utf8Data length]);
    rval = 1;
 NS_ENDHANDLER

@@ -27,6 +27,11 @@ __FILTER__                      The currently installed filter chain
 __FILTER_STACK__                The previous filter chains
 __SELF_REPLACEMENT__            The object that the identifier 'self' gets 
                                 replaced with
+__SHOULD_FILTER_PLAINTEXT__     The filter will be applied to plain text (default 
+                                is YES, for Twig compatibility.)
+
+__ARGV__                        (Optional) command line arguments passed in 
+                                by mulle-scion
 
 Predefined Variables
 ====================

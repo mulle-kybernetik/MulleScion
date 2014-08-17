@@ -54,7 +54,7 @@
 #endif
 
 
-@implementation MulleScionTemplate ( NSCoding)
+@implementation MulleScionTemplate ( CompressedArchive)
 
 typedef struct
 {
