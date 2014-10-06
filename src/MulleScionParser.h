@@ -48,6 +48,7 @@
 }
 
 + (MulleScionParser *) parserWithContentsOfFile:(NSString *) fileName;
++ (MulleScionParser *) parserWithContentsOfURL:(NSURL *) url;
 
 - (id) initWithData:(NSData *) data
            fileName:(NSString *) fileName;

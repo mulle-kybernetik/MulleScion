@@ -54,6 +54,25 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 @implementation MulleScionTemplate ( Convenience)
 
 + (BOOL) writeToOutput:(id <MulleScionOutput>) output
+           templateURL:(NSURL *) url
+            dataSource:(id <MulleScionDataSource>) dataSource
+        localVariables:(NSDictionary *) locals
+{
+   MulleScionTemplate   *template;
+   
+   template = [[[MulleScionTemplate alloc] initWithContentsOfURL:url] autorelease];
+   if( ! template)
+      return( NO);
+   
+   [template writeToOutput:output
+                dataSource:dataSource
+            localVariables:locals];
+   
+   return( YES);
+}
+
+
++ (BOOL) writeToOutput:(id <MulleScionOutput>) output
           templateFile:(NSString *) fileName
             dataSource:(id <MulleScionDataSource>) dataSource
         localVariables:(NSDictionary *) locals
@@ -69,6 +88,20 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
             localVariables:locals];
    
    return( YES);
+}
+
+
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                                dataSource:(id <MulleScionDataSource>) dataSource
+                            localVariables:(NSDictionary *) locals
+{
+   MulleScionTemplate   *template;
+   
+   template = [[[MulleScionTemplate alloc] initWithContentsOfURL:url] autorelease];
+   if( ! template)
+      return( nil);
+   return( [template descriptionWithDataSource:dataSource
+                                localVariables:(NSDictionary *) locals]);
 }
 
 
@@ -95,6 +128,15 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 }
 
 
++ (NSString *) descriptionWithTemplateURL:(NSURL *) fileName
+                               dataSource:(id <MulleScionDataSource>) dataSource
+{
+   return( [self descriptionWithTemplateURL:fileName
+                                 dataSource:dataSource
+                             localVariables:nil]);
+}
+
+
 static id   acquirePropertyList( NSString *s)
 {
    NSData    *data;
@@ -105,6 +147,30 @@ static id   acquirePropertyList( NSString *s)
    if( ! data)
    {
       NSLog( @"failed to open: %@", s);
+      return( data);
+   }
+   
+   error = nil;
+   plist = [NSPropertyListSerialization propertyListFromData:data
+                                            mutabilityOption:NSPropertyListImmutable
+                                                      format:NULL
+                                            errorDescription:&error];
+   if( ! plist)
+      NSLog( @"property list failure: %@", error);
+   return( plist);
+}
+
+
+static id   acquirePropertyListURL( NSURL *url)
+{
+   NSData    *data;
+   NSString  *error;
+   id        plist;
+   
+   data  = [NSData dataWithContentsOfURL:url];
+   if( ! data)
+   {
+      NSLog( @"failed to open: %@", url);
       return( data);
    }
    
@@ -137,6 +203,24 @@ static id   acquirePropertyList( NSString *s)
 }
 
 
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                          propertyListURL:(NSURL *) plistUrl
+                            localVariables:(NSDictionary *) locals
+{
+   MulleScionTemplate   *template;
+   id                    plist;
+   
+   template = [[[MulleScionTemplate alloc] initWithContentsOfURL:url] autorelease];
+   if( ! template)
+      return( nil);
+   plist = acquirePropertyListURL( plistUrl);
+   if( ! plist)
+      return( nil);
+   return( [template descriptionWithDataSource:plist
+                                localVariables:(NSDictionary *) locals]);
+}
+
+
 + (NSString *) descriptionWithTemplateFile:(NSString *) fileName
                           propertyListFile:(NSString *) plistFileName
 {
@@ -146,29 +230,57 @@ static id   acquirePropertyList( NSString *s)
 }
 
 
-- (id) initWithContentsOfFile:(NSString *) fileName
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                          propertyListURL:(NSURL *) plistUrl
 {
-   MulleScionParser   *parser;
-#ifndef DONT_HAVE_MULLE_SCION_CACHING
+   return( [self descriptionWithTemplateURL:url
+                            propertyListURL:plistUrl
+                              localVariables:nil]);
+}
+
+
+//
+// bug: can't deal with templates of same name in different subdirectories
+// should hash the path and use that as a cache-filename
+//
+- (NSString *) cachePathForPath:(NSString *) fileName
+{
    BOOL               isCaching;
    NSString           *cacheDir;
    NSString           *cachePath;
    NSString           *name;
    
    isCaching = [MulleGetClass( self) isCacheEnabled];
+   if( ! isCaching)
+      return( nil);
    
-   if( isCaching)
+   name      = [[fileName lastPathComponent] stringByDeletingPathExtension];
+   cacheDir  = [MulleGetClass( self) cacheDirectory];
+   if( ! cacheDir)
+      cacheDir = [fileName stringByDeletingLastPathComponent];
+   
+   if( ! [cacheDir length])
+      cacheDir = @".";
+   cachePath = [cacheDir stringByAppendingPathComponent:name];
+   cachePath = [cachePath stringByAppendingPathExtension:@"scionz"];
+   
+   return( cachePath);
+}
+
+
+- (id) initWithContentsOfFile:(NSString *) fileName
+{
+   MulleScionParser   *parser;
+#ifndef DONT_HAVE_MULLE_SCION_CACHING
+   
+   BOOL               isCaching;
+   NSString           *cachePath;
+   
+   isCaching = [MulleGetClass( self) isCacheEnabled];
+   
+   cachePath = [self cachePathForPath:fileName];
+   if( cachePath)
    {
-      name      = [[fileName lastPathComponent] stringByDeletingPathExtension];
-      cacheDir  = [MulleGetClass( self) cacheDirectory];
-      if( ! cacheDir)
-         cacheDir = [fileName stringByDeletingLastPathComponent];
-      
-      if( ! [cacheDir length])
-         cacheDir = @".";
-      cachePath = [cacheDir stringByAppendingPathComponent:name];
-      cachePath = [cachePath stringByAppendingPathExtension:@"scionz"];
-      
       self = [self initWithContentsOfArchive:cachePath];
       if( self)
          return( self);
@@ -181,6 +293,47 @@ static id   acquirePropertyList( NSString *s)
    }
    
    parser = [MulleScionParser parserWithContentsOfFile:fileName];
+   self   = [[parser template] retain];
+   
+#ifndef DONT_HAVE_MULLE_SCION_CACHING
+   if( isCaching)
+   {
+      if( ! [self writeArchive:cachePath])
+      {
+         NSLog( @"Cache write to %@ failed, caching turned off", cachePath);
+         [MulleGetClass( self) setCacheEnabled:NO];
+      }
+   }
+#endif
+   return( self);
+}
+
+
+- (id) initWithContentsOfURL:(NSURL *) url
+{
+   MulleScionParser   *parser;
+#ifndef DONT_HAVE_MULLE_SCION_CACHING
+   
+   BOOL               isCaching;
+   NSString           *cachePath;
+   
+   isCaching = [MulleGetClass( self) isCacheEnabled];
+   
+   cachePath = [self cachePathForPath:[url path]];
+   if( cachePath)
+   {
+      self = [self initWithContentsOfArchive:cachePath];
+      if( self)
+         return( self);
+   }
+   else
+#endif
+   {
+      [self autorelease];
+      // self = nil;
+   }
+   
+   parser = [MulleScionParser parserWithContentsOfURL:url];
    self   = [[parser template] retain];
    
 #ifndef DONT_HAVE_MULLE_SCION_CACHING

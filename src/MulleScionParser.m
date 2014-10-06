@@ -71,6 +71,29 @@
 }
 
 
++ (MulleScionParser *) parserWithContentsOfURL:(NSURL *) url
+{
+   NSData            *data;
+   MulleScionParser  *parser;
+   NSError           *error;
+   
+   error = nil;
+   data  = [NSData dataWithContentsOfURL:url
+                                 options:NSDataReadingMappedIfSafe
+                                   error:&error];
+   if( ! data)
+   {
+      NSLog( @"%@", error);
+      [self autorelease];
+      return( nil);
+   }
+   
+   parser = [[[self alloc] initWithData:data
+                               fileName:[url path]] autorelease];
+   return( parser);
+}
+
+
 + (MulleScionParser *) parserWithContentsOfFile:(NSString *) path
 {
    NSData            *data;

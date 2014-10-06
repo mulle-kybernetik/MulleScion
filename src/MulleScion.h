@@ -42,6 +42,7 @@
 #import "MulleScionOutputProtocol.h"
 #import "MulleScionPrinter.h"
 #import "MulleScionParser.h"
+#import "MulleScionPrintingException.h"
 
 
 /*
@@ -65,21 +66,35 @@
 
 + (NSString *) descriptionWithTemplateFile:(NSString *) fileName
                                 dataSource:(id <MulleScionDataSource>) dataSource;
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                               dataSource:(id <MulleScionDataSource>) dataSource;
 
 + (NSString *) descriptionWithTemplateFile:(NSString *) fileName
                                 dataSource:(id <MulleScionDataSource>) dataSource
                             localVariables:(NSDictionary *) locals;
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                               dataSource:(id <MulleScionDataSource>) dataSource
+                           localVariables:(NSDictionary *) locals;
 
 + (NSString *) descriptionWithTemplateFile:(NSString *) fileName
                           propertyListFile:(NSString *) plistFileName
                             localVariables:(NSDictionary *) locals;
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                          propertyListURL:(NSURL *) plistUrl
+                            localVariables:(NSDictionary *) locals;
 
 + (NSString *) descriptionWithTemplateFile:(NSString *) fileName
                           propertyListFile:(NSString *) plistFileName;
++ (NSString *) descriptionWithTemplateURL:(NSURL *) url
+                          propertyListURL:(NSURL *) plistUrl;
 
 
 + (BOOL) writeToOutput:(id <MulleScionOutput>) output
           templateFile:(NSString *) fileName
+            dataSource:(id <MulleScionDataSource>) dataSource
+        localVariables:(NSDictionary *) locals;
++ (BOOL) writeToOutput:(id <MulleScionOutput>) output
+           templateURL:(NSURL *) url
             dataSource:(id <MulleScionDataSource>) dataSource
         localVariables:(NSDictionary *) locals;
 
