@@ -7,11 +7,20 @@
   used to parse {{ x = #<%$/&> }} because everything after "x " was
   ignored, but it was just too confusing in real life use.
  
+* simplified expansion of function functionality a bit. 
+  added NSStringFromRange to builtin-functions
+
+* added some NSURL methods for opening templates, which is more convenient on
+iOS
+
+* made built-in function in principle expandable to support user-written
+functions
 
 
 1848.9
 
 * added a podspec
+
 
 1848.8
 

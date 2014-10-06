@@ -6,4 +6,6 @@ xcuserdata/
 Build
 build
 *.gz
+*.uncrustify
+.idea/
 google-toolbox-for-mac/
