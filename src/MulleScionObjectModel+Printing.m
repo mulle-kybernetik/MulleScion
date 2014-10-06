@@ -43,6 +43,7 @@
 #import "MulleScionPrintingException.h"
 #import "MulleScionDataSourceProtocol.h"
 #import "NSObject+MulleScionDescription.h"
+#import "MulleCommonObjCRuntime.h"
 #if ! TARGET_OS_IPHONE
 # import <Foundation/NSDebug.h>
 # import <objc/objc-class.h>
@@ -73,6 +74,7 @@ NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
 NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
 NSString   *MulleScionShouldFilterPlainTextKey = @"__SHOULD_FILTER_PLAINTEXT__";
 NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
+NSString   *MulleScionFunctionTableKey        = @"__FUNCTION_TABLE__";
 NSString   *MulleScionCurrentLineKey          = @"__LINE__";
 NSString   *MulleScionRenderOutputKey         = @"__OUTPUT__";
 NSString   *MulleScionSelfReplacementKey      = @"__SELF_REPLACEMENT__";
@@ -333,14 +335,77 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
 }
 
 
-- (NSMutableDictionary *) localVariablesWithDefaultValues:(NSDictionary *) defaults
+
+
+static id  f_filter( id self, NSArray *arguments, NSMutableDictionary *locals)
 {
-   NSMutableDictionary   *locals;
+   NSString   *string;
+   id         value;
    
-   locals = [NSMutableDictionary dictionaryWithDictionary:defaults];
+   MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
+   value  = MulleScionPrintingValidatedArgument( arguments, 0, Nil, locals);
+   string = [value mulleScionDescriptionWithLocalVariables:locals];
+   string = MulleScionFilteredString( string, locals, self);
+   return( string);
+}
 
-   initLineNumber( locals);
 
+static id  f_defined( id self, NSArray *arguments, NSMutableDictionary *locals)
+{
+   id     value;
+   BOOL   flag;
+   
+   MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
+   value = MulleScionPrintingValidatedArgument( arguments, 0, [NSString class], locals);
+   flag  = [self mulleScionValueForKeyPath:value
+                            localVariables:locals] != nil;
+   if( ! flag)
+      flag = [locals valueForKeyPath:value] != nil;
+   return( [NSNumber numberWithBool:flag]);
+}
+
+
+static id  f_NSMakeRange( id self, NSArray *arguments, NSMutableDictionary *locals)
+{
+   NSRange   range;
+   
+   MulleScionPrintingValidateArgumentCount( arguments, 2, locals);
+   range.location = [MulleScionPrintingValidatedArgument( arguments, 0, [NSNumber class], locals) integerValue];
+   range.length   = [MulleScionPrintingValidatedArgument( arguments, 1, [NSNumber class], locals) integerValue];
+   
+   return( [NSValue valueWithRange:range]);
+}
+
+
+static id  f_NSStringFromRange( id self, NSArray *arguments, NSMutableDictionary *locals)
+{
+   NSRange   range;
+   
+   MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
+   range = [MulleScionPrintingValidatedArgument( arguments, 0, [NSValue class], locals) rangeValue];
+   return( NSStringFromRange( range));
+}
+
+
++ (NSMutableDictionary *) mulleScionDefaultBuiltinFunctionTable
+{
+   NSMutableDictionary  *dictionary;
+   
+   dictionary = [NSMutableDictionary dictionary];
+   [dictionary setObject:[NSValue valueWithPointer:f_NSStringFromRange]
+                  forKey:@"NSStringFromRange"];
+   [dictionary setObject:[NSValue valueWithPointer:f_NSMakeRange]
+                  forKey:@"NSMakeRange"];
+   [dictionary setObject:[NSValue valueWithPointer:f_defined]
+                  forKey:@"defined"];
+   [dictionary setObject:[NSValue valueWithPointer:f_filter]
+                  forKey:@"filter"];
+   return( dictionary);
+}
+
+
++ (void) setDefaultValuesOfLocalVariables:(NSMutableDictionary *) locals
+{
    // setup some often needed OS X constants
    [locals setObject:[NSNumber numberWithUnsignedLong:NSOrderedSame]
               forKey:@"NSOrderedSame"];
@@ -348,7 +413,7 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
               forKey:@"NSOrderedAscending"];
    [locals setObject:[NSNumber numberWithUnsignedLong:NSOrderedDescending]
               forKey:@"NSOrderedDescending"];
-
+   
    [locals setObject:[NSNumber numberWithUnsignedLong:NSASCIIStringEncoding]
               forKey:@"NSASCIIStringEncoding"];
    [locals setObject:[NSNumber numberWithUnsignedLong:NSISOLatin1StringEncoding]
@@ -361,9 +426,30 @@ static void   updateLineNumber( MulleScionObject *self, NSMutableDictionary *loc
               forKey:@"NSUTF8StringEncoding"];
    [locals setObject:[NSNumber numberWithUnsignedLong:NSUTF32StringEncoding]
               forKey:@"NSUTF32StringEncoding"];
-
+   
    [locals setObject:[NSNumber numberWithUnsignedLong:NSNotFound]
               forKey:@"NSNotFound"];
+}
+
+
+- (NSMutableDictionary *) localVariablesWithDefaultValues:(NSDictionary *) defaults
+{
+   NSMutableDictionary   *locals;
+   
+   locals = [NSMutableDictionary dictionary];
+
+   // built in first
+   [MulleGetClass( self) setDefaultValuesOfLocalVariables:locals];
+
+   // user defaults later
+   [locals addEntriesFromDictionary:defaults];
+
+   initLineNumber( locals);
+
+   // do not override user function table
+   if( ! [locals objectForKey:MulleScionFunctionTableKey])
+      [locals setObject:[MulleGetClass( self) mulleScionDefaultBuiltinFunctionTable]
+                 forKey:MulleScionFunctionTableKey];
    
 #if defined( HAVE_TRACE)
    isTracing = getenv( "MulleScionTrace") != NULL;
@@ -507,17 +593,18 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
    NSEnumerator           *rover;
    NSMutableArray         *array;
    MulleScionExpression   *expr;
-   id                     value;
+   id                     argument;
    id                     result;
    
    array = [NSMutableArray array];
    rover = [arguments_ objectEnumerator];
    while( expr = [rover nextObject])
    {
-      value = [expr valueWithLocalVariables:locals
-                                 dataSource:dataSource];
-      [array addObject:value];
+      argument = [expr valueWithLocalVariables:locals
+                                    dataSource:dataSource];
+      [array addObject:argument];
    }
+   
    result = [dataSource mulleScionFunction:value_
                                  arguments:array
                            localVariables:locals];
@@ -737,7 +824,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 #ifdef _C_BOOL
       case _C_BOOL     : result = [NSNumber numberWithBool:*(BOOL *) buf]; break;
 #endif
-      default          : result = [NSNumber value:buf withObjCType:returnType]; break;
+      default          : result = [NSValue value:buf withObjCType:returnType]; break;
       }
    }
    pop( pool, result);
@@ -2081,6 +2168,7 @@ static NSBundle  *search( NSFileManager *manager, NSString *identifier, NSString
 
    [bundle retain];
    [pool release];
+
    return( [bundle autorelease]);
 }
 

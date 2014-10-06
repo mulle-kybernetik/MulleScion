@@ -139,13 +139,13 @@
    return( s);
 }
 
-
+    
 - (id) mulleScionFunction:(NSString *) identifier
                 arguments:(NSArray *) arguments
            localVariables:(NSMutableDictionary *) locals
 {
-   id      value;
-   BOOL    flag;
+   id             (*f)( id self, NSArray *arguments, NSMutableDictionary *locals);
+   NSDictionary   *functions;
    
    NSParameterAssert( [identifier isKindOfClass:[NSString class]]);
    NSParameterAssert( ! arguments || [arguments isKindOfClass:[NSArray class]]);
@@ -153,46 +153,18 @@
    
    [locals setObject:identifier
               forKey:MulleScionCurrentFunctionKey];
-
-   if( [identifier isEqualToString:@"defined"])
-   {
-      MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
-      value = MulleScionPrintingValidatedArgument( arguments, 0, [NSString class], locals);
-      flag  = [self mulleScionValueForKeyPath:value
-                               localVariables:locals] != nil;
-      if( ! flag)
-         flag = [locals valueForKeyPath:value] != nil;
-      return( [NSNumber numberWithBool:flag]);
-   }
-
-   if( [identifier isEqualToString:@"NSMakeRange"])
-   {
-      NSRange   range;
-      
-      MulleScionPrintingValidateArgumentCount( arguments, 2, locals);
-      range.location = [MulleScionPrintingValidatedArgument( arguments, 0, [NSNumber class], locals) integerValue];
-      range.length   = [MulleScionPrintingValidatedArgument( arguments, 1, [NSNumber class], locals) integerValue];
-      
-      return( [NSValue valueWithRange:range]);
-   }
    
-   // same as {{}} but returns length of output string
-   
-   if( [identifier isEqualToString:@"filter"])
-   {
-      NSString   *string;
+   functions = [locals objectForKey:@"__FUNCTION_TABLE__"];
+   f = [[functions objectForKey:identifier] pointerValue];
+   if( f)
+      return( (*f)( self, arguments, locals));
 
-      MulleScionPrintingValidateArgumentCount( arguments, 1, locals);
-      value  = MulleScionPrintingValidatedArgument( arguments, 0, Nil, locals);
-      string = [value mulleScionDescriptionWithLocalVariables:locals];
-      string = MulleScionFilteredString( string, locals, self);
-      return( string);
-   }
    [NSException raise:NSInvalidArgumentException
                format:@"\"%@\" %@: unknown function \"%@\"",
     [locals valueForKey:MulleScionCurrentFileKey],
     [locals valueForKey:MulleScionCurrentLineKey],
     [locals valueForKey:MulleScionCurrentFunctionKey]];
+   
    return( nil);
 }
 

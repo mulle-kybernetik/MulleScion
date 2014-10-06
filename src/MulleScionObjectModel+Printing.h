@@ -52,6 +52,7 @@ extern NSString   *MulleScionRenderOutputKey;
 extern NSString   *MulleScionCurrentFileKey;
 extern NSString   *MulleScionCurrentLineKey;
 extern NSString   *MulleScionCurrentFunctionKey;
+extern NSString   *MulleScionFunctionTableKey;
 extern NSString   *MulleScionArgumentsKey;
 extern NSString   *MulleScionVersionKey;
 extern NSString   *MulleScionShouldFilterPlainTextKey;
@@ -67,6 +68,7 @@ extern NSString   *MulleScionOddKey;
 @interface MulleScionTemplate ( Printing)
 
 - (NSMutableDictionary *) localVariablesWithDefaultValues:(NSDictionary *) defaults;
++ (NSMutableDictionary *) mulleScionDefaultBuiltinFunctionTable;
 
 @end
 
