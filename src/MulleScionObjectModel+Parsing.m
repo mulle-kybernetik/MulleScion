@@ -34,7 +34,6 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-
 #import "MulleScionObjectModel+Parsing.h"
 
 
@@ -94,7 +93,6 @@
 
 
 @implementation MulleScionTemplate (Parsing)
-
 
 - (BOOL) snarfsScion
 {
