@@ -32,7 +32,7 @@ Here is a simple example, where ObjC code is embedded in a template:
  
 	<html>
 	<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on 
-        {{ [NSDate date]] }} -->
+        {{ [NSDate date] }} -->
 	<body>
 	{% for item in [NSTimeZone knownTimeZoneNames] %}
 	    {% if item#.isFirst %}
