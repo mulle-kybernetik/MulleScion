@@ -38,9 +38,10 @@
 #import "MulleScionNull.h"
 
 
+@implementation _MulleScionNull
+
 id   MulleScionNull;
 
-@implementation _MulleScionNull
 
 + (void) load
 {
@@ -77,7 +78,7 @@ id   MulleScionNull;
 }
 
 
-- (NSString *) description
++ (NSString *) description
 {
    return( @"nil");
 }
