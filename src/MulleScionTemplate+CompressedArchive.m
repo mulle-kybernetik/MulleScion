@@ -62,7 +62,8 @@ typedef struct
    uint64_t   size;
    uint8_t    bits;
    uint8_t    endian;
-   uint8_t    unused[ 2];
+   uint8_t    coding;  // 1: keyed encoding  0: archive
+   uint8_t    unused[ 1];
 } archive_header;
 
 
@@ -123,37 +124,51 @@ static inline uint64_t  ntohq( uint64_t value)
 // write it down in compressed format. Should be good for large pages
 // containing a lot of text
 //
-static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **pool)
+static BOOL   get_archive_metadata( archive_header *header, uint64_t length, BOOL *isCompressed,  BOOL *isKeyed, NSUInteger *p_length)
 {
-   NSData              *data;
-   archive_header      *header;
-   uint64_t            length;
-   NSRange             range;
-   BOOL                isCompressed;
-   
-   data   = [NSData dataWithContentsOfMappedFile:fileName];
-   length = [data length];
    if( length < sizeof( archive_header))
-      return( nil);
+      return( NO);
    
-   header = (archive_header *) [data bytes];
-   isCompressed = ! strcmp( header->version, current_compressed_version);
-   if( ! isCompressed && strcmp( header->version, current_version))
-      return( nil);
-
-   length = ntohq( header->size);
-   if( (NSUInteger) length != length)
+   *isCompressed = ! strcmp( header->version, current_compressed_version);
+   if( ! *isCompressed && strcmp( header->version, current_version))
+      return( NO);
+   *isKeyed  = header->coding;
+   length    = ntohq( header->size);
+   *p_length = (NSUInteger) length;
+   if( *p_length != length)
    {
       NSLog( @"archive too large for this machine");
-      return( nil);
+      return( NO);
    }
+   return( YES);
+}
+
+
+static inline BOOL   get_archive_metadata_from_data( NSData *data, BOOL *isCompressed, BOOL *isKeyed, NSUInteger *p_length)
+{
+   return( get_archive_metadata( (archive_header *) [data bytes], [data length], isCompressed, isKeyed, p_length));
+}
+
+
+static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **pool)
+{
+   NSData     *data;
+   NSUInteger length;
+   NSRange    range;
+   BOOL       isCompressed;
+   BOOL       isKeyed;
    
-   range = NSMakeRange( sizeof( archive_header), (NSUInteger) length - sizeof( archive_header));
+   data = [NSData dataWithContentsOfMappedFile:fileName];
+   if( ! get_archive_metadata_from_data( data, &isCompressed, &isKeyed, &length))
+      return( nil);
+   
+   range = NSMakeRange( sizeof( archive_header), length - sizeof( archive_header));
    data  = [data subdataWithRange:range];
+   
    if( isCompressed)
    {
 #if HAVE_ZLIB
-      data = [data decompressedDataUsingZLib:(NSUInteger) length];
+      data = [data decompressedDataUsingZLib:length];
       
       [data retain];
       [*pool release];
@@ -163,11 +178,57 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
       return( nil);
 #endif
    }
+   
+   if( isKeyed)
+      return( [[NSKeyedUnarchiver unarchiveObjectWithData:data] retain]);
+   
 #if TARGET_OS_IPHONE  // much slower...
-   return( [[NSKeyedUnarchiver unarchiveObjectWithData:data] retain]);
+   NSLog( @"unsupported archive");
+   return( nil);
 #else
    return( [[NSUnarchiver unarchiveObjectWithData:data] retain]);
 #endif
+}
+
+
++ (BOOL) isArchivedTemplatePath:(NSString *) path
+                   isCompressed:(BOOL *) isCompressed
+{
+   archive_header   header;
+   NSUInteger       dummy2;
+   int              fd;
+   BOOL             dummy;
+   BOOL             rval;
+   
+   if( ! isCompressed)
+      isCompressed = &dummy;
+   
+   rval = NO;
+   fd = open( [path fileSystemRepresentation], O_RDONLY);
+   if( fd < 0)
+      return( rval);
+  
+   rval = read( fd, &header, sizeof( archive_header)) == sizeof( archive_header);
+   if( rval)
+      rval = get_archive_metadata( &header, sizeof( archive_header), isCompressed, &dummy, &dummy2);
+   close( fd);
+
+   return( rval);
+}
+
+
++ (BOOL) isArchivedTemplatePath:(NSString *) path
+{
+   NSString  *extension;
+   
+   extension = [path pathExtension];
+   if( [extension isEqualToString:@"scion"])
+      return( NO);
+   if( [extension isEqualToString:@"scionz"]);
+      return( YES);
+   
+   return( [self isArchivedTemplatePath:path
+                           isCompressed:NULL]);
 }
 
 
@@ -187,8 +248,8 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
 
 
 - (BOOL) writeArchive:(NSString *) fileName
+                keyed:(BOOL) keyed
 {
-
    BOOL               flag;
    NSAutoreleasePool  *pool;
    NSData             *payload;
@@ -197,12 +258,16 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    archive_header     *header;
    char               *version;
    
-   pool    = [NSAutoreleasePool new];
+   pool = [NSAutoreleasePool new];
    
 #if TARGET_OS_IPHONE  // probably much slower...
+   NSParameterAssert( keyed);
    payload = [NSKeyedArchiver archivedDataWithRootObject:self];
 #else
-   payload = [NSArchiver archivedDataWithRootObject:self];
+   if( keyed)
+      payload = [NSKeyedArchiver archivedDataWithRootObject:self];
+   else
+      payload = [NSArchiver archivedDataWithRootObject:self];
 #endif
 
    length  = [payload length];
@@ -220,6 +285,7 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    header->size   = htonq( length);
    header->bits   = sizeof( NSUInteger);  // memorize architecture
    header->endian = BYTE_ORDER == LITTLE_ENDIAN;
+   header->coding = keyed;
    
    [data appendData:payload];
    flag = [data writeToFile:fileName
@@ -227,6 +293,18 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    [pool release];
    
    return( flag);
+}
+
+
+- (BOOL) writeArchive:(NSString *) fileName
+{
+#if TARGET_OS_IPHONE
+   return( [self writeArchive:fileName
+                        keyed:YES]);
+#else
+   return( [self writeArchive:fileName
+                        keyed:NO]);
+#endif
 }
 
 @end

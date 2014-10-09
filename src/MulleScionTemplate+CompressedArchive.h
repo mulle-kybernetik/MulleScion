@@ -37,10 +37,23 @@
 
 #import "MulleScionObjectModel.h"
 
-
+//
+// keyed encoding, at least in my experience is slower than
+// just parsing the template file new (!)
+//
 @interface MulleScionTemplate ( CompressedArchive)
 
 - (id) initWithContentsOfArchive:(NSString *) fileName;
 - (BOOL) writeArchive:(NSString *) fileName;
+
+- (BOOL) writeArchive:(NSString *) fileName
+                keyed:(BOOL) keyed;
+                
+// this opens the file and checks the archive header
++ (BOOL) isArchivedTemplatePath:(NSString *) path
+                   isCompressed:(BOOL *) isCompressed;
+
+// this checks extension first and believes
++ (BOOL) isArchivedTemplatePath:(NSString *) path;
 
 @end

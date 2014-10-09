@@ -38,6 +38,7 @@
 #import "MulleScion.h"
 #import "MulleMongoose.h"
 #import "MulleScionObjectModel+MulleMongoose.h"
+#import "MulleScionTemplate+CompressedArchive.h"
 #import "NSFileHandle+MulleOutputFileHandle.h"
 
 
@@ -198,10 +199,13 @@ static NSString  *processName( void)
 
 static void   usage( void)
 {
-   fprintf( stderr, "%s [-w] <template> [bundle|plist|-|none] [-|outputfile] [arguments]\n", [processName() cString]);
+   fprintf( stderr, "%s [-w|-z] <template> [bundle|plist|-|none] [-|outputfile] [arguments]\n", [processName() cString]);
    fprintf( stderr, "v%s\n", MulleScionFrameworkVersion);
    fprintf( stderr,
-   "\t-w       : start webserver for /tmp/MulleScionDox\n\n"
+   "\t-w       : start webserver for /tmp/MulleScionDox\n"
+   "\t-z       : write compressed archive to outputfile\n"
+   "\t-Z       : write compressed keyed archive to outputfile (for IOS)\n"
+   "\n"
    "\ttemplate : a MulleScion template\n"
    "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
    "\tplist    : any kind of property list, see: plist(5)\n\n"
@@ -210,12 +214,9 @@ static void   usage( void)
 }
 
 
-
-static NSDictionary  *getInfoFromArguments( void)
+static NSDictionary  *getInfoFromEnumerator( NSEnumerator *rover)
 {
-   NSArray               *arguments;
    NSString              *plistName;
-   NSEnumerator          *rover;
    NSString              *processName;
    NSString              *templateName;
    NSString              *outputName;
@@ -224,8 +225,6 @@ static NSDictionary  *getInfoFromArguments( void)
    NSArray               *argv;
    
    info         = [NSMutableDictionary dictionary];
-   arguments    = [[NSProcessInfo processInfo] arguments];
-   rover        = [arguments objectEnumerator];
    processName  = [[rover nextObject] lastPathComponent];
    templateName = [rover nextObject];
    plistName    = [rover nextObject];
@@ -260,6 +259,15 @@ static NSDictionary  *getInfoFromArguments( void)
 usage:
    usage();
    return( nil);
+}
+
+
+static NSDictionary  *getInfoFromArguments( void)
+{
+   NSArray   *arguments;
+   
+   arguments = [[NSProcessInfo processInfo] arguments];
+   return( getInfoFromEnumerator( [arguments objectEnumerator]));
 }
 
 
@@ -299,6 +307,53 @@ static void  loadBundles( void)
          exit( 1);
       }
    }
+}
+
+
+static int   _archive_main( int argc, const char * argv[], int keyed)
+{
+   NSDictionary         *info;
+   MulleScionTemplate   *template;
+   NSString             *fileName;
+   NSString             *archiveName;
+   NSEnumerator         *rover;
+   NSArray              *arguments;
+   
+   arguments = [[NSProcessInfo processInfo] arguments];
+   rover     = [arguments objectEnumerator];
+   [rover nextObject];  // skip -z
+
+   info = getInfoFromEnumerator( rover);
+   if( ! info)
+      return( -3);
+
+   archiveName = [info objectForKey:@"output"];
+   if( [archiveName isEqualToString:@"-"])
+      return( -3);
+   
+   //
+   // if fileName stars with '{' assume, that it's a command line template
+   //
+   fileName    = [info objectForKey:@"MulleScionRootTemplate"];
+   if( [fileName hasPrefix:@"{"])
+      template = [[[MulleScionTemplate alloc] initWithString:fileName] autorelease];
+   else
+      template = [[[MulleScionTemplate alloc] initWithFile:fileName] autorelease];
+
+   if( ! template)
+   {
+      NSLog( @"Template \"%@\" could not be read", fileName);
+      return( -1);
+   }
+   
+   if( ! [template writeArchive:archiveName
+                          keyed:keyed])
+   {
+      NSLog( @"Archive \"%@\" could not be written", archiveName);
+      return( -1);
+   }
+   
+   return( 0);
 }
 
 
@@ -354,6 +409,13 @@ int main( int argc, const char * argv[])
          return( 0);
       }
 #endif
+
+      if( ! strcmp( argv[ 1], "-z"))
+         return( _archive_main( argc, argv, NO));
+
+      if( ! strcmp( argv[ 1], "-Z"))
+         return( _archive_main( argc, argv, YES));
+
       if( ! strcmp( argv[ 1], "-h") || ! strcmp( argv[ 1], "--help"))
       {
          usage();
@@ -377,5 +439,3 @@ NS_ENDHANDLER
 # endif
    return( rval);
 }
-
-

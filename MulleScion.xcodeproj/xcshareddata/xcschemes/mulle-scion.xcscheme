@@ -73,8 +73,12 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./tests/expressions/functions/filter.scion"
+            argument = "-z /tmp/keyed.scionz none /tmp/x.dat"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "./tests/expressions/functions/filter.scion"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/tmp/MulleScionDrakeTemp.scion /Volumes/Source/srcC/Dienstag/Teamgeist/build/Products/Debug/TeamgeistModel.bundle "

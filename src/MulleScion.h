@@ -57,7 +57,7 @@
  */
 @interface MulleScionTemplate ( Convenience)
 
-// use initWithContentsOfArchive for scionz files
+- (id) initWithFile:(NSString *) fileName;  // template or archive
 
 - (id) initWithContentsOfFile:(NSString *) fileName;  // template
 
@@ -104,6 +104,12 @@
 
 @end
 
+//
+// caching and keyed encoding is not useful on iOS
+//
+#ifdef TARGET_OS_IPHONE
+# define DONT_HAVE_MULLE_SCION_CACHING
+#endif
 
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
 

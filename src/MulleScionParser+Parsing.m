@@ -1067,9 +1067,9 @@ static inline MulleScionExpression * NS_RETURNS_RETAINED  parser_do_unary_expres
 
 static NSMutableDictionary  *parser_do_dictionary( parser *p)
 {
+   NSMutableDictionary    *dict;
    MulleScionExpression   *expr;
    MulleScionExpression   *keyExpr;
-   NSMutableDictionary    *dict;
    unsigned char           c;
    
    NSCParameterAssert( parser_peek_character( p) == '{');
@@ -1121,9 +1121,9 @@ static NSMutableDictionary  *parser_do_dictionary( parser *p)
    
 static NSMutableArray   *parser_do_array_or_arguments( parser *p, int allow_arguments)
 {
+   NSMutableArray                   *array;
    MulleScionExpression             *expr;
    MulleScionIdentifierExpression   *key;
-   NSMutableArray                   *array;
    unsigned char                    c;
    
    parser_skip_peeked_character( p, '(');
@@ -1199,23 +1199,23 @@ static NSMutableArray   *parser_do_arguments( parser *p)
    
 static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
 {
-   MulleScionExpression   *expr;
-   MulleScionExpression   *target;
-   NSMutableArray         *arguments;
    NSMutableString        *selBuf;
    NSString              *selName;
+   NSMutableArray         *arguments;
    NSUInteger             line;
+   MulleScionExpression   *target;
+   MulleScionExpression   *expr;
    int                    hasColon;
    unsigned char          c;
    
    parser_skip_peeked_character( p, '[');
    parser_skip_whitespace( p);
    
-   line     = p->memo.lineNumber;
-   target   = parser_do_expression( p);
+   line   = p->memo.lineNumber;
+   target = parser_do_expression( p);
+   
    hasColon = parser_grab_text_until_selector_end( p, YES);
    selName  = parser_get_string( p);
-
    if( ! selName)
       parser_error( p, "a selector was expected");
    
@@ -1272,10 +1272,10 @@ static MulleScionObject  * NS_RETURNS_RETAINED parser_expand_macro_with_argument
                                                               NSArray *arguments,
                                                               NSUInteger line)
 {
-   MulleScionObject     *obj;
-   MulleScionTemplate   *body;
-   NSAutoreleasePool    *pool;
-   NSDictionary         *parameters;
+   MulleScionTemplate  *body;
+   NSDictionary        *parameters;
+   MulleScionObject    *obj;
+   NSAutoreleasePool   *pool;
 
    pool       = [NSAutoreleasePool new];
    parameters = [macro parametersWithArguments:arguments
@@ -1298,8 +1298,8 @@ static MulleScionObject  * NS_RETURNS_RETAINED parser_expand_macro_with_argument
 
 static MulleScionObject  * NS_RETURNS_RETAINED parser_do_function_or_macro( parser *p, NSString *identifier)
 {
-   MulleScionMacro   *macro;
-   NSMutableArray    *arguments;
+   NSMutableArray   *arguments;
+   MulleScionMacro  *macro;
    
    NSCParameterAssert( parser_peek_character( p) == '(');
    
@@ -1440,10 +1440,10 @@ static MulleScionSelector * NS_RETURNS_RETAINED  parser_do_selector(  parser *p)
 //return( parser_do_assignment( p, s));
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_macro( parser *p, int allowMacroCall)
 {
-   MulleScionExpression   *expr;
-   NSString               *s;
-   int                    hasAt;
-   unsigned char          c;
+   NSString              *s;
+   unsigned char         c;
+   MulleScionExpression  *expr;
+   int                   hasAt;
    
    parser_skip_whitespace( p);
 
@@ -2241,10 +2241,10 @@ static MulleScionSet  * NS_RETURNS_RETAINED parser_do_set( parser *p, NSUInteger
 
 static MulleScionObject  * NS_RETURNS_RETAINED parser_do_implicit_set( parser *p, MulleScionExpression * NS_CONSUMED lexpr, NSUInteger line)
 {
-   MulleScionExpression   *expr;
-   NSString               *identifier;
-   char                   *suggestion;
-   unsigned char          c;
+   MulleScionExpression  *expr;
+   unsigned char         c;
+   char                  *suggestion;
+   NSString              *identifier;
    
    NSCParameterAssert( [lexpr isFunction] || [lexpr isIndexing] || [lexpr isIdentifier]);
    
@@ -2285,8 +2285,8 @@ static MulleScionFor  * NS_RETURNS_RETAINED parser_do_for( parser *p, NSUInteger
 
 static MulleScionIf  * NS_RETURNS_RETAINED parser_do_if( parser *p, NSUInteger line)
 {
-   MulleScionExpression      *expr;
    assignment_or_expr_info   info;
+   MulleScionExpression      *expr;
    int                       is_assignment;
 
    init_assignment_or_expr_info( &info, "=", YES);
@@ -2308,8 +2308,8 @@ static MulleScionIf  * NS_RETURNS_RETAINED parser_do_if( parser *p, NSUInteger l
 // while expr || while lexpr = expr
 static MulleScionWhile  * NS_RETURNS_RETAINED parser_do_while( parser *p, NSUInteger line)
 {
-   MulleScionExpression      *expr;
    assignment_or_expr_info   info;
+   MulleScionExpression      *expr;
    int                       is_assignment;
    
    init_assignment_or_expr_info( &info, "=", YES);
@@ -2374,13 +2374,13 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
 
 static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NSUInteger line)
 {
-   MulleScionFunction   *function;
-   MulleScionMacro      *macro;
-   MulleScionObject     *last;
-   MulleScionObject     *node;
-   MulleScionTemplate   *root;
-   NSString             *identifier;
-   macro_type           last_type;
+   MulleScionTemplate  *root;
+   MulleScionFunction  *function;
+   macro_type          last_type;
+   MulleScionObject    *node;
+   MulleScionObject    *last;
+   MulleScionMacro     *macro;
+   NSString            *identifier;
    
    if( p->inMacro)
       parser_error( p, "no macro definitions in a macro definition.");
@@ -2534,11 +2534,11 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_print( parser *p, NSU
 
 static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
 {
-   MulleScionExpression   *expr;
-   MulleScionOpcode       op;
-   NSString               *identifier;
    NSUInteger             line;
    unsigned char          c;
+   MulleScionOpcode       op;
+   MulleScionExpression   *expr;
+   NSString               *identifier;
 
    line = p->lineNumber;
    
@@ -2750,11 +2750,11 @@ retry:
 
 static MulleScionObject  *_parser_next_object( parser *p,  MulleScionObject *owner, macro_type *last_type)
 {
-   MulleScionObject   *next;
-   NSString           *s;
-   macro_type         type;
-   parser_memo        plaintext_end;
-   parser_memo        plaintext_start;
+   MulleScionObject    *next;
+   parser_memo         plaintext_start;
+   parser_memo         plaintext_end;
+   NSString            *s;
+   macro_type          type;
 
 retry:
    next     = nil;

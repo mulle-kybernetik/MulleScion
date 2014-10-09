@@ -1,3 +1,27 @@
+1848.11
+
+*** This can break archived templates on iOS, regenerate them ***
+
+* mulle-scion has now a -z option to output compiled templates. While testing
+I found out, that when I use NSKeyedArchiver it's actually slower than parsing
+plain text and uses more space even compressed.
+
+Compile plaintext * 100
+-rw-r--r--  1 nat  _lpoperator  198016 Oct  9 17:00 big.scion
+
+real	0m8.528s
+
+Compile unkeyed * 100
+-rw-r--r--  1 nat  wheel  75983 Oct  9 17:25 /tmp/unkeyed.scionz
+real	0m8.680s
+
+Compile keyed * 100
+-rw-r--r--  1 nat  wheel  750347 Oct  9 17:25 /tmp/keyed.scionz
+real	0m25.497s
+
+If you are on iOS it's most likely better to not use archives and caching!
+
+
 1848.10
 
 *** This can break currently working templates, that contain unnoticed 

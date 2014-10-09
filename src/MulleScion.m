@@ -48,6 +48,7 @@
 #define _STRINGIFY(x) #x
 #define STRINGIFY(x) _STRINGIFY( x)
 
+
 char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 
 
@@ -79,7 +80,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 {
    MulleScionTemplate   *template;
    
-   template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
+   template = [[[MulleScionTemplate alloc] initWithFile:fileName] autorelease];
    if( ! template)
       return( NO);
    
@@ -239,32 +240,15 @@ static id   acquirePropertyListURL( NSURL *url)
 }
 
 
-//
-// bug: can't deal with templates of same name in different subdirectories
-// should hash the path and use that as a cache-filename
-//
-- (NSString *) cachePathForPath:(NSString *) fileName
+- (id) initWithFile:(NSString *) fileName
 {
-   BOOL               isCaching;
-   NSString           *cacheDir;
-   NSString           *cachePath;
-   NSString           *name;
+   MulleScionTemplate  *template;
    
-   isCaching = [MulleGetClass( self) isCacheEnabled];
-   if( ! isCaching)
-      return( nil);
-   
-   name      = [[fileName lastPathComponent] stringByDeletingPathExtension];
-   cacheDir  = [MulleGetClass( self) cacheDirectory];
-   if( ! cacheDir)
-      cacheDir = [fileName stringByDeletingLastPathComponent];
-   
-   if( ! [cacheDir length])
-      cacheDir = @".";
-   cachePath = [cacheDir stringByAppendingPathComponent:name];
-   cachePath = [cachePath stringByAppendingPathExtension:@"scionz"];
-   
-   return( cachePath);
+   if( [MulleScionTemplate isArchivedTemplatePath:fileName])
+      template = [[[MulleScionTemplate alloc] initWithContentsOfArchive:fileName] autorelease];
+   else
+      template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
+   return( template);
 }
 
 
@@ -447,6 +431,35 @@ static BOOL  checkCacheDirectory( NSString *path)
       }
 #endif
    [pool release];
+}
+
+
+//
+// bug: can't deal with templates of same name in different subdirectories
+// should hash the path and use that as a cache-filename
+//
+- (NSString *) cachePathForPath:(NSString *) fileName
+{
+   BOOL               isCaching;
+   NSString           *cacheDir;
+   NSString           *cachePath;
+   NSString           *name;
+   
+   isCaching = [MulleGetClass( self) isCacheEnabled];
+   if( ! isCaching)
+      return( nil);
+   
+   name      = [[fileName lastPathComponent] stringByDeletingPathExtension];
+   cacheDir  = [MulleGetClass( self) cacheDirectory];
+   if( ! cacheDir)
+      cacheDir = [fileName stringByDeletingLastPathComponent];
+   
+   if( ! [cacheDir length])
+      cacheDir = @".";
+   cachePath = [cacheDir stringByAppendingPathComponent:name];
+   cachePath = [cachePath stringByAppendingPathExtension:@"scionz"];
+   
+   return( cachePath);
 }
 
 
