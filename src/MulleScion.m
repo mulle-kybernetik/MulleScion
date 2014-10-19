@@ -36,10 +36,7 @@
 
 
 #import "MulleScion.h"
-#import "MulleScionPrinter.h"
-#import "MulleScionParser.h"
 #import "MulleScionTemplate+CompressedArchive.h"
-#import "MulleCommonObjCRuntime.h"
 
 #ifndef PROJECT_VERSION
 # error "specify project version on command line -DPROJECT_VERSION=1848.x"
@@ -102,7 +99,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
    if( ! template)
       return( nil);
    return( [template descriptionWithDataSource:dataSource
-                                localVariables:(NSDictionary *) locals]);
+                                localVariables:locals]);
 }
 
 
@@ -116,7 +113,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
    if( ! template)
       return( nil);
    return( [template descriptionWithDataSource:dataSource
-                                localVariables:(NSDictionary *) locals]);
+                                localVariables:locals]);
 }
 
 
@@ -218,7 +215,7 @@ static id   acquirePropertyListURL( NSURL *url)
    if( ! plist)
       return( nil);
    return( [template descriptionWithDataSource:plist
-                                localVariables:(NSDictionary *) locals]);
+                                localVariables:locals]);
 }
 
 
@@ -242,13 +239,12 @@ static id   acquirePropertyListURL( NSURL *url)
 
 - (id) initWithFile:(NSString *) fileName
 {
-   MulleScionTemplate  *template;
-   
    if( [MulleScionTemplate isArchivedTemplatePath:fileName])
-      template = [[[MulleScionTemplate alloc] initWithContentsOfArchive:fileName] autorelease];
+      self = [self initWithContentsOfArchive:fileName];
    else
-      template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
-   return( template);
+      self = [self initWithContentsOfFile:fileName];
+
+   return( self);
 }
 
 

@@ -39,7 +39,6 @@
 
 #import "MulleScionObjectModel+Printing.h"
 #import "MulleScionPrintingException.h"
-#import "NSObject+MulleScionDescription.h"
 
 
 @interface NSObject ( OldMethods)
@@ -144,7 +143,7 @@
                 arguments:(NSArray *) arguments
            localVariables:(NSMutableDictionary *) locals
 {
-   id             (*f)( id self, NSArray *arguments, NSMutableDictionary *locals);
+   id             (*f)( id, NSArray *, NSMutableDictionary *);
    NSDictionary   *functions;
    
    NSParameterAssert( [identifier isKindOfClass:[NSString class]]);

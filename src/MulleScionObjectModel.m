@@ -197,6 +197,32 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 @implementation MulleScionTemplate
 
+#if DEBUG
+- (void) dealloc
+{
+   [super dealloc];
+}
+
+
+- (void) release
+{
+   [super release];
+}
+
+- (id) retain
+{
+   return( [super retain]);
+}
+
+
+- (id) autorelease
+{
+   return( [super autorelease]);
+}
+
+#endif
+
+
 - (id) initWithFilename:(NSString *) name
 {
    NSParameterAssert( ! name || [name isKindOfClass:[NSString class]]);

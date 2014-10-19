@@ -41,7 +41,6 @@
 #import "MulleMutableLineNumber.h"
 #import "MulleScionNull.h"
 #import "MulleScionPrintingException.h"
-#import "MulleScionDataSourceProtocol.h"
 #import "NSObject+MulleScionDescription.h"
 #import "MulleCommonObjCRuntime.h"
 #if ! TARGET_OS_IPHONE
@@ -370,8 +369,8 @@ static id  f_NSMakeRange( id self, NSArray *arguments, NSMutableDictionary *loca
    NSRange   range;
    
    MulleScionPrintingValidateArgumentCount( arguments, 2, locals);
-   range.location = [MulleScionPrintingValidatedArgument( arguments, 0, [NSNumber class], locals) integerValue];
-   range.length   = [MulleScionPrintingValidatedArgument( arguments, 1, [NSNumber class], locals) integerValue];
+   range.location = [MulleScionPrintingValidatedArgument( arguments, 0, [NSNumber class], locals) unsignedIntegerValue];
+   range.length   = [MulleScionPrintingValidatedArgument( arguments, 1, [NSNumber class], locals) unsignedIntegerValue];
    
    return( [NSValue valueWithRange:range]);
 }
@@ -387,6 +386,18 @@ static id  f_NSStringFromRange( id self, NSArray *arguments, NSMutableDictionary
 }
 
 
+static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary *locals)
+{
+   NSString   *s1;
+
+   MulleScionPrintingValidateArgumentCount( arguments, 2, locals);
+   
+   s1 = MulleScionPrintingValidatedArgument( arguments, 0, [NSString class], locals);
+
+   return( NSLocalizedString( s1, nil));
+}
+
+
 + (NSMutableDictionary *) mulleScionDefaultBuiltinFunctionTable
 {
    NSMutableDictionary  *dictionary;
@@ -396,6 +407,8 @@ static id  f_NSStringFromRange( id self, NSArray *arguments, NSMutableDictionary
                   forKey:@"NSStringFromRange"];
    [dictionary setObject:[NSValue valueWithPointer:f_NSMakeRange]
                   forKey:@"NSMakeRange"];
+   [dictionary setObject:[NSValue valueWithPointer:f_NSLocalizedString]
+                  forKey:@"NSLocalizedString"];
    [dictionary setObject:[NSValue valueWithPointer:f_defined]
                   forKey:@"defined"];
    [dictionary setObject:[NSValue valueWithPointer:f_filter]
@@ -1278,13 +1291,11 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 @implementation MulleScionIf ( Printing)
 
-static Class  _nsNumberClass;
 static Class  _nsStringClass;
 
 
 + (void) load
 {
-   _nsNumberClass = [NSNumber class];
    _nsStringClass = [NSString class];
 }
 
@@ -1822,7 +1833,7 @@ done:
    TRACE_EVAL_CONT( self, otherValue);
    
    if( [value respondsToSelector:@selector( objectAtIndex:)])
-      result = [value objectAtIndex:[otherValue integerValue]]; // must be a NSNumber or NSString (?)
+      result = [value objectAtIndex:[otherValue unsignedIntegerValue]]; // must be a NSNumber or NSString (?)
    else
       if( [value respondsToSelector:@selector( objectForKey:)])
       {
@@ -1866,7 +1877,7 @@ done:
    
    if( [value respondsToSelector:@selector( objectAtIndex:)])
    {
-      index = [otherValue integerValue];
+      index = [otherValue unsignedIntegerValue];
       n     = [value count];
       while( index > n)
       {

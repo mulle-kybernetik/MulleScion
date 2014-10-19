@@ -129,7 +129,7 @@ static BOOL fileExists( NSString *fileName)
       rover = [components objectEnumerator];
       while( pair = [rover nextObject])
       {
-         components = [options componentsSeparatedByString:@"="];
+         components = [pair componentsSeparatedByString:@"="];
          key        = [components objectAtIndex:0];
          value      = @"";
          

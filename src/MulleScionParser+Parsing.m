@@ -98,14 +98,12 @@ typedef struct _parser
    parser_memo          memo_interesting;
    
    MulleScionObject     *first;
-   macro_type           type;
-   
+
    void                 (*parser_do_error)( id self, SEL sel, NSString *filename, NSUInteger line, NSString *message);
    id                   self;
    SEL                  sel;
    int                  skipComments;
    int                  inMacro;
-   int                  allowMacroCall;
    int                  wasMacroCall;
    NSString             *fileName;
    NSMutableDictionary  *blocksTable;
@@ -1579,7 +1577,6 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
    MulleScionExpression          *right;
    unsigned char                 operator;
 
-redo:
    parser_skip_whitespace( p);
    
    /* get the operator */

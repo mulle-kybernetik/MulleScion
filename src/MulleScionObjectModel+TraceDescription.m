@@ -327,7 +327,7 @@ static Class   NSPlaceholderStringClass;
    return( value_ ? [value_ _expressionDescription] : @"<nil>");
 }
 
-- (NSString *) _templateExpression
+- (NSString *) _templateDescription
 {
    return( value_ ? [value_ _expressionDescription] : @"<nil>");
 }

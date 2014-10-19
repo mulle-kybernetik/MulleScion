@@ -47,8 +47,15 @@ static NSDictionary  *getInfoFromArguments( void);
 static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
 
 
+@interface NSObject( MulleScionDataSource)
+
+- (id) mulleScionDataSource;
+
+@end
+
+
 @interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
-   @end
+@end
 
 
 @implementation NSFileHandle ( MulleScionOutput)
@@ -159,9 +166,9 @@ static id   acquireDataSourceFromBundle( NSString *s)
 
 static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
 {
-   NSData    *data;
-   NSString  *error;
-   id        plist;
+   NSData     *data;
+   NSString   *error;
+   id         plist;
    
    if( [s isEqualToString:@"none"])
       return( [NSDictionary dictionary]);
@@ -216,16 +223,15 @@ static void   usage( void)
 
 static NSDictionary  *getInfoFromEnumerator( NSEnumerator *rover)
 {
-   NSString              *plistName;
-   NSString              *processName;
-   NSString              *templateName;
-   NSString              *outputName;
-   id                    plist;
-   NSMutableDictionary   *info;
    NSArray               *argv;
+   NSMutableDictionary   *info;
+   NSString              *outputName;
+   NSString              *plistName;
+   NSString              *templateName;
+   id                    plist;
    
    info         = [NSMutableDictionary dictionary];
-   processName  = [[rover nextObject] lastPathComponent];
+   [rover nextObject];  // skip
    templateName = [rover nextObject];
    plistName    = [rover nextObject];
    outputName   = [rover nextObject];
@@ -312,12 +318,12 @@ static void  loadBundles( void)
 
 static int   _archive_main( int argc, const char * argv[], int keyed)
 {
-   NSDictionary         *info;
    MulleScionTemplate   *template;
-   NSString             *fileName;
-   NSString             *archiveName;
-   NSEnumerator         *rover;
    NSArray              *arguments;
+   NSDictionary         *info;
+   NSEnumerator         *rover;
+   NSString             *archiveName;
+   NSString             *fileName;
    
    arguments = [[NSProcessInfo processInfo] arguments];
    rover     = [arguments objectEnumerator];
@@ -359,8 +365,8 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 
 static int   _main(int argc, const char * argv[])
 {
-   NSFileHandle        *stream;
-   NSDictionary        *info;
+   NSDictionary   *info;
+   NSFileHandle   *stream;
    
    info = getInfoFromArguments();
    if( ! info)

@@ -224,7 +224,7 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    extension = [path pathExtension];
    if( [extension isEqualToString:@"scion"])
       return( NO);
-   if( [extension isEqualToString:@"scionz"]);
+   if( [extension isEqualToString:@"scionz"])
       return( YES);
    
    return( [self isArchivedTemplatePath:path
