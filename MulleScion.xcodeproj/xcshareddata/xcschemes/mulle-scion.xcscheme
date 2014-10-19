@@ -48,7 +48,7 @@
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "NO">
       <PreActions>
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
@@ -69,74 +69,14 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-w"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-z /tmp/keyed.scionz none /tmp/x.dat"
+            argument = "/tmp/MulleScionistTemp.scion"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "./tests/expressions/functions/filter.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "/tmp/MulleScionDrakeTemp.scion /Volumes/Source/srcC/Dienstag/Teamgeist/build/Products/Debug/TeamgeistModel.bundle "
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "/tmp/turn-on-trace.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "../MulleScionDrake/src/Resources/default.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./examples/Build/Products/Debug/ExampleDatasource.bundle"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./tests/syntax/inline-print.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./tests/commands/define/define-1.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./tests/commands/includes/includes.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./tests/commands/for/array-for.scion "
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./dox/set.scion"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "./tests/commands/for/default.plist"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "none"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "MulleScionCacheDirectory"
-            value = "/tmp/cache"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "START_WEBSERVER"
-            value = "YES"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
          <AdditionalOption
             key = "DYLD_INSERT_LIBRARIES"

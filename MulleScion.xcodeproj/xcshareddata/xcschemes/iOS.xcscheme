@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "415DA5B9182BCAB500F654F7"
-               BuildableName = "iOS"
+               BuildableName = "IOS"
                BlueprintName = "iOS"
                ReferencedContainer = "container:MulleScion.xcodeproj">
             </BuildableReference>
