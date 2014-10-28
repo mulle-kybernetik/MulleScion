@@ -176,14 +176,14 @@ static inline void   TRACE_EVAL_END( MulleScionObject *self, id value)
 static inline void   TRACE_EVAL_CONT( MulleScionObject *self, id value)
 {
    if( ! isTracing)
-      return
-      _TRACE_EVAL_CONT( self, value);
+      return;
+   _TRACE_EVAL_CONT( self, value);
 }
 
 static inline void   TRACE_EVAL_BEGIN_END( MulleScionObject *self, id value, id result)
 {
    if( ! isTracing)
-      return
+      return;
    _TRACE_EVAL_BEGIN_END( self, value, result);
 }
 

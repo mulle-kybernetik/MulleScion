@@ -4,7 +4,7 @@
 
 * mulle-scion has now a -z option to output compiled templates. While testing
 I found out, that when I use NSKeyedArchiver it's actually slower than parsing
-plain text and uses more space even compressed.
+plain text and uses more space - even compressed.
 
 Compile plaintext * 100
 -rw-r--r--  1 nat  _lpoperator  198016 Oct  9 17:00 big.scion
@@ -20,6 +20,8 @@ Compile keyed * 100
 real	0m25.497s
 
 If you are on iOS it's most likely better to not use archives and caching!
+
+Fix erroneous trace output, which was always happening.
 
 
 1848.10
