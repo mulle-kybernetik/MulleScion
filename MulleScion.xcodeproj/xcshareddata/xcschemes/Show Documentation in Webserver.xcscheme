@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "41770103190175F6002D0221"
-               BuildableName = "Show Documentation in Webserver"
+               BuildableName = "Show Documentation in Browser"
                BlueprintName = "Show Documentation in Browser"
                ReferencedContainer = "container:MulleScion.xcodeproj">
             </BuildableReference>
