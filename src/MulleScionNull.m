@@ -41,11 +41,12 @@
 @implementation _MulleScionNull
 
 id   MulleScionNull;
-
+id   MulleScionZero;
 
 + (void) load
 {
    MulleScionNull = self;
+   MulleScionZero = [[NSNumber alloc] initWithInt:0];
 }
 
 
@@ -58,17 +59,23 @@ id   MulleScionNull;
 }
 
 
-+ (BOOL) isEqual:(id) other
++ (BOOL) mulleScionIsEqual:(id) other
 {
-   return( self == other);
+   if( [other isKindOfClass:[NSNumber class]])
+      return( [MulleScionZero isEqualToNumber:other]);
+   // because it's zero
+   return( NO);
 }
 
 
-+ (BOOL) compare:(id) other
++ (NSComparisonResult) mulleScionCompare:(id) other
 {
    if( self == other)
       return( NSOrderedSame);
-   return( self < other ? NSOrderedAscending : NSOrderedDescending);
+   if( [other isKindOfClass:[NSNumber class]])
+      return( [MulleScionZero compare:other]);
+   // NSOrderedSame because it's zero
+   return( NSOrderedSame);
 }
 
 

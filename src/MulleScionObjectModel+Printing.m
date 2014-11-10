@@ -1669,6 +1669,26 @@ done:
 
 #pragma mark -
 
+@implementation NSObject( MulleScionComparison)
+
+- (BOOL) mulleScionIsEqual:(id) other
+{
+   if( other == MulleScionNull)
+      return( [MulleScionNull mulleScionIsEqual:self]);
+   return( [self isEqual:other]);
+}
+
+
+- (NSComparisonResult) mulleScionCompare:(id) other
+{
+   if( other == MulleScionNull)
+      return( - [MulleScionNull mulleScionCompare:self]);
+   return( [self compare:other]);
+}
+
+@end
+
+
 @implementation MulleScionComparison ( Printing)
 
 - (id) evaluateValue:(id) value
@@ -1690,11 +1710,11 @@ done:
    
    switch( comparison_)
    {
-      case MulleScionEqual    : flag = [value isEqual:otherValue]; break;
-      case MulleScionNotEqual : flag = ! [value isEqual:otherValue]; break;
+      case MulleScionEqual    : flag = [value mulleScionIsEqual:otherValue]; break;
+      case MulleScionNotEqual : flag = ! [value mulleScionIsEqual:otherValue]; break;
 
       default                 :
-         comparisonResult = [value compare:otherValue];
+         comparisonResult = [value mulleScionCompare:otherValue];
          switch( comparisonResult)
          {
          case NSOrderedSame       :
