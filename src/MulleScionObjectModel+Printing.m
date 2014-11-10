@@ -1458,18 +1458,21 @@ static BOOL  isTrue( id value)
    NSParameterAssert( value);
    
    TRACE_EVAL_CONT( right_, value);
-   
-   if( [value isKindOfClass:[NSEnumerator class]])
-      rover = value;
-   else
+   rover = nil;
+   if( value != MulleScionNull)
    {
-      if( [value respondsToSelector:@selector( keyEnumerator)])
-         rover = [value keyEnumerator];
+      if( [value isKindOfClass:[NSEnumerator class]])
+         rover = value;
       else
       {
-         if( ! [value respondsToSelector:@selector( objectEnumerator)])
-            value = [[[NSArray alloc] initWithObjects:value, nil] autorelease];
-         rover = [value objectEnumerator];
+         if( [value respondsToSelector:@selector( keyEnumerator)])
+            rover = [value keyEnumerator];
+         else
+         {
+            if( ! [value respondsToSelector:@selector( objectEnumerator)])
+               value = [[[NSArray alloc] initWithObjects:value, nil] autorelease];
+            rover = [value objectEnumerator];
+         }
       }
    }
 
