@@ -773,8 +773,9 @@ static void   *numberBuffer( char *type, NSNumber *value)
       if( value == dataSource) // plug security hole
          MulleScionPrintingException( NSInvalidArgumentException, locals,
                                      @"You can't use the dataSource as an argument");
-      
-      
+      if( value == MulleScionNull)
+         value = nil;
+         
       // type = id_type;  // ok, varargs with non-objects won't work
       // if( i < m)
       {

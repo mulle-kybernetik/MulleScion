@@ -23,7 +23,9 @@ If you are on iOS it's most likely better to not use archives and caching!
 
 Fix erroneous trace output, which was always happening.
 
-Fix bug, where for i in nil would iterate once
+Fix bug, where "for i in nil" would iterate once
+
+Fix bug, where MulleScionNull was passed as invocation argument
 
 
 1848.10
