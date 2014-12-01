@@ -9,3 +9,5 @@ build
 *.uncrustify
 .idea/
 google-toolbox-for-mac/
+*.xxx
+tests/compare-parse-speed-to-unarchive-speed.sh

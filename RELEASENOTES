@@ -1,7 +1,7 @@
 
 1851.0
 
-*** BIG CHANGE ELSEFOR IN FOR-ELSEFOR-ENDFOR ***
+*** BIG CHANGE!!! ELSEFOR INSTEAD OF ELSE IN FOR-ENDFOR ***
 
 I messed up, when I "designed" aka hacked in the {% for else endfor %} feature
 it doesn't work, when there is a {% if else endif %} contained in the loop.
