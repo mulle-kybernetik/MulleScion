@@ -93,6 +93,7 @@ Here is a more complex example, that lists the available NSTimeZones.
 {# render an old skool HTML table #}
 {% MulleScionEven = "#DDDDDD" %}
 {% MulleScionOdd  = "#FFFFFF" %}
+{% if [[NSTimeZone knownTimeZoneNames] count] > 0 %}
 {% for item in [NSTimeZone knownTimeZoneNames] %}
     {% if item#.isFirst %}
 <table>
@@ -102,15 +103,10 @@ Here is a more complex example, that lists the available NSTimeZones.
     {% if item#.isLast %}
 </table>
     {% endif %}
+{% endfor %}
 {% else %}
 Sorry, no timezone info available.
-{% endfor %}
-
-{# just check that else works #}
-{% for item in @() %}
-Ees not possible!
-{% else %}
-Empty array
+{% endif %}
 </body>
 </html>
 

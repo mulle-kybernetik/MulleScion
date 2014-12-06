@@ -42,7 +42,7 @@
 
 + (void) load
 {
-   [self setVersion:1850];  // sry had to change something, old stuff not loading anymore
+   [self setVersion:1851];  // sry had to change something, old stuff not loading anymore
 }
 
 

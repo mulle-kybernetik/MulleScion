@@ -1,3 +1,17 @@
+
+1851.0
+
+*** BIG CHANGE ELSEFOR IN FOR-ELSEFOR-ENDFOR ***
+
+I messed up, when I "designed" aka hacked in the {% for else endfor %} feature
+it doesn't work, when there is a {% if else endif %} contained in the loop.
+So else needs to be renamed to elsefor in this case.
+
+To keep in sync with the archive version, the version nr. has been bumped to
+1851.
+
+
+
 1848.11
 
 *** This can break archived templates on iOS, regenerate them ***

@@ -1,0 +1,7 @@
+{%
+   for item in nil
+      {{ item.name }}
+   elsefor
+      {{ "no items" }}
+   endfor 
+ %}

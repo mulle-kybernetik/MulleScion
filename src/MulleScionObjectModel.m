@@ -133,6 +133,12 @@
 }
 
 
+- (Class) elseClass
+{
+   return( Nil);
+}
+
+
 - (NSUInteger) lineNumber
 {
    return( lineNumber_);
@@ -796,27 +802,27 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 - (MulleScionObject *) terminateToEnd:(MulleScionObject *) curr
 {
-   Class        cls;
+   Class        selfCls;
+   Class        currCls;
    Class        terminatorCls;
    NSUInteger   stack;
    
    stack         = 1;
    terminatorCls = [self terminatorClass];
    
+   selfCls = MulleGetClass( self);
    for( ; curr; curr = curr->next_)
    {
-      cls = [curr class];
-      if( cls == MulleGetClass( self))
+      currCls = MulleGetClass( curr);
+      if( currCls == selfCls)
       {
          ++stack;
          continue;
       }
       
-      if( cls == terminatorCls)
-      {
+      if( currCls == terminatorCls)
          if( ! --stack)
             return( curr);
-      }
    }
    return( curr);
 }
@@ -826,27 +832,31 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 
 - (MulleScionObject *) terminateToElse:(MulleScionObject *) curr
 {
-   Class        cls;
+   Class        selfCls;
+   Class        currCls;
+   Class        elseCls;
    Class        terminatorCls;
    NSUInteger   stack;
    
    stack         = 1;
    terminatorCls = [self terminatorClass];
+   elseCls       = [self elseClass];
    
+   selfCls = MulleGetClass( self);
    for( ; curr; curr = curr->next_)
    {
-      cls = [curr class];
-      if( cls == MulleGetClass( self))
+      currCls = MulleGetClass( curr);
+      if( currCls == selfCls)
       {
          ++stack;
          continue;
       }
       
-      if( [curr isElse])
+      if( currCls == elseCls)
          if( stack == 1)
             return( curr);
       
-      if( cls == terminatorCls)
+      if( currCls == terminatorCls)
          if( ! --stack)
             return( curr);
    }
@@ -921,6 +931,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( [MulleScionEndFor class]);
 }
 
+
+- (Class) elseClass
+{
+   return( [MulleScionElseFor class]);
+}
+
 @end
 
 
@@ -976,6 +992,11 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 }
 
 
+- (Class) elseClass
+{
+   return( [MulleScionElse class]);
+}
+
 @end
 
 
@@ -988,6 +1009,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( YES);
 }
 
+@end
+
+
+#pragma mark -
+
+@implementation MulleScionElseFor
 @end
 
 

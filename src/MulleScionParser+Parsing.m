@@ -1791,6 +1791,7 @@ typedef enum
    BlockOpcode,
    DefineOpcode,
    ElseOpcode,
+   ElseforOpcode,
    EndblockOpcode,
    EndfilterOpcode,
    EndforOpcode,
@@ -1808,7 +1809,7 @@ typedef enum
    RequiresOpcode,
    SetOpcode,
    VerbatimOpcode,
-   WhileOpcode
+   WhileOpcode,
 } MulleScionOpcode;
 
 
@@ -1819,6 +1820,7 @@ static char   *mnemonics[] =
    "block",
    "define",
    "else",
+   "elsefor",
    "endblock",
    "endfilter",
    "endfor",
@@ -1858,7 +1860,8 @@ static int   _parser_opcode_for_string( parser *p, NSString *s)
    case 6 : if( [s isEqualToString:@"define"]) return( DefineOpcode);
             if( [s isEqualToString:@"endfor"]) return( EndforOpcode);
             if( [s isEqualToString:@"filter"]) return( FilterOpcode); break;
-   case 7 : if( [s isEqualToString:@"extends"]) return( ExtendsOpcode); break;
+   case 7 : if( [s isEqualToString:@"extends"]) return( ExtendsOpcode);
+            if( [s isEqualToString:@"elsefor"]) return( ElseforOpcode); break;
    case 8 : if( [s isEqualToString:@"endblock"]) return( EndblockOpcode);
             if( [s isEqualToString:@"endwhile"]) return( EndwhileOpcode);
             if( [s isEqualToString:@"endmacro"]) return( EndmacroOpcode);
@@ -1920,9 +1923,9 @@ static void  parser_do_whole_block_to_block_table( parser *p)
       parser_error( p, "an identifier was expected");
    parser_finish_command( p);
    
-   block     = [MulleScionBlock newWithIdentifier:identifier
-                                         fileName:p->fileName
-                                       lineNumber:p->memo.lineNumber];
+   block = [MulleScionBlock newWithIdentifier:identifier
+                                     fileName:p->fileName
+                                   lineNumber:p->memo.lineNumber];
    assert( block);
    
    stack     = 1;
@@ -2168,6 +2171,7 @@ static MulleScionMethodCall  *NS_RETURNS_RETAINED parser_do_method_call( parser 
    return( [MulleScionMethodCall newWithRetainedExpression:expr
                                                 lineNumber:line]);
 }
+
 
 typedef struct
 {
@@ -2555,6 +2559,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
          case BlockOpcode    : return( parser_do_block( p, line));
          case DefineOpcode   : return( parser_do_define( p, line));
          case ElseOpcode     : return( [MulleScionElse newWithLineNumber:line]);
+         case ElseforOpcode  : return( [MulleScionElseFor newWithLineNumber:line]);
          case EndblockOpcode : return( [MulleScionEndBlock newWithLineNumber:line]);
          case EndfilterOpcode: return( [MulleScionEndFilter newWithLineNumber:line]);
          case EndforOpcode   : return( [MulleScionEndFor newWithLineNumber:line]);

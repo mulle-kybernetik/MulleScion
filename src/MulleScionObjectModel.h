@@ -393,6 +393,10 @@ typedef enum
 @end
 
 
+@interface MulleScionElseFor : MulleScionElse
+@end
+
+
 @interface MulleScionEndIf : MulleScionTerminator
 @end
 
