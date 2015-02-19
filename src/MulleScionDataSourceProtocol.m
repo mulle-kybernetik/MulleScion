@@ -98,7 +98,7 @@
 - (id) mulleScionMethodSignatureForSelector:(SEL) sel
                                      target:(id) target
 {
-   if( sel == @selector( poseAs:))
+   if( sel == @selector( poseAs:) || sel == @selector( poseAsClass:))
       [NSException raise:NSInvalidArgumentException
                   format:@"death to all posers :)"];
    

@@ -161,7 +161,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    NSArray           *result;
    MulleScionArray   *copy;
    
-   result = replaceVariablesWithIdentifierInArray(  self->value_, identifier, expr);
+   result = replaceVariablesWithIdentifierInArray( self->value_, identifier, expr);
    if( ! result)
       return( nil);
    
@@ -332,8 +332,8 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
    if( ! copy2)
       copy2 = [right_ copyWithZone:NULL];
    copy  = [MulleGetClass( self) newWithRetainedLeftExpression:copy1
-                      retainedRightExpression:copy2
-                                   lineNumber:[self lineNumber]];
+                                       retainedRightExpression:copy2
+                                                    lineNumber:[self lineNumber]];
    return( copy);
 }
 

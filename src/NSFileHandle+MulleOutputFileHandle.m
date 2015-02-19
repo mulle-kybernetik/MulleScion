@@ -14,17 +14,20 @@
                                             selector:(SEL) sel
 {
    NSFileHandle   *stream;
+   NSFileManager  *manager;
    
    if( [outputName isEqualToString:@"-"])
       return( [NSFileHandle performSelector:sel]);
-   [[NSFileManager defaultManager] createFileAtPath:outputName
-                                           contents:[NSData data]
-                                         attributes:nil];
+
+   manager = [NSFileManager defaultManager];
+   [manager createFileAtPath:outputName
+                    contents:[NSData data]
+                  attributes:nil];
    stream = [NSFileHandle fileHandleForWritingAtPath:outputName];
    if( ! stream)
-      [[NSFileManager defaultManager] createFileAtPath:outputName
-                                              contents:[NSData data]
-                                            attributes:nil];
+      [manager createFileAtPath:outputName
+                       contents:[NSData data]
+                     attributes:nil];
    else
       [stream truncateFileAtOffset:0];
    
