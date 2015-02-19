@@ -1,5 +1,5 @@
 #### Example
-````
+```
 [{% verbatim %}[
 This just grabs all data between "{% verbatim %}" and "{% endverbatim %}" and
 doesn't interpret it.
@@ -8,6 +8,6 @@ doesn't interpret it.
 
 ]{% endverbatim %}]
 Back to business: {{ name }}
-````
+```
 
 Can verbatim/endverbatim be used in multi-line statements ? Preferably not.

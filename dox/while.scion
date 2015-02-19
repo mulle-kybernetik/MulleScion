@@ -1,5 +1,5 @@
 #### Example
-````
+```
 {# render an old skool HTML table with while #}
 <table>
    <tr><th>TimeZone</th></tr>
@@ -8,4 +8,4 @@
    <tr><td>{{ item }}</td></tr>
 {% endwhile %}
 </table>
-````
+```

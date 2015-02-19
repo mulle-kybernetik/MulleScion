@@ -101,7 +101,7 @@
    NSMutableString   *buf;
    NSArray      *components;
    
-   components = [self componentsSeparatedByString:@"````"];  // 4 * '`'
+   components = [self componentsSeparatedByString:@"```"];  // 3 * '`'
    n = [components count];
    if( n <= 1)
       return( [self hoedownedString]);

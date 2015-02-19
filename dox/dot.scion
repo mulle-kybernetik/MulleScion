@@ -2,15 +2,15 @@ Dots between identifiers without spaces are your usual key value coding
 keypath. 
 
 #### Example 1
-````
+```
 {{ bag.a }}
-````
+```
 
 If you leave spaces between the dots, the functionality expands, so
 that you can interpose arbitrary objects
 
 #### Example 2
-````
+```
 {# Then you can also interpose methods if you want  #}
 {%
    z = [NSDictionary dictionaryWithObject:@"VfL Bochum 1848" forKey:@"c"]
@@ -19,6 +19,6 @@ that you can interpose arbitrary objects
    {{ x . a . b .c }}
    {{ x . a . [self objectForKey:@"b"] . c }}
 %}
-````
+```
 
 <cite>See [properties.plist](properties.plist) for the values used in this example.</cite>

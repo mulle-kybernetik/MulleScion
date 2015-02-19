@@ -3,8 +3,8 @@ the template and you need **NSRange**: there is a **NSMakeRange** function
 built in.
 
 #### Example
-````
+```
 {{ [@"VfL Bochum 1848" substringWithRange:NSMakeRange( 4, 6)] }}
 {# stupid pet tricks, achived by a category on NSValue #}
 {{ [@"VfL Bochum 1848" rangeOfString:@"18"].location }}
-````
+```

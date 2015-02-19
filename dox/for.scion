@@ -1,11 +1,11 @@
 This is an example of a ``for`` loop over an array.
 
 #### Example 1
-````
+```
 {% for item in @( "a", @"b", @"c") %}
 <b>{{ item }}</b>
 {% endfor %}
-````
+```
 
 You can write out the data in a more formatted kind of way, thanks to some
 built-in special variables that are used during a ``for`` loop.
@@ -39,15 +39,15 @@ Name                       | Description
 `MulleScionForCloser`      | The value for item#.footer for the last loop iteration
 
 #### Example 2
-````
+```
 {% MulleScionForOpener    = "[" %}
 {% MulleScionForSeparator = "/" %}
 {% MulleScionForCloser    = "]" %}
 {% for item in @( 1, 2, 3 ) %}{{ item#.header }}{{ item }}{{ item#.footer }}{% endfor %}
-````
+```
 
 #### Example 3
-````
+```
 {%
    MulleScionForOpener    = "OPEN"
    MulleScionForSeparator = "SEPA"
@@ -57,7 +57,7 @@ Name                       | Description
 {% for item in @( @"a", @"b", @"c") %}
 i={{ item#.i }}, header={{ item#.header }}, footer={{ item#.footer }}, division={{ item#.division }}, modulo={{ item#.modulo }}, isEven={{ item#.isEven }}, isFirst={{ item#.isFirst }}, isLast={{ item#.isLast }}, evenOdd={{ item#.evenOdd }}
 {% endfor %}
-````
+```
 
 There are a few other variables, that can be helpful dealing with row coloring
 for example:
@@ -72,7 +72,7 @@ Name                             | Description
 
 
 #### Example 4
-````
+```
 {%
    MulleScionForSubdivisionLength = 2
    MulleScionForSubdivisionOpener = "-["
@@ -86,7 +86,7 @@ Name                             | Description
       {{ item#.header }}{{ item }}{{ item#.footer }}
    endfor
 %}
-````
+```
 
 If the array over which to iterate in the `for` loop is empty, you can detect
 this by using `elsefor`. Here is a more complex example, that lists the
@@ -94,7 +94,7 @@ available NSTimeZones, also using `elsefor` in case none are available.
 
 
 #### Example 5
-````
+```
 {% MulleScionEven = "#DDDDDD"
    MulleScionOdd  = "#FFFFFF"
  %}
@@ -110,6 +110,6 @@ available NSTimeZones, also using `elsefor` in case none are available.
 {% elsefor %}
 Sorry, no timezone info available.
 {% endfor %}
-````
+```
 
 

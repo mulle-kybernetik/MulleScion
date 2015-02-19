@@ -24,8 +24,7 @@ To keep in sync with the archive version, the version nr. has been bumped to
 
 Improved the dependencyTable generation, by ignoring syntax errors.
 
-The documentation is now in a somewhat proprietary markdown format, because
-I use ```` instead of ```, but it should be harmless. With some hacking effort
+The documentation is now in markdown format. With some hacking effort
 the builtin webserver can now show the "Results" much nicer.
 
 Stole a CSS to make it look more nicey, nicey.

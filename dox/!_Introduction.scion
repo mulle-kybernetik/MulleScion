@@ -37,36 +37,36 @@ expression. The expresssion is evaluated and the resulting value is added to
 the output.
 
 #### Example 1
-````
+```
 name={{ name }}
-````
+```
 
 Expressions can be postprocessed with pipes.
 
 #### Example 2
-````
+```
 when={{ name | lowercaseString }}
-````
+```
 
 Pipes can also contain ObjC calls with parameters, where the left side of the
 pipe is substituted for self in the right side.
 
 
 #### Example 3
-````
+```
 when={{ name | [self stringByReplacingOccurrencesOfString:@" 1848" withString:@""] }}
-````
+```
 
 ## Key Value Coding
 
 As that can become unwieldy, you can use a ``define`` to make common calls nicer to read.
 
 #### Example 4
-````
+```
 {% define no1848 = [self stringByReplacingOccurrencesOfString:@" 1848"
                                                    withString:@""] %}
 when={{ name | no1848 }}
-````
+```
 
 
 You have full key value coding available. With ``for`` loops can you iterate over
@@ -75,14 +75,14 @@ collections just like **NSEnumerator** (it is in an **NSEnumerator** internally 
 
 
 #### Example 5
-````
+```
 The bag contains {{ bag.@count }} entries
 {% if defined( "bag") %}
 {% for item in [bag allKeys] %}
    {{ [bag objectForKey:item] }}
 {% endfor %}
 {% endif %}
-````
+```
 
 But with dots separated by spaces you can do even more complicated KVC.
 
@@ -96,7 +96,7 @@ be written equivalently as
 
 
 #### Example 6
-````
+```
 The bag contains {{ bag.@count }} entries
 {%
    if defined( "bag")
@@ -105,7 +105,7 @@ The bag contains {{ bag.@count }} entries
       endfor
    endif
 %}
-````
+```
 
 Not all commands may appear in multiline commands. You can use
 

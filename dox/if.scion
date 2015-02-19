@@ -1,37 +1,37 @@
 ``if`` ``then`` ``else`` are you standard conditionals.
 
 #### Example 1
-````
+```
 {% if YES %}
 t
 {% else %}
 f
 {% endif %}
-````
+```
 The boolean operations are limited to ``not`` ``and`` ``or``. Read from left to
 right as there is no precedence. If you need precedence use parentheses.
 
 #### Example 2
-````
+```
 {% if not YES and YES or NO %}
 t
 {% else %}
 f
 {% endif %}
-````
+```
 
 #### Example 3
-````
+```
 {% if not( YES and (YES or NO)) %}
 t
 {% else %}
 f
 {% endif %}
-````
+```
 
 If you need `if` `then` `else` within an expression use the `?` `:` conditional.
 
 #### Example 4
-````
+```
 {{ YES ? "yes" : "no" }}/{{ NO ? "yes" : "no" }}
-````
+```

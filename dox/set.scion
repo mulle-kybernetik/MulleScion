@@ -2,11 +2,11 @@
 if you want.
 
 #### Example
-````
+```
 {% set foo = [NSMutableDictionary dictionary];
    foo[ @"key"] = @"a value"
 %}
 
 {{ foo[ @"key"] }}
-````
+```
 

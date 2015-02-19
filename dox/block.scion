@@ -3,16 +3,16 @@ isn't referenced anywhere else, nothing special happens and the contents are
 simply output.
 
 #### Example 1
-````
+```
 {% block myblock %}Like so my block{% endblock %}
-````
+```
 
 A `block` can share it's identifier, but this is more often than not a mistake :)
 
 #### Example 2
-````
+```
 {% block myblock %}Like this is so my other block{% endblock %}
-````
+```
 
 On it's own a `block`s contents are rendered as given into the template output.
 Only in conjunction with [`extends`](extends.scion?wrapper=_wrapper.scion) does

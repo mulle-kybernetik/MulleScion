@@ -44,7 +44,7 @@
    NSScanner         *scanner;
    
    // grab all stuff until # Example$
-   // throw it away, keep the header snarf up code until ```` has been
+   // throw it away, keep the header snarf up code until ``` has been
    // encountered a second time
    
    buf     = [NSMutableString string];
@@ -63,26 +63,26 @@
          s = [s substringFromIndex:range.location + 1];
       [buf appendString:s];
       
-      // scan up to first ```` and copy (including ````)
-      if( ! [scanner scanUpToString:@"````"
+      // scan up to first ``` and copy (including ```)
+      if( ! [scanner scanUpToString:@"```"
                          intoString:&s])
          break;
       [buf appendString:s];
-      [scanner scanString:@"````"
+      [scanner scanString:@"```"
                intoString:NULL];
-      [buf appendString:@"````"];
+      [buf appendString:@"```"];
       
-      // scan up to second ```` and copy (including ````)
+      // scan up to second ``` and copy (including ```)
       // weirdly code, because the NSScanner API is weird...
-      if( ! [scanner scanUpToString:@"````"
+      if( ! [scanner scanUpToString:@"```"
                          intoString:&s])
          s = @"";
-      if( ! [scanner scanString:@"````"
+      if( ! [scanner scanString:@"```"
                      intoString:NULL])
          break;
       
       [buf appendString:s];
-      [buf appendString:@"````\n"];
+      [buf appendString:@"```\n"];
    }
    
    return( buf);

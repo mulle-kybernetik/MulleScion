@@ -12,7 +12,7 @@ want to produce shell scripts using **MulleScion**.
 Lets run a simple example.
 
 #### Example
-````
+```
 {%
    file  = [NSFileHandle fileHandleForReadingAtPath:@"/etc/hostconfig"];
    data  = [file readDataToEndOfFile];
@@ -38,4 +38,4 @@ hostconfig:
 {% for key in [[dict allKeys] sortedArrayUsingSelector:@selector( compare:)] %}
    {{ key }} = {{ dict[ key] }}
 {% endfor %}
-````
+```

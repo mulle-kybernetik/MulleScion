@@ -1,5 +1,5 @@
 #### Example 1
-````
+```
 {%
    [NSDateFormatter setDefaultFormatterBehavior:1000]
    [NSNumberFormatter setDefaultFormatterBehavior:1000]
@@ -7,11 +7,11 @@
    MulleScionDateFormat = @"--%y/%m/%d--"
 %}
 {{ [NSDate date] }}
-````
+```
 
 #### Example 2
-````
+```
 {% MulleScionNumberFormat = @"#0.00" %}
 {{ [NSNumber numberWithDouble:0.1234] }}
-````
+```
 

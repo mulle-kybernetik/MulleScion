@@ -8,15 +8,15 @@ a file but doesn't parse it.
 Here we include the file **set.scion** and have the comments parsed away
 
 #### Example 1
-````
+```
 {% includes "__demo.scion" %}
-````
+```
 
 and the file included verbatim
 
 #### Example 2
-````
+```
 {% includes verbatim "__demo.scion" %}
-````
+```
 
 ``includes`` can't be used in multi-line statements.

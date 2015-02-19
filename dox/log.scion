@@ -5,8 +5,8 @@ stderr.
 So you will only see the output of log in your logfiles or stderr.
 
 #### Example
-````
+```
 {% log @"you won't see this" %}
-````
+```
 
 

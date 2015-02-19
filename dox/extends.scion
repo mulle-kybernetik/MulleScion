@@ -14,18 +14,18 @@ General rule: After an ``extends``, there should be only other ``extends``and
 ``block`` definitons.
 
 #### Example 1
-````
+```
 {% extends "__demo.scion" %}
 {% block demo %}<blockquote>We override the contents</blockquote>{% endblock %}
-````
+```
 
 The example shows how anything besides `block` and `extends` statements get
 ignored. Because of the `extends` in Example 1, the example won't even show. And
 the text you are reading is ignored by MulleScion as well.
 
 #### Example 2
-````
+```
 You won't see me.
-````
+```
 
 `extends` can't be used in multi-line statements.

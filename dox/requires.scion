@@ -3,9 +3,9 @@ identifier matches, then the bundle will get loaded. The idea is to be able to
 load available functionality to a standalone script.
 
 #### Example
-````
+```
 {% requires "com.apple.Foundation" %}
-````
+```
 
 requires searches in the following places:
 

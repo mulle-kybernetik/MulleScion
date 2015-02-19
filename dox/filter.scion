@@ -3,7 +3,7 @@
 to turn of filtering.
 
 #### Example 1
-````
+```
 {% filter lowercaseString|capitalizedString %}
 This is filtered and pushed through lowercaseString and then capitalizedString.
 {% filter uppercaseString %}
@@ -12,35 +12,35 @@ nesting.
    {% endfilter %}
 back to original.
 {% endfilter %}
-````
+```
 
 #### Example 2
-````
+```
 {% filter lowercaseString| [[self componentsSeparatedByString:@"/"] componentsJoinedByString:@"-"] %}
 THIS/IS/POSSIBLE
 {% endfilter %}
-````
+```
 
 There is also function `filter()` available. This will push a string argument
 through the currently active filter only (but not through the chain). If
 the filter ist stateful (like Hoedown), this may not produce an immediate result.
 
 #### Example 3
-````
+```
 {% filter uppercaseString %}
 {% lower=@"lower"
    upper = filter( lower) %}
 {% endfilter %}
 {{ lower }} becomes {{ upper }}
-````
+```
 
 You can give filter an array of keywords `output` and/or `plaintext` to tell it
 what to filter. The default is both.
 
 #### Example 4
-````
+```
 {% filter uppercaseString, (output) %}
 This won't get filtered, but {{ "this" }}. Convenient to wrap around HTML
 code for example and setting the filter to htmlEscapedString.
 {% endfilter %}
-````
+```
