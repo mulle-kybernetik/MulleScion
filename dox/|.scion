@@ -2,4 +2,7 @@ Pipes convert the left side to a string and then apply the right side to the
 string. The right side can be any method callable on NSString. But it can't have
 any parameters.
 
+#### Example 1
+````
 {{ @"A STRING" | lowercaseString | uppercaseString }}
+````

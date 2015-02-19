@@ -175,6 +175,7 @@
 		414A436F19040B530020C6FF /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
 		414A437019040B530020C6FF /* verbatim.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A516E397D800C4D68A /* verbatim.scion */; };
 		414A437119040B530020C6FF /* while.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF916DCFD9D00BFD60C /* while.scion */; };
+		415C401E1A9641010072B73A /* __demo.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 415C401D1A9641010072B73A /* __demo.scion */; };
 		415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA59B182BBB3B00F654F7 /* GTMDefines.h */; };
 		41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
 		41665B4B18D70811005DF9BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41665B4A18D70811005DF9BF /* libz.dylib */; };
@@ -185,12 +186,25 @@
 		41912E4D19C08147006B7183 /* MulleScionPrintingException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; };
 		41912E4E19C08155006B7183 /* MulleScionPrintingException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; };
 		41AC169B182D3CD700F2C8D8 /* NSObject+MulleScionDescription.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; };
+		41AE2D7E1A925817009E21CB /* __scion_style.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41AE2D7D1A92580D009E21CB /* __scion_style.scion */; };
 		41AEA207182D097300840887 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41AEA21B182D0A3A00840887 /* MulleScionObjectModel+Graphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */; };
 		41AEA22B182D20FB00840887 /* libMulleScionGraphviz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41AEA214182D097300840887 /* libMulleScionGraphviz.a */; };
 		41B07E261820215A0003B67F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		41B07E271820215A0003B67F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 414A842816E52DF50084AE1E /* LICENSE */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
+		41CFAFFE1A93E1E500B0783A /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF51A93E1E500B0783A /* autolink.c */; };
+		41CFAFFF1A93E1E500B0783A /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF61A93E1E500B0783A /* buffer.c */; };
+		41CFB0001A93E1E500B0783A /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF71A93E1E500B0783A /* document.c */; };
+		41CFB0011A93E1E500B0783A /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF81A93E1E500B0783A /* escape.c */; };
+		41CFB0021A93E1E500B0783A /* html_blocks.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF91A93E1E500B0783A /* html_blocks.c */; };
+		41CFB0031A93E1E500B0783A /* html_smartypants.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFFA1A93E1E500B0783A /* html_smartypants.c */; };
+		41CFB0041A93E1E500B0783A /* html.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFFB1A93E1E500B0783A /* html.c */; };
+		41CFB0051A93E1E500B0783A /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFFC1A93E1E500B0783A /* stack.c */; };
+		41CFB0061A93E1E500B0783A /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFFD1A93E1E500B0783A /* version.c */; };
+		41CFB0091A93E1FA00B0783A /* Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CFB0081A93E1FA00B0783A /* Hoedown.m */; };
+		41CFB00C1A93E21800B0783A /* Hoedown+MulleScionPrinting.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CFB00B1A93E21800B0783A /* Hoedown+MulleScionPrinting.m */; };
+		41CFB00F1A93E28F00B0783A /* NSData+Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CFB00E1A93E28F00B0783A /* NSData+Hoedown.m */; };
 		41D6DEDA16DE509E004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41D6DEE516DE50ED004833D6 /* MulleScionDataSourceProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */; };
 		41D6DEE616DE50EF004833D6 /* NSObject+MulleScionDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BAB16DA5E1600560FCF /* NSObject+MulleScionDescription.m */; };
@@ -237,6 +251,7 @@
 		41EC014C182D303500A17DBD /* MulleScionObjectModel+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD516E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m */; };
 		41EC014D182D303500A17DBD /* MulleScionObjectModel+BlockExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD216E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.m */; };
 		41EC014E182D303500A17DBD /* MulleScionObjectModel+MacroExpansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */; };
+		41F02ACB1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F02ACA1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m */; };
 		41F0CDD718296888000057D5 /* NSFileHandle+MulleOutputFileHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F12D4016E25B9100120E63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41F12D4116E25B9F00120E63 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4121DB0316DD2B6900BFD60C /* libz.dylib */; };
@@ -543,6 +558,7 @@
 				414A435819040B530020C6FF /* __page.scion in CopyFiles */,
 				414A435919040B530020C6FF /* __scion_page.scion in CopyFiles */,
 				414A435A19040B530020C6FF /* __scion_footer.scion in CopyFiles */,
+				41AE2D7E1A925817009E21CB /* __scion_style.scion in CopyFiles */,
 				414A435B19040B530020C6FF /* properties.plist in CopyFiles */,
 				414A435C19040B530020C6FF /* !_Introduction.scion in CopyFiles */,
 				414A435D19040B530020C6FF /* Formatting_Options.scion in CopyFiles */,
@@ -551,6 +567,7 @@
 				414A436019040B530020C6FF /* #!.scion in CopyFiles */,
 				414A436119040B530020C6FF /* [].scion in CopyFiles */,
 				414A436219040B530020C6FF /* |.scion in CopyFiles */,
+				415C401E1A9641010072B73A /* __demo.scion in CopyFiles */,
 				414A436319040B530020C6FF /* block.scion in CopyFiles */,
 				414A436419040B530020C6FF /* define.scion in CopyFiles */,
 				414A436519040B530020C6FF /* dot.scion in CopyFiles */,
@@ -670,6 +687,7 @@
 		410C7FD516E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Parsing.m"; sourceTree = "<group>"; };
 		411EEA9A182D30B600361ADF /* libMulleScionPrinter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionPrinter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		411EEAB5182D311F00361ADF /* libMulleScionFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		411F77F71A94A29B00307651 /* Hoedown+MulleScionPrinting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hoedown+MulleScionPrinting.h"; sourceTree = "<group>"; };
 		411F98AD16E0FBE600738250 /* Global_Variables.scion */ = {isa = PBXFileReference; lastKnownFileType = text; name = Global_Variables.scion; path = ../dox/Global_Variables.scion; sourceTree = "<group>"; };
 		4121DAF116DCE0FB00BFD60C /* for.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = for.scion; path = ../dox/for.scion; sourceTree = "<group>"; };
 		4121DAF916DCFD9D00BFD60C /* while.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = while.scion; path = ../dox/while.scion; sourceTree = "<group>"; };
@@ -698,6 +716,7 @@
 		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		415C401D1A9641010072B73A /* __demo.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __demo.scion; sourceTree = "<group>"; };
 		415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		415DA59B182BBB3B00F654F7 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../google-toolbox-for-mac/GTMDefines.h"; sourceTree = "<group>"; };
@@ -728,6 +747,7 @@
 		4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+MacroExpansion.h"; sourceTree = "<group>"; };
 		4178D2FC16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+MacroExpansion.m"; sourceTree = "<group>"; };
 		4190DC6C16DEC5F400FC4471 /* filter.scion */ = {isa = PBXFileReference; lastKnownFileType = text; name = filter.scion; path = ../dox/filter.scion; sourceTree = "<group>"; };
+		41AE2D7D1A92580D009E21CB /* __scion_style.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __scion_style.scion; sourceTree = "<group>"; };
 		41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Graphviz.m"; sourceTree = "<group>"; };
 		41AEA214182D097300840887 /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
@@ -735,6 +755,27 @@
 		41C04B2C182D2C2D00CD973E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		41CCC55C18254FB00081FA1C /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 		41CD2F0D181FE17300FBBEB4 /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
+		41CFAFEE1A93E1E500B0783A /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		41CFAFEF1A93E1E500B0783A /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		41CFAFF01A93E1E500B0783A /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		41CFAFF11A93E1E500B0783A /* escape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = escape.h; sourceTree = "<group>"; };
+		41CFAFF21A93E1E500B0783A /* html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html.h; sourceTree = "<group>"; };
+		41CFAFF31A93E1E500B0783A /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		41CFAFF41A93E1E500B0783A /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		41CFAFF51A93E1E500B0783A /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
+		41CFAFF61A93E1E500B0783A /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
+		41CFAFF71A93E1E500B0783A /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
+		41CFAFF81A93E1E500B0783A /* escape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = escape.c; sourceTree = "<group>"; };
+		41CFAFF91A93E1E500B0783A /* html_blocks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_blocks.c; sourceTree = "<group>"; };
+		41CFAFFA1A93E1E500B0783A /* html_smartypants.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_smartypants.c; sourceTree = "<group>"; };
+		41CFAFFB1A93E1E500B0783A /* html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html.c; sourceTree = "<group>"; };
+		41CFAFFC1A93E1E500B0783A /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		41CFAFFD1A93E1E500B0783A /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		41CFB0071A93E1FA00B0783A /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoedown.h; sourceTree = "<group>"; };
+		41CFB0081A93E1FA00B0783A /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hoedown.m; sourceTree = "<group>"; };
+		41CFB00B1A93E21800B0783A /* Hoedown+MulleScionPrinting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Hoedown+MulleScionPrinting.m"; sourceTree = "<group>"; };
+		41CFB00D1A93E28F00B0783A /* NSData+Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hoedown.h"; sourceTree = "<group>"; };
+		41CFB00E1A93E28F00B0783A /* NSData+Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hoedown.m"; sourceTree = "<group>"; };
 		41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionPrintingException.h; sourceTree = "<group>"; };
 		41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionPrintingException.m; sourceTree = "<group>"; };
 		41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionDataSourceProtocol.m; sourceTree = "<group>"; };
@@ -769,6 +810,8 @@
 		41EA51AE16E505A800D3B0AD /* __scion_macros.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __scion_macros.scion; sourceTree = "<group>"; };
 		41EC0149182D301A00A17DBD /* libMulleScionParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41EC7F951821BE3900142613 /* #!.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "#!.scion"; sourceTree = "<group>"; };
+		41F02AC91A94DA06005F2E97 /* NSString+TrimTextFromExamples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TrimTextFromExamples.h"; sourceTree = "<group>"; };
+		41F02ACA1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TrimTextFromExamples.m"; sourceTree = "<group>"; };
 		41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+MulleOutputFileHandle.h"; sourceTree = "<group>"; };
 		41F0CDD418296756000057D5 /* NSFileHandle+MulleOutputFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+MulleOutputFileHandle.m"; sourceTree = "<group>"; };
 		41F12D4416E274D100120E63 /* MulleScionNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionNull.h; sourceTree = "<group>"; };
@@ -971,6 +1014,7 @@
 				41DD56B516E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.h */,
 				41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */,
 				4121DB0816DD410D00BFD60C /* MulleScionLibrary */,
+				41CFAFED1A93E18500B0783A /* hoedown */,
 				41CD1AB818E98595003A7191 /* Graphviz */,
 				41DCAF6E16DE557100C5A74E /* MulleScion-Info.plist */,
 				41B727041908F4FC004343E9 /* MulleScion.podspec */,
@@ -988,11 +1032,13 @@
 				41DD56A716E39BF200C4D68A /* index.scion */,
 				41DD56B416E3E95C00C4D68A /* _wrapper.scion */,
 				41EA51AE16E505A800D3B0AD /* __scion_macros.scion */,
+				415C401D1A9641010072B73A /* __demo.scion */,
 				41DD56AD16E3D1FF00C4D68A /* __scion_banner.scion */,
 				41DD56A916E3CF3F00C4D68A /* __scion_navigation.scion */,
 				41DD56AA16E3CFF300C4D68A /* __page.scion */,
 				41DD56AB16E3D14100C4D68A /* __scion_page.scion */,
 				41DD56AC16E3D15C00C4D68A /* __scion_footer.scion */,
+				41AE2D7D1A92580D009E21CB /* __scion_style.scion */,
 				4121DB0B16DD5E0B00BFD60C /* !_Introduction.scion */,
 				4121DAFE16DD048800BFD60C /* Formatting_Options.scion */,
 				411F98AD16E0FBE600738250 /* Global_Variables.scion */,
@@ -1045,6 +1091,37 @@
 				41AEA1F5182D095200840887 /* MulleScionGraphviz */,
 			);
 			name = Graphviz;
+			sourceTree = "<group>";
+		};
+		41CFAFED1A93E18500B0783A /* hoedown */ = {
+			isa = PBXGroup;
+			children = (
+				41CFB0071A93E1FA00B0783A /* Hoedown.h */,
+				41CFB0081A93E1FA00B0783A /* Hoedown.m */,
+				411F77F71A94A29B00307651 /* Hoedown+MulleScionPrinting.h */,
+				41CFB00B1A93E21800B0783A /* Hoedown+MulleScionPrinting.m */,
+				41F02AC91A94DA06005F2E97 /* NSString+TrimTextFromExamples.h */,
+				41F02ACA1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m */,
+				41CFB00D1A93E28F00B0783A /* NSData+Hoedown.h */,
+				41CFB00E1A93E28F00B0783A /* NSData+Hoedown.m */,
+				41CFAFEE1A93E1E500B0783A /* autolink.h */,
+				41CFAFEF1A93E1E500B0783A /* buffer.h */,
+				41CFAFF01A93E1E500B0783A /* document.h */,
+				41CFAFF11A93E1E500B0783A /* escape.h */,
+				41CFAFF21A93E1E500B0783A /* html.h */,
+				41CFAFF31A93E1E500B0783A /* stack.h */,
+				41CFAFF41A93E1E500B0783A /* version.h */,
+				41CFAFF51A93E1E500B0783A /* autolink.c */,
+				41CFAFF61A93E1E500B0783A /* buffer.c */,
+				41CFAFF71A93E1E500B0783A /* document.c */,
+				41CFAFF81A93E1E500B0783A /* escape.c */,
+				41CFAFF91A93E1E500B0783A /* html_blocks.c */,
+				41CFAFFA1A93E1E500B0783A /* html_smartypants.c */,
+				41CFAFFB1A93E1E500B0783A /* html.c */,
+				41CFAFFC1A93E1E500B0783A /* stack.c */,
+				41CFAFFD1A93E1E500B0783A /* version.c */,
+			);
+			path = hoedown;
 			sourceTree = "<group>";
 		};
 		41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */ = {
@@ -1665,9 +1742,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41CFB00F1A93E28F00B0783A /* NSData+Hoedown.m in Sources */,
 				41764B9316DA511200560FCF /* main.m in Sources */,
+				41CFAFFF1A93E1E500B0783A /* buffer.c in Sources */,
+				41CFB0001A93E1E500B0783A /* document.c in Sources */,
+				41CFB0091A93E1FA00B0783A /* Hoedown.m in Sources */,
+				41CFB0031A93E1E500B0783A /* html_smartypants.c in Sources */,
+				41CFB0061A93E1E500B0783A /* version.c in Sources */,
 				41DD569F16E376F600C4D68A /* mongoose.c in Sources */,
 				41DD56A216E376FF00C4D68A /* MulleMongoose.m in Sources */,
+				41CFB0041A93E1E500B0783A /* html.c in Sources */,
+				41CFB00C1A93E21800B0783A /* Hoedown+MulleScionPrinting.m in Sources */,
+				41CFAFFE1A93E1E500B0783A /* autolink.c in Sources */,
+				41CFB0021A93E1E500B0783A /* html_blocks.c in Sources */,
+				41CFB0051A93E1E500B0783A /* stack.c in Sources */,
+				41CFB0011A93E1E500B0783A /* escape.c in Sources */,
+				41F02ACB1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m in Sources */,
 				41DD56B716E3F7A700C4D68A /* MulleScionObjectModel+MulleMongoose.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2181,7 +2271,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1849.0;
+				CURRENT_PROJECT_VERSION = 1851.0;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2213,7 +2303,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1849.0;
+				CURRENT_PROJECT_VERSION = 1851.0;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2284,7 +2374,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1849.0;
+				CURRENT_PROJECT_VERSION = 1851.0;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;

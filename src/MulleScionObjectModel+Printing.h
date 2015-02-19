@@ -42,7 +42,7 @@
 
 @interface MulleScionObject ( Printing)
 
-- (MulleScionObject *) renderInto:(id <MulleScionOutput>) s
+- (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource;
 @end
@@ -72,9 +72,11 @@ extern NSString   *MulleScionOddKey;
 
 @end
 
+
 NSString  *MulleScionFilteredString( NSString *value,
                                     NSMutableDictionary *locals,
-                                    id <MulleScionDataSource> dataSource);
+                                    id <MulleScionDataSource> dataSource,
+                                    NSUInteger bit);
 
 void   MulleScionRenderString( NSString *value,
                                id <MulleScionOutput> output,

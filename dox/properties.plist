@@ -12,19 +12,22 @@
 	<string>Test</string>
 	<key>deep</key>
 	<array>
-		<dict><key>name</key><string>VfL</string></dict>
+		<dict>
+			<key>name</key>
+			<string>VfL</string>
+		</dict>
 	</array>
 	<key>list</key>
 	<array>
-		<string>value for 0</string>
-		<string>value for 1</string>
+		<string>0 (value)</string>
+		<string>1 (value)</string>
 	</array>
 	<key>bag</key>
 	<dict>
 		<key>a</key>
-		<string>value for a</string>
+		<string>a (value)</string>
 		<key>b</key>
-		<string>value for b</string>
+		<string>b (value)</string>
 	</dict>
 </dict>
 </plist>

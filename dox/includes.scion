@@ -1,16 +1,22 @@
-Includes predicatably reads in another file. It's like copy/paste but 
+``includes`` predicatably reads in another file. It's like copy/paste but
 MulleScion does the work for you. The contents are parsed just like
 any regular template text.
 
-There is a special includes called includes verbatim. It reads the contents of
+There is a special ``includes verbatim``. It reads the contents of
 a file but doesn't parse it.
 
-Here we include set.scion and have the comments parsed away
+Here we include the file **set.scion** and have the comments parsed away
 
-{% includes "set.scion" %}
+#### Example 1
+````
+{% includes "__demo.scion" %}
+````
 
 and the file included verbatim
 
-{% includes verbatim "set.scion" %}
+#### Example 2
+````
+{% includes verbatim "__demo.scion" %}
+````
 
-includes can't be used in multi-line statements.
+``includes`` can't be used in multi-line statements.

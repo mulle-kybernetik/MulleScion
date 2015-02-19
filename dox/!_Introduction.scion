@@ -1,113 +1,125 @@
-# Give it a try
+### Give it a try
 
-To try out these examples compile the project and put mulle-scion into your path.
+To try out an example, compile the project and put ``mulle-scion`` into your ``$PATH``.
 It's a commandline program.
 
-Run this example with:
+Run an example file like ``set.scion``
 
-   mulle-scion '!_Introduction.scion' properties.plist
-
-
-# General Structure
-
-Comments are enclosed in '{' '#' and '#' '}'
-
-Expressions, i.e. values that produce output are enclosed in '{' '{' and '}' '}'
-
-Commands are enclosed in '{' '%' and  '%' '}'. You can have multiple commands, 
-if you separate them with semicolons. Commands do not produce output. Everything
-between commends, expressions and commands is copied verbatim to the output.
+	mulle-scion 'dox/set.scion' 'dox/properties.plist'
 
 
-# Commands
+## General Structure
 
-MulleScion has a small assortment of logic commands like
-if else endif, for endfor, while endwhile together with various preprocessing
-commands like define, block and template. Look at the documentation of each
+Comments are enclosed in ``{#`` and ``#}``.
+
+Expressions, i.e. values that produce output are enclosed in ``{{`` and ``}}``.
+
+Commands are enclosed in ``{%`` and  ``%}``. You can have multiple commands, 
+if you separate them with semicolons or newlines. Commands do not produce
+output. Everything between comments, expressions and commands is copied verbatim
+to the output.
+
+
+### Commands
+
+**MulleScion** has a small assortment of logic commands like
+``if else endif``, ``for endfor``, ``while endwhile`` together with various preprocessing
+commands like ``define``, ``block`` and ``template``. Look at the documentation of each
 keyword for more information
 
 
-# Expressions
+### Expressions
 
-In a MulleScion template expressions are filled with properties from an object.
+In a **MulleScion** template expressions are filled with properties from an object.
 That object can be anything NSObject based. The data is accessed through 
 key value coding. Anything between two curly brackets '{' is called an 
 expression. The expresssion is evaluated and the resulting value is added to 
 the output.
 
-....
+#### Example 1
+````
 name={{ name }}
-....
+````
 
 Expressions can be postprocessed with pipes.
 
-....
+#### Example 2
+````
 when={{ name | lowercaseString }}
-....
+````
 
 Pipes can also contain ObjC calls with parameters, where the left side of the
 pipe is substituted for self in the right side.
 
-....
+
+#### Example 3
+````
 when={{ name | [self stringByReplacingOccurrencesOfString:@" 1848" withString:@""] }}
-....
+````
 
+## Key Value Coding
 
+As that can become unwieldy, you can use a ``define`` to make common calls nicer to read.
 
-# Key Value Coding
-
-As that can becomen unwieldy, you can use a define to make common calls nicer to read.
-....
+#### Example 4
+````
 {% define no1848 = [self stringByReplacingOccurrencesOfString:@" 1848"
-                                                     withString:@""] %}
+                                                   withString:@""] %}
 when={{ name | no1848 }}
-....
+````
 
-You have full key value coding available. With for loops can you iterate over
-collections just like NSEnumerator (it is in an NSEnumerator internally :))
 
-....
+You have full key value coding available. With ``for`` loops can you iterate over
+collections just like **NSEnumerator** (it is in an **NSEnumerator** internally :))
+
+
+
+#### Example 5
+````
 The bag contains {{ bag.@count }} entries
 {% if defined( "bag") %}
- {% for item in [bag allKeys] %}
+{% for item in [bag allKeys] %}
    {{ [bag objectForKey:item] }}
- {% endfor %}
+{% endfor %}
 {% endif %}
-...
+````
 
 But with dots separated by spaces you can do even more complicated KVC.
 
 
-# Multiline commands
+## Multiline commands
 
-You can place multiple commands within one'{' '%' and  '%' '}'container. 
+You can place multiple commands within one ``{%`` and  ``%}`` container.
 Separate the commands with semicolon or newlines. For convenience you can mix
-output expressions '{' '{' '}' '}' with commands. The above example then could
+output expressions ``{{`` ``}}`` with commands. The above example then could
 be written equivalently as
 
-....
+
+#### Example 6
+````
 The bag contains {{ bag.@count }} entries
-{% 
-  if defined( "bag")
-     for item in [bag allKeys]
-        {{ @"   " }} {{ [bag objectForKey:item] }} {{ @"\n" }}
-     endfor
-  endif 
- %}
-...
+{%
+   if defined( "bag")
+      for item in [bag allKeys]
+         {{ @"   " }} {{ [bag objectForKey:item] }} {{ @"\n" }}
+      endfor
+   endif
+%}
+````
 
 Not all commands may appear in multiline commands. You can use
 
-block/endblock
-define
-extends
-includes
-macro
-requires
-verbatim
+* ``block/endblock``
+* ``define``
+* ``extends``
+* ``includes``
+* ``macro``
+* ``requires``
+* ``verbatim``
 
 only in single line commands.
 
+<cite>See [properties.plist](properties.plist) for the values used in this example.</cite>
 
 
 

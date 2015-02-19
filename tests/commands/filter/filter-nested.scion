@@ -1,0 +1,5 @@
+{% filter uppercaseString %}
+{% filter lowercaseString %}
+VfL Bochum 1848
+{% endfilter %}
+{% endfilter %}

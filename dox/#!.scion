@@ -1,15 +1,18 @@
 #! /usr/local/bin/mulle-scion
-{# #}
-You can make scion files into unix script files, if you use the mulle-scion
+
+You can use scion files as unix script files, if you use the `mulle-scion`
 command and prefix your script file and make it executable
 
-#! /usr/local/bin/mulle-scion
+	#! /usr/local/bin/mulle-scion
 
-There are two environment variables MULLESCION_VERBATIM_INCLUDE_HASHBANG and
-MULLESCION_NO_HASHBANG to turn this feature off.
+There are two environment variables `MULLESCION_VERBATIM_INCLUDE_HASHBANG` and
+`MULLESCION_NO_HASHBANG` to turn this feature off. This might be useful, if you
+want to produce shell scripts using **MulleScion**.
 
 Lets run a simple example.
 
+#### Example
+````
 {%
    file  = [NSFileHandle fileHandleForReadingAtPath:@"/etc/hostconfig"];
    data  = [file readDataToEndOfFile];
@@ -35,3 +38,4 @@ hostconfig:
 {% for key in [[dict allKeys] sortedArrayUsingSelector:@selector( compare:)] %}
    {{ key }} = {{ dict[ key] }}
 {% endfor %}
+````

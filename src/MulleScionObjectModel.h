@@ -313,6 +313,8 @@ typedef enum
                    arguments:(NSArray *) arguments
                   lineNumber:(NSUInteger) nr;
 
+- (BOOL) isSelfMethod;  // if
+
 @end
 
 
@@ -439,7 +441,21 @@ typedef enum
 @end
 
 
+enum
+{
+   FilterPlaintext          = 0x1,
+   FilterOutput              = 0x2,
+   FilterApplyStackedFilters = 0x4
+};
+
 @interface MulleScionFilter : MulleScionExpressionCommand
+{
+   unsigned int   _flags;
+}
+
++ (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED expr
+                           flags:(NSUInteger) flags
+                      lineNumber:(NSUInteger) nr;
 @end
 
 

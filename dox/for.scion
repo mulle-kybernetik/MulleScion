@@ -1,112 +1,115 @@
-This is an example of a for loop over an array.
+This is an example of a ``for`` loop over an array.
 
+#### Example 1
+````
 {% for item in @( "a", @"b", @"c") %}
-{{ item }}
+<b>{{ item }}</b>
 {% endfor %}
+````
 
-You can write out the data in a more formatted kind of way, thanks to some 
-built-in special variables that are used during a for loop.
+You can write out the data in a more formatted kind of way, thanks to some
+built-in special variables that are used during a ``for`` loop.
 
-To the variable that is looping over the array contents an additional 
-dictionary of the same name with a '#' appended is created. This contains some
-values that are calculated for each loop step. They are:
+To the variable that is looping over the array contents an additional dictionary
+of the same name with a <b>'#'</b> appended is created. In the example above
+that would be **item#** then. This dictionary contains values that are
+calculated for each loop step. They are:
 
-header            see below
-footer            see below
-division          see below
-modulo            see below
-i                 the loop count
-isFirst           will be set YES, if it's the first loop iteration
-isEven            will be set YES, if the loop count is even  (0,2,4 ...)
-isLast            will be set YES, if it's the last loop iteration
-evenOdd           the contents of the MulleScionOdd variable if isOdd and the
-                  contents of MulleScionEven if isEven
-          
-{% for item in @( @"a", @"b", @"c") %}
-
-i={{ item#.i }}
-footer={{ item#.header }}
-header={{ item#.footer }}
-division={{ item#.division }}
-modulo={{ item#.modulo }}
-isEven={{ item#.isEven }}
-isFirst={{ item#.isFirst }}
-isLast={{ item#.isLast }}
-evenOdd={{ item#.evenOdd }}
-{% endfor %}
+Name                | Description
+--------------------|----------------------------
+`header`            | see below
+`footer`            | see below
+`division`          | see below
+`modulo`            | see below
+`i`                 | the loop count
+`isFirst`           | will be set YES, if it's the first loop iteration
+`isEven`            | will be set YES, if the loop count is even  (0,2,4 ...)
+`isLast`            | will be set YES, if it's the last loop iteration
+`evenOdd`           | the contents of the `MulleScionEven` variable if `isEven` is true, otherwise the contents of `MulleScionOdd`
 
 
-There are a few variables that are used in for loops to allow easier formatting 
-of common output, like lists with parentheses and commas. Here item will refer 
-to the iterator identifier of the for loop.
+There are a few predefined variables that are used in for loops to allow easier
+formatting of common output, like lists with parentheses and commas. Here
+**item#** will refer to the iterator dictionary of the for loop.
 
-MulleScionForOpener		The value for item#.header for the first loop 
-                                iteration
-MulleScionForSeparator		The value for item#.footer for all but the last 
-                                loop iterations
-MulleScionForCloser		The value for item#.footer for the last loop
-                                iteration
+Name                       | Description
+---------------------------|----------------------------
+`MulleScionForOpener`	   | The value for item#.header for the first loop iteration
+`MulleScionForSeparator`   | The value for item#.footer for all but the last loop iterations
+`MulleScionForCloser`      | The value for item#.footer for the last loop iteration
 
-e.g.
+#### Example 2
+````
 {% MulleScionForOpener    = "[" %}
 {% MulleScionForSeparator = "/" %}
 {% MulleScionForCloser    = "]" %}
-{% for i in @( 1, 2, 3 ) %}{{ i#.header }}{{ i }}{{ i#.footer }}{% endfor %}
+{% for item in @( 1, 2, 3 ) %}{{ item#.header }}{{ item }}{{ item#.footer }}{% endfor %}
+````
+
+#### Example 3
+````
+{%
+   MulleScionForOpener    = "OPEN"
+   MulleScionForSeparator = "SEPA"
+   MulleScionForCloser    = "CLOS"
+%}
+
+{% for item in @( @"a", @"b", @"c") %}
+i={{ item#.i }}, header={{ item#.header }}, footer={{ item#.footer }}, division={{ item#.division }}, modulo={{ item#.modulo }}, isEven={{ item#.isEven }}, isFirst={{ item#.isFirst }}, isLast={{ item#.isLast }}, evenOdd={{ item#.evenOdd }}
+{% endfor %}
+````
+
+There are a few other variables, that can be helpful dealing with row coloring
+for example:
+
+Name                             | Description
+---------------------------------|----------------------------
+`MulleScionEven`                 |  The value to be used for **item#.evenOdd** on even loop iterations
+`MulleScionOdd`                  |  The value to be used for **item#.evenOdd** on odd loop iterations
+`MulleScionForSubdivisionLength` |  Divides the loop into subdivisions, setting the **item#.modulo** and the **item.#subdivision** values.                             If the value is > 1, then **MulleScionForSubdivisionOpener** and **MulleScionForSubdivisionCloser** will be used.
+`MulleScionForSubdivisionOpener` | Will be the value of **item.#header** whenever the modulo is 0 (vulgo: the start of a subdivision :) but not on the very first line.
+`MulleScionForSubdivisionCloser` | Will be the value of **item.#footer** whenever the modulo is **MulleScionForSubdivisionLength - 1** (vulgo: the end of a subdivision :) but not on the very last line.
 
 
-MulleScionEven                  The value to be used for item#.evenOdd on even 
-                                loop iterations
-MulleScionOdd			The value to be used for item#.evenOdd on odd 
-                                loop iterations
+#### Example 4
+````
+{%
+   MulleScionForSubdivisionLength = 2
+   MulleScionForSubdivisionOpener = "-["
+   MulleScionForSubdivisionCloser = "]"
+
+   MulleScionForSeparator         = ","
+   MulleScionForOpener            = "-[["
+   MulleScionForCloser            = "]]"
+
+   for item in @( 1, 2, 3, 4)
+      {{ item#.header }}{{ item }}{{ item#.footer }}
+   endfor
+%}
+````
+
+If the array over which to iterate in the `for` loop is empty, you can detect
+this by using `elsefor`. Here is a more complex example, that lists the
+available NSTimeZones, also using `elsefor` in case none are available.
 
 
-MulleScionForSubdivisionLength  Divides the loop into subdivision, setting the
-                                item#.modulo and the item.#subdivision values.
-                                If the value is > 1, then 
-                                MulleScionForSubdivisionOpener and 
-                                MulleScionForSubdivisionCloser will be used.
-                                
-MulleScionForSubdivisionOpener  Will be the value of .#header whenever the 
-                                modulo is 0 (vulgo: the start of a
-                                subdivision :) but not on
-                                the very first line.
-
-                                
-MulleScionForSubdivisionCloser  Will be the value of .#footer whenever the
-                                modulo is MulleScionForSubdivisionLength - 1
-                                (vulgo: the end of a subdivision :) but not on
-                                the very last line.
-
-
-
-{% MulleScionForSubdivisionLength = 2  %}
-{% MulleScionForSubdivisionOpener = "-["  %}
-{% MulleScionForSeparator = ","  %}
-{% MulleScionForSubdivisionCloser = "]"  %}
-{% for item in @( 1, 2, 3, 4) %}{{ item#.header }}{{ item }}{{ item#.footer }}{% endfor %}
-
-Here is a more complex example, that lists the available NSTimeZones.
-
-<html>
-<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on {{ [NSDate date] }} -->
-<body>
-{# render an old skool HTML table #}
-{% MulleScionEven = "#DDDDDD" %}
-{% MulleScionOdd  = "#FFFFFF" %}
-{% if [[NSTimeZone knownTimeZoneNames] count] > 0 %}
+#### Example 5
+````
+{% MulleScionEven = "#DDDDDD"
+   MulleScionOdd  = "#FFFFFF"
+ %}
 {% for item in [NSTimeZone knownTimeZoneNames] %}
     {% if item#.isFirst %}
-<table>
-   <tr><th>TimeZone</th></tr>
+    <table>
+       <tr><th>TimeZone</th></tr>
     {% endif %}
-   <tr bgcolor="{{ item#.evenOdd }}"><td>{{ item }}</td></tr>
+       <tr bgcolor="{{ item#.evenOdd }}"><td>{{ item }}</td></tr>
     {% if item#.isLast %}
-</table>
+    </table>
     {% endif %}
-{% endfor %}
-{% else %}
+{% elsefor %}
 Sorry, no timezone info available.
-{% endif %}
-</body>
-</html>
+{% endfor %}
+````
+
 

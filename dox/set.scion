@@ -1,9 +1,12 @@
-Set is used to assigning values to variables. You may omit the Set keyword if you
-want.
+`set` is used to assigning values to variables. You may omit the `set` keyword
+if you want.
 
+#### Example
+````
 {% set foo = [NSMutableDictionary dictionary];
    foo[ @"key"] = @"a value"
 %}
 
 {{ foo[ @"key"] }}
+````
 

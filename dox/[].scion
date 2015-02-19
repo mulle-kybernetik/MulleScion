@@ -1,10 +1,18 @@
-Within MulleScion you can use regular Objective-C method call syntax.
+Within **MulleScion** you can use regular Objective-C method call syntax.
 
+#### Example 1
+````
 {{ [NSDate date] }}
+````
 
 But you can also use '[' ']' in the "modern" way, to access dictonaries and
-array. So if you don't want to write objectAtIndex: and objectForKey: you 
-can also use
+array. So if you don't want to write `objectAtIndex:` or `objectForKey:` you
+can also use:
 
-{{ bag[ "a" ] }}
-{{ list[ 1] }}
+#### Example 2
+````
+{{ bag[ "a" ] }}  # where bag is a NSDictionary
+{{ list[ 1] }}    # where list is a NSArray
+````
+
+<cite>See [properties.plist](properties.plist) for the values used in this example.</cite>

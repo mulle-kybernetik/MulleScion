@@ -1,15 +1,16 @@
-Define is something that is not in TWIG. A define is similiar to a preprocessor
-#define in C, the value gets substituted into the expression.
-Subsitution is only within template brackets. Substitution is done during the
-compilation of the template. 
+A `define` is similiar to a preprocessor `#define` in **C**, the value gets
+substituted into the expression. Subsitution is only within template brackets.
+Substitution is done during the compile stage of the template.
 
-
+#### Example 1
+````
 {% define PC = [self stringByReplacingOccurrencesOfString:@"S04"
                                                withString:@"***"] %}
-                                                 
+
 {% filter PC %}
-  VfL vs. S04 = 4:0
+   VfL vs. S04 = 4:0
 {% endfilter %}
+````
 
-Define is a command, that can not appear in multi-line statements.
-
+`define` is a command, that can not appear in multi-line statements.
+`define` is something that is not in TWIG.

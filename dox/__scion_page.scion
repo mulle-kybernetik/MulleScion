@@ -1,12 +1,20 @@
 {% extends "__page.scion" %}
 
+{% block scion_style %}{% includes "__scion_style.scion" %}{% endblock %}
+
 {% block scion_body %}
-{% block scion_banner %}{% includes "__scion_banner.scion" %}{% endblock %}
-<p>
-{% block scion_navigation %}{% includes "__scion_navigation.scion" %}{% endblock %}
-{% block scion_navigation_extension %}{% endblock %}
-<hr>
-{% block scion_contents %}no contents{% endblock %}
+<div id="wrap">
+  {% block scion_banner %}{% includes "__scion_banner.scion" %}{% endblock %}
+ <p>
+ <div id="nav">
+  {% block scion_navigation %}{% includes "__scion_navigation.scion" %}{% endblock %}
+  {% block scion_navigation_extension %}{% endblock %}
+ </div>
+ <hr>
+ <div id="main">
+   {% block scion_contents %}no contents{% endblock %}
+ </div>
+</div>
 {% endblock %}
 
 {% block scion_footer %}{% includes "__scion_footer.scion" %}{% endblock %}

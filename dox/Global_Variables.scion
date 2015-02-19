@@ -1,64 +1,53 @@
-Formatting Variables
-==================
-MulleScionDateFormatter         A NSDateFormatter object to use for number 
-                                formatting
-MulleScionNumberFormatter       A NSNumberFormatter object to use for number 
-                                formatting
-MulleScionDateFormat            The dateString to use for the NSDateFormatter
-                                formatting
-MulleScionNumberFormat          The formatString to use for the NSNumberFormatter
-                                formatting
-MulleScionLocale                The NSLocale to use for NSDate and NSNumber
-MulleScionNilDescription        What to print in place of a nil value
-MulleScionStringLength          If defined the maximum string length to output 
-                                for any string value in expressions.
-MulleScionStringEllipsis        If string gets truncated by 
-                                MulleScionStringLength what to print at the end
-                                to indicate truncation
+### Formatting Variables
 
-Internal Variables
-==================
-
-__OUTPUT__                      The object output gets rendered to
-__FILE__                        The current template file 
-__LINE__                        The current line in the template file
-__FUNCTION__                    The currently executing function 
-__FILTER__                      The currently installed filter chain
-__FILTER_STACK__                The previous filter chains
-__SELF_REPLACEMENT__            The object that the identifier 'self' gets 
-                                replaced with
-__SHOULD_FILTER_PLAINTEXT__     The filter will be applied to plain text (default 
-                                is YES, for Twig compatibility.)
-
-__ARGV__                        (Optional) command line arguments passed in 
-                                by mulle-scion
-
-Predefined Variables
-====================
-
-A small selection of Foundation constants is predefined for convenience.
-
-NSNotFound
-
-NSOrderedAscending
-NSOrderedDescending
-NSOrderedSame
-
-NSASCIIStringEncoding
-NSISOLatin1StringEncoding
-NSMacOSRomanStringEncoding
-NSUTF32StringEncoding
-NSUTF8StringEncoding
-NSUnicodeStringEncoding
+Name                              | Description
+----------------------------------|-----------------------------------
+``MulleScionDateFormatter``       | A **NSDateFormatter** object to use for number formatting
+``MulleScionNumberFormatter``     | A **NSNumberFormatter** object to use for number formatting
+``MulleScionDateFormat``          | The format string to use for the **NSDateFormatter** formatting
+``MulleScionNumberFormat``        | The format string to use for the **NSNumberFormatter** formatting
+``MulleScionLocale``              | The **NSLocale** to use for **NSDate** and **NSNumber**
+``MulleScionNilDescription``      | What to print in place of a **nil** value
+``MulleScionStringLength``        | If defined: the maximum string length to output for any string value in expressions.
+``MulleScionStringEllipsis``      | If string gets truncated by **MulleScionStringLength** what to print at the end to indicate truncation
 
 
-Variables available through mulle-scion
-=======================================
+### Internal Variables
 
-MulleScionRootTemplate		available when printing with mulle-scion, it's 
-                                the path of the template from the command line 
+Name                              | Description
+----------------------------------|-----------------------------------
+``__OUTPUT__``                    | The object output gets rendered to
+``__FILE__``                      | The current template file
+``__LINE__``                      | The current line in the template file
+``__FUNCTION__``                  | The currently executing function
+``__FILTER__``                    | The currently installed filter chain
+``__FILTER_STACK__``              | The previous filters chain
+``__FILTER_MODE__``               | The currently installed filter mode
+``__FILTER_MODE_STACK__``         | The previous filters chain modes
+``__SELF_REPLACEMENT__``          | The object that the identifier 'self' gets replaced with
 
-                      
-MulleScionPropertyListName	available when printing with mulle-scion, it's 
-                                the path of the property list from the command 
-                                line                     
+### Predefined Variables
+
+
+A small selection of **Foundation** constants is predefined for convenience.
+
+* ``NSNotFound``
+* ``NSOrderedAscending``
+* ``NSOrderedDescending``
+* ``NSOrderedSame``
+* ``NSASCIIStringEncoding``
+* ``NSISOLatin1StringEncoding``
+* ``NSMacOSRomanStringEncoding``
+* ``NSUTF32StringEncoding``
+* ``NSUTF8StringEncoding``
+* ``NSUnicodeStringEncoding``
+
+
+### Variables available through **mulle-scion**
+
+Name                              | Description
+----------------------------------|-----------------------------------
+``MulleScionRootTemplate``        | available when printing with mulle-scion, it's the path of the template from the command line
+``MulleScionPropertyListName``    | available when printing with mulle-scion, it's the path of the property list from the command line
+``__ARGV__``                      | command line arguments passed
+

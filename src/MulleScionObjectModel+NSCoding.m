@@ -303,6 +303,27 @@
 @end
 
 
+@implementation MulleScionFilter ( NSCoding)
+
+- (id) initWithCoder:(NSCoder *) decoder
+{
+   self = [super initWithCoder:decoder];
+   [decoder decodeValuesOfObjCTypes:"I", &self->_flags];
+
+   return( self);
+}
+
+
+- (void) encodeWithCoder:(NSCoder *) encoder
+{
+   [super encodeWithCoder:encoder];
+   [encoder encodeValuesOfObjCTypes:"I", &self->_flags];
+}
+
+@end
+
+
+
 @implementation MulleScionSet ( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder

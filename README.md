@@ -14,8 +14,9 @@ engine for PHP"
  
 * **Reasonably 
 Fast** :      *MulleScion* can compile templates into a compressed 
-               archive format. Loading such an archive is lots faster than 
-               parsing. A compiled template is read-only, you can use it many 
+               archive format. Loading such an archive ought to be lots faster 
+               than parsing (but because the parse is so fast, maybe isn't).
+               A compiled template is read-only, you can use it many 
                times to render different output from different input.
 
 * **Secure** :   *MulleScion* has hooks so your application can ensure 
@@ -63,8 +64,8 @@ This is the general architecture of *MulleScion*
 ![](/dox/MulleScionDataFlow.png "Data Flow Sketch")
 ![](http://www.mulle-kybernetik.com/software/git/MulleScion/raw/master/dox/MulleScionDataFlow.png "Data Flow Sketch")
 
-*MulleScion* is currently still pretty much a "happy path" project, but 
-it is being used in a commercial project. 
+*MulleScion* is happily used in a commercial project and has gone through 
+enough iterations to pronounce it "ready for production". 
 
 TOOLS
 =============
@@ -77,17 +78,18 @@ DOCUMENTATION
 =============
 
 Virtually all the documentation is contained in example **.scion** templates 
-in the `dox`folder. For each command or feature there should be a separate 
-template file that documents it. mulle-scion, the command line utility, contains 
-a small quickly hacked together webserver that can present the documentation 
-using *MulleScion* itself.
+in the `dox` folder. For each command or feature there should be a separate 
+template file that documents it. **mulle-scion**, the command line utility,
+contains  a small quickly hacked together webserver that can present the 
+documentation using *MulleScion* itself.
+
 In Xcode just run `Show Documentation in Webserver` and it should setup the 
 webserver and open your browser to the right address.
 
 MulleScion is very similar to TWIG, so you can glean much of relevance from 
 <http://twig.sensiolabs.org>. If you see a feature in TWIG but don't see it in 
 the tests file, it's likely not there (but it's probably easily achieved some 
-other way (define, macro, ObjC category on NSString).
+other way (using a `define` or a `macro` or an ObjC category on **NSString**).
 
 
 LIMITATIONS

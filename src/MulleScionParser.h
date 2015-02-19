@@ -56,9 +56,11 @@
 - (MulleScionTemplate *) template;
 - (NSDictionary *) dependencyTable;
 
-- (void) parserErrorInFileName:(NSString *) fileName
-                    lineNumber:(NSUInteger) lineNumber
-                        reason:(NSString *) reason;
+- (void) parser:(void *) parser
+errorInFileName:(NSString *) fileName
+     lineNumber:(NSUInteger) lineNumber
+         reason:(NSString *) reason;
+
 - (NSString *) fileName;
 
 @end

@@ -478,6 +478,12 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    return( YES);
 }
 
+
+- (BOOL) isSelfMethod
+{
+   return( [value_ isIdentifier] && [[(MulleScionVariable *) value_ identifier] isEqualToString:@"self"]);
+}
+
 @end
 
 
@@ -1153,6 +1159,19 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 #pragma mark -
 
 @implementation MulleScionFilter
+
++ (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED expr
+                           flags:(NSUInteger) flags
+                      lineNumber:(NSUInteger) nr
+{
+   MulleScionFilter   *p;
+   
+   p = [super newWithRetainedExpression:expr
+                             lineNumber:nr];
+   p->_flags = flags;
+   
+   return( p);
+}
 
 @end
 

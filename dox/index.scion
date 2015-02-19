@@ -1,6 +1,37 @@
 {% extends "__scion_page.scion" %}
 
 {% block scion_contents %}
-<pre>{% includes  "!_Introduction.scion" %}</pre>
+   {% log @"producing left..." %}
+   <div id="left">
+      {% block scion_contents_left %}{% endblock %}
+   </div>
+
+   {% log @"producing right..." %}
+   <div id="right">
+      {% block scion_contents_right %}{% endblock %}
+   </div>
 {% endblock %}
 
+
+{% block scion_contents_left %}
+   <h2>{{ @"!_Introduction.scion" | stringByDeletingPathExtension }}</h2>
+   {% filter [Hoedown htmlEscapedFilter] %}
+   {% includes verbatim "!_Introduction.scion" %}
+   {% endfilter %}
+{% endblock %}
+
+
+{% block scion_contents_right %}
+   <h2>Results</h2>
+   <blockquote>
+   This is the output <b>MulleScion</b> generates from the examples above.
+   </blockquote>
+   {% filter [Hoedown regularFilter] %}
+   {% includes trimmedTextFromExamplesData "!_Introduction.scion" %}
+   {% endfilter %}
+{% endblock %}
+
+
+{% block scion_navigation_extension %}
+   {% wrapper_navigation_extension( "!_Introduction.scion") %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% filter uppercaseString %}
+uppercaseString.
+   {% filter lowercaseString|capitalizedString %}
+lowercaseString | {{ @"plz2ignore/capitalizedString" | lastPathComponent }}
+   {% endfilter %}
+uppercaseString
+{% endfilter %}

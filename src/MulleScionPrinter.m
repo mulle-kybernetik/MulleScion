@@ -102,12 +102,12 @@
 
 - (NSString *) describeWithTemplate:(MulleScionTemplate *) template
 {
-   NSMutableString   *s;
+   NSMutableString   *output;
    
-   s = [NSMutableString stringWithCapacity:0x8000];
-   [self writeToOutput:s
+   output = [NSMutableString stringWithCapacity:0x8000];
+   [self writeToOutput:output
               template:template];
-   return( s);
+   return( output);
 }
 
 @end

@@ -99,17 +99,15 @@ typedef struct _parser
    
    MulleScionObject     *first;
 
-   void                 (*parser_do_error)( id self, SEL sel, NSString *filename, NSUInteger line, NSString *message);
+   void                 (*parser_do_error)( id self, SEL sel, void *parser, NSString *filename, NSUInteger line, NSString *message);
    id                   self;
    SEL                  sel;
    int                  skipComments;
    int                  inMacro;
    int                  wasMacroCall;
    NSString             *fileName;
-   NSMutableDictionary  *blocksTable;
-   NSMutableDictionary  *definitionTable;
-   NSMutableDictionary  *macroTable;
-   NSMutableDictionary  *dependencyTable;
+   MulleScionParserTables  tables;
+   NSMutableArray       *converterStack;
 } parser;
 
 
@@ -152,7 +150,7 @@ static inline void   parser_set_blocks_table( parser *p, NSMutableDictionary *ta
 {
    NSCParameterAssert( ! table || [table isKindOfClass:[NSMutableDictionary class]]);
    
-   p->blocksTable = table;
+   p->tables.blockTable = table;
 }
 
 
@@ -160,7 +158,7 @@ static inline void   parser_set_definitions_table( parser *p, NSMutableDictionar
 {
    NSCParameterAssert( ! table || [table isKindOfClass:[NSMutableDictionary class]]);
    
-   p->definitionTable = table;
+   p->tables.definitionTable = table;
 }
 
 
@@ -168,7 +166,7 @@ static inline void   parser_set_dependency_table( parser *p, NSMutableDictionary
 {
    NSCParameterAssert( ! table || [table isKindOfClass:[NSMutableDictionary class]]);
    
-   p->dependencyTable = table;
+   p->tables.dependencyTable = table;
 }
 
 
@@ -176,7 +174,7 @@ static inline void   parser_set_macro_table( parser *p, NSMutableDictionary *tab
 {
    NSCParameterAssert( ! table || [table isKindOfClass:[NSMutableDictionary class]]);
    
-   p->macroTable = table;
+   p->tables.macroTable = table;
 }
 
 
@@ -259,7 +257,7 @@ static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
       
       s = [NSString stringWithFormat:@"at '%c' near \"%@\", %@", *p->curr, s, reason];
    
-      (*p->parser_do_error)( p->self, p->sel, p->fileName, p->memo.lineNumber, s);
+      (*p->parser_do_error)( p->self, p->sel, p, p->fileName, p->memo.lineNumber, s);
    }
    abort();
 }
@@ -606,8 +604,17 @@ static macro_type   parser_skip_text_until_scion_end( parser *p, int type)
          continue;
       
       if( c == '}')
-         if( d == type)
-            return( comment);
+      {
+         if( d == type || type == 0xFF)
+         {
+            switch( d)
+            {
+               case '%' : return( command);
+               case '#' : return( comment);
+               case '}' : return( expression);
+            }
+         }
+      }
    }
    return( eof);
 }
@@ -947,6 +954,7 @@ static inline unsigned char   parser_next_character( parser *p)
    
    if( p->curr >= p->sentinel)
       return( 0);
+
    c = *p->curr++;
    if( c == '\n')
       parser_nl( p);
@@ -1265,7 +1273,7 @@ static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
 }
 
 
-static MulleScionObject  * NS_RETURNS_RETAINED parser_expand_macro_with_arguments( parser *p,
+static MulleScionObject  * NS_RETURNS_RETAINED   parser_expand_macro_with_arguments( parser *p,
                                                               MulleScionMacro *macro,
                                                               NSArray *arguments,
                                                               NSUInteger line)
@@ -1294,28 +1302,53 @@ static MulleScionObject  * NS_RETURNS_RETAINED parser_expand_macro_with_argument
 }
 
 
-static MulleScionObject  * NS_RETURNS_RETAINED parser_do_function_or_macro( parser *p, NSString *identifier)
+static MulleScionFunction  * NS_RETURNS_RETAINED _parser_do_function( parser *p, NSString *identifier, NSArray *arguments)
 {
-   NSMutableArray   *arguments;
-   MulleScionMacro  *macro;
+   MulleScionMacro   *macro;
    
-   NSCParameterAssert( parser_peek_character( p) == '(');
-   
-   arguments       = parser_do_arguments( p);
-   macro           = [p->macroTable objectForKey:identifier];
-   p->wasMacroCall = macro != nil;
+   macro = [p->tables.macroTable objectForKey:identifier];
    if( macro)
-      return( parser_expand_macro_with_arguments( p, macro, arguments, p->memo.lineNumber));
-
+      parser_error( p, "referencing a macro in an expression is not allowed");
+   
+   if( getenv( "MULLESCION_DUMP_MACROS"))
+      fprintf( stderr, "referencing function \"%s\"\n", [identifier cString]);
+   
    return( [MulleScionFunction newWithIdentifier:identifier
                                        arguments:arguments
                                       lineNumber:p->memo.lineNumber]);
 }
 
 
+static MulleScionObject  * NS_RETURNS_RETAINED parser_do_function_or_macro( parser *p, NSString *identifier)
+{
+   NSArray           *arguments;
+   MulleScionMacro   *macro;
+   
+   NSCParameterAssert( parser_peek_character( p) == '(');
+   
+   arguments       = parser_do_arguments( p);
+   macro           = [p->tables.macroTable objectForKey:identifier];
+   p->wasMacroCall = macro != nil;
+   if( p->wasMacroCall)
+      return( parser_expand_macro_with_arguments( p, macro, arguments, p->memo.lineNumber));
+
+   return( _parser_do_function( p, identifier, arguments));
+}
+
+
 static MulleScionFunction  * NS_RETURNS_RETAINED parser_do_function( parser *p, NSString *identifier)
 {
-   NSMutableArray   *arguments;
+   NSArray   *arguments;
+   
+   arguments = parser_do_arguments( p);
+   return( _parser_do_function( p, identifier, arguments));
+}
+
+
+
+static MulleScionFunction  * NS_RETURNS_RETAINED __parser_do_macro( parser *p, NSString *identifier)
+{
+   NSArray   *arguments;
    
    arguments = parser_do_arguments( p);
    return( [MulleScionFunction newWithIdentifier:identifier
@@ -1350,6 +1383,7 @@ static MulleScionIndexing  * NS_RETURNS_RETAINED parser_do_indexing( parser *p,
                                      retainedRightExpression:right
                                                   lineNumber:p->memo.lineNumber]);
 }
+
 
 static MulleScionConditional  * NS_RETURNS_RETAINED parser_do_conditional( parser *p,
                                                                            MulleScionExpression * NS_CONSUMED left,
@@ -1505,7 +1539,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_unary_expression_or_mac
    default  : break;
    }
 
-   expr = [p->definitionTable objectForKey:s];
+   expr = [p->tables.definitionTable objectForKey:s];
    if( expr)
       return( [expr copyWithZone:NULL]);
 
@@ -1849,14 +1883,14 @@ static int   _parser_opcode_for_string( parser *p, NSString *s)
    switch( len)
    {
    case 2 : if( [s isEqualToString:@"if"]) return( IfOpcode); break;
-   case 3 : if( [s isEqualToString:@"set"]) return( SetOpcode);
-            if( [s isEqualToString:@"for"]) return( ForOpcode);
+   case 3 : if( [s isEqualToString:@"for"]) return( ForOpcode);
+            if( [s isEqualToString:@"set"]) return( SetOpcode);
             if( [s isEqualToString:@"log"]) return( LogOpcode); break;
    case 4 : if( [s isEqualToString:@"else"]) return( ElseOpcode); break;
    case 5 : if( [s isEqualToString:@"endif"]) return( EndifOpcode);
             if( [s isEqualToString:@"while"]) return( WhileOpcode);
-            if( [s isEqualToString:@"macro"]) return( MacroOpcode);
-            if( [s isEqualToString:@"block"]) return( BlockOpcode); break;
+            if( [s isEqualToString:@"block"]) return( BlockOpcode);
+            if( [s isEqualToString:@"macro"]) return( MacroOpcode); break;
    case 6 : if( [s isEqualToString:@"define"]) return( DefineOpcode);
             if( [s isEqualToString:@"endfor"]) return( EndforOpcode);
             if( [s isEqualToString:@"filter"]) return( FilterOpcode); break;
@@ -1948,8 +1982,8 @@ static void  parser_do_whole_block_to_block_table( parser *p)
    if( ! next)
       parser_error( p, "an endblock was expected");
    
-   [p->blocksTable setObject:block
-                     forKey:identifier];
+   [p->tables.blockTable setObject:block
+                            forKey:identifier];
    [block release];
 }
 
@@ -1979,14 +2013,14 @@ static void  parser_add_dependency( parser *p, NSString *fileName, NSString *inc
 {
    NSMutableSet  *set;
    
-   if( ! p->dependencyTable)
+   if( ! p->tables.dependencyTable)
       return;
    
-   set = [p->dependencyTable objectForKey:fileName];
+   set = [p->tables.dependencyTable objectForKey:fileName];
    if( ! set)
    {
       set = [NSMutableSet new];
-      [p->dependencyTable setObject:set
+      [p->tables.dependencyTable setObject:set
                              forKey:fileName];
       [set release];
    }
@@ -2034,28 +2068,43 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_requires( parser *p, NS
  * and builds up the blockTable, all other stuff is discarded. This works
  * recursively.
  */
-static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_includes( parser *p, BOOL allowVerbatim)
+static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_includes( parser *p, BOOL allowConverter)
 {
    MulleScionTemplate     *inferior;
    MulleScionTemplate     *marker;
    NSString               *fileName;
    BOOL                   verbatim;
+   NSString               *converter;
+   SEL                    sel;
    NSString               *s;
-
+   
    if( p->inMacro)
       parser_error( p, "no including or extending in macro");
    
    verbatim = NO;
+   sel      = 0;
+   
+retry:
    parser_skip_whitespace( p);
    if( parser_peek_character( p) != '"')
    {
-      if( ! allowVerbatim || ! parser_next_matching_string( p, "verbatim", 8))
+      if( ! allowConverter)
          parser_error( p, "a filename was expected as a quoted string");
+      
+      converter = parser_do_identifier( p);
+      if( [converter isEqualToString:@"verbatim"])
+      {
+         verbatim  = YES;
+         converter = nil;
+         goto retry;
+      }
 
-      parser_skip_whitespace( p);
-      if( parser_peek_character( p) != '"')
-         parser_error( p, "a filename was expected a expected as a quoted string");
-      verbatim = YES;
+      //
+      // markdown -> markdownedData or some other variety
+      // (rarely useful)
+      sel = NSSelectorFromString( converter);
+      if( ! [NSData instancesRespondToSelector:sel])
+         parser_error( p, "converter method \"%s\" not found on NSData", [converter cString]);
    }
    
    fileName = parser_do_string( p);
@@ -2078,10 +2127,8 @@ static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_includes( parser *p, B
 
 NS_DURING
    inferior = [p->self templateWithContentsOfFile:fileName
-                                       blockTable:p->blocksTable
-                                  definitionTable:p->definitionTable
-                                       macroTable:p->macroTable
-                                  dependencyTable:p->dependencyTable];
+                                           tables:&p->tables
+                                        converter:sel];
 NS_HANDLER
    parser_error( p, "\n%@", [localException reason]);
 NS_ENDHANDLER
@@ -2332,12 +2379,54 @@ static MulleScionWhile  * NS_RETURNS_RETAINED parser_do_while( parser *p, NSUInt
 static MulleScionFilter  * NS_RETURNS_RETAINED parser_do_filter( parser *p, NSUInteger line)
 {
    MulleScionExpression   *expr;
+   NSMutableArray         *array;
+   NSEnumerator           *rover;
+   NSString               *keyword;
+   NSUInteger             flags;
+   MulleScionVariable     *var;
    
    expr = parser_do_expression( p);
    if( ! [expr isIdentifier] && ! [expr isPipe]  && ! [expr isMethod])
       parser_error( p, "identifier or pipe expected");
    
+   flags = FilterOutput|FilterPlaintext;
+
+   parser_skip_whitespace( p);
+   if( parser_peek_character( p) == ',')
+   {
+      parser_next_character( p);
+      parser_skip_whitespace( p);
+      parser_peek_expected_character( p, '(', "array expected after filter declaration");
+      
+      // array ? -- allow plaintext and output as keywords
+      flags = 0;
+      array = parser_do_array_or_arguments( p, NO);
+      rover = [array objectEnumerator];
+      while( var = [rover nextObject])
+      {
+         if( [var isIdentifier])
+         {
+            keyword = [var identifier];
+            if( [keyword isEqual:@"plaintext"])
+            {
+               flags |= FilterPlaintext;  // plaintext ok
+               continue;
+            }
+            if( [keyword isEqual:@"output"])
+            {
+               flags |= FilterOutput;
+               continue;
+            }
+         }
+         parser_error( p, "only plaintext or output are valid");
+      }
+   }
+
+   if( ! flags)
+      parser_error( p, "nothing left to filter");
+   
    return( [MulleScionFilter newWithRetainedExpression:expr
+                                                 flags:flags
                                             lineNumber:line]);
 }
 
@@ -2357,7 +2446,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
    if( parser_opcode_for_string( p, identifier))
       parser_error( p, "you can't override existing commands");
    
-   if( [p->definitionTable objectForKey:identifier])
+   if( [p->tables.definitionTable objectForKey:identifier])
       parser_error( p, "\"%@\" is already defined", identifier);
    
    parser_skip_whitespace( p);
@@ -2365,7 +2454,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
    
    expr = parser_do_expression( p);
    
-   [p->definitionTable setObject:expr
+   [p->tables.definitionTable setObject:expr
                           forKey:identifier];
    [expr release];
    
@@ -2392,17 +2481,21 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
    parser_skip_whitespace( p);
    parser_peek_expected_character( p, '(', "'(' after identifier expected");
 
-   function = [parser_do_function( p, identifier) autorelease];
+   function = [__parser_do_macro( p, identifier) autorelease];
    
    identifier = [(MulleScionParameterAssignment *) function identifier];
    if( [identifier hasPrefix:@"MulleScion"])
       parser_error( p, "you can't define MulleScion macros");
    
-   if( [p->macroTable objectForKey:identifier])
+   if( [p->tables.macroTable objectForKey:identifier])
       parser_error( p, "macro %@ is already defined", identifier);
 
    // macro %} must be a terminated by %}\n
    parser_finish_command( p);
+   
+   // do this once and store in parser
+   if( getenv( "MULLESCION_DUMP_MACROS"))
+      fprintf( stderr, "defining macro \"%s\"\n", [identifier cString]);
    
    // now just grab stuff until we hit an endmacro
    
@@ -2438,7 +2531,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
                                          body:root
                                      fileName:p->fileName
                                    lineNumber:line];
-   [p->macroTable setObject:macro
+   [p->tables.macroTable setObject:macro
                      forKey:identifier];
    [macro autorelease];
 
@@ -2448,6 +2541,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
       parser_undo_character( p);
    parser_undo_character( p);
 #endif
+
 
    return( macro);
 }
@@ -2507,7 +2601,6 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_verbatim( parser *p, 
    p->skipComments = memo;
    return( obj);
 }
-
 
 
 static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_endmacro( parser *p, NSUInteger line)
@@ -2829,42 +2922,66 @@ retry:
 # pragma mark External Interface (API)
 
 - (void) parseData:(NSData *) data
-    intoRootObject:(MulleScionObject *) root
-          fileName:(NSString *) fileName
-        blockTable:(NSMutableDictionary *) blockTable
-   definitionTable:(NSMutableDictionary *) definitionTable
-        macroTable:(NSMutableDictionary *) macroTable
-   dependencyTable:(NSMutableDictionary *) dependencyTable
+     intoRootObject:(MulleScionObject *) root
+            tables:(MulleScionParserTables *) tables
+      ignoreErrors:(BOOL) ignoreErrors
 {
-   MulleScionObject    *node;
    parser              parser;
    macro_type          last_type;
 
    parser_init( &parser, (void *) [data_ bytes], [data_ length]);
    parser_set_filename( &parser, fileName_);
-   parser_set_error_callback( &parser, self, @selector( parserErrorInFileName:lineNumber:reason:));
-   parser_set_blocks_table( &parser, blockTable);
-   parser_set_definitions_table( &parser, definitionTable);
-   parser_set_macro_table( &parser, macroTable);
-   parser_set_dependency_table( &parser, dependencyTable);
-   
+   parser_set_blocks_table( &parser, tables->blockTable);
+   parser_set_definitions_table( &parser, tables->definitionTable);
+   parser_set_macro_table( &parser, tables->macroTable);
+   parser_set_dependency_table( &parser, tables->dependencyTable);
+   parser_set_error_callback( &parser, self, @selector( parser:errorInFileName:lineNumber:reason:));
+
    //
    // this make it possible to have scion templates as executable unix scripts
    // lets do this also on includes, because otherwise the output of the dox
    // looks funny. Well because they include it verbatim, they still look funny
    //   if( ! [self parent])
+   //
    if( ! getenv( "MULLESCION_NO_HASHBANG"))
       parser_skip_initial_hashbang_line_if_present( &parser);
-   
-   last_type = eof;
-   for( node = root; node; node = parser_next_object( &parser, node, &last_type));
+
+   // useful to just run dependency, even if syntactically garbage
+   if( ignoreErrors)
+   {
+      volatile MulleScionObject    *node;
+      
+      last_type = eof;
+      node      = root;
+      
+retry:
+NS_DURING
+      while( node)
+         node = parser_next_object( &parser, node, &last_type);
+NS_HANDLER
+      // skip to next %}
+      parser.skipComments = 0;
+      if( parser_skip_text_until_scion_end( &parser, '%') != eof)
+      {
+         while( node->next_)
+            node = node->next_;
+         
+         goto retry;
+      }
+NS_ENDHANDLER
+      return;
+   }
+   else
+   {
+      MulleScionObject    *node;
+      
+      last_type = eof;
+      for( node = root; node; node = parser_next_object( &parser, node, &last_type));
+   }
 }
 
 
-- (MulleScionTemplate *) templateParsedWithBlockTable:(NSMutableDictionary *) blockTable
-                                      definitionTable:(NSMutableDictionary *) definitionsTable
-                                           macroTable:(NSMutableDictionary *) macroTable
-                                      dependencyTable:(NSMutableDictionary *) dependencyTable
+- (MulleScionTemplate *) templateParsedWithTables:(MulleScionParserTables *) tables
 {
    MulleScionTemplate  *root;
    
@@ -2872,21 +2989,16 @@ retry:
    
    [self parseData:data_
     intoRootObject:root
-          fileName:fileName_
-        blockTable:blockTable
-   definitionTable:definitionsTable
-        macroTable:macroTable
-   dependencyTable:dependencyTable];
+            tables:tables
+      ignoreErrors:NO];
    
    return( root);
 }
 
 
 - (MulleScionTemplate *) templateWithContentsOfFile:(NSString *) fileName
-                                         blockTable:(NSMutableDictionary *) blockTable
-                                    definitionTable:(NSMutableDictionary *) definitionTable
-                                         macroTable:(NSMutableDictionary *) macroTable
-                                    dependencyTable:(NSMutableDictionary *) dependencyTable
+                                             tables:(MulleScionParserTables *) tables
+                                          converter:(SEL) converterSel
 {
    MulleScionParser    *parser;
    MulleScionTemplate  *template;
@@ -2914,12 +3026,17 @@ retry:
       }
    }
    
-   parser   = [[[MulleScionParser alloc] initWithData:data
-                                             fileName:path] autorelease];
-   template = [parser templateParsedWithBlockTable:blockTable
-                                   definitionTable:definitionTable
-                                        macroTable:macroTable
-                                   dependencyTable:dependencyTable];
+   if( getenv( "MULLESCION_DUMP_FILEPATHS"))
+      fprintf( stderr, "parsing \"%s\"\n", [path fileSystemRepresentation]);
+   
+   /* run data through converter if needed */
+   if( converterSel)
+      data = [data performSelector:converterSel
+                        withObject:nil];
+   
+   parser = [[[MulleScionParser alloc] initWithData:data
+                                           fileName:path] autorelease];
+   template = [parser templateParsedWithTables:tables];
    return( template);
 }
 

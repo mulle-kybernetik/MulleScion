@@ -1,33 +1,46 @@
-Filter push the resultant text of template texts and expressions through a
-string filter. A filter has a corresponding endfilter to turn of filtering.
+`filter` pushes the resultant text of template texts and expressions through a
+**NSString** method returning a string. A `filter` has a corresponding `endfilter`
+to turn of filtering.
 
+#### Example 1
+````
+{% filter lowercaseString|capitalizedString %}
+This is filtered and pushed through lowercaseString and then capitalizedString.
 {% filter uppercaseString %}
-This is filtered and pushed through uppercaseString.
-   {% filter lowercaseString|capitalizedString %}
-Witness how this string is all capitalized now but no uppercasing, because
-the filter pipes don't add up with nesting.
-      {{ @"local filters nest though envelope/foo.html" | lastPathComponent }}
+Witness how this string not all uppercased, because the filter pipes add up with
+nesting.
    {% endfilter %}
 back to original.
 {% endfilter %}
+````
 
+#### Example 2
+````
 {% filter lowercaseString| [[self componentsSeparatedByString:@"/"] componentsJoinedByString:@"-"] %}
 THIS/IS/POSSIBLE
 {% endfilter %}
+````
 
-There is also function filter available. This will push a string argument 
-through the currently active filter.
+There is also function `filter()` available. This will push a string argument
+through the currently active filter only (but not through the chain). If
+the filter ist stateful (like Hoedown), this may not produce an immediate result.
 
-{% low=@"low" %}
+#### Example 3
+````
 {% filter uppercaseString %}
-   {% high = filter( low) %}
+{% lower=@"lower"
+   upper = filter( lower) %}
 {% endfilter %}
-{{ low }} -> {{ high }}
+{{ lower }} becomes {{ upper }}
+````
 
-Set the variable __SHOULD_FILTER_PLAINTEXT__ to NO to avoid filtering plaintext
+You can give filter an array of keywords `output` and/or `plaintext` to tell it
+what to filter. The default is both.
 
-{% __SHOULD_FILTER_PLAINTEXT__ = NO %}
-{% filter uppercaseString %}
-  This won't get filtered, but {{ "this" }}. Convenient to wrap around HTML
-  code for example and setting the filter to htmlEscapedString.
+#### Example 4
+````
+{% filter uppercaseString, (output) %}
+This won't get filtered, but {{ "this" }}. Convenient to wrap around HTML
+code for example and setting the filter to htmlEscapedString.
 {% endfilter %}
+````

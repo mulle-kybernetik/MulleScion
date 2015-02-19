@@ -81,6 +81,9 @@ static BOOL fileExists( NSString *fileName)
       [self autorelease];
       return( nil);
    }
+   
+   if( getenv( "MULLESCION_DUMP_FILEPATHS"))
+      fprintf( stderr, "parsing \"%s\"\n", [wrapper fileSystemRepresentation]);
 
    search  = [@"{$ WRAPPED_TEMPLATE $}" dataUsingEncoding:NSUTF8StringEncoding];
    replace = [fileName dataUsingEncoding:NSUTF8StringEncoding];
@@ -156,8 +159,8 @@ static BOOL fileExists( NSString *fileName)
    if( ! data)
       return( nil);
 
-   parser     = [[[MulleScionParser alloc] initWithData:data
-                                               fileName:fileName] autorelease];
+   parser = [[[MulleScionParser alloc] initWithData:data
+                                           fileName:fileName] autorelease];
    dictionary = [parser dependencyTable];
    
    return( dictionary);

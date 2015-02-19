@@ -207,53 +207,56 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
 
 - (MulleScionTemplate *) templateParsedWithBlockTable:(NSMutableDictionary *) blockTable
 {
-   NSMutableDictionary   *definitonsTable;
-   NSMutableDictionary   *macroTable;
-   MulleScionTemplate    *template;
-   NSAutoreleasePool     *pool;
+   MulleScionTemplate       *template;
+   NSAutoreleasePool        *pool;
+   MulleScionParserTables   tables;
    
-   pool            = [NSAutoreleasePool new];
+   pool = [NSAutoreleasePool new];
    
-   definitonsTable = [NSMutableDictionary dictionary];
-   macroTable      = [NSMutableDictionary dictionary];
-   template        = [[self templateParsedWithBlockTable:blockTable
-                                         definitionTable:definitonsTable
-                                              macroTable:macroTable
-                                         dependencyTable:nil] retain];
+   tables.definitionTable = [NSMutableDictionary dictionary];
+   tables.macroTable      = [NSMutableDictionary dictionary];
+   tables.blockTable      = blockTable;
+   tables.dependencyTable = nil;
+   
+   template = [[self templateParsedWithTables:&tables] retain];
+   
    [pool release];
+
    return( [template autorelease]);
 }
 
 
 - (NSDictionary *) dependencyTable
 {
-   NSMutableDictionary   *dependencyTable;
-   NSMutableDictionary   *definitonsTable;
-   NSMutableDictionary   *macroTable;
-   NSMutableDictionary   *blockTable;
-   NSAutoreleasePool     *pool;
+   NSAutoreleasePool        *pool;
+   MulleScionParserTables   tables;
+   MulleScionTemplate       *root;
    
-   dependencyTable = [NSMutableDictionary dictionary];
+   tables.dependencyTable = [NSMutableDictionary dictionary];
    
    pool = [NSAutoreleasePool new];
    
-   definitonsTable = [NSMutableDictionary dictionary];
-   macroTable      = [NSMutableDictionary dictionary];
-   blockTable      = [NSMutableDictionary dictionary];
+   tables.definitionTable = [NSMutableDictionary dictionary];
+   tables.macroTable      = [NSMutableDictionary dictionary];
+   tables.blockTable      = [NSMutableDictionary dictionary];
+   
+   root = [[[MulleScionTemplate alloc] initWithFilename:[fileName_ lastPathComponent]] autorelease];
+      
+   [self parseData:data_
+    intoRootObject:root
+            tables:&tables
+      ignoreErrors:YES];
 
-   [self templateParsedWithBlockTable:blockTable
-                      definitionTable:definitonsTable
-                           macroTable:macroTable
-                      dependencyTable:dependencyTable];
    [pool release];
    
-   return( dependencyTable);
+   return( tables.dependencyTable);
 }
 
 
-- (void) parserErrorInFileName:(NSString *) fileName
-                    lineNumber:(NSUInteger) lineNumber
-                        reason:(NSString *) reason
+- (void) parser:(void *) parser
+errorInFileName:(NSString *) fileName
+     lineNumber:(NSUInteger) lineNumber
+         reason:(NSString *) reason
 {
    [NSException raise:NSInvalidArgumentException
                format:@"%@,%lu: %@", fileName ? fileName : @"template", (long) lineNumber, reason];

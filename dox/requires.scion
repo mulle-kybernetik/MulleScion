@@ -1,19 +1,19 @@
-{% requires "com.apple.Foundation" %}
+`requires` will try to locate a **NSBundle** at print time. If the bundle
+identifier matches, then the bundle will get loaded. The idea is to be able to
+load available functionality to a standalone script.
 
-This will try to locate a NSBundle at print time. If the bundle identifier
-matches, then the bundle will get loaded. The idea is to add available 
-functionality to a standalone script.
+#### Example
+````
+{% requires "com.apple.Foundation" %}
+````
 
 requires searches in the following places:
 
 *  first in all already loaded bundles and frameworks
-
 *  in the mainBundle builtInPlugInsPath
-
 *  it then will search through all Library directories Frameworks and PlugIns
 directories.
+*  Turn on the ``MULLESCION_DUMP_BUNDLE_SEARCHPATH`` environment variable to see
+the paths searched.
 
-*  Turn on the MULLESCION_DUMP_BUNDLE_SEARCHPATH environment variable to see the
-paths searched.
-
-requires can't be used in multi-line statements.
+``requires`` should not be used in multi-line statements.

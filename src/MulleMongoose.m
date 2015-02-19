@@ -128,6 +128,7 @@ static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
    NSCParameterAssert( response);
    
    utf8Data = [response dataUsingEncoding:NSUTF8StringEncoding];
+   
    mulle_write_response( conn, (void *) [utf8Data bytes], [utf8Data length]);
    
    return( 1);

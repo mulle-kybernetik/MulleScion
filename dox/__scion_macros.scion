@@ -9,3 +9,18 @@
   {% for file in file_list %}{{ file#.header }}<a href="{{ file | urlEscapedString }}{{ wrapper }}">{{ [file isEqualToString:@"dot.scion"] ? @"." : [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
  </table>
 {% endmacro %}
+
+
+{% macro wrapper_navigation_extension( templatename) %}
+   {%
+      dependencyTable = [MulleScionTemplate dependencyTableOfFile:templatename];
+      value           = dependencyTable[ templatename];
+      if [value count]
+         result = [[value allObjects] sortedArrayUsingSelector:@selector( compare:)]
+   %}
+       <hr>
+       {% html_file_list_table( file_list=result) %}
+   {% endif %}
+{% endmacro %}
+
+

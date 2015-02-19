@@ -106,7 +106,7 @@
 
 - (BOOL) snarfsScion
 {
-   return( YES);
+   return( NO);
 }
 
 @end

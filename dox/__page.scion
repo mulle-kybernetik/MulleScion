@@ -2,6 +2,7 @@
    <head>
        <title>{% block scion_title %}MulleScion{% endblock %}</title>
         {% block scion_header_additions %}{% endblock %}
+        {% block scion_style %}{% endblock %}
    </head>
    <body>
      {% block scion_body %}{% endblock %}

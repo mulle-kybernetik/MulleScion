@@ -1,16 +1,31 @@
-Extends is a special kind of "includes". After the file to extend has been 
-included normal template parsing is suspended and only blocks and other 
-includes and extends statements are processed.
+`extends` is a special kind of [`includes`](/includes.scion?wrapper=_wrapper.scion).
+After the file to extend has been opened, normal template parsing is suspended
+and only blocks and other includes and extends statements are processed.
 
-Whenever a block is found in this state, the block is recorded for later
-substitution of previously read blocks in the non-suspended state. The last read
-block therefore wins. This in effect provides a form of template inheritance.
+Whenever a [`block`](/includes.scion?wrapper=_wrapper.scion) is found in this state,
+the block is recorded for later substitution of previously read blocks in the
+non-suspended state. The last read block therefore wins. This in effect provides
+a form of template inheritance.
 
-Whenever another "extends" command is found. Regular template processing resumes
+Whenever another `extends` command is found. Regular template processing resumes
 again, so that the extends command can perform an include (See first step).
 
-{% extends "block.scion" %}
+General rule: After an ``extends``, there should be only other ``extends``and
+``block`` definitons.
 
-{% block myblock %}Your block is now our block{% endblock %}
+#### Example 1
+````
+{% extends "__demo.scion" %}
+{% block demo %}<blockquote>We override the contents</blockquote>{% endblock %}
+````
 
-extends can't be used in multi-line statements.
+The example shows how anything besides `block` and `extends` statements get
+ignored. Because of the `extends` in Example 1, the example won't even show. And
+the text you are reading is ignored by MulleScion as well.
+
+#### Example 2
+````
+You won't see me.
+````
+
+`extends` can't be used in multi-line statements.

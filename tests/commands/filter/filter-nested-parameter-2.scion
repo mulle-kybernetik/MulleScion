@@ -1,0 +1,7 @@
+{% 
+   filter lowercaseString, (plaintext) 
+      filter uppercaseString, (output)
+         {{ @"VfL Bochum 1848\n" }}
+      endfilter 
+   endfilter 
+%}

@@ -1,11 +1,14 @@
-A macro is a little like a block, but it can't be overridden. On the bright 
-side you can give a macro parameters. Blocks are evaluated much later than 
-macros.
+A ``macro`` is a little bit like a ``block``, but it can't be overridden. On the
+positive side you can give a macro parameters. Blocks are evaluated much later
+than macros.
 
-A macro is a compile time construct like a define. MulleScion deviates
-again from TWIG in that there is no imports facility.
+A macro is a compile time construct like a ``define``. **MulleScion** deviates
+again from TWIG in that there is no *imports* facility.
 
 
+#### Example 1
+````
+{# a macro by itself, produces no output #}
 {% macro table( border, cellpadding, list) %}
 <table border="{{border}}" cellpadding="{{ cellpadding }}">
  {% for i in list %}
@@ -13,11 +16,21 @@ again from TWIG in that there is no imports facility.
  {% endfor %}
 </table>
 {% endmacro %}
+````
 
+#### Example 2
+````
 This value {{ list }} is from the properties file
+````
 
+#### Example 3
+````
 {{ table( 1, 10, @( @"VfL", @"Bochum", @"1848")) }}
+````
 
+#### Example 4
+````
 And {{ list }} should now be as before the macro expansion
+````
 
 Can macro/endmacro be used in multi-line statements ? Preferably not.

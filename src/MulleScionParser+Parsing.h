@@ -40,24 +40,25 @@
 @class MulleScionObject;
 
 
+typedef struct
+{
+   NSMutableDictionary   *blockTable;
+   NSMutableDictionary   *definitionTable;
+   NSMutableDictionary   *macroTable;
+   NSMutableDictionary   *dependencyTable;
+} MulleScionParserTables;
+
+
 @interface MulleScionParser ( Parsing)
 
 - (void) parseData:(NSData *) data
     intoRootObject:(MulleScionObject *) root
-          fileName:(NSString *) fileName
-        blockTable:(NSMutableDictionary *) blockTable
-   definitionTable:(NSMutableDictionary *) definitionTable
-        macroTable:(NSMutableDictionary *) macroTable
-   dependencyTable:(NSMutableDictionary *) dependencyTable;
+            tables:(MulleScionParserTables *) tables
+      ignoreErrors:(BOOL) ignoreErrors;
 
-- (MulleScionTemplate *) templateParsedWithBlockTable:(NSMutableDictionary *) blockTable
-                                      definitionTable:(NSMutableDictionary *) definitionsTable
-                                           macroTable:(NSMutableDictionary *) macroTable
-                                      dependencyTable:(NSMutableDictionary *) dependencyTable;
+- (MulleScionTemplate *) templateParsedWithTables:(MulleScionParserTables *) tables;
 
 - (MulleScionTemplate *) templateWithContentsOfFile:(NSString *) fileName
-                                         blockTable:(NSMutableDictionary *) blockTable
-                                    definitionTable:(NSMutableDictionary *) definitionTable
-                                         macroTable:(NSMutableDictionary *) macroTable
-                                    dependencyTable:(NSMutableDictionary *) dependencyTable;
+                                             tables:(MulleScionParserTables *) tables;
+
 @end
