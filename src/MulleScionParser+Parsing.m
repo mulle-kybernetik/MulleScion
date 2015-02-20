@@ -399,44 +399,41 @@ static macro_type   parser_grab_text_until_scion( parser *p)
 {
    unsigned char   c, d;
    int             inquote;
+   macro_type      type;
    
    assert( p->skipComments <= 0);
 
    parser_memorize( p, &p->memo);
    
+   type    = garbage;
    inquote = 0;
-   c = p->curr > p->buf ? p->curr[ -1] : 0;
+   c       = p->curr > p->buf ? p->curr[ -1] : 0;
    while( p->curr < p->sentinel)
    {
       d = c;
       c = *p->curr++;
 
-      if( c == '\n')
-         parser_nl( p);
-
-      if( c == '"')
-         inquote = ! inquote;
+      //
+      // try to also find stray closers and error then, because it's easier
+      // for template editing
+      //
+      switch( c)
+      {
+      case '\n' :  type = garbage; parser_nl( p); continue;
+      case '"'  :  type = garbage; inquote = ! inquote; continue;
+      default   :  type = garbage; continue;
+      case '%'  :  type = command; break;
+      case '#'  :  type = comment; break;
+      case '{'  :  type = expression; break;
+      case '}'  :  if( type == garbage) continue;
+                   parser_error( p, "unexpected '}}' without opener");
+      }
       
       if( d == '{')
       {
          parser_memorize( p, &p->memo_scion);
-         if( c == '{')
-         {
-            p->curr -= 2;
-            return( expression);
-         }
-
-         if( c == '%')
-         {
-            p->curr -= 2;
-            return( command);
-         }
-         
-         if( c == '#')
-         {
-            p->curr -= 2;
-            return( comment);
-         }
+         p->curr -= 2;
+         return( type);
       }
    }
    return( eof);
@@ -458,11 +455,11 @@ static macro_type   parser_next_scion_end( parser *p)
       
    if( c == '}')
       switch( d)
-   {
+      {
       case '}' : return( expression);
       case '%' : return( command);
       case '#' : return( comment);
-   }
+      }
    p->curr -= 2;
    return( garbage);
 }
@@ -2647,8 +2644,6 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_print( parser *p, NSU
    parser_next_expected_character( p, '}', "closing }} expected");
    parser_next_expected_character( p, '}', "closing }} expected");
    
-   if( p->environment & MULLESCION_DUMP_EXPRESSIONS)
-      fprintf( stderr, "%s\n", [[expr dumpDescription] cString]);
    return( expr);
 }
 
@@ -2937,6 +2932,9 @@ retry:
       parser_memorize( p, &p->memo_interesting);
       next = parser_do_expression_or_macro( p);
       parser_finish_expression( p);
+         
+      if( p->environment & MULLESCION_DUMP_EXPRESSIONS)
+         fprintf( stderr, "%s\n", [[next dumpDescription] cString]);
       break;
       
    case command :

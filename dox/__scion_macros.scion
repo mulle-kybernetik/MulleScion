@@ -24,7 +24,7 @@
    MulleScionForSubdivisionOpener = MulleScionForOpener;
    MulleScionForSubdivisionCloser = "</td></tr>\n"
 
-   {{ @"<table>" }}
+{{ @"<table id=\"navigation\">" }}
 
    for file in file_list
       pretty_name_from_file( pretty_name, file)
