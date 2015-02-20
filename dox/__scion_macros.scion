@@ -29,7 +29,7 @@
    for file in file_list
       pretty_name_from_file( pretty_name, file)
       {{ file#.header }}
-      {{ @"<a href=" }}{{ file | urlEscapedString }}{{ wrapper }}{{ ">" }}{{ pretty_name }} {{ @"</a>" }}
+      {{ @"<a href=\"" }}{{ file | urlEscapedString }}{{ wrapper }}{{ "\">" }}{{ pretty_name }} {{ @"</a>" }}
       {{ file#.footer }}
    endfor
 

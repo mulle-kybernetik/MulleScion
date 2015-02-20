@@ -1,11 +1,11 @@
-#! /bin/sh  -x
+#! /bin/sh 
 # ###########################################################################
 # $Id$
 # (c) 2013 Mulle kybernetiK
 # coded by Nat!
 # ###########################################################################
 
-input=${1:-"../src/MulleScionObjectModel.h"}
+input=${1:-"./src/MulleScionObjectModel.h"}
 shift
 open=${1:-yes}
 shift
@@ -48,6 +48,11 @@ create_dot()
    create_dot_footer 
 }
 
+if [ ! -f "$input" -o ! -d "$dox"]
+then
+   echo "start it from MulleScion" 1>&2
+   exit 1
+fi
 
 output=dox/`basename "$input" .h`.dot
 

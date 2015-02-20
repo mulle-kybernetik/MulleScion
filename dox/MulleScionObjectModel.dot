@@ -33,10 +33,12 @@ MulleScionCommand-> MulleScionObject;
 MulleScionTerminator-> MulleScionCommand;
 MulleScionEndFor-> MulleScionTerminator;
 MulleScionExpressionCommand-> MulleScionCommand;
+MulleScionLog-> MulleScionExpressionCommand;
 MulleScionSet-> MulleScionCommand;
 MulleScionFor-> MulleScionSet;
 MulleScionIf-> MulleScionExpressionCommand;
 MulleScionElse-> MulleScionTerminator;
+MulleScionElseFor-> MulleScionElse;
 MulleScionEndIf-> MulleScionTerminator;
 MulleScionWhile-> MulleScionIf;
 MulleScionEndWhile-> MulleScionTerminator;
@@ -47,4 +49,5 @@ MulleScionFunctionCall-> MulleScionExpressionCommand;
 MulleScionFilter-> MulleScionExpressionCommand;
 MulleScionEndFilter-> MulleScionTerminator;
 MulleScionMacro-> MulleScionTemplate;
+MulleScionRequires-> MulleScionCommand;
 }
