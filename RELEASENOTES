@@ -31,6 +31,8 @@ Stole a CSS to make it look more nicey, nicey.
 
 Improved the LICENSE detail.
 
+Made it possible to call a macro from a macro, which didn't work before.
+
 
 1848.11
 

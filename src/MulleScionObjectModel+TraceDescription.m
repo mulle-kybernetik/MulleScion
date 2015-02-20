@@ -1,5 +1,5 @@
 //
-//  MulleScionObjectModel+Debug.m
+//  MulleScionObjectModel+TraceDescription.m
 //  MulleScion
 //
 //  Created by Nat! on 25.02.13.
@@ -102,7 +102,6 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-
 @implementation NSObject ( TraceValueDescription)
 
 
@@ -123,7 +122,7 @@ static Class   NSPlaceholderStringClass;
    NSMutableString   *s;
    NSEnumerator      *rover;
    
-   // this code gets arounf the if in the while, there is no other point to
+   // this code gets around the if in the while, there is no other point to
    // this, just sport :D
    s     = [NSMutableString stringWithFormat:@"@("];
    rover = [self objectEnumerator];

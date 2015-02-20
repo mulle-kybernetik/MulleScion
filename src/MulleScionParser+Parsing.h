@@ -59,6 +59,8 @@ typedef struct
 - (MulleScionTemplate *) templateParsedWithTables:(MulleScionParserTables *) tables;
 
 - (MulleScionTemplate *) templateWithContentsOfFile:(NSString *) fileName
-                                             tables:(MulleScionParserTables *) tables;
+                                             tables:(MulleScionParserTables *) tables
+                                          converter:(SEL) converterSel;
+
 
 @end

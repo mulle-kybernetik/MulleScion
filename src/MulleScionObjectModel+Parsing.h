@@ -43,7 +43,7 @@
 
 @interface MulleScionObject( Parsing)
 
-- (id) appendRetainedObject:(MulleScionObject *) NS_CONSUMED obj;
+- (void) appendRetainedObject:(MulleScionObject *) NS_CONSUMED obj;
 
 // hackish stuff for the parser
 - (MulleScionObject *) behead;

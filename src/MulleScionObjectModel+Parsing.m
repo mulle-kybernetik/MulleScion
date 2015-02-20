@@ -70,7 +70,7 @@
 }
 
 
-- (id) appendRetainedObject:(MulleScionObject *) NS_CONSUMED  p
+- (void) appendRetainedObject:(MulleScionObject *) NS_CONSUMED  p
 {
    MulleScionObject  *obj;
    
@@ -79,8 +79,6 @@
    // NSParameterAssert( ! p->next_ || [p isBlock] || [p isKindOfClass:[MulleScionTemplate class]]);
    
    self->next_ = p;
-   for( obj = p; obj->next_; obj = obj->next_);
-   return( obj);
 }
 
 

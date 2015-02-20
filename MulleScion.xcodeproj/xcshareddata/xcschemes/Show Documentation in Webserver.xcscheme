@@ -79,7 +79,17 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "MULLESCION_DUMP_EXPRESSIONS"
+            value = ""
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "MULLESCION_DUMP_MACROS"
+            value = ""
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "MULLESCION_DUMP_COMMANDS"
             value = ""
             isEnabled = "YES">
          </EnvironmentVariable>

@@ -1,5 +1,5 @@
 //
-//  MulleScionObjectModel+Debug.h
+//  MulleScionObjectModel+TraceDescription.h
 //  MulleScion
 //
 //  Created by Nat! on 25.02.13.

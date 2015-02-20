@@ -41,7 +41,8 @@
 #import "MulleScionObjectModel+Parsing.h"
 #import "MulleScionObjectModel+NSCoding.h"
 #import "MulleScionObjectModel+MacroExpansion.h"
-#if ! TARGET_OS_IPHONE  
+#import "MulleScionObjectModel+TraceDescription.h"
+#if ! TARGET_OS_IPHONE
 # import <Foundation/NSDebug.h>
 #endif
 
@@ -105,11 +106,21 @@ typedef struct _parser
    int                  skipComments;
    int                  inMacro;
    int                  wasMacroCall;
+   unsigned int         environment;
    NSString             *fileName;
    MulleScionParserTables  tables;
    NSMutableArray       *converterStack;
 } parser;
 
+
+enum
+{
+   MULLESCION_VERBATIM_INCLUDE_HASHBANG = 0x01,
+   MULLESCION_NO_HASHBANG               = 0x02,
+   MULLESCION_DUMP_MACROS               = 0x04,
+   MULLESCION_DUMP_COMMANDS             = 0x08,
+   MULLESCION_DUMP_EXPRESSIONS          = 0x10
+};
 
 static void   parser_skip_after_newline( parser *p);
 
@@ -136,6 +147,12 @@ static void   parser_init( parser *p, unsigned char *buf, size_t len)
       p->sentinel   = &p->buf[ len];
       p->lineNumber = 1;
    }
+
+   p->environment |= getenv( "MULLESCION_DUMP_MACROS") ? MULLESCION_DUMP_MACROS : 0;
+   p->environment |= getenv( "MULLESCION_VERBATIM_INCLUDE_HASHBANG") ? MULLESCION_VERBATIM_INCLUDE_HASHBANG : 0;
+   p->environment |= getenv( "MULLESCION_NO_HASHBANG") ? MULLESCION_NO_HASHBANG : 0;
+   p->environment |= getenv( "MULLESCION_DUMP_COMMANDS") ? MULLESCION_DUMP_COMMANDS : 0;
+   p->environment |= getenv( "MULLESCION_DUMP_EXPRESSIONS") ? MULLESCION_DUMP_EXPRESSIONS : 0;
 }
 
 static inline void   parser_set_error_callback( parser *p, id self, SEL sel)
@@ -1293,7 +1310,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_expand_macro_with_argume
    
    // so hat do we do with the body now ?
    // snip off the head
-   obj   = [body behead];
+   obj = [body behead];
    // the tricky thing is, that 'obj' is now not autoreleased anymore
    // while body is
    [pool release];
@@ -1310,7 +1327,7 @@ static MulleScionFunction  * NS_RETURNS_RETAINED _parser_do_function( parser *p,
    if( macro)
       parser_error( p, "referencing a macro in an expression is not allowed");
    
-   if( getenv( "MULLESCION_DUMP_MACROS"))
+   if( p->environment & MULLESCION_DUMP_MACROS)
       fprintf( stderr, "referencing function \"%s\"\n", [identifier cString]);
    
    return( [MulleScionFunction newWithIdentifier:identifier
@@ -2117,8 +2134,11 @@ retry:
       if( ! s)
          parser_error( p, "could not load include file \"%@\"", fileName);
       
-      if( ! getenv( "MULLESCION_VERBATIM_INCLUDE_HASHBANG") && ! getenv( "MULLESCION_NO_HASHBANG"))
+      if( ! (p->environment & MULLESCION_VERBATIM_INCLUDE_HASHBANG) &&
+          ! (p->environment & MULLESCION_NO_HASHBANG))
+      {
          s = parser_remove_hashbang_from_string_if_desired( s);
+      }
       return( [MulleScionPlainText newWithRetainedString:s
                                               lineNumber:p->memo.lineNumber]);
    }
@@ -2494,7 +2514,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
    parser_finish_command( p);
    
    // do this once and store in parser
-   if( getenv( "MULLESCION_DUMP_MACROS"))
+   if( p->environment & MULLESCION_DUMP_MACROS)
       fprintf( stderr, "defining macro \"%s\"\n", [identifier cString]);
    
    // now just grab stuff until we hit an endmacro
@@ -2503,7 +2523,13 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
    last_type  = eof;
    p->inMacro = YES;
 
-   for( last = nil, node = root; node; last = node, node = parser_next_object( p, node, &last_type));
+   last = nil;
+   node = root;
+   while( node)
+   {
+      last = node;
+      node = parser_next_object( p, node, &last_type);
+   }
 
    p->inMacro = NO;
    if( last_type != command)
@@ -2541,7 +2567,6 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
       parser_undo_character( p);
    parser_undo_character( p);
 #endif
-
 
    return( macro);
 }
@@ -2621,6 +2646,9 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_print( parser *p, NSU
    parser_skip_whitespace( p);
    parser_next_expected_character( p, '}', "closing }} expected");
    parser_next_expected_character( p, '}', "closing }} expected");
+   
+   if( p->environment & MULLESCION_DUMP_EXPRESSIONS)
+      fprintf( stderr, "%s\n", [[expr dumpDescription] cString]);
    return( expr);
 }
 
@@ -2682,7 +2710,10 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
       if( expr)
       {
          if( p->wasMacroCall)
+         {
+            p->wasMacroCall = NO;  // reset now
             return( expr);
+         }
          //if( [expr isFunction])  // not that great an idea, produces surprising
          //   return( expr);       // output as a side effect
          return( parser_do_implicit_set( p, expr, line));
@@ -2737,11 +2768,22 @@ static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_command_or_nothing( pa
    // allow empty commands, i don't like parser_peek2_character
    // but couldn't think of something better
    //
+   if( parser_peek_character( p) == '{')
+   {
+      if( parser_peek2_character( p) == '%')
+         parser_error( p, "command nested within command");
+      if( parser_peek2_character( p) == '#')
+         parser_error( p, "comment nested within command");
+   }
+   
    if( parser_peek_character( p) == '%' && parser_peek2_character( p) == '}')
       return( nil);
    
    parser_skip_whitespace( p);
    expr = parser_do_command( p);
+   
+   if( p->environment & MULLESCION_DUMP_COMMANDS)
+      fprintf( stderr, "%s\n", [[expr dumpDescription] cString]);
    return( expr);
 }
 
@@ -2757,7 +2799,7 @@ static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_commands( parser *p)
       return( expr);
 
    // commands like includes, extends, block, endblock can not be in multiline
-   // statements (and neither can requires now, just because)
+   // statements (but requires can, but really shouldn't)
    
    if( [expr snarfsScion])
       return( expr);
@@ -2765,9 +2807,13 @@ static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_commands( parser *p)
    first = expr;
    while( next = _parser_do_command_or_nothing( p))
    {
-      NSCParameterAssert( ! next->next_);
       expr->next_ = next;
-      expr        = next;
+
+      // dial down the macro chain, if any
+      while( next->next_)
+         next = next->next_;
+      
+      expr = next;
    }
    return( first);
 }
@@ -2870,7 +2916,9 @@ retry:
       next     = [MulleScionPlainText newWithRetainedString:s
                                                  lineNumber:plaintext_start.lineNumber];
       p->first = next;
-      owner    = [owner appendRetainedObject:next];
+
+      [owner appendRetainedObject:next];
+      owner    = [next tail];
    }
    
    *last_type = type;
@@ -2912,7 +2960,8 @@ retry:
       if( ! p->first)
          p->first = next;
    
-      owner = [owner appendRetainedObject:next];  // analyzer mistake
+      [owner appendRetainedObject:next];  // analyzer mistake
+      owner = [next tail];
    }
    return( owner);
 }
@@ -2943,13 +2992,16 @@ retry:
    // looks funny. Well because they include it verbatim, they still look funny
    //   if( ! [self parent])
    //
-   if( ! getenv( "MULLESCION_NO_HASHBANG"))
+   if( ! (parser.environment & MULLESCION_NO_HASHBANG))
       parser_skip_initial_hashbang_line_if_present( &parser);
 
    // useful to just run dependency, even if syntactically garbage
    if( ignoreErrors)
    {
       volatile MulleScionObject    *node;
+      
+      // reset environment to not talkative
+      parser.environment &= MULLESCION_NO_HASHBANG | MULLESCION_VERBATIM_INCLUDE_HASHBANG;
       
       last_type = eof;
       node      = root;

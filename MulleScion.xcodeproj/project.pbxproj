@@ -175,6 +175,7 @@
 		414A436F19040B530020C6FF /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
 		414A437019040B530020C6FF /* verbatim.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A516E397D800C4D68A /* verbatim.scion */; };
 		414A437119040B530020C6FF /* while.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF916DCFD9D00BFD60C /* while.scion */; };
+		415918051A976C2A006ECD52 /* Environment_Variables.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 415918031A976C2A006ECD52 /* Environment_Variables.scion */; };
 		415C401E1A9641010072B73A /* __demo.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 415C401D1A9641010072B73A /* __demo.scion */; };
 		415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA59B182BBB3B00F654F7 /* GTMDefines.h */; };
 		41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
@@ -550,6 +551,7 @@
 			dstPath = /tmp/MulleScionDox;
 			dstSubfolderSpec = 0;
 			files = (
+				415918051A976C2A006ECD52 /* Environment_Variables.scion in CopyFiles */,
 				414A435319040B530020C6FF /* index.scion in CopyFiles */,
 				414A435419040B530020C6FF /* _wrapper.scion in CopyFiles */,
 				414A435519040B530020C6FF /* __scion_macros.scion in CopyFiles */,
@@ -716,6 +718,9 @@
 		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		415918001A974419006ECD52 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		415918011A974419006ECD52 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
+		415918031A976C2A006ECD52 /* Environment_Variables.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Environment_Variables.scion; sourceTree = "<group>"; };
 		415C401D1A9641010072B73A /* __demo.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __demo.scion; sourceTree = "<group>"; };
 		415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"; sourceTree = "<group>"; };
@@ -785,8 +790,8 @@
 		41D6DF2416DE523D004833D6 /* libMulleScion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScion.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41D6DF5C16DE53AE004833D6 /* MulleScion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MulleScion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41DCAF6E16DE557100C5A74E /* MulleScion-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MulleScion-Info.plist"; sourceTree = "<group>"; };
-		41DD569D16E376F600C4D68A /* mongoose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mongoose.h; sourceTree = "<group>"; };
-		41DD569E16E376F600C4D68A /* mongoose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mongoose.c; sourceTree = "<group>"; };
+		41DD569D16E376F600C4D68A /* mongoose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mongoose.h; path = src/mongoose/mongoose.h; sourceTree = SOURCE_ROOT; };
+		41DD569E16E376F600C4D68A /* mongoose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mongoose.c; path = src/mongoose/mongoose.c; sourceTree = SOURCE_ROOT; };
 		41DD56A016E376FF00C4D68A /* MulleMongoose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleMongoose.h; sourceTree = "<group>"; };
 		41DD56A116E376FF00C4D68A /* MulleMongoose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleMongoose.m; sourceTree = "<group>"; };
 		41DD56A316E37E7500C4D68A /* [].scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = "[].scion"; sourceTree = "<group>"; };
@@ -951,6 +956,15 @@
 			name = MulleScionLibrary;
 			sourceTree = "<group>";
 		};
+		415918021A974436006ECD52 /* mongoose */ = {
+			isa = PBXGroup;
+			children = (
+				41DD569D16E376F600C4D68A /* mongoose.h */,
+				41DD569E16E376F600C4D68A /* mongoose.c */,
+			);
+			path = mongoose;
+			sourceTree = "<group>";
+		};
 		41764B8316DA511200560FCF = {
 			isa = PBXGroup;
 			children = (
@@ -1007,8 +1021,7 @@
 			children = (
 				410BF0061926AA7600838823 /* MulleCommonObjCRuntime.h */,
 				41764B9216DA511200560FCF /* main.m */,
-				41DD569D16E376F600C4D68A /* mongoose.h */,
-				41DD569E16E376F600C4D68A /* mongoose.c */,
+				415918021A974436006ECD52 /* mongoose */,
 				41DD56A016E376FF00C4D68A /* MulleMongoose.h */,
 				41DD56A116E376FF00C4D68A /* MulleMongoose.m */,
 				41DD56B516E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.h */,
@@ -1042,6 +1055,7 @@
 				4121DB0B16DD5E0B00BFD60C /* !_Introduction.scion */,
 				4121DAFE16DD048800BFD60C /* Formatting_Options.scion */,
 				411F98AD16E0FBE600738250 /* Global_Variables.scion */,
+				415918031A976C2A006ECD52 /* Environment_Variables.scion */,
 				4121DB0D16DD667900BFD60C /* NSMakeRange.scion */,
 				41EC7F951821BE3900142613 /* #!.scion */,
 				41DD56A316E37E7500C4D68A /* [].scion */,
@@ -1120,6 +1134,8 @@
 				41CFAFFB1A93E1E500B0783A /* html.c */,
 				41CFAFFC1A93E1E500B0783A /* stack.c */,
 				41CFAFFD1A93E1E500B0783A /* version.c */,
+				415918001A974419006ECD52 /* LICENSE */,
+				415918011A974419006ECD52 /* TemplateIcon2x.png */,
 			);
 			path = hoedown;
 			sourceTree = "<group>";

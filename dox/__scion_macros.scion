@@ -1,26 +1,51 @@
+{% macro pretty_name_from_file( pretty_name, file) %}
+{%
+   if [file isEqualToString:@"dot.scion"]
+      pretty_name = ".";
+   else
+      pretty_name = file;
+      if [pretty_name hasPrefix:@"!_"]
+         pretty_name = [pretty_name substringFromIndex:2];
+      endif
+
+      pretty_name = [pretty_name stringByReplacingOccurrencesOfString:@"_" withString:" "];
+      pretty_name = [pretty_name stringByDeletingPathExtension];
+   endif
+%}
+{% endmacro %}
+
+
 {% macro html_file_list_table( subdivision=4, wrapper="?wrapper=_wrapper.scion", file_list) %}
- {% MulleScionForSubdivisionLength = subdivision;
-    MulleScionForOpener = "	<tr><td>";
-    MulleScionForSeparator = "</td><td>";
-    MulleScionForCloser = "</td></tr>";
-    MulleScionForSubdivisionOpener = MulleScionForOpener;
-    MulleScionForSubdivisionCloser = "</td></tr>\n" %}
- <table>
-  {% for file in file_list %}{{ file#.header }}<a href="{{ file | urlEscapedString }}{{ wrapper }}">{{ [file isEqualToString:@"dot.scion"] ? @"." : [file stringByDeletingPathExtension] }}</a>{{ file#.footer }}{% endfor %}
- </table>
+{%
+   MulleScionForSubdivisionLength = subdivision;
+   MulleScionForOpener = "	<tr><td>";
+   MulleScionForSeparator = "</td><td>";
+   MulleScionForCloser = "</td></tr>";
+   MulleScionForSubdivisionOpener = MulleScionForOpener;
+   MulleScionForSubdivisionCloser = "</td></tr>\n"
+
+   {{ @"<table>" }}
+
+   for file in file_list
+      pretty_name_from_file( pretty_name, file)
+      {{ file#.header }}
+      {{ @"<a href=" }}{{ file | urlEscapedString }}{{ wrapper }}{{ ">" }}{{ pretty_name }} {{ @"</a>" }}
+      {{ file#.footer }}
+   endfor
+
+   {{ @"</table>" }}
+%}
 {% endmacro %}
 
 
 {% macro wrapper_navigation_extension( templatename) %}
-   {%
-      dependencyTable = [MulleScionTemplate dependencyTableOfFile:templatename];
-      value           = dependencyTable[ templatename];
-      if [value count]
-         result = [[value allObjects] sortedArrayUsingSelector:@selector( compare:)]
-   %}
-       <hr>
-       {% html_file_list_table( file_list=result) %}
-   {% endif %}
+{%
+   dependencyTable = [MulleScionTemplate dependencyTableOfFile:templatename];
+   value           = dependencyTable[ templatename];
+   if [value count]
+      result = [[value allObjects] sortedArrayUsingSelector:@selector( compare:)]
+      {{ @"<hr>" }}
+      html_file_list_table( file_list=result)
+   endif
+%}
 {% endmacro %}
-
-

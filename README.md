@@ -119,11 +119,11 @@ SITES
 =============
 The main development site is Mulle kybernetiK. 
 
-[http://www.mulle-kybernetik.com/software/git/MulleScion/]()
+[http://www.mulle-kybernetik.com/software/git/MulleScion/](http://www.mulle-kybernetik.com/software/git/MulleScion/)
 
 releases are pushed to github
 
-[https://github.com/mulle-nat/MulleScion/]()
+[https://github.com/mulle-nat/MulleScion/](https://github.com/mulle-nat/MulleScion/)
 
 
 TODO
@@ -138,3 +138,8 @@ Coded by Nat!
 
 Mongoose Webserver by
 Sergey Lyubka 
+
+Hoedown Library by Natacha Porté
+Vicent Martí
+Xavier Mendez, Devin Torres and the Hoedown authors
+

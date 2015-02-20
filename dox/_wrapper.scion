@@ -14,7 +14,8 @@
 
 
 {% block scion_contents_left %}
-   <h2>{{ @"{$ WRAPPED_TEMPLATE $}" | stringByDeletingPathExtension }}</h2>
+   {% pretty_name_from_file( pretty_name, @"{$ WRAPPED_TEMPLATE $}") %}
+   <h2>{{ pretty_name }}</h2>
    {% filter [Hoedown htmlEscapedFilter] %}
    {% includes verbatim "{$ WRAPPED_TEMPLATE $}" %}
    {% endfilter %}
