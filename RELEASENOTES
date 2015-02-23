@@ -4,8 +4,8 @@
 
 I decided to convert the documentation from ASCII into markdown. For that I
 needed a markdown filter. As it turns out, none of the libraries I found are
-able to do incremental rendering (bummer). This means, that the markdown filter
-I needed had to buffer all incoming strings until the endfilter was reached.
+able to do incremental rendering (bummer). This meant, that the markdown filter
+had to buffer all incoming strings until the endfilter was reached.
 That broke a lot of stuff.
 
 On a positive note, you can now nest filters and can tweak them a little with
@@ -32,6 +32,9 @@ Stole a CSS to make it look more nicey, nicey.
 Improved the LICENSE detail.
 
 Made it possible to call a macro from a macro, which didn't work before.
+
+There is now a hidden convert feature on includes, which allows to preprocess the
+data. convert > parse > print > filter
 
 
 1848.11
