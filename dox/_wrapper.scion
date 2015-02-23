@@ -1,3 +1,7 @@
+{#
+   The magic of this file is "{$ WRAPPED_TEMPLATE $}", which is replaced by the
+   "mulle-scion" webserver with the proper file name.
+#}
 {% extends "__scion_page.scion" %}
 
 {% block scion_contents %}

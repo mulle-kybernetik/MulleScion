@@ -111,7 +111,7 @@ extern void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionN
       return( self);
 
    length = [self length];
-   max    = [s unsignedIntegerValue];
+   max    = [s integerValue];
    if( max >= length)
       return( self);
 

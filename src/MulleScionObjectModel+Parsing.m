@@ -72,8 +72,6 @@
 
 - (void) appendRetainedObject:(MulleScionObject *) NS_CONSUMED  p
 {
-   MulleScionObject  *obj;
-   
    NSParameterAssert( [p isKindOfClass:[MulleScionObject class]]);
    NSParameterAssert( ! self->next_);
    // NSParameterAssert( ! p->next_ || [p isBlock] || [p isKindOfClass:[MulleScionTemplate class]]);

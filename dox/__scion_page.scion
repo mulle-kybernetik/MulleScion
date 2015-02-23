@@ -1,3 +1,8 @@
+{#
+   This file gives a basic page structure, with a banner, a navigation area
+   a footer and a contents area, where the actual documentation will appear
+   -> _wrapper.scion
+#}
 {% extends "__page.scion" %}
 
 {% block scion_style %}{% includes "__scion_style.scion" %}{% endblock %}

@@ -4,8 +4,8 @@ For debugging your templates, there are a few environment variables available.
 
 Name                                   | Descriptipn
 ---------------------------------------|---------------------------------------
-`MULLESCION_VERBATIM_INCLUDE_HASHBANG` | Do not skip the first line if it starts with `#!`
 `MULLESCION_NO_HASHBANG`               | Do not skip the first line if it starts with `#!`
+`MULLESCION_VERBATIM_INCLUDE_HASHBANG` | Do not skip the first line if it starts with `#!` for subsequent verbatim includes
 `MULLESCION_DUMP_MACROS`               | log ``macro`` definitions and invocations
 `MULLESCION_DUMP_COMMANDS`             | log successfully parsed commands
 `MULLESCION_DUMP_EXPRESSIONS`          | log successfully parsed expressions

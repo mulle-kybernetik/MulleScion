@@ -1168,7 +1168,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
    
    p = [super newWithRetainedExpression:expr
                              lineNumber:nr];
-   p->_flags = flags;
+   p->_flags = (unsigned int) flags;
    
    return( p);
 }

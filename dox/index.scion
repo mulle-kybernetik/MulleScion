@@ -1,3 +1,8 @@
+{# This file essentially duplicates what _wrapper.scion does just with
+   !_Introduction.scion as the WRAPPED_TEMPLATE name hardcoded.
+   This is due to the maybe arbitrary decision to disallow `block`
+   in macro definitions.
+ #}
 {% extends "__scion_page.scion" %}
 
 {% block scion_contents %}

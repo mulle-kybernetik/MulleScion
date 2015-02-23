@@ -1,3 +1,6 @@
+{#
+   Coarse structuring of the HTML output and some basic HTML container tags
+#}
 <html>
    <head>
        <title>{% block scion_title %}MulleScion{% endblock %}</title>

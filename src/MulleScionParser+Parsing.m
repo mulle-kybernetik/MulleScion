@@ -3007,7 +3007,7 @@ retry:
 retry:
 NS_DURING
       while( node)
-         node = parser_next_object( &parser, node, &last_type);
+         node = parser_next_object( &parser, (id) node, &last_type);
 NS_HANDLER
       // skip to next %}
       parser.skipComments = 0;

@@ -5,7 +5,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = "MulleScion"
-  s.version          = '1848.10'
+  s.version          = '1851.0'
   s.summary          = "MulleScion a modern Template library for ObjC."
   s.description      = <<-DESC
                        MulleScion is indeed a modern Template library for ObjC. 
@@ -28,8 +28,8 @@ Pod::Spec.new do |s|
   s.public_header_files = 'src/**/*.h', 'google-toolbox-for-mac/GTMDefines.h', 'google-toolbox-for-mac/Foundation/GTMNSString+HTML.h'
   # s.resources = 'Assets/*.png'
 
-  s.ios.exclude_files = 'src/main.m', 'src/mongoose.c', 'src/mongoose.h', 'src/MulleMongoose.h', 'src/MulleMongoose.m', 'src/MulleScionObjectModel+StringReplacement.m', 'src/MulleScionObjectModel+StringReplacement.h'
-  s.osx.exclude_files = 'src/main.m', 'src/mongoose.c', 'src/mongoose.h', 'src/MulleMongoose.h', 'src/MulleMongoose.m', 'src/MulleScionObjectModel+StringReplacement.m', 'src/MulleScionObjectModel+StringReplacement.h' 
+  s.ios.exclude_files = 'src/main.m', 'src/mongoose.c', 'src/mongoose.h', 'src/MulleMongoose.h', 'src/MulleMongoose.m', 'src/MulleScionObjectModel+StringReplacement.m', 'src/MulleScionObjectModel+StringReplacement.h', "src/hoedown/*", "src/mongoose/*"
+  s.osx.exclude_files = 'src/main.m', 'src/mongoose.c', 'src/mongoose.h', 'src/MulleMongoose.h', 'src/MulleMongoose.m', 'src/MulleScionObjectModel+StringReplacement.m', 'src/MulleScionObjectModel+StringReplacement.h', "src/hoedown/*", "src/mongoose/*"
   # s.frameworks = 'SomeFramework', 'AnotherFramework'
   # s.dependency 'mulle-tidy', '>= 18.49.0'
 end

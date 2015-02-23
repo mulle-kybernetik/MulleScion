@@ -528,7 +528,6 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
 {
    MulleScionObject   *curr;
    NSAutoreleasePool  *pool;
-   NSNumber           *yes;
    
    NSAssert( [locals valueForKey:@"NSNotFound"], @"use -[MulleScionTemplate localVariablesWithDefaultValues:] to create the localVariables dictionary");
 

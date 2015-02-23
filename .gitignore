@@ -2,6 +2,7 @@
 project.xcworkspace/
 xcuserdata/
 *.pch
+dox/html/
 *~
 Build
 build
