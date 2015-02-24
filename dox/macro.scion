@@ -33,4 +33,9 @@ This value {{ list }} is from the properties file
 And {{ list }} should now be as before the macro expansion
 ```
 
+It can be helpful to understand the technical background, how MulleScion does
+macros. The parser creates objects for commands and expressions. A macro is
+such a chain, that gets copy/pasted into the current parse situation whenever
+a macro is called. The parameters are then used to replace identifier values.
+
 Can macro/endmacro be used in multi-line statements ? Preferably not.
