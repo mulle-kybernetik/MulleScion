@@ -390,16 +390,32 @@ static inline void   parser_nl( parser *p)
    p->lineNumber++;
 }
 
+static int  parser_scion_looks_escaped( parser *p)
+{
+   unsigned char   c;
+   
+   if( p->curr >= p->sentinel)
+      return( 0);
+   c = *p->curr;
+   
+   //
+   // if {{ is followed immediately by something that looks escapish
+   // like a backtick, then we assume it is escaped
+   // (for documenting MulleScion itself ?)
+   //
+   return( c == '`' || c == '\\');
+}
 
 //
 // this will stop at '{{' or '{%' even if they are in the middle of
 // quotes or comments. To print {{ use {{ "{{" }}
 //
-static macro_type   parser_grab_text_until_scion( parser *p)
+static macro_type   parser_grab_text_until_scion_start( parser *p)
 {
    unsigned char   c, d;
    int             inquote;
    macro_type      type;
+   macro_type      escaped;
    
    assert( p->skipComments <= 0);
 
@@ -408,6 +424,8 @@ static macro_type   parser_grab_text_until_scion( parser *p)
    type    = garbage;
    inquote = 0;
    c       = p->curr > p->buf ? p->curr[ -1] : 0;
+   escaped = 0;
+   
    while( p->curr < p->sentinel)
    {
       d = c;
@@ -424,18 +442,33 @@ static macro_type   parser_grab_text_until_scion( parser *p)
       default   :  type = garbage; continue;
       case '%'  :  type = command; break;
       case '#'  :  type = comment; break;
-      case '{'  :  type = expression; break;
-      case '}'  :  if( type == garbage) continue;
-                   parser_error( p, "unexpected '}}' without opener");
+      case '{'  :  type = expression; escaped = 0; break;
+      case '}'  :  if( type == garbage)
+                     continue;
+                   if( parser_scion_looks_escaped( p))
+                   {
+                      escaped = type;
+                      type    = garbage;
+                      continue;
+                   }
+                   parser_error( p, "unexpected '%c}' without opener", d);
       }
       
       if( d == '{')
       {
+         if( parser_scion_looks_escaped( p))
+         {
+            escaped = type;
+            type    = garbage;
+            continue;
+         }
+         
          parser_memorize( p, &p->memo_scion);
          p->curr -= 2;
          return( type);
       }
    }
+   
    return( eof);
 }
 
@@ -2857,7 +2890,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED _parser_next_object_after_extend(
    
    obj = nil;
 retry:
-   type = parser_grab_text_until_scion( p);
+   type = parser_grab_text_until_scion_start( p);
    parser_next_character( p);  // laissez faire
    parser_next_character( p);
    
@@ -2897,7 +2930,7 @@ retry:
    p->first = nil;
    
    parser_memorize( p, &plaintext_start);
-   type = parser_grab_text_until_scion( p);
+   type = parser_grab_text_until_scion_start( p);
    parser_memorize( p, &plaintext_end);
    parser_next_character( p);
    parser_next_character( p);
