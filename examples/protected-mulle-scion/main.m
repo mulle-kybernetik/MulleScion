@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <MulleScionTemplates/MulleScionTemplates.h>
+#import <MulleScion/MulleScion.h>
 
 
 @implementation NSDictionary ( ProtectionHacque)
@@ -20,7 +20,7 @@
 @end
 
 
-int main(int argc, const char * argv[])
+int   main(int argc, const char * argv[])
 {
    NSAutoreleasePool   *pool;
    NSDictionary        *info;

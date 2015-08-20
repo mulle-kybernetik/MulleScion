@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-
 //
 // to make things a little more interesting (and more useful for use in
-// MulleScionDrake) the actual code is separated out into a bundle
+// MulleScionist) the actual code is separated out into a bundle
+// http://www.mulle-kybernetik.com/software/git/MulleScionist/
 //
 int main(int argc, const char * argv[])
 {

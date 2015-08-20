@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <MulleScionTemplates/MulleScionTemplates.h>
+#import <MulleScion/MulleScion.h>
 
 
 int main(int argc, const char * argv[])

@@ -26,7 +26,7 @@
    NSManagedObjectModel           *model;
    NSBundle                       *bundle;
    
-   bundle      = [NSBundle bundleForClass:isa];
+   bundle      = [NSBundle bundleForClass:[self class]];
    model       = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:bundle]];
 
    NSAssert( [[model entityVersionHashesByName] count], @"No model found");

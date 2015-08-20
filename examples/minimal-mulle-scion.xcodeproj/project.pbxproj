@@ -7,12 +7,113 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4152383F1B860A4E00E74581 /* MulleScion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415238261B860A3A00E74581 /* MulleScion.framework */; };
 		418118DA17E0AB9E00CF2B4D /* test.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC017E0A92F00E0F019 /* test.plist */; };
 		418118DB17E0ABA200CF2B4D /* test.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41820CC117E0A94E00E0F019 /* test.scion */; };
 		41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41820CB017E0A88900E0F019 /* Foundation.framework */; };
 		41820CB417E0A88900E0F019 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41820CB317E0A88900E0F019 /* main.m */; };
-		41B07E2A1820223F0003B67F /* MulleScionTemplates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B07E291820223F0003B67F /* MulleScionTemplates.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		415238231B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41764B8C16DA511200560FCF;
+			remoteInfo = "mulle-scion";
+		};
+		415238251B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41D6DF5C16DE53AE004833D6;
+			remoteInfo = "MulleScion (OSX Framework)";
+		};
+		415238271B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41D6DF2416DE523D004833D6;
+			remoteInfo = "MulleScion (OSX Library)";
+		};
+		415238291B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41FAED81182D275E002CD114;
+			remoteInfo = "MulleScionFoundation (OSX Library)";
+		};
+		4152382B1B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41AEA214182D097300840887;
+			remoteInfo = "MulleScionGraphviz (OSX Library)";
+		};
+		4152382D1B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41D6DF0416DE51C9004833D6;
+			remoteInfo = "MulleScionParser (OSX Library)";
+		};
+		4152382F1B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41D6DED916DE509E004833D6;
+			remoteInfo = "MulleScionPrinter (OSX Library)";
+		};
+		415238311B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 412905341830E99800489CE5;
+			remoteInfo = "MulleScion (iOS Framework)";
+		};
+		415238331B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 410300721701DBE200197713;
+			remoteInfo = "MulleScion (iOS Library)";
+		};
+		415238351B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 411EEAB5182D311F00361ADF;
+			remoteInfo = "MulleScionFoundation (iOS Library)";
+		};
+		415238371B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 412E8006182D2F80008A7FCC;
+			remoteInfo = "MulleScionGraphviz (iOS Library)";
+		};
+		415238391B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41EC0149182D301A00A17DBD;
+			remoteInfo = "MulleScionParser (iOS Library)";
+		};
+		4152383B1B860A3A00E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 411EEA9A182D30B600361ADF;
+			remoteInfo = "MulleScionPrinter (iOS Library)";
+		};
+		4152383D1B860A4400E74581 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D6DF5B16DE53AE004833D6;
+			remoteInfo = "MulleScion (OSX Framework)";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		418118D917E0AB9300CF2B4D /* CopyFiles */ = {
@@ -29,12 +130,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MulleScion.xcodeproj; path = ../MulleScion.xcodeproj; sourceTree = "<group>"; };
 		41820CB017E0A88900E0F019 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		41820CB317E0A88900E0F019 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		41820CC017E0A92F00E0F019 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		41820CC117E0A94E00E0F019 /* test.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.scion; sourceTree = "<group>"; };
 		419966FA17E0B1180088EA83 /* minimal-mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "minimal-mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
-		41B07E291820223F0003B67F /* MulleScionTemplates.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MulleScionTemplates.framework; path = ../../../../../Library/Frameworks/MulleScionTemplates.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41B07E2A1820223F0003B67F /* MulleScionTemplates.framework in Frameworks */,
+				4152383F1B860A4E00E74581 /* MulleScion.framework in Frameworks */,
 				41820CB117E0A88900E0F019 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,9 +151,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4152380F1B860A3A00E74581 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				415238241B860A3A00E74581 /* mulle-scion */,
+				415238261B860A3A00E74581 /* MulleScion.framework */,
+				415238281B860A3A00E74581 /* libMulleScion.a */,
+				4152382A1B860A3A00E74581 /* libMulleScionFoundation.a */,
+				4152382C1B860A3A00E74581 /* libMulleScionGraphviz.a */,
+				4152382E1B860A3A00E74581 /* libMulleScionParser.a */,
+				415238301B860A3A00E74581 /* libMulleScionPrinter.a */,
+				415238321B860A3A00E74581 /* MulleScion.framework */,
+				415238341B860A3A00E74581 /* libMulleScion.a */,
+				415238361B860A3A00E74581 /* libMulleScionFoundation.a */,
+				415238381B860A3A00E74581 /* libMulleScionGraphviz.a */,
+				4152383A1B860A3A00E74581 /* libMulleScionParser.a */,
+				4152383C1B860A3A00E74581 /* libMulleScionPrinter.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		41820CA417E0A88900E0F019 = {
 			isa = PBXGroup;
 			children = (
+				4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */,
 				41820CB217E0A88900E0F019 /* minimal-mulle-scion */,
 				41820CAF17E0A88900E0F019 /* Frameworks */,
 				419966FA17E0B1180088EA83 /* minimal-mulle-scion */,
@@ -62,7 +184,6 @@
 		41820CAF17E0A88900E0F019 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				41B07E291820223F0003B67F /* MulleScionTemplates.framework */,
 				41820CB017E0A88900E0F019 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -100,6 +221,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4152383E1B860A4400E74581 /* PBXTargetDependency */,
 			);
 			name = "minimal-mulle-scion";
 			productName = "minimal-mulle-scion";
@@ -125,12 +247,112 @@
 			mainGroup = 41820CA417E0A88900E0F019;
 			productRefGroup = 41820CA417E0A88900E0F019;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4152380F1B860A3A00E74581 /* Products */;
+					ProjectRef = 4152380E1B860A3A00E74581 /* MulleScion.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				41820CAC17E0A88900E0F019 /* minimal-mulle-scion */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		415238241B860A3A00E74581 /* mulle-scion */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "mulle-scion";
+			remoteRef = 415238231B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238261B860A3A00E74581 /* MulleScion.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MulleScion.framework;
+			remoteRef = 415238251B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238281B860A3A00E74581 /* libMulleScion.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScion.a;
+			remoteRef = 415238271B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4152382A1B860A3A00E74581 /* libMulleScionFoundation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionFoundation.a;
+			remoteRef = 415238291B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4152382C1B860A3A00E74581 /* libMulleScionGraphviz.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionGraphviz.a;
+			remoteRef = 4152382B1B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4152382E1B860A3A00E74581 /* libMulleScionParser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionParser.a;
+			remoteRef = 4152382D1B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238301B860A3A00E74581 /* libMulleScionPrinter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionPrinter.a;
+			remoteRef = 4152382F1B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238321B860A3A00E74581 /* MulleScion.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework.static;
+			path = MulleScion.framework;
+			remoteRef = 415238311B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238341B860A3A00E74581 /* libMulleScion.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScion.a;
+			remoteRef = 415238331B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238361B860A3A00E74581 /* libMulleScionFoundation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionFoundation.a;
+			remoteRef = 415238351B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		415238381B860A3A00E74581 /* libMulleScionGraphviz.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionGraphviz.a;
+			remoteRef = 415238371B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4152383A1B860A3A00E74581 /* libMulleScionParser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionParser.a;
+			remoteRef = 415238391B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4152383C1B860A3A00E74581 /* libMulleScionPrinter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMulleScionPrinter.a;
+			remoteRef = 4152383B1B860A3A00E74581 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		41820CA917E0A88900E0F019 /* Sources */ = {
@@ -143,33 +365,39 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4152383E1B860A4400E74581 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "MulleScion (OSX Framework)";
+			targetProxy = 4152383D1B860A4400E74581 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		41820CB917E0A88900E0F019 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(inherited)",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -178,9 +406,6 @@
 		41820CBA17E0A88900E0F019 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -188,13 +413,16 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(inherited)",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -202,11 +430,6 @@
 		41820CBC17E0A88900E0F019 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -214,11 +437,6 @@
 		41820CBD17E0A88900E0F019 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

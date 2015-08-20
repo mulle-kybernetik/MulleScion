@@ -85,6 +85,18 @@
 		410C7FD716E0D85500DC2465 /* MulleScionObjectModel+BlockExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD116E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		410C7FD816E0D85800DC2465 /* MulleScionObjectModel+MacroExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		410C7FD916E0D85E00DC2465 /* MulleScionObjectModel+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD416E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		411826F61B86104D00A57A95 /* MulleObjCCompilerSettings.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; };
+		411826F71B86104D00A57A95 /* MulleScionObjectModel.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; };
+		411826F81B86104D00A57A95 /* MulleScionTemplate+CompressedArchive.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; };
+		411826F91B86104D00A57A95 /* NSFileHandle+MulleOutputFileHandle.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; };
+		411826FA1B86104D00A57A95 /* MulleScionObjectModel+TraceDescription.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.h */; };
+		411826FB1B86109800A57A95 /* MulleScionOutputProtocol.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; };
+		411826FC1B86109800A57A95 /* MulleScionDataSourceProtocol.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
+		411826FD1B86109800A57A95 /* MulleScionPrinter.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; };
+		411826FE1B86109800A57A95 /* MulleScionPrintingException.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; };
+		411826FF1B86109800A57A95 /* MulleScionObjectModel+Printing.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */; };
+		411827001B86109800A57A95 /* NSObject+MulleScionDescription.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; };
+		411827011B8610E000A57A95 /* MulleScionParser.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
 		411EEA92182D30B600361ADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		411EEA9B182D310100361ADF /* MulleScionOutputProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; };
 		411EEA9C182D310100361ADF /* MulleScionDataSourceProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
@@ -217,7 +229,7 @@
 		41D6DF0516DE51C9004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41D6DF2516DE523D004833D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41D6DF3016DE5270004833D6 /* MulleScion.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BCD16DAF4C600560FCF /* MulleScion.m */; };
-		41D6DF3116DE5279004833D6 /* MulleScion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; };
+		41D6DF3116DE5279004833D6 /* MulleScion.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; };
 		41D6DF3C16DE52CE004833D6 /* MulleScionParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
 		41D6DF3D16DE52D4004833D6 /* MulleScionParser+Parsing.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; };
 		41D6DF3E16DE52D6004833D6 /* MulleScionParser+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */; };
@@ -634,14 +646,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		41D6DF2216DE523D004833D6 /* CopyFiles */ = {
+		41D6DF2216DE523D004833D6 /* Copy Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "include/${PROJECT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				41D6DF3116DE5279004833D6 /* MulleScion.h in CopyFiles */,
+				411827011B8610E000A57A95 /* MulleScionParser.h in Copy Headers */,
+				411826FB1B86109800A57A95 /* MulleScionOutputProtocol.h in Copy Headers */,
+				411826FC1B86109800A57A95 /* MulleScionDataSourceProtocol.h in Copy Headers */,
+				411826FD1B86109800A57A95 /* MulleScionPrinter.h in Copy Headers */,
+				411826FE1B86109800A57A95 /* MulleScionPrintingException.h in Copy Headers */,
+				411826FF1B86109800A57A95 /* MulleScionObjectModel+Printing.h in Copy Headers */,
+				411827001B86109800A57A95 /* NSObject+MulleScionDescription.h in Copy Headers */,
+				411826F61B86104D00A57A95 /* MulleObjCCompilerSettings.h in Copy Headers */,
+				411826F71B86104D00A57A95 /* MulleScionObjectModel.h in Copy Headers */,
+				411826F81B86104D00A57A95 /* MulleScionTemplate+CompressedArchive.h in Copy Headers */,
+				411826F91B86104D00A57A95 /* NSFileHandle+MulleOutputFileHandle.h in Copy Headers */,
+				411826FA1B86104D00A57A95 /* MulleScionObjectModel+TraceDescription.h in Copy Headers */,
+				41D6DF3116DE5279004833D6 /* MulleScion.h in Copy Headers */,
 			);
+			name = "Copy Headers";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		41EC0142182D301A00A17DBD /* CopyFiles */ = {
@@ -1461,7 +1486,7 @@
 				41741ADD18303A560065E5FD /* Remove Library */,
 				41D6DF2016DE523D004833D6 /* Sources */,
 				41D6DF2116DE523D004833D6 /* Frameworks */,
-				41D6DF2216DE523D004833D6 /* CopyFiles */,
+				41D6DF2216DE523D004833D6 /* Copy Headers */,
 				4146F1FA182D31E20020594C /* Add Dependency Libraries */,
 			);
 			buildRules = (

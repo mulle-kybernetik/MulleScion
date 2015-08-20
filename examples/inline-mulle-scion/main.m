@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
-#import <MulleScionTemplates/MulleScionTemplates.h>
+#import <MulleScion/MulleScion.h>
 
 
-static NSString  *templateContents = @"This is just a {{ stupid }} little test.";
+static NSString  *templateContents = @"This is just a {{ stupid }} little test.\n";
 
 
 int main(int argc, const char * argv[])

@@ -196,7 +196,7 @@
 		413AFCC3183BC2710055F936 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Mulle kybernetiK";
 			};
 			buildConfigurationList = 413AFCC6183BC2710055F936 /* Build configuration list for PBXProject "ExampleDatasource" */;
@@ -294,6 +294,7 @@
 		413AFCDE183BC2710055F936 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "ExampleDatasource/ExampleDatasource-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,6 +305,7 @@
 		413AFCDF183BC2710055F936 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "ExampleDatasource/ExampleDatasource-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -314,6 +316,10 @@
 		4162B1FB183BC2B00034CC68 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Library/Frameworks,
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -325,6 +331,10 @@
 		4162B1FC183BC2B00034CC68 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Library/Frameworks,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

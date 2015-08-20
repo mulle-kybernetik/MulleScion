@@ -34,7 +34,6 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-
 #import "MulleScionObjectModel.h"
 #import "MulleScionObjectModel+TraceDescription.h"
 
@@ -43,6 +42,7 @@
 #import "MulleScionPrinter.h"
 #import "MulleScionParser.h"
 #import "MulleScionPrintingException.h"
+
 
 @protocol MulleScionStringOrURL
 @end
