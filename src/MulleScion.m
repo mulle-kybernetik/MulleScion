@@ -52,13 +52,13 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 @implementation MulleScionTemplate ( Convenience)
 
 + (BOOL) writeToOutput:(id <MulleScionOutput>) output
-           templateURL:(NSURL *) url
+          templateFile:(NSObject <MulleScionStringOrURL> *) fileName
             dataSource:(id <MulleScionDataSource>) dataSource
         localVariables:(NSDictionary *) locals
 {
    MulleScionTemplate   *template;
    
-   template = [[[MulleScionTemplate alloc] initWithContentsOfURL:url] autorelease];
+   template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
    if( ! template)
       return( NO);
    
@@ -70,40 +70,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 }
 
 
-+ (BOOL) writeToOutput:(id <MulleScionOutput>) output
-          templateFile:(NSString *) fileName
-            dataSource:(id <MulleScionDataSource>) dataSource
-        localVariables:(NSDictionary *) locals
-{
-   MulleScionTemplate   *template;
-   
-   template = [[[MulleScionTemplate alloc] initWithFile:fileName] autorelease];
-   if( ! template)
-      return( NO);
-   
-   [template writeToOutput:output
-                dataSource:dataSource
-            localVariables:locals];
-   
-   return( YES);
-}
-
-
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                                dataSource:(id <MulleScionDataSource>) dataSource
-                            localVariables:(NSDictionary *) locals
-{
-   MulleScionTemplate   *template;
-   
-   template = [[[MulleScionTemplate alloc] initWithContentsOfURL:url] autorelease];
-   if( ! template)
-      return( nil);
-   return( [template descriptionWithDataSource:dataSource
-                                localVariables:locals]);
-}
-
-
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
                                 dataSource:(id <MulleScionDataSource>) dataSource
                             localVariables:(NSDictionary *) locals
 {
@@ -117,7 +84,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 }
 
 
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
                                 dataSource:(id <MulleScionDataSource>) dataSource
 {
    return( [self descriptionWithTemplateFile:fileName
@@ -126,22 +93,17 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 }
 
 
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) fileName
-                               dataSource:(id <MulleScionDataSource>) dataSource
-{
-   return( [self descriptionWithTemplateURL:fileName
-                                 dataSource:dataSource
-                             localVariables:nil]);
-}
-
-
-static id   acquirePropertyList( NSString *s)
+static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
 {
    NSData    *data;
    NSString  *error;
    id        plist;
    
-   data  = [NSData dataWithContentsOfFile:s];
+   if( [s isKindOfClass:[NSURL class]])
+      data  = [NSData dataWithContentsOfURL:(NSURL *) s];
+   else
+      data  = [NSData dataWithContentsOfFile:(NSString *) s];
+   
    if( ! data)
    {
       NSLog( @"failed to open: %@", s);
@@ -159,32 +121,8 @@ static id   acquirePropertyList( NSString *s)
 }
 
 
-static id   acquirePropertyListURL( NSURL *url)
-{
-   NSData    *data;
-   NSString  *error;
-   id        plist;
-   
-   data  = [NSData dataWithContentsOfURL:url];
-   if( ! data)
-   {
-      NSLog( @"failed to open: %@", url);
-      return( data);
-   }
-   
-   error = nil;
-   plist = [NSPropertyListSerialization propertyListFromData:data
-                                            mutabilityOption:NSPropertyListImmutable
-                                                      format:NULL
-                                            errorDescription:&error];
-   if( ! plist)
-      NSLog( @"property list failure: %@", error);
-   return( plist);
-}
-
-
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
-                          propertyListFile:(NSString *) plistFileName
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
+                          propertyListFile:(NSObject <MulleScionStringOrURL> *) plistFileName
                             localVariables:(NSDictionary *) locals
 {
    MulleScionTemplate   *template;
@@ -193,25 +131,8 @@ static id   acquirePropertyListURL( NSURL *url)
    template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
    if( ! template)
       return( nil);
+
    plist = acquirePropertyList( plistFileName);
-   if( ! plist)
-      return( nil);
-   return( [template descriptionWithDataSource:plist
-                                localVariables:(NSDictionary *) locals]);
-}
-
-
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                          propertyListURL:(NSURL *) plistUrl
-                            localVariables:(NSDictionary *) locals
-{
-   MulleScionTemplate   *template;
-   id                    plist;
-   
-   template = [[[MulleScionTemplate alloc] initWithContentsOfURL:url] autorelease];
-   if( ! template)
-      return( nil);
-   plist = acquirePropertyListURL( plistUrl);
    if( ! plist)
       return( nil);
    return( [template descriptionWithDataSource:plist
@@ -219,8 +140,9 @@ static id   acquirePropertyListURL( NSURL *url)
 }
 
 
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
-                          propertyListFile:(NSString *) plistFileName
+
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
+                          propertyListFile:(NSObject <MulleScionStringOrURL> *) plistFileName
 {
    return( [self descriptionWithTemplateFile:fileName
                             propertyListFile:plistFileName
@@ -228,27 +150,7 @@ static id   acquirePropertyListURL( NSURL *url)
 }
 
 
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                          propertyListURL:(NSURL *) plistUrl
-{
-   return( [self descriptionWithTemplateURL:url
-                            propertyListURL:plistUrl
-                              localVariables:nil]);
-}
-
-
-- (id) initWithFile:(NSString *) fileName
-{
-   if( [MulleScionTemplate isArchivedTemplatePath:fileName])
-      self = [self initWithContentsOfArchive:fileName];
-   else
-      self = [self initWithContentsOfFile:fileName];
-
-   return( self);
-}
-
-
-- (id) initWithContentsOfFile:(NSString *) fileName
+- (id) _initWithContentsOfFile:(NSString *) fileName
 {
    MulleScionParser   *parser;
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
@@ -289,7 +191,7 @@ static id   acquirePropertyListURL( NSURL *url)
 }
 
 
-- (id) initWithContentsOfURL:(NSURL *) url
+- (id) _initWithContentsOfURL:(NSURL *) url
 {
    MulleScionParser   *parser;
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
@@ -330,6 +232,25 @@ static id   acquirePropertyListURL( NSURL *url)
 }
 
 
+- (id) initWithContentsOfFile:(NSObject <MulleScionStringOrURL> *) fileName
+{
+   if( [fileName isKindOfClass:[NSURL class]])
+      return( [self _initWithContentsOfURL:(NSURL *) fileName]);
+   return( [self _initWithContentsOfFile:(NSString *) fileName]);
+}
+
+
+- (id) initWithFile:(NSString *) fileName
+{
+   if( [MulleScionTemplate isArchivedTemplatePath:fileName])
+      self = [self initWithContentsOfArchive:fileName];
+   else
+      self = [self _initWithContentsOfFile:fileName];
+   
+   return( self);
+}
+
+             
 static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
 {
    //   if( ! dataSource)

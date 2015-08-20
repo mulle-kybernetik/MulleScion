@@ -341,7 +341,7 @@ static unsigned char    *unescaped_string_if_needed( unsigned char *s,
                [NSException raise:NSMallocException
                            format:@"can't allocate %ld bytes", (long) len];
 
-            copy_len = (ptrdiff_t) (src - memo);
+            copy_len = (size_t) (src - memo);
             memcpy( unescaped, memo, copy_len);
             dst = &unescaped[ copy_len];
          }
@@ -937,7 +937,7 @@ static NSString   * NS_RETURNS_RETAINED parser_get_memorized_retained_string( pa
       return( nil);
    
    data = [[NSData alloc] initWithBytesNoCopy:start->curr
-                                       length:length
+                                       length:(NSUInteger) length
                                  freeWhenDone:NO];
    s = [[NSString alloc] initWithData:data
                              encoding:NSUTF8StringEncoding];
@@ -1655,8 +1655,8 @@ static MulleScionComparisonOperator  parser_check_equal_or_set_op( parser *p, ch
 
 static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser *p, MulleScionExpression *left)
 {
-   MulleScionExpression          *right;
-   unsigned char                 operator;
+   MulleScionExpression           *right;
+   MulleScionComparisonOperator   operator;
 
    parser_skip_whitespace( p);
    
@@ -2533,7 +2533,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   _parser_do_macro( parser *p, NS
 
    function = [__parser_do_macro( p, identifier) autorelease];
    
-   identifier = [(MulleScionParameterAssignment *) function identifier];
+   identifier = [function identifier];
    if( [identifier hasPrefix:@"MulleScion"])
       parser_error( p, "you can't define MulleScion macros");
    
@@ -2703,30 +2703,30 @@ static MulleScionObject * NS_RETURNS_RETAINED  parser_do_command( parser *p)
    //if( p->inMacro && op != EndmacroOpcode)
    //   parser_error( p, "no commands in macros");
       
-      switch( op)
+      switch( (int) op)
       {
-         case BlockOpcode    : return( parser_do_block( p, line));
-         case DefineOpcode   : return( parser_do_define( p, line));
-         case ElseOpcode     : return( [MulleScionElse newWithLineNumber:line]);
-         case ElseforOpcode  : return( [MulleScionElseFor newWithLineNumber:line]);
-         case EndblockOpcode : return( [MulleScionEndBlock newWithLineNumber:line]);
-         case EndfilterOpcode: return( [MulleScionEndFilter newWithLineNumber:line]);
-         case EndforOpcode   : return( [MulleScionEndFor newWithLineNumber:line]);
-         case EndifOpcode    : return( [MulleScionEndIf newWithLineNumber:line]);
-         case EndmacroOpcode : return( parser_do_endmacro( p, line));
-         case EndverbatimOpcode : parser_error( p, "stray endverbatim command");
-         case EndwhileOpcode : return( [MulleScionEndWhile newWithLineNumber:line]);
-         case ExtendsOpcode  : return( parser_do_extends( p));
-         case FilterOpcode   : return( parser_do_filter( p, line));
-         case ForOpcode      : return( parser_do_for( p, line));
-         case IfOpcode       : return( parser_do_if( p, line));
-         case IncludesOpcode : return( parser_do_includes( p, YES));
-         case LogOpcode      : return( parser_do_log( p, line));
-         case MacroOpcode    : return( parser_do_macro( p, line));
-         case RequiresOpcode : return( parser_do_requires( p, line));
-         case SetOpcode      : return( parser_do_set( p, line));
-         case VerbatimOpcode : return( parser_do_verbatim( p, line));
-         case WhileOpcode    : return( parser_do_while( p, line));
+      case BlockOpcode    : return( parser_do_block( p, line));
+      case DefineOpcode   : return( parser_do_define( p, line));
+      case ElseOpcode     : return( [MulleScionElse newWithLineNumber:line]);
+      case ElseforOpcode  : return( [MulleScionElseFor newWithLineNumber:line]);
+      case EndblockOpcode : return( [MulleScionEndBlock newWithLineNumber:line]);
+      case EndfilterOpcode: return( [MulleScionEndFilter newWithLineNumber:line]);
+      case EndforOpcode   : return( [MulleScionEndFor newWithLineNumber:line]);
+      case EndifOpcode    : return( [MulleScionEndIf newWithLineNumber:line]);
+      case EndmacroOpcode : return( parser_do_endmacro( p, line));
+      case EndverbatimOpcode : parser_error( p, "stray endverbatim command");
+      case EndwhileOpcode : return( [MulleScionEndWhile newWithLineNumber:line]);
+      case ExtendsOpcode  : return( parser_do_extends( p));
+      case FilterOpcode   : return( parser_do_filter( p, line));
+      case ForOpcode      : return( parser_do_for( p, line));
+      case IfOpcode       : return( parser_do_if( p, line));
+      case IncludesOpcode : return( parser_do_includes( p, YES));
+      case LogOpcode      : return( parser_do_log( p, line));
+      case MacroOpcode    : return( parser_do_macro( p, line));
+      case RequiresOpcode : return( parser_do_requires( p, line));
+      case SetOpcode      : return( parser_do_set( p, line));
+      case VerbatimOpcode : return( parser_do_verbatim( p, line));
+      case WhileOpcode    : return( parser_do_while( p, line));
       }
    
       //
@@ -2895,7 +2895,7 @@ retry:
    parser_next_character( p);
    
    *last_type = type;
-   switch( type)
+   switch( (int) type)
    {
    case eof :
       return( nil);
@@ -2951,7 +2951,7 @@ retry:
    
    *last_type = type;
    
-   switch( type)
+   switch( (int) type)
    {
    case eof :
       return( nil);

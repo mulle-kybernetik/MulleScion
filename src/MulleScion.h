@@ -44,6 +44,14 @@
 #import "MulleScionParser.h"
 #import "MulleScionPrintingException.h"
 
+@protocol MulleScionStringOrURL
+@end
+
+@interface NSString (MulleScionStringOrURL) <MulleScionStringOrURL>
+@end
+
+@interface NSURL (MulleScionStringOrURL) <MulleScionStringOrURL>
+@end
 
 /*
  * The convenience interface. If you don't want to think, use this:
@@ -57,44 +65,30 @@
  */
 @interface MulleScionTemplate ( Convenience)
 
-- (id) initWithFile:(NSString *) fileName;  // template or archive
+- (id) initWithFile:(NSString *) fileName;            // template or archive
 
-- (id) initWithContentsOfFile:(NSString *) fileName;  // template
+- (id) initWithContentsOfFile:(NSObject <MulleScionStringOrURL> *) fileName;
 
 - (NSString *) descriptionWithDataSource:(id) dataSource
                           localVariables:(NSDictionary *) locals;
 
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) location
                                 dataSource:(id <MulleScionDataSource>) dataSource;
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                               dataSource:(id <MulleScionDataSource>) dataSource;
 
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) location
                                 dataSource:(id <MulleScionDataSource>) dataSource
                             localVariables:(NSDictionary *) locals;
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                               dataSource:(id <MulleScionDataSource>) dataSource
-                           localVariables:(NSDictionary *) locals;
 
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
-                          propertyListFile:(NSString *) plistFileName
-                            localVariables:(NSDictionary *) locals;
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                          propertyListURL:(NSURL *) plistUrl
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
+                          propertyListFile:(NSObject <MulleScionStringOrURL> *) plistFileName
                             localVariables:(NSDictionary *) locals;
 
-+ (NSString *) descriptionWithTemplateFile:(NSString *) fileName
-                          propertyListFile:(NSString *) plistFileName;
-+ (NSString *) descriptionWithTemplateURL:(NSURL *) url
-                          propertyListURL:(NSURL *) plistUrl;
++ (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
+                          propertyListFile:(NSObject <MulleScionStringOrURL> *) plistFileName;
 
 
 + (BOOL) writeToOutput:(id <MulleScionOutput>) output
-          templateFile:(NSString *) fileName
-            dataSource:(id <MulleScionDataSource>) dataSource
-        localVariables:(NSDictionary *) locals;
-+ (BOOL) writeToOutput:(id <MulleScionOutput>) output
-           templateURL:(NSURL *) url
+          templateFile:(NSObject <MulleScionStringOrURL> *) fileName
             dataSource:(id <MulleScionDataSource>) dataSource
         localVariables:(NSDictionary *) locals;
 

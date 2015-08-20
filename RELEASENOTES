@@ -1,3 +1,20 @@
+1852.0
+
+*** API change ***
+
+Redesigned the "convenience interface". Sorry but I just disliked the
+proliferation of code, that separated NSURL and NSString by type. I used the
+power of ObjC and simplified this without having to resort to degenerics ;)
+In other words the +descriptionWithTemplateURL: method family is gone, just use
++descriptionWithTemplateFile: with either NSString or NSURL.
+
+I apparently goofed up the documentation in 1851 and made an incompatible change
+so that mulle-scion choked up on its own documentation templates. Ahem. That
+has been fixed, so that MulleScion now skips all scion tags, that are
+immediately _followed_ by a backtick ` or a backquote \. This ought to be
+harmless in my opinion, but results may vary.
+
+
 1851.0
 
 *** BIG CHANGE!!! FILTER REDESIGNED ***
