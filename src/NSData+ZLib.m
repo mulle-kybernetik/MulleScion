@@ -35,8 +35,7 @@
    case Z_MEM_ERROR :
       [NSException raise:NSMallocException
                   format:@"out of memory"];
-      break;
-      
+
    case Z_BUF_ERROR :
       return( nil);
    }
@@ -60,12 +59,10 @@
    case Z_DATA_ERROR :
       [NSException raise:NSInvalidArgumentException
                   format:@"Incoming ZLib data %@ was corrupted", self];
-      break;
 
    case Z_MEM_ERROR :
       [NSException raise:NSMallocException
                   format:@"out of memory in decompression"];
-      break;
 
    case Z_BUF_ERROR :
        return( nil);
@@ -87,12 +84,10 @@
    case Z_DATA_ERROR :
       [NSException raise:NSInvalidArgumentException
                   format:@"Incoming ZLib data %@ was corrupted", self];
-      break;
-      
+
    case Z_MEM_ERROR :
       [NSException raise:NSMallocException
                   format:@"out of memory in decompression"];
-      break;
 
    case Z_BUF_ERROR :
        return( nil);

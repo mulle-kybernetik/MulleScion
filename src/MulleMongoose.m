@@ -43,17 +43,6 @@
 #import "MulleScionObjectModel+MulleMongoose.h"
 #import "NSString+HTMLEscape.h"
 
-#include <sys/stat.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <string.h>
-#include <errno.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdarg.h>
-#include <ctype.h>
-
 #include "mongoose.h"
 
 

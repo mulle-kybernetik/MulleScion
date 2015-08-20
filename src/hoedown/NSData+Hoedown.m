@@ -36,11 +36,6 @@
 
 #include "document.h"
 #include "html.h"
-#include "buffer.h"
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 
 #define READ_UNIT     1024

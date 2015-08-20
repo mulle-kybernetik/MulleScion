@@ -49,7 +49,7 @@
 }
 
 
-+ (id) allocWithZone:(NSZone *)zone
++ (id) allocWithZone:(NSZone *)zone NS_RETURNS_RETAINED
 {
    id  p;
    
@@ -151,7 +151,7 @@
 
 @implementation MulleScionValueObject
 
-static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
+NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 {
    MulleScionValueObject   *p;
    
@@ -210,7 +210,7 @@ static id   newMulleScionValueObject( Class self, id value, NSUInteger nr)
 }
 
 
-- (void) release
+- (oneway void) release
 {
    [super release];
 }

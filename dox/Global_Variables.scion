@@ -27,6 +27,7 @@ Name                              | Description
 ``__FILTER_MODE__``               | The currently installed filter mode
 ``__FILTER_MODE_STACK__``         | The previous filters chain modes
 ``__SELF_REPLACEMENT__``          | The object that the identifier 'self' gets replaced with
+``__TRACE__``                     | Set it to YES to turn on tracing, to NO to turn tracing off
 
 ### Predefined Variables
 

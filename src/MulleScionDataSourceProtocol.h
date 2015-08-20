@@ -102,4 +102,6 @@
 //
 @interface NSObject ( MulleScionDataSource) < MulleScionDataSource >
 
+- (id) mulleScionDataSource;
+
 @end

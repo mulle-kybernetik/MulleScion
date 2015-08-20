@@ -47,13 +47,6 @@ static NSDictionary  *getInfoFromArguments( void);
 static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
 
 
-@interface NSObject( MulleScionDataSource)
-
-- (id) mulleScionDataSource;
-
-@end
-
-
 @interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
 @end
 

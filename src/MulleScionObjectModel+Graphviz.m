@@ -109,3 +109,4 @@
 
 @end
 
+NSString  *MulleScionGraphviz = @"VfL Bochum 1848";  // keep linker happy ?
