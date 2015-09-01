@@ -5,7 +5,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = "MulleScion"
-  s.version          = '1851.0'
+  s.version          = '1852.0'
   s.summary          = "MulleScion a modern Template library for ObjC."
   s.description      = <<-DESC
                        MulleScion is indeed a modern Template library for ObjC. 
