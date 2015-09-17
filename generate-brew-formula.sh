@@ -5,7 +5,7 @@
 PROJECT=MulleScion
 TARGET=mulle-scion
 HOMEPAGE="http://www.mulle-kybernetik.com/software/git/${PROJECT}"
-
+DESC="creates text from templates and a data-source using Objective-C"
 VERSION="$1"
 shift
 ARCHIVEURL="$1"
@@ -46,19 +46,23 @@ HASH=`shasum -p -a 256 "${TMPARCHIVE}" | awk '{ print $1 }'`
 cat <<EOF  
 class ${PROJECT} < Formula
   homepage "${HOMEPAGE}"
+  desc "${DESC)"
   url "${ARCHIVEURL}"
   version "${VERSION}"
   sha256 "${HASH}"
 
   depends_on :xcode => :build
-#  depends_on "zlib"
+  depends_on :macos => :snow_leopard
 
+#  depends_on "zlib"
   def install
-    system "xcodebuild", "-target", "${TARGET}", "DEPLOYMENT_LOCATION=YES", "DSTROOT=/", "INSTALL_PATH=#{bin}"
+     xcodebuild, "-target", "${TARGET}", "DEPLOYMENT_LOCATION=YES", "SYMROOT=build", "DSTROOT=/", "INSTALL_PATH=#{bin}"
   end
 
   test do
-    system  "(", "cd", tests", ";", "./run-all-scion-tests.sh" , "#{bin}/${TARGET}", ")"
+    system pwd
+    system "(", "cd tests", ";", "./run-all-scion-tests.sh", "#{bin}/${TARGET}", ")"
   end
 end
+# FORMULA ${TARGET}.rb
 EOF
