@@ -1653,6 +1653,7 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
 {
    MulleScionExpression           *right;
    MulleScionComparisonOperator   operator;
+   MulleScionDot                  *dot;
 
    parser_skip_whitespace( p);
    
@@ -1733,9 +1734,15 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
    case '.' :
       if( ! [right isMethod] && ! [right isPipe] && ! [right isDot] && ! [right isIdentifier])
          parser_error( p, "an identifier was expected after '.'");
-      return( [MulleScionDot newWithRetainedLeftExpression:left
-                                   retainedRightExpression:right
-                                                lineNumber:p->memo.lineNumber]);
+
+      dot = [MulleScionDot newWithRetainedLeftExpression:left
+                                 retainedRightExpression:right
+                                              lineNumber:p->memo.lineNumber];
+
+      // limited precedence code for '|'
+      if( ! [right isPipe])
+         return( dot);
+      return( [(MulleScionPipe *) right hierarchicalExchange:dot]);
    }
    return( nil);  // can't happen
 }

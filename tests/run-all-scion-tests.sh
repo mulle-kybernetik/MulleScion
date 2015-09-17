@@ -34,7 +34,7 @@ trap trace_ignore 5 6
 
 
 # parse optional parameters 
-if [ -x "../?uild/Products/Debug/mulle-scion" ]
+if [ -x ../?uild/Products/Debug/mulle-scion ]
 then
    MULLE_SCION=${1:-../?uild/Products/Debug/mulle-scion}
 else

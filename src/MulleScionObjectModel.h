@@ -213,6 +213,8 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
              retainedRightExpression:(MulleScionExpression *) NS_CONSUMED right
                           lineNumber:(NSUInteger) nr;
 
+- (MulleScionBinaryOperatorExpression *) hierarchicalExchange:(MulleScionBinaryOperatorExpression *) other;
+
 @end
 
 

@@ -4,4 +4,4 @@
  %}
 {{ deep[ 0] }}
 {{ deep[ 0].name }}
-{{ deep[ 0].name.class }}
+{{ deep[ 0].name.class | [self hasSuffix:@"String"] }}

@@ -595,6 +595,20 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    [super dealloc];
 }
 
+
+- (MulleScionBinaryOperatorExpression *) hierarchicalExchange:(MulleScionBinaryOperatorExpression *) other
+{
+   NSParameterAssert( [other isKindOfClass:[MulleScionBinaryOperatorExpression class]]);
+   NSParameterAssert( other->right_ == self);
+
+   // this is done during parsing, to move an operator
+   // up in precedence (used for dot / pipe)
+   other->right_ = self->value_;
+   self->value_  = other;
+   
+   return( self);
+}
+
 @end
 
 

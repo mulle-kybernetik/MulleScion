@@ -261,22 +261,23 @@ static NSString  *processName( void)
 
 static void   usage( void)
 {
-   fprintf( stderr, "%s [-w|-z] <-|template> [bundle|plist|-|keyvalue|none] [-|outputfile] [argv|<key>[=value]]*\n", [processName() cString]);
+   fprintf( stderr, "%s [-w|-z] <-|template> [bundle|plist|-|'keyvalue'|'none'] [-|outputfile] [args|<key>[=value]]*\n", [processName() cString]);
    fprintf( stderr, "v%s\n", MulleScionFrameworkVersion);
    fprintf( stderr,
    "\t-w       : start webserver for /tmp/MulleScionDox\n"
    "\t-z       : write compressed archive to outputfile\n"
    "\t-Z       : write compressed keyed archive to outputfile (for IOS)\n"
    "\n"
-   "\ttemplate : a MulleScion template\n\n"
+   "\ttemplate : a MulleScion template path or URL\n\n"
    "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
-   "\tplist    : any kind of property list as datasouece, see: plist(5)\n"
-   "\tkeyvalue : use keyvalue arguments as datasource (see below)\n"
-   "\targv     : arguments made available to the template via __ARGV__ (default)\n"
+   "\tplist    : a property list path or URL as datasource, see: plist(5)\n"
+   "\t'keyvalue' : use keyvalue arguments as datasource (see below)\n"
+   "\t'none'   : empty datasource\n"
+   "\targs     : arguments made available to the template via __ARGV__ (default)\n"
    "\tkey      : key values as datasource contents (only with keyvalue)\n"
    "\n"
    "example:\n"
-   "echo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
+   "\techo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
    );
 }
 
@@ -512,7 +513,6 @@ int   main_www( int argc, const char * argv[])
    id         plist;
    char       *s;
    NSString   *path;
-   NSURL      *url;
    
    loadBundles();
    

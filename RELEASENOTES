@@ -1,5 +1,17 @@
 1853.0
 
+### LANGUAGE change 
+
+Pipe has now lower precedence than '.', which makes expressions like these
+~~~
+deep[ 0].name.class | [self hasSuffix:@"String"]
+~~~
+now act more predictable. This is currently the only precedence outside of
+parantheses in MulleScion.
+
+
+### EXECUTABLE change
+
 Made mulle-scion brewable. You can now brew it with:
 
 ~~~
