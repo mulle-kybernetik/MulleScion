@@ -2,18 +2,20 @@
 # 
 # Generate a formula for mulle-scion stand alone
 #
-VERSION=${1:-`mulle-agvtool vers -terse | awk -F. '{ print $1 }'`}
-shift
-PROJECT=${1:-`basename ${PWD}`}
-shift
-TARGET=${1:-"mulle-scion"}
-shift
-
-ARCHIVE="${VERSION}.tar.gz"
-ARCHIVEURL="https://github.com/mulle-nat/${PROJECT}/archive/${ARCHIVE}"
+PROJECT=MulleScion
+TARGET=mulle-scion
 HOMEPAGE="http://www.mulle-kybernetik.com/software/git/${PROJECT}"
 
-TMPARCHIVE="/tmp/${PROJECT}-${ARCHIVE}"
+VERSION="$1"
+shift
+ARCHIVEURL="$1"
+shift
+
+[ "$VERSION" = "" ] && exit 1
+[ "$ARCHIVEURL" = "" ] && exit 1
+
+
+TMPARCHIVE="/tmp/${PROJECT}-${VERSION}-archive"
 
 if [ ! -f  "${TMPARCHIVE}" ]
 then
