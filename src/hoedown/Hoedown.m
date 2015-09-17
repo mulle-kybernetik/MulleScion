@@ -53,8 +53,9 @@
 
 - (id) initWithHTMLEscaping:(BOOL) flag
 {
-   [self init];
-   _htmlEscape = flag;
+   self = [self init];
+   if( self)
+      self->_htmlEscape = flag;
    return( self);
 }
 

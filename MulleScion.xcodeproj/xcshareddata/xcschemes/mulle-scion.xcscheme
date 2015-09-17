@@ -70,11 +70,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/tmp/MulleScionistTemp.scion"
+            argument = "https://raw.githubusercontent.com/mulle-nat/MulleScion/release/dox/!_Introduction.scion"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "none"
+            argument = "https://raw.githubusercontent.com/mulle-nat/MulleScion/release/dox/properties.plist"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

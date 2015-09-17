@@ -55,7 +55,7 @@ static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
    
 - (void) appendString:(NSString *) s
 {
-   NSData             *data;
+   NSData   *data;
       
    data = [s dataUsingEncoding:NSUTF8StringEncoding];
    [self writeData:data];
@@ -85,36 +85,43 @@ static NSDictionary  *localVariablesFromInfo( NSDictionary *info)
 }
 
 
-static int   run( NSString *fileName,
-                  id <MulleScionDataSource> src,
-                  id < MulleScionOutput> dst,
-                  NSDictionary *locals)
+static MulleScionTemplate   *acquireTemplateFromPath( NSString *fileName)
 {
    MulleScionTemplate   *template;
+   NSData               *data;
+   NSString             *string;
+   NSURL                *url;
    
+   template = nil;
    //
    // if fileName stars with '{' assume, that it's a command line template
    //
    if( [fileName hasPrefix:@"{"]) //  on her milk white neck ... the devil's mark
-   {
       template = [[[MulleScionTemplate alloc] initWithString:fileName] autorelease];
-      if( template)
-      {
-         [template writeToOutput:dst
-                      dataSource:src
-                  localVariables:locals];
-         return( 0);
-      }
-   }
    else
-      if( [MulleScionTemplate writeToOutput:dst
-                               templateFile:fileName
-                                 dataSource:src
-                             localVariables:locals])
-         return( 0);
-   
-   NSLog( @"Template \"%@\" could not be read", fileName);
-   return( -1);
+      if( [fileName isEqualToString:@"-"])
+      {
+         data   = [[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile];
+         string = [[[NSString alloc] initWithData:data
+                                         encoding:NSUTF8StringEncoding] autorelease];
+         template = [[[MulleScionTemplate alloc] initWithString:string] autorelease];
+         
+      }
+      else
+      {
+         if( [fileName rangeOfString:@"://"].length)
+         {
+            url      = [NSURL URLWithString:fileName];
+            template = [[[MulleScionTemplate alloc] initWithContentsOfFile:url] autorelease];
+         }
+         else
+            template = [[[MulleScionTemplate alloc] initWithFile:fileName] autorelease];
+      }
+
+   if( ! template)
+      NSLog( @"Template \"%@\" could not be read", fileName);
+
+   return( template);
 }
 
 
@@ -157,10 +164,56 @@ static id   acquireDataSourceFromBundle( NSString *s)
 }
 
 
+static id   acquirePropertyListFromArgs( NSArray *args)
+{
+   NSMutableDictionary   *plist;
+   NSEnumerator          *rover;
+   NSString              *arg;
+   id                    components;
+   NSString              *key;
+   NSString              *value;
+   
+   plist = [NSMutableDictionary dictionary];
+   
+   rover = [args objectEnumerator];
+   while( arg = [rover nextObject])
+   {
+      components = [arg componentsSeparatedByString:@"="];
+
+      key = [components objectAtIndex:0];
+      if( ! [key length])
+         continue;
+      
+      switch( [components count])
+      {
+      default :
+         components = [[components mutableCopy] autorelease];
+         [components removeObjectAtIndex:0];
+         value = [components componentsJoinedByString:@"="];
+         break;
+         
+      case 2 :
+         value = [components objectAtIndex:1];
+         break;
+      
+      case 1 :
+         value = @"1";
+         break;
+      }
+
+      // quote stuff will have been removed by shell
+      [plist setObject:value
+                forKey:key];
+   }
+   return( plist);
+}
+
+
 static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
 {
    NSData     *data;
    NSString   *error;
+   NSURL      *url;
    id         plist;
    
    if( [s isEqualToString:@"none"])
@@ -169,11 +222,20 @@ static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
    if( [s isEqualToString:@"-"])
       data = [[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile];
    else
+   {
       if( [[s pathExtension] isEqualToString:@"plist"])
-         data = [NSData dataWithContentsOfFile:s];
+      {
+         if( [s rangeOfString:@"://"].length)
+         {
+            url  = [NSURL URLWithString:s];
+            data = [NSData dataWithContentsOfURL:url];
+         }
+         else
+            data = [NSData dataWithContentsOfFile:s];
+      }
       else
          return( acquireDataSourceFromBundle( s));
-   
+   }
    error = nil;
    plist = [NSPropertyListSerialization propertyListFromData:data
                                             mutabilityOption:NSPropertyListImmutable
@@ -199,17 +261,22 @@ static NSString  *processName( void)
 
 static void   usage( void)
 {
-   fprintf( stderr, "%s [-w|-z] <template> [bundle|plist|-|none] [-|outputfile] [arguments]\n", [processName() cString]);
+   fprintf( stderr, "%s [-w|-z] <-|template> [bundle|plist|-|keyvalue|none] [-|outputfile] [argv|<key>[=value]]*\n", [processName() cString]);
    fprintf( stderr, "v%s\n", MulleScionFrameworkVersion);
    fprintf( stderr,
    "\t-w       : start webserver for /tmp/MulleScionDox\n"
    "\t-z       : write compressed archive to outputfile\n"
    "\t-Z       : write compressed keyed archive to outputfile (for IOS)\n"
    "\n"
-   "\ttemplate : a MulleScion template\n"
+   "\ttemplate : a MulleScion template\n\n"
    "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
-   "\tplist    : any kind of property list, see: plist(5)\n\n"
-   "\targuments: a list of arguments to be made available to the template via __ARGV__\n"
+   "\tplist    : any kind of property list as datasouece, see: plist(5)\n"
+   "\tkeyvalue : use keyvalue arguments as datasource (see below)\n"
+   "\targv     : arguments made available to the template via __ARGV__ (default)\n"
+   "\tkey      : key values as datasource contents (only with keyvalue)\n"
+   "\n"
+   "example:\n"
+   "echo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
    );
 }
 
@@ -223,8 +290,9 @@ static NSDictionary  *getInfoFromEnumerator( NSEnumerator *rover)
    NSString              *templateName;
    id                    plist;
    
-   info         = [NSMutableDictionary dictionary];
    [rover nextObject];  // skip
+
+   info         = [NSMutableDictionary dictionary];
    templateName = [rover nextObject];
    plistName    = [rover nextObject];
    outputName   = [rover nextObject];
@@ -237,9 +305,16 @@ static NSDictionary  *getInfoFromEnumerator( NSEnumerator *rover)
    if( ! [outputName length])
       outputName = @"-";
    
-   plist = acquirePropertyListOrDataSourceFromBundle( plistName);
+   if( [plistName isEqualToString:@"keyvalue"])
+   {
+      plist = acquirePropertyListFromArgs( argv);
+      argv  = [NSArray array];
+   }
+   else
+      plist = acquirePropertyListOrDataSourceFromBundle( plistName);
    if( ! plist)
       goto usage;
+   
    [info setObject:plist
             forKey:@"dataSource"];
    
@@ -330,20 +405,9 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
    if( [archiveName isEqualToString:@"-"])
       return( -3);
    
-   //
-   // if fileName stars with '{' assume, that it's a command line template
-   //
-   fileName    = [info objectForKey:@"MulleScionRootTemplate"];
-   if( [fileName hasPrefix:@"{"])
-      template = [[[MulleScionTemplate alloc] initWithString:fileName] autorelease];
-   else
-      template = [[[MulleScionTemplate alloc] initWithFile:fileName] autorelease];
-
+   template = acquireTemplateFromPath( fileName);
    if( ! template)
-   {
-      NSLog( @"Template \"%@\" could not be read", fileName);
       return( -1);
-   }
    
    if( ! [template writeArchive:archiveName
                           keyed:keyed])
@@ -360,30 +424,25 @@ static int   _main(int argc, const char * argv[])
 {
    NSDictionary   *info;
    NSFileHandle   *stream;
+   MulleScionTemplate   *template;
    
    info = getInfoFromArguments();
    if( ! info)
       return( -3);
    
+   template = acquireTemplateFromPath( [info objectForKey:@"MulleScionRootTemplate"]);
+   if( ! template)
+      return( -1);
+
    stream = outputStreamWithInfo( info);
    if( ! stream)
       return( -2);
-   
-   return( run( [info objectForKey:@"MulleScionRootTemplate"],
-               [info objectForKey:@"dataSource"],
-               stream,
-               localVariablesFromInfo( info)));
+
+   [template writeToOutput:stream
+                dataSource:[info objectForKey:@"dataSource"]
+            localVariables:localVariablesFromInfo( info)];
+   return( 0);
 }
-
-
-static char    *default_options[] =
-{
-   "document_root",   "/tmp/MulleScionDox",
-   "listening_ports", "127.0.0.1:18048",
-   "num_threads", "1",
-   "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
-   NULL
-};
 
 
 int main( int argc, const char * argv[])
@@ -396,16 +455,9 @@ int main( int argc, const char * argv[])
 #ifndef DONT_HAVE_WEBSERVER
       if( ! strcmp( argv[ 1], "-w"))
       {
-         id   plist;
-         loadBundles();
-         plist = [NSDictionary dictionaryWithContentsOfFile:@"/tmp/MulleScionDox/properties.plist"];
-         if( ! plist)
-         {
-            NSLog( @"/tmp/MulleScionDox/properties.plist not found");
-            return( -5);
-         }
-         mulle_mongoose_main( plist, default_options);
-         return( 0);
+         int   main_www( int argc, const char * argv[]);
+         
+         return( main_www( argc, argv));
       }
 #endif
 
@@ -438,3 +490,54 @@ NS_ENDHANDLER
 # endif
    return( rval);
 }
+
+
+/*
+ *
+ */
+#ifndef DONT_HAVE_WEBSERVER
+
+ static char    *default_options[] =
+{
+   "document_root",   "/tmp/MulleScionDox",
+   "listening_ports", "127.0.0.1:18048",
+   "num_threads", "1",
+   "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
+   NULL
+};
+
+
+int   main_www( int argc, const char * argv[])
+{
+   id         plist;
+   char       *s;
+   NSString   *path;
+   NSURL      *url;
+   
+   loadBundles();
+   
+   // hack to get something else going
+   s = getenv( "MulleScionServerRoot");
+   if( s)
+      default_options[ 1] = s;
+   
+   s = getenv( "MulleScionServerPort");
+   if( s)
+      default_options[ 3] = s;
+   
+   path = @"/tmp/MulleScionDox/properties.plist";
+   s = getenv( "MulleScionServerPlist");
+   if( s)
+      path = [NSString stringWithCString:s];
+   
+   plist = acquirePropertyListOrDataSourceFromBundle( path);
+   if( ! plist)
+      plist = [NSDictionary dictionary];
+   
+   mulle_mongoose_main( plist, default_options);
+   return( 0);
+}
+#endif
+
+
+

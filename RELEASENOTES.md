@@ -1,30 +1,3 @@
-1853.0
-
-Made mulle-scion brewable. You can now brew it with:
-
-~~~
-brew tap mulle-kybernetik/software
-brew install mulle-scion
-~~~
-
-mulle-scion is now more powerful with regards to parameters.
-It is now possible to do this:
-
-echo '--- {{ VALUE }} ---' | mulle-scion - keyvalue - VALUE="1848"
-
-which produces predicatably
-
---- 1848 ---
-
-Templates can be passed in via stdin and the replacement values can be given
-as key=value arguments. This makes mulle-scion even more convenient to use
-in shell scripts. You can also specify URLs instead of just file paths for
-input.
-
-There are now "hidden" environment variables WWW_ROOT, WWW_PORT, WWW_PLIST for
-the webserver.
-
-
 1852.0
 
 ### API change 

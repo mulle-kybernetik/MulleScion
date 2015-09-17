@@ -2296,7 +2296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1852.0;
+				CURRENT_PROJECT_VERSION = 1853.0;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2327,7 +2327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1852.0;
+				CURRENT_PROJECT_VERSION = 1853.0;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2355,8 +2355,6 @@
 		41764B9B16DA511200560FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "mulle-scion";
 			};
@@ -2365,8 +2363,6 @@
 		41764B9C16DA511200560FCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "mulle-scion";
 			};
@@ -2397,7 +2393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1852.0;
+				CURRENT_PROJECT_VERSION = 1853.0;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2426,8 +2422,6 @@
 		4178D2FF16E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "mulle-scion";
 			};
