@@ -2,25 +2,43 @@
 # 
 # Generate a formula for mulle-scion stand alone
 #
-VERSION=${1:-`mulle-agvtool vers -terse | awk -F. '{ print $1 }'`}
-shift
-PROJECT=${1:-`basename ${PWD}`}
-shift
-TARGET=${1:-"mulle-scion"}
-shift
-
-ARCHIVE="${VERSION}.tar.gz"
-ARCHIVEURL="https://github.com/mulle-nat/${PROJECT}/archive/${ARCHIVE}"
+PROJECT=MulleScion
+TARGET=mulle-scion
 HOMEPAGE="http://www.mulle-kybernetik.com/software/git/${PROJECT}"
 
-TMPARCHIVE="/tmp/${PROJECT}-${ARCHIVE}"
+VERSION="$1"
+shift
+ARCHIVEURL="$1"
+shift
+
+[ "$VERSION" = "" ] && exit 1
+[ "$ARCHIVEURL" = "" ] && exit 1
+
+
+TMPARCHIVE="/tmp/${PROJECT}-${VERSION}-archive"
 
 if [ ! -f  "${TMPARCHIVE}" ]
 then
    curl -s -L -o "${TMPARCHIVE}" "${ARCHIVEURL}"
-   [ $? -ne 0 ] && exit 1
+   if [ $? -ne 0 -o ! -f "${TMPARCHIVE}" ] 
+   then
+      echo "Download failed" >&2
+      exit 1
+   fi
 else
    echo "using cached file ${TMPARCHIVE} instead of downloading again" >&2
+fi
+
+#
+# anything less than 17 KB is wrong 
+#
+size=`du -k "${TMPARCHIVE}" | awk '{ print $ 1}'`
+if [ $size -lt 17 ]
+then
+   echo "Archive truncated or missing" >&2
+   cat "${TMPARCHIVE}" >&2
+   rm "${TMPARCHIVE}"
+   exit 1
 fi
 
 HASH=`shasum -p -a 256 "${TMPARCHIVE}" | awk '{ print $1 }'`
@@ -40,7 +58,7 @@ class ${PROJECT} < Formula
   end
 
   test do
-    system  "test", "-x", "#{bin}/${TARGET}"
+    system  "(", "cd", tests", ";", "./run-all-scion-tests.sh" , "#{bin}/${TARGET}", ")"
   end
 end
 EOF
