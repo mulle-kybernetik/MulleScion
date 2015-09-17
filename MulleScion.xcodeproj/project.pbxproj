@@ -604,7 +604,7 @@
 		41764B8A16DA511200560FCF /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/local/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
 				41764B9716DA511200560FCF /* mulle-scion.1 in Copy Files */,
@@ -2141,7 +2141,7 @@
 			buildSettings = {
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = framework;
@@ -2153,7 +2153,7 @@
 			buildSettings = {
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = framework;
@@ -2165,7 +2165,7 @@
 			buildSettings = {
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = framework;
@@ -2355,7 +2355,6 @@
 		41764B9B16DA511200560FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Debug;
@@ -2363,7 +2362,6 @@
 		41764B9C16DA511200560FCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Release;
@@ -2422,7 +2420,6 @@
 		4178D2FF16E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "mulle-scion";
 			};
 			name = Profile;
@@ -2431,7 +2428,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = MulleScionParser;
 				SKIP_INSTALL = YES;
 			};
@@ -2459,8 +2455,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
 				PRODUCT_NAME = MulleScion;
@@ -2517,7 +2511,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = MulleScionParser;
 				SKIP_INSTALL = YES;
 			};
@@ -2527,7 +2520,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = MulleScionParser;
 				SKIP_INSTALL = YES;
 			};
@@ -2555,8 +2547,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
 				PRODUCT_NAME = MulleScion;
@@ -2568,8 +2558,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = /;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
 				PRODUCT_NAME = MulleScion;
