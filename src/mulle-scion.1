@@ -3,45 +3,60 @@
 .Os Darwin
 .Sh NAME       
 .Nm mulle-scion
-.Nd creates text output from a MulleScion template and a property list file.
+.Nd creates text output from a template and a property list.
 .Sh SYNOPSIS      
 .Nm
-.Op Fl w
+.Op Fl w z Z
 .Ar template      
 .Ar plist         
 .Op Ar outputfile 
 .Op Ar arguments 
 .Sh DESCRIPTION   
 .Nm
-is a standalone renderer for MulleScion files. 
+is a standalone template renderer that has a built-in Objective-C interpreter.
+
+.El                      
+.Pp               
+These are optional modes
+.Nm  
+can run:
+.Bl -tag -width "XXXXXXXXXX" -indent 
+.It Fl w 
+If you give mulle-scion the webserver option if will start a small webserver, 
+suitable for demonstration purposes. The remaining arguments of the command line
+are treazed as bundle identifiers or paths, to be loaded immediately.
+The document root is hardcoded to "/tmp/MulleScionDox" and it should open a
+port on 18048 on the localhost interface.
+.It Fl z 
+Create a compiled '.scionz' template archive. Everything after template is ignored.
+.It Fl Z
+Create a compiled '.scionZ' template  archive suitable for iOS. Everything after template is ignored.
+
+.El
 .Pp               
 These are the arguments you can give to 
-.Nm
+.Nm  
 :
 .Bl -tag -width "XXXXXXXXXX" -indent 
 .It Ar template  
-path to the MulleScionTemplate. If the file has no extension a .scion will be 
+the template filename or URL. If the file has no extension a .scion will be
 appended. The directory of this path will become your root for included 
-templates. If the path starts with a '{' this argument is treated as an inline 
-script instead.
+templates. If the argument starts with a '{' this argument is treated as an
+inline template string instead. If you give '-' as a path, the template will
+be read from standard input.
 .It Ar plist  
-Path to a property list file. If you give '-' as a path, the property list will 
-be read from standard input. You can also give 'none' for no property list. If 
-this parameter is omitted, it defaults to standard input.
+A property list filename or URL. If you give '-' as a path, the property list will 
+be read from standard input, unless you already used '-' for the template.
+You can also give 'none' for no property list. Giving the keyword 'keyvalue'
+makes mulle-scion treat the arguments as key value pairs for a datasource plist
+instead.
 .It Ar outputfile
 The output file to write the output to. If this parameter is '-' or omitted, the 
 output is written to standard output.
 .It Ar arguments
 All other trailing arguments are collected and are available as an array in the
-MulleScion variable __ARGV__.
-.El                      
-.Bl -tag -width "XXXXXXXXXX" -indent 
-.It Fl w 
-If you give mulle-scion the webserver option if will start a small webserver, 
-suitable only for demonstration purposes and it will treat all remaining 
-arguments of the command line as bundle identifiers or paths, to be loaded 
-immediately. The document root is hardcoded to /tmp and it should only open a 
-port on 18048 on the localhost interface.
+MulleScion variable __ARGV__, unless 'keyvalue' has been set. In which case the
+arguments become the datasource.
 .El 
 .Pp                     
 .Pp
@@ -85,15 +100,26 @@ Fill template file my_template.scion with data from a_datasource.plist and write
 output.txt.
 
 .Pp
+.Dl "mulle-scion 'https://raw.githubusercontent.com/mulle-nat/MulleScion/release/dox/!_Introduction.scion' 'https://raw.githubusercontent.com/mulle-nat/MulleScion/release/dox/properties.plist'
+.Pp
+As above but using URLs and writing the output to the console
+
+.Pp
 .Dl "mulle-scion '{{ [__ARGV__[ 0] stringByResolvingSymlinksInPath] }}' none - /tmp/.."
 .Pp
 Use mulle-scion to resolve a symlink path /tmp/.. . The script is inlined, there is no property 
-list for a datasource and the output is routed to stdout.
+list for a datasource and the output is routed to the console.
+
+.Pp
+.Dl "mulle-scion '{{ [PATH stringByResolvingSymlinksInPath] }}' keyvalue - "PATH=/tmp/.."
+.Pp
+As above but using key values as a datasource instead of __ARGV__.
+
 .Pp
 .Dl "mulle-scion -w ~/Library/Bundles/MyWebServer.bundle"
 .Pp
-start a webserver for /tmp and load ~/Library/Bundles/MyWebServer.bundle. The bundle 
-could be adding compiled functionality to the test templates.
+start a webserver for "/tmp/MulleScionDo"x and load "~/Library/Bundles/MyWebServer.bundle". The bundle 
+can add functionality to the template code..
 
 
 .Sh SEE ALSO 

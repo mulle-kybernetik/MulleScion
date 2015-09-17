@@ -415,7 +415,6 @@ static macro_type   parser_grab_text_until_scion_start( parser *p)
    unsigned char   c, d;
    int             inquote;
    macro_type      type;
-   macro_type      escaped;
    
    assert( p->skipComments <= 0);
 
@@ -424,7 +423,6 @@ static macro_type   parser_grab_text_until_scion_start( parser *p)
    type    = garbage;
    inquote = 0;
    c       = p->curr > p->buf ? p->curr[ -1] : 0;
-   escaped = 0;
    
    while( p->curr < p->sentinel)
    {
@@ -442,12 +440,11 @@ static macro_type   parser_grab_text_until_scion_start( parser *p)
       default   :  type = garbage; continue;
       case '%'  :  type = command; break;
       case '#'  :  type = comment; break;
-      case '{'  :  type = expression; escaped = 0; break;
+      case '{'  :  type = expression; break;
       case '}'  :  if( type == garbage)
                      continue;
                    if( parser_scion_looks_escaped( p))
                    {
-                      escaped = type;
                       type    = garbage;
                       continue;
                    }
@@ -458,7 +455,6 @@ static macro_type   parser_grab_text_until_scion_start( parser *p)
       {
          if( parser_scion_looks_escaped( p))
          {
-            escaped = type;
             type    = garbage;
             continue;
          }
