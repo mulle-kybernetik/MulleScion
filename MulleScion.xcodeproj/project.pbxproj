@@ -74,7 +74,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		410300731701DBE200197713 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		410300901701DC6800197713 /* MulleScion.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BCD16DAF4C600560FCF /* MulleScion.m */; };
 		410300A81701DFBA00197713 /* MulleScion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; };
 		4107D723182D306B005317F0 /* MulleScionParser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
@@ -97,7 +96,6 @@
 		411826FF1B86109800A57A95 /* MulleScionObjectModel+Printing.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */; };
 		411827001B86109800A57A95 /* NSObject+MulleScionDescription.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; };
 		411827011B8610E000A57A95 /* MulleScionParser.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
-		411EEA92182D30B600361ADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		411EEA9B182D310100361ADF /* MulleScionOutputProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; };
 		411EEA9C182D310100361ADF /* MulleScionDataSourceProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
 		411EEA9D182D310100361ADF /* MulleScionPrinter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; };
@@ -109,7 +107,6 @@
 		411EEAA3182D310D00361ADF /* NSValue+CheatAndHack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */; };
 		411EEAA4182D310D00361ADF /* MulleMutableLineNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32E916DB8A7D005D0EAD /* MulleMutableLineNumber.m */; };
 		411EEAA5182D310D00361ADF /* MulleScionNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F12D4516E274D200120E63 /* MulleScionNull.m */; };
-		411EEAAD182D311F00361ADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		411EEAB6182D314C00361ADF /* MulleScionObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */; };
 		411EEAB7182D314C00361ADF /* MulleScionObjectModel+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */; };
 		411EEAB8182D314C00361ADF /* MulleScionTemplate+CompressedArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0616DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.m */; };
@@ -121,34 +118,6 @@
 		412905251830E57B00489CE5 /* libMulleScionFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41FAED81182D275E002CD114 /* libMulleScionFoundation.a */; };
 		412905261830E57B00489CE5 /* libMulleScionParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF0416DE51C9004833D6 /* libMulleScionParser.a */; };
 		412905271830E57B00489CE5 /* libMulleScionPrinter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DED916DE509E004833D6 /* libMulleScionPrinter.a */; };
-		412905351830E99800489CE5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
-		4129054A1830EA6A00489CE5 /* MulleScion.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BCD16DAF4C600560FCF /* MulleScion.m */; };
-		4129054B1830EA7C00489CE5 /* libMulleScionFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 411EEAB5182D311F00361ADF /* libMulleScionFoundation.a */; };
-		4129054C1830EA7C00489CE5 /* libMulleScionParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EC0149182D301A00A17DBD /* libMulleScionParser.a */; };
-		4129054D1830EA7C00489CE5 /* libMulleScionPrinter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 411EEA9A182D30B600361ADF /* libMulleScionPrinter.a */; };
-		4129054E1830EAD800489CE5 /* MulleObjCCompilerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4129054F1830EAD800489CE5 /* MulleScionObjectModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905501830EAD800489CE5 /* MulleScionObjectModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		412905511830EAD800489CE5 /* MulleScionTemplate+CompressedArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905521830EAD800489CE5 /* NSFileHandle+MulleOutputFileHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905531830EAD800489CE5 /* MulleScionObjectModel+TraceDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905541830EAD800489CE5 /* NSObject+KVC_Compatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA5D3182BED2100F654F7 /* NSObject+KVC_Compatibility.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		412905551830EAD800489CE5 /* NSString+HTMLEscape.h in Headers */ = {isa = PBXBuildFile; fileRef = 41DD56BC16E4145000C4D68A /* NSString+HTMLEscape.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905571830EAD800489CE5 /* MulleScionParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905581830EAD800489CE5 /* MulleScionParser+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905591830EAD800489CE5 /* MulleScionObjectModel+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD416E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4129055A1830EAD800489CE5 /* MulleScionObjectModel+BlockExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 410C7FD116E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4129055B1830EAD800489CE5 /* MulleScionObjectModel+MacroExpansion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4178D2FB16DFD2D4001C9FB0 /* MulleScionObjectModel+MacroExpansion.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4129055C1830EAD800489CE5 /* MulleScionOutputProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4129055D1830EAD800489CE5 /* MulleScionPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4129055E1830EAD800489CE5 /* MulleScionPrintingException.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4129055F1830EAD800489CE5 /* MulleScionObjectModel+Printing.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		412905601830EAD800489CE5 /* NSObject+MulleScionDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905611830EAD800489CE5 /* MulleMutableLineNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		412905621830EAD800489CE5 /* MulleScionNull.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F12D4416E274D100120E63 /* MulleScionNull.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		412905631830EAD800489CE5 /* MulleScion.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		412905641830EAD800489CE5 /* NSData+ZLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0016DD251900BFD60C /* NSData+ZLib.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		412E7FEA182D2F80008A7FCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		412E8008182D2F9B008A7FCC /* MulleScionObjectModel+Graphviz.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */; };
 		4146F1EB182D318D0020594C /* MulleObjCCompilerSettings.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; };
 		4146F1EC182D318D0020594C /* MulleScionObjectModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; };
@@ -191,7 +160,6 @@
 		415C401E1A9641010072B73A /* __demo.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 415C401D1A9641010072B73A /* __demo.scion */; };
 		415DA59C182BBB3B00F654F7 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 415DA59B182BBB3B00F654F7 /* GTMDefines.h */; };
 		41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
-		41665B4B18D70811005DF9BF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41665B4A18D70811005DF9BF /* libz.dylib */; };
 		41764B9016DA511200560FCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41764B9316DA511200560FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9216DA511200560FCF /* main.m */; };
 		41764B9716DA511200560FCF /* mulle-scion.1 in Copy Files */ = {isa = PBXBuildFile; fileRef = 41764B9616DA511200560FCF /* mulle-scion.1 */; };
@@ -205,6 +173,11 @@
 		41AEA22B182D20FB00840887 /* libMulleScionGraphviz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41AEA214182D097300840887 /* libMulleScionGraphviz.a */; };
 		41B07E261820215A0003B67F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41DEE8A117DF22190042A439 /* README.md */; };
 		41B07E271820215A0003B67F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 414A842816E52DF50084AE1E /* LICENSE */; };
+		41B4C8D61BAB2C92002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
+		41B4C8D71BAB2C98002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
+		41B4C8D81BAB2C9D002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
+		41B4C8D91BAB2CA2002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
+		41B4C8DA1BAB2CA7002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41CFAFFE1A93E1E500B0783A /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF51A93E1E500B0783A /* autolink.c */; };
 		41CFAFFF1A93E1E500B0783A /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF61A93E1E500B0783A /* buffer.c */; };
@@ -258,7 +231,6 @@
 		41DD569F16E376F600C4D68A /* mongoose.c in Sources */ = {isa = PBXBuildFile; fileRef = 41DD569E16E376F600C4D68A /* mongoose.c */; };
 		41DD56A216E376FF00C4D68A /* MulleMongoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56A116E376FF00C4D68A /* MulleMongoose.m */; };
 		41DD56B716E3F7A700C4D68A /* MulleScionObjectModel+MulleMongoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */; };
-		41EC0141182D301A00A17DBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41EC014A182D303500A17DBD /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41EC014B182D303500A17DBD /* MulleScionParser+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */; };
 		41EC014C182D303500A17DBD /* MulleScionObjectModel+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 410C7FD516E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m */; };
@@ -285,7 +257,7 @@
 		41FAED7A182D275E002CD114 /* MulleScionDataSourceProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
 		41FAED7B182D275E002CD114 /* MulleScionObjectModel+NSCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; };
 		41FAED7C182D275E002CD114 /* MulleScionTemplate+CompressedArchive.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; };
-		41FE9FD718281F77005E7A41 /* RELEASENOTES in Resources */ = {isa = PBXBuildFile; fileRef = 41FE9FD618281F77005E7A41 /* RELEASENOTES */; };
+		41FE9FD718281F77005E7A41 /* RELEASENOTES.md in Resources */ = {isa = PBXBuildFile; fileRef = 41FE9FD618281F77005E7A41 /* RELEASENOTES.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,27 +267,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 415DA59D182BBC8200F654F7;
 			remoteInfo = "grab google-toolbox-for-mac from code.google.com";
-		};
-		412905441830EA5C00489CE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41764B8416DA511200560FCF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 411EEAA6182D311F00361ADF;
-			remoteInfo = "MulleScionFoundation (iOS Library)";
-		};
-		412905461830EA5C00489CE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41764B8416DA511200560FCF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 41EC013A182D301A00A17DBD;
-			remoteInfo = "MulleScionParser (iOS Library)";
-		};
-		412905481830EA5C00489CE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41764B8416DA511200560FCF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 411EEA8B182D30B600361ADF;
-			remoteInfo = "MulleScionPrinter (iOS Library)";
 		};
 		4146F1F2182D31A80020594C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -732,7 +683,6 @@
 		4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CheatAndHack.m"; sourceTree = "<group>"; };
 		4121DB1216DD779800BFD60C /* dot.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dot.scion; path = ../dox/dot.scion; sourceTree = "<group>"; };
 		4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionDataSourceProtocol.h; sourceTree = "<group>"; };
-		412905341830E99800489CE5 /* MulleScion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = MulleScion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		412E8006182D2F80008A7FCC /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41348F90182E569A00367335 /* libSystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.dylib; path = usr/lib/libSystem.dylib; sourceTree = SDKROOT; };
 		41348F92182E56A500367335 /* crt1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = crt1.o; path = usr/lib/crt1.o; sourceTree = SDKROOT; };
@@ -752,7 +702,6 @@
 		415DA59B182BBB3B00F654F7 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "../google-toolbox-for-mac/GTMDefines.h"; sourceTree = "<group>"; };
 		415DA5D3182BED2100F654F7 /* NSObject+KVC_Compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KVC_Compatibility.h"; sourceTree = "<group>"; };
 		415DA5D4182BED2100F654F7 /* NSObject+KVC_Compatibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVC_Compatibility.m"; sourceTree = "<group>"; };
-		41665B4A18D70811005DF9BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		41741ADB183036440065E5FD /* requires.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = requires.scion; sourceTree = "<group>"; };
 		41764B8C16DA511200560FCF /* mulle-scion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mulle-scion"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41764B8F16DA511200560FCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -781,10 +730,10 @@
 		41AEA1F3182D089E00840887 /* MulleScionObjectModel+Graphviz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Graphviz.m"; sourceTree = "<group>"; };
 		41AEA214182D097300840887 /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
+		41B4C8D41BAB2C89002BFA33 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		41B727041908F4FC004343E9 /* MulleScion.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MulleScion.podspec; sourceTree = SOURCE_ROOT; };
-		41C04B2C182D2C2D00CD973E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		41CCC55C18254FB00081FA1C /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
-		41CD2F0D181FE17300FBBEB4 /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
+		41CD2F0D181FE17300FBBEB4 /* BUILD.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BUILD.md; sourceTree = "<group>"; };
 		41CFAFEE1A93E1E500B0783A /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
 		41CFAFEF1A93E1E500B0783A /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
 		41CFAFF01A93E1E500B0783A /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
@@ -847,7 +796,7 @@
 		41F12D4416E274D100120E63 /* MulleScionNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulleScionNull.h; sourceTree = "<group>"; };
 		41F12D4516E274D200120E63 /* MulleScionNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulleScionNull.m; sourceTree = "<group>"; };
 		41FAED81182D275E002CD114 /* libMulleScionFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		41FE9FD618281F77005E7A41 /* RELEASENOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RELEASENOTES; sourceTree = "<group>"; };
+		41FE9FD618281F77005E7A41 /* RELEASENOTES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RELEASENOTES.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -855,7 +804,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				410300731701DBE200197713 /* Foundation.framework in Frameworks */,
+				41B4C8D61BAB2C92002BFA33 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,7 +812,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				411EEA92182D30B600361ADF /* Foundation.framework in Frameworks */,
+				41B4C8DA1BAB2CA7002BFA33 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -871,19 +820,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41665B4B18D70811005DF9BF /* libz.dylib in Frameworks */,
-				411EEAAD182D311F00361ADF /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4129052F1830E99800489CE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4129054B1830EA7C00489CE5 /* libMulleScionFoundation.a in Frameworks */,
-				4129054C1830EA7C00489CE5 /* libMulleScionParser.a in Frameworks */,
-				4129054D1830EA7C00489CE5 /* libMulleScionPrinter.a in Frameworks */,
-				412905351830E99800489CE5 /* Foundation.framework in Frameworks */,
+				41B4C8D71BAB2C98002BFA33 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,7 +828,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				412E7FEA182D2F80008A7FCC /* Foundation.framework in Frameworks */,
+				41B4C8D81BAB2C9D002BFA33 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,7 +891,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41EC0141182D301A00A17DBD /* Foundation.framework in Frameworks */,
+				41B4C8D91BAB2CA2002BFA33 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,8 +931,8 @@
 			isa = PBXGroup;
 			children = (
 				41DEE8A117DF22190042A439 /* README.md */,
-				41FE9FD618281F77005E7A41 /* RELEASENOTES */,
-				41CD2F0D181FE17300FBBEB4 /* INSTALL */,
+				41FE9FD618281F77005E7A41 /* RELEASENOTES.md */,
+				41CD2F0D181FE17300FBBEB4 /* BUILD.md */,
 				414A842816E52DF50084AE1E /* LICENSE */,
 				41764B9116DA511200560FCF /* src */,
 				41764B9416DA511200560FCF /* dox */,
@@ -1020,7 +957,6 @@
 				41EC0149182D301A00A17DBD /* libMulleScionParser.a */,
 				411EEA9A182D30B600361ADF /* libMulleScionPrinter.a */,
 				411EEAB5182D311F00361ADF /* libMulleScionFoundation.a */,
-				412905341830E99800489CE5 /* MulleScion.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1028,15 +964,8 @@
 		41764B8E16DA511200560FCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				41665B4A18D70811005DF9BF /* libz.dylib */,
-				41348F99182E57C900367335 /* libgcc_s.1.dylib */,
-				41348F97182E577D00367335 /* libobjc.dylib */,
-				41348F94182E56E900367335 /* gcrt1.o */,
-				41348F92182E56A500367335 /* crt1.o */,
-				41348F90182E569A00367335 /* libSystem.dylib */,
-				41764B8F16DA511200560FCF /* Foundation.framework */,
-				4121DB0316DD2B6900BFD60C /* libz.dylib */,
-				41C04B2C182D2C2D00CD973E /* UIKit.framework */,
+				41B4C8D31BAB2C76002BFA33 /* iOS */,
+				41B4C8D21BAB2C68002BFA33 /* OSX */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1122,6 +1051,28 @@
 				41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */,
 			);
 			name = "HTML Escaping";
+			sourceTree = "<group>";
+		};
+		41B4C8D21BAB2C68002BFA33 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				41348F99182E57C900367335 /* libgcc_s.1.dylib */,
+				41348F97182E577D00367335 /* libobjc.dylib */,
+				41348F94182E56E900367335 /* gcrt1.o */,
+				41348F92182E56A500367335 /* crt1.o */,
+				41348F90182E569A00367335 /* libSystem.dylib */,
+				41764B8F16DA511200560FCF /* Foundation.framework */,
+				4121DB0316DD2B6900BFD60C /* libz.dylib */,
+			);
+			name = OSX;
+			sourceTree = "<group>";
+		};
+		41B4C8D31BAB2C76002BFA33 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				41B4C8D41BAB2C89002BFA33 /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		41CD1AB818E98595003A7191 /* Graphviz */ = {
@@ -1247,35 +1198,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		412905301830E99800489CE5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4129054E1830EAD800489CE5 /* MulleObjCCompilerSettings.h in Headers */,
-				4129054F1830EAD800489CE5 /* MulleScionObjectModel.h in Headers */,
-				412905511830EAD800489CE5 /* MulleScionTemplate+CompressedArchive.h in Headers */,
-				412905531830EAD800489CE5 /* MulleScionObjectModel+TraceDescription.h in Headers */,
-				412905521830EAD800489CE5 /* NSFileHandle+MulleOutputFileHandle.h in Headers */,
-				412905551830EAD800489CE5 /* NSString+HTMLEscape.h in Headers */,
-				412905601830EAD800489CE5 /* NSObject+MulleScionDescription.h in Headers */,
-				412905581830EAD800489CE5 /* MulleScionParser+Parsing.h in Headers */,
-				412905571830EAD800489CE5 /* MulleScionParser.h in Headers */,
-				4129055D1830EAD800489CE5 /* MulleScionPrinter.h in Headers */,
-				4129055C1830EAD800489CE5 /* MulleScionOutputProtocol.h in Headers */,
-				412905631830EAD800489CE5 /* MulleScion.h in Headers */,
-				412905541830EAD800489CE5 /* NSObject+KVC_Compatibility.h in Headers */,
-				412905501830EAD800489CE5 /* MulleScionObjectModel+NSCoding.h in Headers */,
-				412905641830EAD800489CE5 /* NSData+ZLib.h in Headers */,
-				4129055A1830EAD800489CE5 /* MulleScionObjectModel+BlockExpansion.h in Headers */,
-				412905621830EAD800489CE5 /* MulleScionNull.h in Headers */,
-				4129055E1830EAD800489CE5 /* MulleScionPrintingException.h in Headers */,
-				4129055F1830EAD800489CE5 /* MulleScionObjectModel+Printing.h in Headers */,
-				412905591830EAD800489CE5 /* MulleScionObjectModel+Parsing.h in Headers */,
-				412905611830EAD800489CE5 /* MulleMutableLineNumber.h in Headers */,
-				4129055B1830EAD800489CE5 /* MulleScionObjectModel+MacroExpansion.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		41D6DF5916DE53AE004833D6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1364,29 +1286,6 @@
 			productName = "MulleScion (iOS Library)";
 			productReference = 411EEAB5182D311F00361ADF /* libMulleScionFoundation.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		412905331830E99800489CE5 /* MulleScion (iOS Framework) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 412905401830E99800489CE5 /* Build configuration list for PBXNativeTarget "MulleScion (iOS Framework)" */;
-			buildPhases = (
-				4129052E1830E99800489CE5 /* Sources */,
-				4129052F1830E99800489CE5 /* Frameworks */,
-				412905301830E99800489CE5 /* Headers */,
-				412905311830E99800489CE5 /* Resources */,
-				412905321830E99800489CE5 /* Make iOS-Universal-Framework */,
-				412905671830F00500489CE5 /* Unfuck multiple inclusions (argh!) */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				412905451830EA5C00489CE5 /* PBXTargetDependency */,
-				412905471830EA5C00489CE5 /* PBXTargetDependency */,
-				412905491830EA5C00489CE5 /* PBXTargetDependency */,
-			);
-			name = "MulleScion (iOS Framework)";
-			productName = xxx;
-			productReference = 412905341830E99800489CE5 /* MulleScion.framework */;
-			productType = "com.apple.product-type.framework.static";
 		};
 		412E7FD0182D2F80008A7FCC /* MulleScionGraphviz (iOS Library) */ = {
 			isa = PBXNativeTarget;
@@ -1587,7 +1486,6 @@
 				41AEA1F6182D097300840887 /* MulleScionGraphviz (OSX Library) */,
 				41D6DF0316DE51C9004833D6 /* MulleScionParser (OSX Library) */,
 				41D6DED816DE509E004833D6 /* MulleScionPrinter (OSX Library) */,
-				412905331830E99800489CE5 /* MulleScion (iOS Framework) */,
 				410300711701DBE200197713 /* MulleScion (iOS Library) */,
 				411EEAA6182D311F00361ADF /* MulleScionFoundation (iOS Library) */,
 				412E7FD0182D2F80008A7FCC /* MulleScionGraphviz (iOS Library) */,
@@ -1599,19 +1497,12 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		412905311830E99800489CE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		41D6DF5A16DE53AE004833D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				41B07E261820215A0003B67F /* README.md in Resources */,
-				41FE9FD718281F77005E7A41 /* RELEASENOTES in Resources */,
+				41FE9FD718281F77005E7A41 /* RELEASENOTES.md in Resources */,
 				41B07E271820215A0003B67F /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1632,36 +1523,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "DIR=\"${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nif [ -f \"$LIB\" ]\nthen\nrm \"$LIB\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		412905321830E99800489CE5 /* Make iOS-Universal-Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Make iOS-Universal-Framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /usr/bin/python;
-			shellScript = "# TAG: BUILD SCRIPT (do not remove this comment)\n# Build script generated using https://github.com/kstenerud/iOS-Universal-Framework Mk 8 (beta 2012-06-16)\nimport logging\n\n\n##############################################################################\n#\n# Configuration\n#\n##############################################################################\n\n# Select which kind of framework to build.\n#\n# Note: Due to issues with Xcode's build process, if you select\n#       'embeddedframework', it will still show the regular framework\n#       (as a symlink) along side of the embedded framework. Be sure to\n#       instruct your users to copy/move the embedded framework in this case!\n#\n# If your framework contains resources such as images, nibs, momds, plists,\n# zipfiles and such, choose 'embeddedframework'.\n#\n# If your framework contains no resources, choose 'framework'.\n#\nconfig_framework_type = 'framework'\n#config_framework_type = 'embeddedframework'\n\n# Open the build directory in Finder when the universal framework is\n# successfully built.\n#\n# This value can be overridden by setting the UFW_OPEN_BUILD_DIR env variable\n# to True or False.\n#\n# Recommended setting: True\n#\nconfig_open_build_dir = True\n\n# If true, ensures that all public headers are stored in the framework under\n# the same directory hierarchy as they were in the source tree.\n#\n# Xcode by default places all headers at the same top level, but every other\n# build tool in the known universe preserves directory structure. For simple\n# libraries it doesn't really matter much, but for ports of existing software\n# packages or for bigger libraries, it makes sense to have more structure.\n#\n# The default is set to \"False\" since that's what most Xcode users are used to.\n#\n# Recommended setting: True for deep hierarchy projects, False otherwise.\n#\nconfig_deep_header_hierarchy = False\n\n# Specify where the top of the public header hierarchy is. This path is\n# relative to the project's dir (PROJECT_DIR). You can reference environment\n# variables using templating syntax (e.g. \"${TARGET_NAME}/Some/Subdir\")\n#\n# NOTE: Only used if config_deep_header_hierarchy is True.\n#\n# If this is set to None, the script will attempt to figure out for itself\n# where the top of the header hierarchy is by looking for common path prefixes\n# in the public header files. This process can fail if:\n# - You only have one public header file.\n# - Your source header files don't all have a common root.\n#\n# A common approach is to use \"${TARGET_NAME}\", working under the assumption\n# that all of your header files share the common root of a directory under\n# your project with the same name as your target (which is the Xcode default).\n#\n# Recommended setting: \"${TARGET_NAME}\"\n#\nconfig_deep_header_top = \"${TARGET_NAME}\"\n\n# Warn when \"DerivedData\" is detected in any of the header, library, or\n# framework search paths. In almost all cases, references to directories under\n# DerivedData are added as a result of an Xcode bug and must be manually\n# removed.\n#\n# Recommended setting: True\n#\nconfig_warn_derived_data = True\n\n# Warn if no headers were marked public in this framework.\n#\n# Recommended setting: True\n#\nconfig_warn_no_public_headers = True\n\n# Cause the build to fail if any warnings are issued.\n#\n# Recommended setting: True\n#\nconfig_fail_on_warnings = True\n\n# Minimum log level\n#\n# Recommended setting: logging.INFO\n#\nconfig_log_level = logging.INFO\n\n\n##############################################################################\n#\n# Don't touch anything below here unless you know what you're doing.\n#\n##############################################################################\n\nimport collections\nimport json\nimport os\nimport re\nimport shlex\nimport shutil\nimport string\nimport subprocess\nimport sys\nimport time\nimport traceback\n\n\n##############################################################################\n#\n# Globals\n#\n##############################################################################\n\nlog = logging.getLogger('UFW')\n\nissued_warnings = False\n\n\n##############################################################################\n#\n# Classes\n#\n##############################################################################\n\n# Allows the slave build to communicate with the master build.\n#\nclass BuildState:\n\n    def __init__(self):\n        self.reload()\n\n    def reset(self):\n        self.slave_platform = None\n        self.slave_architectures = []\n        self.slave_linked_archive_paths = []\n        self.slave_built_fw_path = None\n        self.slave_built_embedded_fw_path = None\n\n    def set_slave_properties(self, architectures,\n                             linked_archive_paths,\n                             built_fw_path,\n                             built_embedded_fw_path):\n        self.slave_platform = os.environ['PLATFORM_NAME']\n        self.slave_architectures = architectures\n        self.slave_linked_archive_paths = linked_archive_paths\n        self.slave_built_fw_path = built_fw_path\n        self.slave_built_embedded_fw_path = built_embedded_fw_path\n\n    def get_save_path(self):\n        return os.path.join(os.environ['PROJECT_TEMP_DIR'], \"ufw_build_state.json\")\n\n    def persist(self):\n        filename = self.get_save_path()\n        parent = os.path.dirname(filename)\n        if not os.path.isdir(parent):\n            os.makedirs(parent)\n        with open(filename, \"w\") as f:\n            f.write(json.dumps(self.__dict__))\n\n    def reload(self):\n        self.reset()\n        filename = self.get_save_path()\n        if os.path.exists(filename):\n            with open(filename, \"r\") as f:\n                new_dict = json.loads(f.read())\n                if new_dict is not None:\n                    self.__dict__ = dict(self.__dict__.items() + new_dict.items())\n\n\n# Holds information about the current project and build environment.\n#\nclass Project:\n\n    def __init__(self, filename):\n        sourcecode_types = ['sourcecode.c.c',\n                            'sourcecode.c.objc',\n                            'sourcecode.cpp.cpp',\n                            'sourcecode.cpp.objcpp',\n                            'sourcecode.asm.asm',\n                            'sourcecode.asm.llvm',\n                            'sourcecode.nasm']\n\n        self.build_state = BuildState()\n        self.project_data = self.load_from_file(filename)\n        self.target = filter(lambda x: x['name'] == os.environ['TARGET_NAME'], self.project_data['targets'])[0]\n        self.public_headers = self.get_build_phase_files('PBXHeadersBuildPhase', lambda x: x.get('settings', False) and x['settings'].get('ATTRIBUTES', False) and 'Public' in x['settings']['ATTRIBUTES'])\n        self.static_libraries = self.get_build_phase_files('PBXFrameworksBuildPhase', lambda x: x['fileRef']['fileType'] == 'archive.ar' and x['fileRef']['sourceTree'] not in ['DEVELOPER_DIR', 'SDKROOT'])\n        self.static_frameworks = self.get_build_phase_files('PBXFrameworksBuildPhase', lambda x: x['fileRef']['fileType'] == 'wrapper.framework' and x['fileRef']['sourceTree'] not in ['DEVELOPER_DIR', 'SDKROOT'])\n        self.compilable_sources = self.get_build_phase_files('PBXSourcesBuildPhase', lambda x: x['fileRef']['fileType'] in sourcecode_types)\n        self.header_paths = [os.path.join(*x['pathComponents']) for x in self.public_headers]\n\n        self.headers_dir = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['CONTENTS_FOLDER_PATH'], 'Headers')\n        self.libtool_path = os.path.join(os.environ['DT_TOOLCHAIN_DIR'], 'usr', 'bin', 'libtool')\n        self.project_filename = os.path.join(os.environ['PROJECT_FILE_PATH'], \"project.pbxproj\")\n        self.local_exe_path = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['EXECUTABLE_PATH'])\n        self.local_architectures = os.environ['ARCHS'].split(' ')\n        self.local_built_fw_path = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['WRAPPER_NAME'])\n        self.local_built_embedded_fw_path = os.path.splitext(self.local_built_fw_path)[0] + \".embeddedframework\"\n        self.local_linked_archive_paths = [self.get_linked_ufw_archive_path(arch) for arch in self.local_architectures]\n        self.local_platform = os.environ['PLATFORM_NAME']\n        other_platforms = os.environ['SUPPORTED_PLATFORMS'].split(' ')\n        other_platforms.remove(self.local_platform)\n        self.other_platform = other_platforms[0]\n\n        sdk_name = os.environ['SDK_NAME']\n        if not sdk_name.startswith(self.local_platform):\n            raise Exception(\"%s didn't start with %s\" % (sdk_name, self.local_platform))\n        self.sdk_version = sdk_name[len(self.local_platform):]\n\n    # Load an Xcode project file.\n    #\n    def load_from_file(self, filename):\n        project_file = json.loads(subprocess.check_output([\"plutil\", \"-convert\", \"json\", \"-o\", \"-\", filename]))\n        all_objects = project_file['objects']\n        del project_file['objects']\n        for obj in all_objects.values():\n            self.fix_keys(obj)\n        self.unpack_objects(self.build_dereference_list(all_objects, None, None, project_file))\n        self.unpack_objects(self.build_dereference_list(all_objects, None, None, all_objects.values()))\n        project_data = project_file['rootObject']\n        self.build_full_paths(project_data, splitpath(os.environ['SOURCE_ROOT']))\n        return project_data\n\n    def is_key(self, obj):        \n        return isinstance(obj, basestring) and len(obj) == 24 and re.search('^[0-9a-fA-F]+$', obj) is not None\n    \n    def build_dereference_list(self, all_objects, parent, key, obj):\n        deref_list = []\n        if self.is_key(obj):\n            dereferenced = all_objects.get(obj, obj)\n            if dereferenced is not obj:\n                deref_list.append((parent, key, obj, dereferenced))\n        elif isinstance(obj, collections.Mapping):\n            for k, v in obj.iteritems():\n                deref_list += self.build_dereference_list(all_objects, obj, k, v)\n        elif isinstance(obj, collections.Iterable) and not isinstance(obj, basestring):\n            for item in obj:\n                deref_list += self.build_dereference_list(all_objects, obj, None, item)\n        return deref_list\n    \n    def unpack_objects(self, deref_list):\n        for parent, key, orig, obj in deref_list:\n            if key is None:\n                parent.remove(orig)\n                parent.append(obj)\n            else:\n                parent[key] = obj\n\n    # Store the full path, separated into components, to a node inside the node\n    # as \"pathComponents\". Also recurse into that node if it's a group.\n    #\n    def build_full_paths(self, node, base_path):\n        # Some nodes are relative to a different source tree, specified as an\n        # env variable.\n        if node.get('sourceTree', '<group>') != '<group>':\n            new_base_path = os.environ.get(node['sourceTree'], None)\n            if new_base_path:\n                base_path = splitpath(new_base_path)\n        # Add the current node's path, if any.\n        if node.get('path', False):\n            base_path = base_path + splitpath(node['path'])\n        node['pathComponents'] = base_path\n        # Recurse if this is a group.\n        if node['isa'] == 'PBXGroup':\n            for child in node['children']:\n                self.build_full_paths(child, base_path)\n        elif node['isa'] == 'PBXProject':\n            self.build_full_paths(node['mainGroup'], base_path)\n            self.build_full_paths(node['productRefGroup'], base_path)\n            for child in node['targets']:\n                self.build_full_paths(child, base_path)\n            projectRefs = node.get('projectReferences', None)\n            if projectRefs is not None:\n                for child in projectRefs[0].values():\n                    self.build_full_paths(child, base_path)\n\n    # Fix up any inconvenient keys.\n    #\n    def fix_keys(self, obj):\n        key_remappings = {'lastKnownFileType': 'fileType', 'explicitFileType': 'fileType'}\n        for key in list(set(key_remappings.keys()) & set(obj.keys())):\n            obj[key_remappings[key]] = obj[key]\n            del obj[key]\n\n    # Get the files from a build phase.\n    #\n    def get_build_phase_files(self, build_phase_name, filter_func):\n        build_phase = filter(lambda x: x['isa'] == build_phase_name, self.target['buildPhases'])[0]\n        build_files = filter(filter_func, build_phase['files'])\n        return [x['fileRef'] for x in build_files]\n\n    # Get the truncated paths of all headers that start with the specified\n    # relative path. Paths are read and returned as fully separated lists.\n    # e.g. ['Some', 'Path', 'To', 'A', 'Header'] with relative_path of\n    # ['Some', 'Path'] gets truncated to ['To', 'A', 'Header']\n    #\n    def movable_headers_relative_to(self, relative_path):\n        rel_path_length = len(relative_path)\n        result = filter(lambda path: len(path) >= rel_path_length and\n                                     path[:rel_path_length] == relative_path, self.header_paths)\n        return [path[rel_path_length:] for path in result]\n\n    # Get the full path to where a linkable archive (library or framework)\n    # is supposed to be.\n    #\n    def get_linked_archive_path(self, architecture):\n        return os.path.join(os.environ['OBJECT_FILE_DIR_%s' % os.environ['CURRENT_VARIANT']],\n                            architecture,\n                            os.environ['EXECUTABLE_NAME'])\n\n    # Get the full path to our custom linked archive of the project.\n    #\n    def get_linked_ufw_archive_path(self, architecture):\n        return self.get_linked_archive_path(architecture) + \".ufwbuild\"\n\n    # Get the full path to the executable of an archive.\n    #\n    def get_exe_path(self, node):\n        path = os.path.join(*node['pathComponents'])\n        if node['fileType'] == 'wrapper.framework':\n            # Frameworks are directories, so go one deeper\n            path = os.path.join(path, os.path.splitext(node['pathComponents'][-1])[0])\n        return path\n\n    # Get the path to the directory containing the archive.\n    #\n    def get_containing_path(self, node):\n        return os.path.join(*node['pathComponents'])\n    \n    def get_archive_search_paths(self):\n        log.info(\"Search paths = %s\" % set([self.get_containing_path(fw) for fw in self.static_frameworks] + [self.get_containing_path(fw) for fw in self.static_libraries]))\n        return set([self.get_containing_path(fw) for fw in self.static_frameworks] + [self.get_containing_path(fw) for fw in self.static_libraries])\n\n    # Command to link all objects of a single architecture.\n    #\n    def get_single_arch_link_command(self, architecture):\n        cmd = [self.libtool_path,\n               \"-static\",\n               \"-arch_only\", architecture,\n               \"-syslibroot\", os.environ['SDKROOT'],\n               \"-L%s\" % os.environ['TARGET_BUILD_DIR'],\n               \"-filelist\", os.environ['LINK_FILE_LIST_%s_%s' % (os.environ['CURRENT_VARIANT'], architecture)]]\n        if os.environ.get('OTHER_LDFLAGS', False):\n            cmd += [os.environ['OTHER_LDFLAGS']]\n        if os.environ.get('WARNING_LDFLAGS', False):\n            cmd += [os.environ['WARNING_LDFLAGS']]\n#        cmd += [\"-L%s\" % libpath for libpath in self.get_archive_search_paths()]\n        cmd += [self.get_exe_path(fw) for fw in self.static_frameworks]\n        cmd += [self.get_exe_path(lib) for lib in self.static_libraries]\n        cmd += [\"-o\", self.get_linked_ufw_archive_path(architecture)]\n        return cmd\n\n    # Command to link all local architectures for the current configuration\n    # into an archive. This reads all libraries + the UFW-built archives and\n    # overwrites the final product.\n    #\n    def get_local_archs_link_command(self):\n        cmd = [self.libtool_path,\n               \"-static\"]\n        cmd += self.local_linked_archive_paths\n        cmd += [self.get_exe_path(fw) for fw in self.static_frameworks]\n        cmd += [self.get_exe_path(lib) for lib in self.static_libraries]\n        cmd += [\"-o\", os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['EXECUTABLE_PATH'])]\n        return cmd\n\n    # Command to link all architectures into a universal archive.\n    # This reads all UFW-built archives and overwrites the final product.\n    #\n    def get_all_archs_link_command(self):\n        cmd = [self.libtool_path,\n               \"-static\"]\n        cmd += self.local_linked_archive_paths + self.build_state.slave_linked_archive_paths\n        cmd += [\"-o\", os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['EXECUTABLE_PATH'])]\n        return cmd\n\n    # Build up an environment for the slave process. This uses BUILD_ROOT\n    # and TEMP_ROOT to convert all environment variables to values suitable\n    # for the slave build environment so that xcodebuild doesn't try to build\n    # in the project directory under \"build\".\n    #\n    def get_slave_environment(self):\n        ignored = ['LD_MAP_FILE_PATH',\n        'HEADER_SEARCH_PATHS',\n        'LIBRARY_SEARCH_PATHS',\n        'FRAMEWORK_SEARCH_PATHS']\n        build_root = os.environ['BUILD_ROOT']\n        temp_root = os.environ['TEMP_ROOT']\n        newenv = {}\n        for key, value in os.environ.items():\n            if key not in ignored and not key.startswith('LINK_FILE_LIST_') and not key.startswith('LD_DEPENDENCY_'):\n                if build_root in value or temp_root in value:\n                    newenv[key] = value.replace(self.local_platform, self.other_platform)\n        return newenv\n\n    # Command to invoke xcodebuild on the slave platform.\n    #\n    def get_slave_project_build_command(self):\n        cmd = [\"xcodebuild\",\n               \"-project\",\n               os.environ['PROJECT_FILE_PATH'],\n               \"-target\",\n               os.environ['TARGET_NAME'],\n               \"-configuration\",\n               os.environ['CONFIGURATION'],\n               \"-sdk\",\n               self.other_platform + self.sdk_version]\n        cmd += [\"%s=%s\" % (key, value) for key, value in self.get_slave_environment().items()]\n        cmd += [\"UFW_MASTER_PLATFORM=\" + os.environ['PLATFORM_NAME']]\n        cmd += [os.environ['ACTION']]\n        return cmd\n\n\n\n##############################################################################\n#\n# Utility Functions\n#\n##############################################################################\n\n# Split a path into a list of path components.\n#\ndef splitpath(path, maxdepth=20):\n     (head, tail) = os.path.split(path)\n     return splitpath(head, maxdepth - 1) + [tail] if maxdepth and head and head != path else [ head or tail ]\n\n# Remove all subdirectories under a path.\n#\ndef remove_subdirs(path, ignore_files):\n    if os.path.exists(path):\n        for filename in filter(lambda x: x not in ignore_files, os.listdir(path)):\n            fullpath = os.path.join(path, filename)\n            if os.path.isdir(fullpath):\n                log.info(\"Remove %s\" % fullpath)\n                shutil.rmtree(fullpath)\n\n# Make whatever parent paths are necessary for a path to exist.\n#\ndef ensure_path_exists(path):\n    if not os.path.isdir(path):\n        os.makedirs(path)\n\n# Make whatever parent paths are necessary for a path's parent to exist.\n#\ndef ensure_parent_exists(path):\n    parent = os.path.dirname(path)\n    if not os.path.isdir(parent):\n        os.makedirs(parent)\n\n# Remove a file or dir if it exists.\n#\ndef remove_path(path):\n    if os.path.exists(path):\n        if os.path.isdir(path):\n            shutil.rmtree(path)\n        else:\n            os.remove(path)\n\n# Move a file or dir, replacing the destination if it exists.\n#\ndef move_file(src, dst):\n    if src == dst or not os.path.isfile(src):\n        return\n    log.info(\"Move %s to %s\" % (src, dst))\n    ensure_parent_exists(dst)\n    remove_path(dst)\n    shutil.move(src, dst)\n\n# Copy a file or dir, replacing the destination if it exists already.\n#\ndef copy_overwrite(src, dst):\n    if src != dst:\n        remove_path(dst)\n        ensure_parent_exists(dst)\n        shutil.copytree(src, dst, symlinks=True)\n\n# Attempt to symlink link_path -> link_to.\n# link_to must be a path relative to link_path's parent and must exist.\n# If link_path already exists, do nothing.\n#\ndef attempt_symlink(link_path, link_to):\n    # Only allow linking to an existing file\n    os.stat(os.path.abspath(os.path.join(link_path, \"..\", link_to)))\n\n    # Only make the link if it hasn't already been made\n    if not os.path.exists(link_path):\n        log.info(\"Symlink %s -> %s\" % (link_path, link_to))\n        os.symlink(link_to, link_path)\n\n# Takes the last entry in an array-based path and returns a normal path\n# relative to base_path.\n#\ndef top_level_file_path(base_path, path_list):\n    return os.path.join(base_path, os.path.split(path_list[-1])[-1])\n\n# Takes all entries in an array-based path and returns a normal path\n# relative to base_path.\n#\ndef full_file_path(base_path, path_list):\n    return os.path.join(*([base_path] + path_list))\n\n# Print a command before executing it.\n# Also print out all output from the command to STDOUT.\n#\ndef print_and_call(cmd):\n    log.info(\"Cmd \" + \" \".join(cmd))\n    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\n    result = p.communicate()[0]\n    if len(result) > 0:\n        log.info(result)\n    if p.returncode != 0:\n        raise subprocess.CalledProcessError(p.returncode, cmd)\n\n# Special print-and-call command for the slave build that strips out\n# xcodebuild's spammy list of environment variables.\n#\ndef print_and_call_slave_build(cmd, other_platform):\n    separator = '=== BUILD NATIVE TARGET '\n    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\n    result = p.communicate()[0].split(separator)\n    if len(result) == 1:\n        result = result[0]\n    else:\n        result = separator + result[1]\n    log.info(\"Cmd \" + \" \".join(cmd) + \"\\n\" + result)\n    if p.returncode != 0:\n        raise subprocess.CalledProcessError(p.returncode, cmd)\n\n# Issue a warning and record that a warning has been issued.\n#\ndef issue_warning(msg, *args, **kwargs):\n    global issued_warnings\n    issued_warnings = True\n    log.warn(msg, *args, **kwargs)\n\n\n\n##############################################################################\n#\n# Main Application\n#\n##############################################################################\n\n# Check if we are running as master.\n#\ndef is_master():\n    return os.environ.get('UFW_MASTER_PLATFORM', os.environ['PLATFORM_NAME']) == os.environ['PLATFORM_NAME']\n\n# DerivedData should almost never appear in any framework, library, or header\n# search paths. However, Xcode will sometimes add them in, so we check to make\n# sure.\n#\ndef check_for_derived_data_in_search_paths(project):\n    search_path_keys = [\"FRAMEWORK_SEARCH_PATHS\", \"LIBRARY_SEARCH_PATHS\", \"HEADER_SEARCH_PATHS\"]\n    build_configs = project.target['buildConfigurationList']['buildConfigurations']\n    build_settings = filter(lambda x: x['name'] == os.environ['CONFIGURATION'], build_configs)[0]['buildSettings']\n    \n    found_something = False\n    for path_key in filter(lambda x: x in build_settings, search_path_keys):\n        path = build_settings[path_key]\n        if \"DerivedData\" in path:\n            found_something = True\n            log.warn(\"Derived data in %s\" % path)\n            issue_warning(\"'%s' contains reference to 'DerivedData'.\" % path_key)\n    if found_something:\n        log.warn(\"Check your build settings and remove any entries that contain paths inside the DerivedData folder.\")\n        log.warn(\"Otherwise you can disable this warning by changing 'config_warn_derived_data' in this script.\")\n\n# Link local architectures into their respective archives.\n#\ndef link_local_archs(project):\n    for arch in project.local_architectures:\n        print_and_call(project.get_single_arch_link_command(arch))\n\n# Link only the local architectures into the final product, not the slave\n# architectures. For iphoneos, this will be armv6, armv7. For simulator, this\n# will be i386.\n#\ndef link_combine_local_archs(project):\n    print_and_call(project.get_local_archs_link_command())\n\n# Link all architectures into the final product.\n#\ndef link_combine_all_archs(project):\n    print_and_call(project.get_all_archs_link_command())\n\n# Check if we should open the build directory after a successful build.\n#\ndef should_open_build_dir():\n    env_setting = os.environ.get('UFW_OPEN_BUILD_DIR', None)\n    if env_setting is not None:\n        return env_setting\n\n    return config_open_build_dir\n\n# Open the build dir in Finder.\n#\ndef open_build_dir():\n    print_and_call(['open', os.environ['TARGET_BUILD_DIR']])\n\n# Check if the build was started by selecting \"Archive\" under \"Product\" in\n# Xcode.\n#\ndef is_archive_build():\n    # ACTION is always 'build', but perhaps Apple will fix this someday?\n    archive_build = os.environ['ACTION'] == 'archive'\n\n    if not archive_build:\n        # This can be passed in as an env variable when building from command line.\n        archive_build = os.environ.get('UFW_ACTION', None) == 'archive'\n\n    build_dir = splitpath(os.environ['BUILD_DIR'])\n    if not archive_build:\n        # This partial path is used when you select \"archive\" from within Xcode.\n        archive_build = 'ArchiveIntermediates' in build_dir\n\n    # It only counts as a full archive build if this target is being built into\n    # its own build dir (not being built as a dependency of another target)\n    if archive_build:\n        archive_build = os.environ['TARGET_NAME'] in build_dir\n    \n    return archive_build\n\n# Xcode by default throws all public headers into the top level directory.\n# This function moves them to their expected deep hierarchy.\n#\ndef build_deep_header_hierarchy(project):\n    header_path_top = config_deep_header_top\n    if not header_path_top:\n        header_path_top = os.path.commonprefix(project.header_paths)\n    else:\n        header_path_top = splitpath(header_path_top)\n\n    built_headers_path = os.path.join(os.environ['TARGET_BUILD_DIR'], os.environ['PUBLIC_HEADERS_FOLDER_PATH'])\n    movable_headers = project.movable_headers_relative_to(header_path_top)\n\n    # Remove subdirs if they only contain files that have been rebuilt\n    ignore_headers = filter(lambda x: not os.path.isfile(top_level_file_path(built_headers_path, x)), movable_headers)\n    remove_subdirs(built_headers_path, [file[0] for file in ignore_headers])\n\n    # Move rebuilt headers into their proper subdirs\n    for header in movable_headers:\n        move_file(top_level_file_path(built_headers_path, header), full_file_path(built_headers_path, header))\n\n# Add all symlinks needed to make a full framework structure:\n#\n# MyFramework.framework\n# |-- MyFramework -> Versions/Current/MyFramework\n# |-- Headers -> Versions/Current/Headers\n# |-- Resources -> Versions/Current/Resources\n# `-- Versions\n#     |-- A\n#     |   |-- MyFramework\n#     |   |-- Headers\n#     |   |   `-- MyFramework.h\n#     |   `-- Resources\n#     |       |-- Info.plist\n#     |       |-- MyViewController.nib\n#     |       `-- en.lproj\n#     |           `-- InfoPlist.strings\n#     `-- Current -> A\n#\ndef add_symlinks_to_framework(project):\n    base_dir = project.local_built_fw_path\n    attempt_symlink(os.path.join(base_dir, \"Versions\", \"Current\"), os.environ['FRAMEWORK_VERSION'])\n    if os.path.isdir(os.path.join(base_dir, \"Versions\", \"Current\", \"Headers\")):\n        attempt_symlink(os.path.join(base_dir, \"Headers\"), os.path.join(\"Versions\", \"Current\", \"Headers\"))\n    if os.path.isdir(os.path.join(base_dir, \"Versions\", \"Current\", \"Resources\")):\n        attempt_symlink(os.path.join(base_dir, \"Resources\"), os.path.join(\"Versions\", \"Current\", \"Resources\"))\n    attempt_symlink(os.path.join(base_dir, os.environ['EXECUTABLE_NAME']), os.path.join(\"Versions\", \"Current\", os.environ['EXECUTABLE_NAME']))\n\n# Build an embedded framework structure.\n# An embedded framework contains the actual framework, plus a \"Resources\"\n# directory containing symlinks to all resources found in the actual framework,\n# with the exception of \"Info.plist\" and anything ending in \".lproj\":\n#\n# MyFramework.embeddedframework\n# |-- MyFramework.framework\n# |   |-- MyFramework -> Versions/Current/MyFramework\n# |   |-- Headers -> Versions/Current/Headers\n# |   |-- Resources -> Versions/Current/Resources\n# |   `-- Versions\n# |       |-- A\n# |       |   |-- MyFramework\n# |       |   |-- Headers\n# |       |   |   `-- MyFramework.h\n# |       |   `-- Resources\n# |       |       |-- Info.plist\n# |       |       |-- MyViewController.nib\n# |       |       `-- en.lproj\n# |       |           `-- InfoPlist.strings\n# |       `-- Current -> A\n# `-- Resources\n#     `-- MyViewController.nib -> ../MyFramework.framework/Resources/MyViewController.nib\n#\ndef build_embedded_framework(project):\n    fw_path = project.local_built_fw_path\n    embedded_path = project.local_built_embedded_fw_path\n    fw_name = os.environ['WRAPPER_NAME']\n    remove_path(embedded_path)\n    ensure_path_exists(embedded_path)\n    copy_overwrite(fw_path, os.path.join(embedded_path, fw_name))\n    ensure_path_exists(os.path.join(embedded_path, \"Resources\"))\n    symlink_source = os.path.join(\"..\", fw_name, \"Resources\")\n    symlink_path = os.path.join(embedded_path, \"Resources\")\n    if os.path.isdir(os.path.join(fw_path, \"Resources\")):\n        for file in filter(lambda x: x != \"Info.plist\" and not x.endswith(\".lproj\"), os.listdir(os.path.join(fw_path, \"Resources\"))):\n            attempt_symlink(os.path.join(symlink_path, file), os.path.join(symlink_source, file))\n\n    # Remove the normal framework and replace it with a symlink to the copy\n    # in the embedded framework. This is needed because Xcode runs its strip\n    # phase AFTER the script runs.\n    embed_fw_wrapper = os.path.splitext(os.environ['WRAPPER_NAME'])[0] + \".embeddedframework\"\n    remove_path(fw_path)\n    attempt_symlink(fw_path, os.path.join(embed_fw_wrapper, os.environ['WRAPPER_NAME']))\n\n\n# Run the build process in slave mode to build the other configuration\n# (device/simulator).\n#\ndef run_slave_build(project):\n    print_and_call_slave_build(project.get_slave_project_build_command(), project.other_platform)\n\n# Run the build process.\n#\ndef run_build():\n    project = Project(os.path.join(os.environ['PROJECT_FILE_PATH'], \"project.pbxproj\"))\n\n    # Issue warnings only if we're master.\n    if is_master():\n        if len(project.compilable_sources) == 0:\n            raise Exception(\"No compilable sources found. Please add at least one source file to build target %s.\" % os.environ['TARGET_NAME'])\n\n        if config_warn_derived_data:\n            check_for_derived_data_in_search_paths(project)\n        if config_warn_no_public_headers and len(project.public_headers) == 0:\n            issue_warning('No headers in build target %s were marked public. Please move at least one header to \"Public\" in the \"Copy Headers\" build phase.' % os.environ['TARGET_NAME'])\n\n    # Only build slave if this is an archive build.\n    if is_archive_build():\n        if is_master():\n            log.debug(\"Building as MASTER\")\n            # The slave-side linker tries to include this (nonexistent) path as\n            # a library path.\n            ensure_path_exists(project.get_slave_environment()['BUILT_PRODUCTS_DIR'])\n            project.build_state.persist()\n            run_slave_build(project)\n            project.build_state.reload()\n        else:\n            log.debug(\"Building as SLAVE\")\n            project.build_state.reload()\n            project.build_state.set_slave_properties(project.local_architectures,\n                                                     project.local_linked_archive_paths,\n                                                     project.local_built_fw_path,\n                                                     project.local_built_embedded_fw_path)\n            project.build_state.persist()\n\n    link_local_archs(project)\n    \n    # Only do a universal binary when building an archive.\n    if is_archive_build() and is_master():\n        link_combine_all_archs(project)\n    else:\n        link_combine_local_archs(project)\n\n    if config_deep_header_hierarchy:\n        build_deep_header_hierarchy(project)\n\n    add_symlinks_to_framework(project)\n    \n    if is_master():\n        if config_framework_type == 'embeddedframework':\n            build_embedded_framework(project)\n        elif config_framework_type != 'framework':\n            raise Exception(\"%s: Unknown framework type for config_framework_type\" % config_framework_type)\n\n\nif __name__ == \"__main__\":\n    log_handler = logging.StreamHandler()\n    log_handler.setFormatter(logging.Formatter(\"%(name)s (\" + os.environ['PLATFORM_NAME'] + \"): %(levelname)s: %(message)s\"))\n    log.addHandler(log_handler)\n    log.setLevel(config_log_level)\n\n    error_code = 0\n    prefix = \"M\" if is_master() else \"S\"\n    log_handler.setFormatter(logging.Formatter(\"%(name)s (\" + prefix + \" \" + os.environ['PLATFORM_NAME'] + \"): %(levelname)s: %(message)s\"))\n\n    log.debug(\"Begin build process\")\n\n    if config_deep_header_top:\n        config_deep_header_top = string.Template(config_deep_header_top).substitute(os.environ)\n\n    try:\n        run_build()\n        if issued_warnings:\n            if config_fail_on_warnings:\n                error_code = 1\n            log.warn(\"Build completed with warnings\")\n        else:\n            log.info(\"Build completed\")\n        if not is_archive_build():\n            log.info(\"Note: This is *NOT* a universal framework build. To build as a universal framework, do an archive build.\")\n            log.info(\"To do an archive build from command line, use \\\"xcodebuild -configuration Release UFW_ACTION=archive clean build\\\"\")\n    except Exception:\n        traceback.print_exc(file=sys.stdout)\n        error_code = 1\n        log.error(\"Build failed\")\n    finally:\n        if error_code == 0 and is_archive_build() and is_master():\n            log.info(\"Built framework is in \" + os.environ['TARGET_BUILD_DIR'])\n            if should_open_build_dir():\n                open_build_dir()\n        sys.exit(error_code)\n";
-			showEnvVarsInLog = 0;
-		};
-		412905671830F00500489CE5 /* Unfuck multiple inclusions (argh!) */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Unfuck multiple inclusions (argh!)";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#\n# nat: can't recreate the problem in a standalone test case\n# but in this setup I get multiple inclusions of the same files\n# in th archive\n#\nset -x\nDIR=\"${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nif [ -f \"$LIB\" ]\nthen\n    TMP=`mktemp -d -t xcode`\n    cd \"$TMP\"\n    ar x \"$LIB\"\n    libtool -static -o \"$LIB\" *.o\nfi";
 			showEnvVarsInLog = 0;
 		};
 		4146F1FA182D31E20020594C /* Add Dependency Libraries */ = {
@@ -1690,9 +1551,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "DIR=\"${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${DIR}/lib${CHILD}.a\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n\n";
-			showEnvVarsInLog = 0;
+			shellPath = "/bin/sh -x";
+			shellScript = "DIR=\"${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${DIR}/lib${CHILD}.a\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n\n";
 		};
 		415DA5A2182BBC9300F654F7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1760,14 +1620,6 @@
 				411EEABA182D314C00361ADF /* MulleScionObjectModel+TraceDescription.m in Sources */,
 				41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */,
 				411EEABB182D314C00361ADF /* NSObject+KVC_Compatibility.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4129052E1830E99800489CE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4129054A1830EA6A00489CE5 /* MulleScion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1889,21 +1741,6 @@
 			isa = PBXTargetDependency;
 			target = 415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */;
 			targetProxy = 411EEABC182D315200361ADF /* PBXContainerItemProxy */;
-		};
-		412905451830EA5C00489CE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 411EEAA6182D311F00361ADF /* MulleScionFoundation (iOS Library) */;
-			targetProxy = 412905441830EA5C00489CE5 /* PBXContainerItemProxy */;
-		};
-		412905471830EA5C00489CE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 41EC013A182D301A00A17DBD /* MulleScionParser (iOS Library) */;
-			targetProxy = 412905461830EA5C00489CE5 /* PBXContainerItemProxy */;
-		};
-		412905491830EA5C00489CE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 411EEA8B182D30B600361ADF /* MulleScionPrinter (iOS Library) */;
-			targetProxy = 412905481830EA5C00489CE5 /* PBXContainerItemProxy */;
 		};
 		4146F1F3182D31A80020594C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2133,42 +1970,6 @@
 				PRODUCT_NAME = MulleScionFoundation;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-			};
-			name = Profile;
-		};
-		412905411830E99800489CE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = MulleScion;
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		412905421830E99800489CE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = MulleScion;
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		412905431830E99800489CE5 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = MulleScion;
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = framework;
 			};
 			name = Profile;
 		};
@@ -2651,16 +2452,6 @@
 				411EEAB2182D311F00361ADF /* Debug */,
 				411EEAB3182D311F00361ADF /* Release */,
 				411EEAB4182D311F00361ADF /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		412905401830E99800489CE5 /* Build configuration list for PBXNativeTarget "MulleScion (iOS Framework)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				412905411830E99800489CE5 /* Debug */,
-				412905421830E99800489CE5 /* Release */,
-				412905431830E99800489CE5 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
