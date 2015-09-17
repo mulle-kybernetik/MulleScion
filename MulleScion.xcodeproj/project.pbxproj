@@ -178,6 +178,7 @@
 		41B4C8D81BAB2C9D002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41B4C8D91BAB2CA2002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41B4C8DA1BAB2CA7002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
+		41B4C8FF1BAB6276002BFA33 /* MulleScionObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41CFAFFE1A93E1E500B0783A /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF51A93E1E500B0783A /* autolink.c */; };
 		41CFAFFF1A93E1E500B0783A /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF61A93E1E500B0783A /* buffer.c */; };
@@ -731,6 +732,12 @@
 		41AEA214182D097300840887 /* libMulleScionGraphviz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionGraphviz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B07E24182001800003B67F /* self.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = self.scion; sourceTree = "<group>"; };
 		41B4C8D41BAB2C89002BFA33 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		41B4C8E21BAB5EA6002BFA33 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		41B4C8E61BAB5EA6002BFA33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41B4C8E71BAB5EA6002BFA33 /* MulleScion (IOS Framework)-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MulleScion (IOS Framework)-Prefix.pch"; sourceTree = "<group>"; };
+		41B4C8E91BAB5EA6002BFA33 /* MulleScion (IOS Framework)-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MulleScion (IOS Framework)-Info.plist"; sourceTree = "<group>"; };
+		41B4C8EB1BAB5EA6002BFA33 /* MulleScion__IOS_Framework_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MulleScion__IOS_Framework_.h; sourceTree = "<group>"; };
+		41B4C8ED1BAB5EA6002BFA33 /* MulleScion__IOS_Framework_.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MulleScion__IOS_Framework_.m; sourceTree = "<group>"; };
 		41B727041908F4FC004343E9 /* MulleScion.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MulleScion.podspec; sourceTree = SOURCE_ROOT; };
 		41CCC55C18254FB00081FA1C /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 		41CD2F0D181FE17300FBBEB4 /* BUILD.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = BUILD.md; sourceTree = "<group>"; };
@@ -937,6 +944,7 @@
 				41764B9116DA511200560FCF /* src */,
 				41764B9416DA511200560FCF /* dox */,
 				41CCC55C18254FB00081FA1C /* tests */,
+				41B4C8E41BAB5EA6002BFA33 /* MulleScion (IOS Framework) */,
 				41764B8E16DA511200560FCF /* Frameworks */,
 				41764B8D16DA511200560FCF /* Products */,
 			);
@@ -966,6 +974,7 @@
 			children = (
 				41B4C8D31BAB2C76002BFA33 /* iOS */,
 				41B4C8D21BAB2C68002BFA33 /* OSX */,
+				41B4C8E21BAB5EA6002BFA33 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1075,6 +1084,26 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		41B4C8E41BAB5EA6002BFA33 /* MulleScion (IOS Framework) */ = {
+			isa = PBXGroup;
+			children = (
+				41B4C8E71BAB5EA6002BFA33 /* MulleScion (IOS Framework)-Prefix.pch */,
+				41B4C8E91BAB5EA6002BFA33 /* MulleScion (IOS Framework)-Info.plist */,
+				41B4C8EB1BAB5EA6002BFA33 /* MulleScion__IOS_Framework_.h */,
+				41B4C8ED1BAB5EA6002BFA33 /* MulleScion__IOS_Framework_.m */,
+				41B4C8E51BAB5EA6002BFA33 /* Supporting Files */,
+			);
+			path = "MulleScion (IOS Framework)";
+			sourceTree = "<group>";
+		};
+		41B4C8E51BAB5EA6002BFA33 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				41B4C8E61BAB5EA6002BFA33 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		41CD1AB818E98595003A7191 /* Graphviz */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,17 +1153,17 @@
 				41D6DEA716DE3374004833D6 /* MulleScionDataSourceProtocol.m */,
 				41764BA016DA51B700560FCF /* MulleScionPrinter.h */,
 				41764BA116DA51B700560FCF /* MulleScionPrinter.m */,
-				41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */,
 				41D6DEA416DE32A9004833D6 /* MulleScionPrintingException.m */,
-				41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */,
 				41764BA816DA5B2B00560FCF /* MulleScionObjectModel+Printing.m */,
-				41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */,
 				41764BAB16DA5E1600560FCF /* NSObject+MulleScionDescription.m */,
 				4121DB1016DD685C00BFD60C /* NSValue+CheatAndHack.m */,
-				410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */,
 				410B32E916DB8A7D005D0EAD /* MulleMutableLineNumber.m */,
-				41F12D4416E274D100120E63 /* MulleScionNull.h */,
 				41F12D4516E274D200120E63 /* MulleScionNull.m */,
+				41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */,
+				41764BA716DA5B2B00560FCF /* MulleScionObjectModel+Printing.h */,
+				41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */,
+				410B32E816DB8A7D005D0EAD /* MulleMutableLineNumber.h */,
+				41F12D4416E274D100120E63 /* MulleScionNull.h */,
 			);
 			name = MulleScionPrinter;
 			sourceTree = "<group>";
@@ -1598,6 +1627,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41B4C8FF1BAB6276002BFA33 /* MulleScionObjectModel.m in Sources */,
 				411EEA9E182D310D00361ADF /* MulleScionDataSourceProtocol.m in Sources */,
 				411EEA9F182D310D00361ADF /* MulleScionPrinter.m in Sources */,
 				411EEAA0182D310D00361ADF /* MulleScionPrintingException.m in Sources */,
