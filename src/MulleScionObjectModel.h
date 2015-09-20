@@ -36,7 +36,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import"MulleObjCCompilerSettings.h"
+#import "MulleObjCCompilerSettings.h"
 
 
 #ifndef MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY

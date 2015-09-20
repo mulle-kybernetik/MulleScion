@@ -39,7 +39,7 @@
 #import "MulleMongoose.h"
 
 #import <Foundation/Foundation.h>
-#import <MulleScion/MulleScion.h>
+#import "MulleScion.h"
 #import "MulleScionObjectModel+MulleMongoose.h"
 #import "NSString+HTMLEscape.h"
 

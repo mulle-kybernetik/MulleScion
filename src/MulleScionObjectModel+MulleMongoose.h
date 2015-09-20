@@ -34,7 +34,7 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <MulleScion/MulleScion.h>
+#import "MulleScion.h"
 
 
 @interface MulleScionTemplate (MulleMongoose)
