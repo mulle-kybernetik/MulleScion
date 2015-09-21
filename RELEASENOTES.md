@@ -1,6 +1,35 @@
+1853.0
+
+Made mulle-scion brew compatible. You can now brew it. As I wanted to use
+mulle-scion to produce brew formulae, I needed some options in the way
+mulle-scion is called.
+
+It is now possible to do this:
+
+echo '--- {{ VALUE }} ---' | mulle-scion - keyvalue - VALUE="xxx"
+
+which produces predicatably
+
+--- xxx ---
+
+Templates can be passed in via stdin and the replacement values can be given
+as key=value arguments. This makes mulle-scion even more convenient to use
+in shell scripts.
+
+~~~
+brew install http://www.mulle-kybernetik.com/software/formulae/mulle-scion.rb
+~~~
+
+There are now "hidden" environment variables WWW_ROOT, WWW_PORT, WWW_PLIST for
+the webserver.
+
+The way libraries are created and headers are written has been standardized and
+improved. There is some support for a future "mulle-bootstrap", in case you are
+wondering what the .bootstrap folder does.
+
 1852.0
 
-### API change 
+### API change
 
 Redesigned the "convenience interface". Sorry but I just disliked the
 proliferation of code, that separated **NSURL** and **NSString** by type. I used the
@@ -8,13 +37,14 @@ power of ObjC and simplified this without having to resort to degenerics ;)
 In other words the` +descriptionWithTemplateURL:` method family is gone, just use
 `+descriptionWithTemplateFile:` with either NSString or NSURL.
 
-### LANGUAGE change 
+### LANGUAGE change
 
 I apparently goofed up the documentation in 1851 and made an incompatible change
 so that **mulle-scion** choked up on its own documentation templates. Ahem. That
 has been fixed, so that MulleScion now skips all scion tags, that are
 immediately _followed_ by a backtick ` or a backquote \. This ought to be
 harmless in my opinion, but results may vary.
+
 
 
 1851.0
@@ -88,14 +118,14 @@ Fix bug, where MulleScionNull was passed as invocation argument
 
 1848.10
 
-*** This can break currently working templates, that contain unnoticed 
+*** This can break currently working templates, that contain unnoticed
     syntax errors! ***
 
 * the parser doesn't allow garbage inside mulle-scion tags anymore. It
   used to parse {{ x = #<%$/&> }} because everything after "x " was
   ignored, but it was just too confusing in real life use.
- 
-* simplified expansion of function functionality a bit. 
+
+* simplified expansion of function functionality a bit.
   added NSStringFromRange to builtin-functions
 
 * added some NSURL methods for opening templates, which is more convenient on
@@ -142,7 +172,7 @@ too and the dependency on MulleScion was annoying.
 
 v1848.6
 
-* add __ARGV__ parsage to mulle-scion. Now you can use mulle-scion as an awk 
+* add __ARGV__ parsage to mulle-scion. Now you can use mulle-scion as an awk
 replacement in other shell scripts, if you so desire.
 
 
@@ -158,7 +188,7 @@ script (experimental)
 v1848.4
 
 * renamed to MulleScion, because now it's more than just a template engine, it's
-also somewhat useful as a little standalone Obj-C interpreter. Also 
+also somewhat useful as a little standalone Obj-C interpreter. Also
 MulleScionTemplates was just too long.
 
 * The MulleScionConvenience has been renamed to just MulleScion.
@@ -189,7 +219,7 @@ and rebuild your caches
 * you used to be able to have random trash after valid scion code, which was nice
 for documentation. That doesn't work anymore in most cases
 
-* you can now write multiline scripts, but some keywords need still to be 
+* you can now write multiline scripts, but some keywords need still to be
 enclosed as singles in {% %} like macro, block, endblock, extends and maybe
 some others
 

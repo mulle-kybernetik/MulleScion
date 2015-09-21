@@ -2063,6 +2063,7 @@
 		41764B9B16DA511200560FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = "mulle-scion";
 				SKIP_INSTALL = NO;
 			};
@@ -2071,6 +2072,7 @@
 		41764B9C16DA511200560FCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = "mulle-scion";
 				SKIP_INSTALL = NO;
 			};
@@ -2131,6 +2133,7 @@
 		4178D2FF16E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = "mulle-scion";
 				SKIP_INSTALL = NO;
 			};
@@ -2139,6 +2142,7 @@
 		4178D30116E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
@@ -2147,6 +2151,7 @@
 		4178D30216E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
@@ -2155,6 +2160,7 @@
 		4178D30416E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
@@ -2166,6 +2172,7 @@
 		4178D30516E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
@@ -2178,6 +2185,7 @@
 		41AEA211182D097300840887 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = NO;
@@ -2187,6 +2195,7 @@
 		41AEA212182D097300840887 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = NO;
@@ -2196,6 +2205,7 @@
 		41AEA213182D097300840887 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = NO;
@@ -2205,6 +2215,7 @@
 		41D6DEE316DE509F004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
@@ -2213,6 +2224,7 @@
 		41D6DEE416DE509F004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
@@ -2221,6 +2233,7 @@
 		41D6DF0E16DE51C9004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
@@ -2229,6 +2242,7 @@
 		41D6DF0F16DE51C9004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
@@ -2237,6 +2251,7 @@
 		41D6DF2E16DE523E004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
@@ -2248,6 +2263,7 @@
 		41D6DF2F16DE523E004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
@@ -2259,6 +2275,7 @@
 		41D6DF6E16DE53AE004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
@@ -2271,6 +2288,7 @@
 		41D6DF6F16DE53AE004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
@@ -2310,6 +2328,7 @@
 		41FAED7E182D275E002CD114 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
@@ -2318,6 +2337,7 @@
 		41FAED7F182D275E002CD114 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
@@ -2326,6 +2346,7 @@
 		41FAED80182D275E002CD114 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};

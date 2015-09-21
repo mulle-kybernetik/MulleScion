@@ -70,11 +70,27 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
+<<<<<<< Updated upstream
             argument = "https://raw.githubusercontent.com/mulle-nat/MulleScion/release/dox/!_Introduction.scion"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "https://raw.githubusercontent.com/mulle-nat/MulleScion/release/dox/properties.plist"
+=======
+            argument = "/tmp/tiny.scion"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "args"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "VALUE=&quot;VfL Bochum 1848&quot;"
+>>>>>>> Stashed changes
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

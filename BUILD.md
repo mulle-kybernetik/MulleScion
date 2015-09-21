@@ -18,6 +18,7 @@ iOS
 to produce a static library libMulleScion.a with a set of include headers.
 
 
+
 CocoaPods
 =========
 
@@ -31,6 +32,21 @@ and add
     pod repo add Mulle-kybernetiK http://www.mulle-kybernetik.com/repositories/CocoaPodSpecs
 
 on the commandline.
+
+
+mulle-bootstrap
+=========
+
+      Add http://www.mulle-kybernetik.com/repositories/MulleScion
+      
+to your
+
+      .bootstrap/gits
+
+and say
+
+      mulle-bootstrap
+
 
 
 Tips
