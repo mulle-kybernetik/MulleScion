@@ -90,7 +90,8 @@ static MulleScionTemplate   *acquireTemplateFromPath( NSString *fileName)
    MulleScionTemplate   *template;
    NSString             *string;
    NSData               *data;
-
+   NSURL                *url;
+   
    template = nil;
    //
    // if fileName stars with '{' assume, that it's a command line template
@@ -392,8 +393,6 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
    NSEnumerator         *rover;
    NSString             *archiveName;
    NSString             *fileName;
-   NSString             *string;
-   NSData               *data;
 
    arguments = [[NSProcessInfo processInfo] arguments];
    rover     = [arguments objectEnumerator];
@@ -446,48 +445,6 @@ static int   _main(int argc, const char * argv[])
             localVariables:localVariablesFromInfo( info)];
    return( 0);
 }
-
-
-#ifndef DONT_HAVE_WEBSERVER
-int    main_www( int argc, const char * argv[])
-{
-   id      plist;
-   char   *s;
-   NSString *path;
-
-   loadBundles();
-
-   // hack to get something else going
-   s = getenv( "WWW_ROOT");
-   if( s)
-      default_options[ 1] = s;
-
-   s = getenv( "WWW_PORT");
-   if( s)
-      default_options[ 3] = s;
-
-   path = @"/tmp/MulleScionDox/properties.plist";
-   s = getenv( "WWW_PLIST");
-   if( s)
-      path = [NSString stringWithCString:s];
-
-   if( ! [path isEqualToString:@"-"])
-   {
-      plist = [NSDictionary dictionaryWithContentsOfFile:path];
-      if( ! plist)
-      {
-         NSLog( @"/tmp/MulleScionDox/properties.plist not found");
-         return( -5);
-      }
-   }
-
-   if( ! plist)
-      plist = [NSDictionary dictionary];
-
-   mulle_mongoose_main( plist, default_options);
-   return( 0);
-}
-#endif
 
 
 int main( int argc, const char * argv[])

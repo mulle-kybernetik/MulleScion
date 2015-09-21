@@ -1,4 +1,4 @@
-1853.0
+1853
 
 Made mulle-scion brew compatible. You can now brew it. As I wanted to use
 mulle-scion to produce brew formulae, I needed some options in the way
@@ -27,7 +27,7 @@ The way libraries are created and headers are written has been standardized and
 improved. There is some support for a future "mulle-bootstrap", in case you are
 wondering what the .bootstrap folder does.
 
-1852.0
+1852
 
 ### API change
 
