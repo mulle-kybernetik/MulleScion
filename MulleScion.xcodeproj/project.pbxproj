@@ -1443,7 +1443,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DIR=\"${TARGET_BUILD_DIR}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    CHILDPATH=\"${DIR}/lib${CHILD}.a\"\n\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${CHILDPATH}\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n";
+			shellScript = "DIR=\"${OBJROOT}/UninstalledProducts\"\nLIB=\"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    CHILDPATH=\"${DIR}/lib${CHILD}.a\"\n    if [ ! -f \"${CHILDPATH}\" ]\n    then\n       CHILDPATH=\"${TARGET_BUILD_DIR}/lib${CHILD}.a\"\n    fi\n\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${CHILDPATH}\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n";
 			showEnvVarsInLog = 0;
 		};
 		4146F201182D330F0020594C /* Add Dependency Libraries */ = {
@@ -1458,7 +1458,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "DIR=\"${TARGET_BUILD_DIR}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    CHILDPATH=\"${DIR}/lib${CHILD}.a\"\n\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${CHILDPATH}\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n\n";
+			shellScript = "DIR=\"${OBJROOT}/UninstalledProducts\"\nLIB=\"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    CHILDPATH=\"${DIR}/lib${CHILD}.a\"\n    if [ ! -f \"${CHILDPATH}\" ]\n    then\n       CHILDPATH=\"${TARGET_BUILD_DIR}/lib${CHILD}.a\"\n    fi\n\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${CHILDPATH}\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n";
 			showEnvVarsInLog = 0;
 		};
 		415DA5A2182BBC9300F654F7 /* ShellScript */ = {
