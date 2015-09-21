@@ -174,7 +174,6 @@
 		41B4C8D81BAB2C9D002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41B4C8D91BAB2CA2002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41B4C8DA1BAB2CA7002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
-		41B4C8FF1BAB6276002BFA33 /* MulleScionObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BA416DA53BE00560FCF /* MulleScionObjectModel.m */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
 		41CFAFFE1A93E1E500B0783A /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF51A93E1E500B0783A /* autolink.c */; };
 		41CFAFFF1A93E1E500B0783A /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF61A93E1E500B0783A /* buffer.c */; };
@@ -1528,7 +1527,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "DIR=\"${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${DIR}/lib${CHILD}.a\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n\n";
+			shellScript = "DIR=\"${TARGET_BUILD_DIR}\"\nLIB=\"${DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\nOBJECT_FILE_SUBDIR=`basename \"${OBJECT_FILE_DIR_normal}\"`\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    CHILDPATH=\"${DIR}/lib${CHILD}.a\"\n    # CHILDPATH=\"${DIR}/${CHILD}\\ (iOS\\ Library\\.build/${OBJECT_FILE_SUBDIR}/${arch}/lib${CHILD}.a\"\n    if [ ! -f \"${CHILDPATH}\" ]\n    then\n       echo \"xcode sucks and this doesnt work\" >&2\n       exit 1\n    fi\n\n    echo \"Adding lib${CHILD}.a to ${EXECUTABLE_PATH}\"\n    libtool -o \"$LIB\" \"$LIB\" \"${CHILDPATH}\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n\n";
 		};
 		415DA5A2182BBC9300F654F7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1574,7 +1573,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41B4C8FF1BAB6276002BFA33 /* MulleScionObjectModel.m in Sources */,
 				411EEA9E182D310D00361ADF /* MulleScionDataSourceProtocol.m in Sources */,
 				411EEA9F182D310D00361ADF /* MulleScionPrinter.m in Sources */,
 				411EEAA0182D310D00361ADF /* MulleScionPrintingException.m in Sources */,
@@ -1860,7 +1858,6 @@
 		4103007B1701DBE200197713 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
 				SDKROOT = iphoneos;
@@ -1871,7 +1868,6 @@
 		4103007C1701DBE200197713 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
 				SDKROOT = iphoneos;
@@ -1882,7 +1878,6 @@
 		4103007D1701DBE200197713 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScion;
 				SDKROOT = iphoneos;
