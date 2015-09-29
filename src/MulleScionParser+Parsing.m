@@ -101,6 +101,7 @@ typedef struct _parser
    MulleScionObject     *first;
 
    void                 (*parser_do_error)( id self, SEL sel, void *parser, NSString *filename, NSUInteger line, NSString *message);
+   void                 (*parser_do_warning)( id self, SEL sel, void *parser, NSString *filename, NSUInteger line, NSString *message);
    id                   self;
    SEL                  sel;
    int                  skipComments;
@@ -155,6 +156,15 @@ static void   parser_init( parser *p, unsigned char *buf, size_t len)
    p->environment |= getenv( "MULLESCION_DUMP_EXPRESSIONS") ? MULLESCION_DUMP_EXPRESSIONS : 0;
 }
 
+
+static inline void   parser_set_warning_callback( parser *p, id self, SEL sel)
+{
+   p->self        = self;
+   p->sel         = sel;
+   p->parser_do_warning = (void *) [p->self methodForSelector:sel];
+}
+
+
 static inline void   parser_set_error_callback( parser *p, id self, SEL sel)
 {
    p->self        = self;
@@ -200,56 +210,45 @@ static inline void   parser_set_filename( parser *p, NSString *s)
    p->fileName = s;
 }
 
-//
-// there is no return, stuff just leaks and we abort
-//
-static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
+
+static NSString   *parser_diagnostic_string( parser *p, NSString *reason)
 {
-   NSString       *reason;
    NSString       *s;
    size_t         p_len;
    size_t         s_len;
    size_t         i;
-   va_list        args;
    unsigned char  *prefix;
    unsigned char  *suffix;
    
-   if( p->parser_do_error)
+   //
+   // p->memo_scion.curr is about the start of the parsed object
+   // p->curr is where the parsage failed, try to print something interesting
+   // near the parse failure (totally heuristic), but not too much
+   //
+   p_len = p->curr - p->memo_interesting.curr;
+   if( p_len > 32)
+      p_len = 32;
+   if( p_len < 12)
+      p_len += 3;
+   
+   s_len  = p_len >= 6 ? 12 : 12 + 6 - p_len;
+   prefix = &p->curr[ -p_len];
+   suffix = &p->curr[ 1];
+   
+   if( prefix < p->buf)
    {
-      va_start( args, c_format);
-      reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
-                                       arguments:args] autorelease];
-      va_end( args);
-
-      //
-      // p->memo_scion.curr is about the start of the parsed object
-      // p->curr is where the parsage failed, try to print something interesting
-      // near the parse failure (totally heuristic), but not too much
-      //
-      p_len = p->curr - p->memo_interesting.curr;
-      if( p_len > 32)
-         p_len = 32;
-      if( p_len < 12)
-         p_len += 3;
-
-      s_len  = p_len >= 6 ? 12 : 12 + 6 - p_len;
-      prefix = &p->curr[ -p_len];
-      suffix = &p->curr[ 1];
-
-      if( prefix < p->buf)
-      {
-         prefix = p->buf;
-         p_len  = p->curr - p->buf;
-      }
-
-      if( &suffix[ s_len] > p->sentinel)
-         s_len  = p->sentinel - p->curr;
-      
-      // stop tail at linefeed
-      for( i = 0; i < s_len; i++)
-         if( suffix[ i] == '\r' || suffix[ i] == '\n' || suffix[ i] == ';' || suffix[ i] == '}' || suffix[ i] == '%')
-            break;
-      s_len = i;
+      prefix = p->buf;
+      p_len  = p->curr - p->buf;
+   }
+   
+   if( &suffix[ s_len] > p->sentinel)
+      s_len  = p->sentinel - p->curr;
+   
+   // stop tail at linefeed
+   for( i = 0; i < s_len; i++)
+      if( suffix[ i] == '\r' || suffix[ i] == '\n' || suffix[ i] == ';' || suffix[ i] == '}' || suffix[ i] == '%')
+         break;
+   s_len = i;
 
       // terminal escape sequences
 #if HAVE_TERMINAL
@@ -260,20 +259,59 @@ static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
 #define NONE  ""
 #endif
       
-      s = [NSString stringWithFormat:@"%.*s" RED "%c" NONE "%.*s", (int) p_len, prefix, *p->curr, (int) s_len, suffix];
-      s = [s stringByReplacingOccurrencesOfString:@"\n"
-                                       withString:@" "];
-      s = [s stringByReplacingOccurrencesOfString:@"\r"
-                                       withString:@""];
-      s = [s stringByReplacingOccurrencesOfString:@"\t"
-                                       withString:@" "];
-      s = [s stringByReplacingOccurrencesOfString:@"\""
-                                       withString:@"\\\""];
-      s = [s stringByReplacingOccurrencesOfString:@"'"
-                                       withString:@"\\'"];
-      
-      s = [NSString stringWithFormat:@"at '%c' near \"%@\", %@", *p->curr, s, reason];
+   s = [NSString stringWithFormat:@"%.*s" RED "%c" NONE "%.*s", (int) p_len, prefix, *p->curr, (int) s_len, suffix];
+   s = [s stringByReplacingOccurrencesOfString:@"\n"
+                                    withString:@" "];
+   s = [s stringByReplacingOccurrencesOfString:@"\r"
+                                    withString:@""];
+   s = [s stringByReplacingOccurrencesOfString:@"\t"
+                                    withString:@" "];
+   s = [s stringByReplacingOccurrencesOfString:@"\""
+                                    withString:@"\\\""];
+   s = [s stringByReplacingOccurrencesOfString:@"'"
+                                    withString:@"\\'"];
    
+   s = [NSString stringWithFormat:@"at '%c' near \"%@\", %@", *p->curr, s, reason];
+   return( s);
+}
+
+
+static void  parser_warning( parser *p, char *c_format, ...)
+{
+   NSString       *reason;
+   NSString       *s;
+   va_list        args;
+   
+   if( p->parser_do_warning)
+   {
+      va_start( args, c_format);
+      reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
+                                       arguments:args] autorelease];
+      va_end( args);
+
+      s = parser_diagnostic_string( p, reason);
+      (*p->parser_do_warning)( p->self, p->sel, p, p->fileName, p->memo.lineNumber, s);
+   }
+}
+
+
+//
+// there is no return, stuff just leaks and we abort
+//
+static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
+{
+   NSString       *reason;
+   NSString       *s;
+   va_list        args;
+   
+   if( p->parser_do_error)
+   {
+      va_start( args, c_format);
+      reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
+                                       arguments:args] autorelease];
+      va_end( args);
+
+      s = parser_diagnostic_string( p, reason);
       (*p->parser_do_error)( p->self, p->sel, p, p->fileName, p->memo.lineNumber, s);
    }
    abort();
@@ -447,6 +485,13 @@ static macro_type   parser_grab_text_until_scion_start( parser *p)
                    {
                       type    = garbage;
                       continue;
+                   }
+                   // because of css with e.g. width=100%}, we let it slide
+                   if( type == command)
+                   {
+                     parser_warning( p, "unexpected '%c}' without opener", d);
+                     type    = garbage;
+                     continue;
                    }
                    parser_error( p, "unexpected '%c}' without opener", d);
       }
@@ -3019,6 +3064,7 @@ retry:
    parser_set_macro_table( &parser, tables->macroTable);
    parser_set_dependency_table( &parser, tables->dependencyTable);
    parser_set_error_callback( &parser, self, @selector( parser:errorInFileName:lineNumber:reason:));
+   parser_set_warning_callback( &parser, self, @selector( parser:warningInFileName:lineNumber:reason:));
 
    //
    // this make it possible to have scion templates as executable unix scripts

@@ -1,6 +1,6 @@
 Pipes convert the left side to a string and then apply the right side to the
 string. The right side can be any method callable on NSString. But it can't have
-any parameters.
+any parameters. Pipes have lower precedence than the [`includes`](/dot.scion?wrapper=_wrapper.scion) operator.
 
 #### Example 1
 ```

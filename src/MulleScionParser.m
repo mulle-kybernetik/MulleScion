@@ -254,6 +254,15 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
 
 
 - (void) parser:(void *) parser
+warningInFileName:(NSString *) fileName
+     lineNumber:(NSUInteger) lineNumber
+         reason:(NSString *) reason
+{
+   NSLog( @"warning: %@,%lu: %@", fileName ? fileName : @"template", (long) lineNumber, reason);
+}
+
+
+- (void) parser:(void *) parser
 errorInFileName:(NSString *) fileName
      lineNumber:(NSUInteger) lineNumber
          reason:(NSString *) reason

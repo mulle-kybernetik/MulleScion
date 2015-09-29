@@ -33,14 +33,21 @@ trace_ignore()
 trap trace_ignore 5 6
 
 
-# parse optional parameters 
-if [ -x ../?uild/Products/Debug/mulle-scion ]
+# parse optional parameters
+exe=`ls -1 ../?uild/Products/*/mulle-scion | tail -1`
+if [ -x "${exe}" ]
 then
-   MULLE_SCION=${1:-../?uild/Products/Debug/mulle-scion}
+   MULLE_SCION="${1:-${exe}}"
 else
    MULLE_SCION=${1:-`which mulle-scion`}
 fi
 shift
+
+if [ -z "${MULLE_SCION}" ]
+then
+   echo "mulle-scion can not be found" >&2
+   exit 1
+fi
 
 DIR=${1:-`pwd`}
 shift
@@ -83,7 +90,7 @@ search_plist()
 relpath()
 {
    python -c "import os.path; print os.path.relpath('$1', '$2')"
-} 
+}
 
 
 run()
@@ -109,7 +116,7 @@ run()
    output="$random.stdout"
    errput="$random.stderr"
    errors=`basename $template .scion`.errors
-   
+
    pwd=`pwd`
    pretty_template=`relpath "$pwd"/"$template" "$root"`
    if [ "$VERBOSE" = "yes" ]
@@ -120,7 +127,7 @@ run()
    RUNS=`expr $RUNS + 1`
 
    # plz2shutthefuckup bash
-   set +m 
+   set +m
    set +b
    set +v
    # denied, will always print TRACE/BPT
@@ -136,7 +143,7 @@ run()
          cat  "$errput"
          exit 1
       else
-         fail=0        
+         fail=0
          while read expect
          do
             match=`grep "$expect" "$errput"`
@@ -146,7 +153,7 @@ run()
                then
                   echo "TEMPLATE FAILED TO PRODUCE ERRORS: \"$pretty_template\"" >& 2
                   fail=1
-               fi 
+               fi
                echo "   $expect" >&2
             fi
          done < "$errors"
@@ -182,8 +189,8 @@ run()
          else
             echo "FAILED: \"$pretty_template\" produced different whitespace output" >& 2
             echo "DIFF: ($stdout vs. $output)" >& 2
-            od -a "$output" > "$output".actual.hex 
-            od -a "$stdout" > "$output".expect.hex 
+            od -a "$output" > "$output".actual.hex
+            od -a "$stdout" > "$output".expect.hex
             diff -y "$output".expect.hex "$output".actual.hex >& 2
          fi
 
@@ -299,8 +306,8 @@ scan_directory()
       if [ -d "$i" ]
       then
          dir=`pwd`
-         cd "$i" 
-         scan_directory "$root" 
+         cd "$i"
+         scan_directory "$root"
          cd "$dir"
       else
          filename=`basename "$i" .scion`
@@ -324,28 +331,28 @@ test_binary()
    errput="$random.stderr"
 
    $MULLE_SCION > /dev/null 2>&1
-   code=$? 
+   code=$?
 
    if [ $code -eq 127 ]
    then
       echo "mulle-scion can not be found" >&2
       exit 1
-   fi 
+   fi
 
    if [ $code -ne 253 ]
    then
       echo "$MULLE_SCION is wrong executable" >&2
       exit 1
    fi
- 
-   echo "using $MULLE_SCION to test" >&2 
+
+   echo "using ${MULLE_SCION} to test" >&2
 }
 
 
 absolute_path_if_relative()
 {
    case "$1" in
-      .*)  echo `pwd`/"$1" 
+      .*)  echo `pwd`/"$1"
 	   ;;
       *)   echo "$1"
 	   ;;
@@ -376,25 +383,25 @@ else
     fi
     file=`basename "$TEST"`
     filename=`basename "$file" .scion`
-  
+
     if [ "$file" = "$filename" ]
     then
        echo "error: template file must have .scion extension" >& 2
        exit 1
     fi
-  
+
     if [ ! -f "$TEST" ]
     then
        echo "error: template file not found" >& 2
        exit 1
     fi
-  
+
     old=`pwd`
     cd "$dirname"
     run_test "$filename" "$dirname"
     rval=$?
     cd "$old"
-    exit $rval    
+    exit $rval
 fi
 
 
