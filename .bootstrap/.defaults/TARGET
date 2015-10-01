@@ -1,7 +1,0 @@
-# Specify a target to compile in project MulleScion instead of default.
-# Might bite itself with SCHEME, so only specify one.
-# leave commented out or delete file for default scheme
-# 
-All
-
-
