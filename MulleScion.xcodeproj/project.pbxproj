@@ -200,20 +200,20 @@
 		41F31C681BB00D3000A004B9 /* MulleScionPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F31C691BB00D3000A004B9 /* MulleScionPrintingException.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F31C6A1BB00D3000A004B9 /* NSObject+MulleScionDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41F31C7A1BB00D9400A004B9 /* MulleScion.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; };
-		41F31C7B1BB00D9400A004B9 /* MulleObjCCompilerSettings.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; };
-		41F31C7C1BB00D9400A004B9 /* MulleScionObjectModel.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; };
-		41F31C7D1BB00D9400A004B9 /* MulleScionObjectModel+NSCoding.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; };
-		41F31C7E1BB00D9400A004B9 /* MulleScionTemplate+CompressedArchive.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; };
-		41F31C7F1BB00D9400A004B9 /* NSFileHandle+MulleOutputFileHandle.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; };
-		41F31C801BB00D9400A004B9 /* MulleScionObjectModel+TraceDescription.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.h */; };
-		41F31C811BB00D9400A004B9 /* MulleScionParser.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; };
-		41F31C821BB00D9400A004B9 /* MulleScionParser+Parsing.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; };
-		41F31C831BB00D9400A004B9 /* MulleScionOutputProtocol.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; };
-		41F31C841BB00D9400A004B9 /* MulleScionDataSourceProtocol.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; };
-		41F31C851BB00D9400A004B9 /* MulleScionPrinter.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; };
-		41F31C861BB00D9400A004B9 /* MulleScionPrintingException.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; };
-		41F31C871BB00D9400A004B9 /* NSObject+MulleScionDescription.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; };
+		41F31C7A1BB00D9400A004B9 /* MulleScion.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C7B1BB00D9400A004B9 /* MulleObjCCompilerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C7C1BB00D9400A004B9 /* MulleScionObjectModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C7D1BB00D9400A004B9 /* MulleScionObjectModel+NSCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32DE16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C7E1BB00D9400A004B9 /* MulleScionTemplate+CompressedArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB0516DD36EC00BFD60C /* MulleScionTemplate+CompressedArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C7F1BB00D9400A004B9 /* NSFileHandle+MulleOutputFileHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F0CDD318296756000057D5 /* NSFileHandle+MulleOutputFileHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C801BB00D9400A004B9 /* MulleScionObjectModel+TraceDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B32E516DB7732005D0EAD /* MulleScionObjectModel+TraceDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C811BB00D9400A004B9 /* MulleScionParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764B9D16DA51A200560FCF /* MulleScionParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C821BB00D9400A004B9 /* MulleScionParser+Parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DAFB16DCFFD600BFD60C /* MulleScionParser+Parsing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C831BB00D9400A004B9 /* MulleScionOutputProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA916DE3900004833D6 /* MulleScionOutputProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C841BB00D9400A004B9 /* MulleScionDataSourceProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4121DB1516DD8A0900BFD60C /* MulleScionDataSourceProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C851BB00D9400A004B9 /* MulleScionPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA016DA51B700560FCF /* MulleScionPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C861BB00D9400A004B9 /* MulleScionPrintingException.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D6DEA316DE32A9004833D6 /* MulleScionPrintingException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F31C871BB00D9400A004B9 /* NSObject+MulleScionDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BAA16DA5E1600560FCF /* NSObject+MulleScionDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F31C891BB00D9F00A004B9 /* MulleScion.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BCC16DAF4C500560FCF /* MulleScion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F31C8A1BB00D9F00A004B9 /* MulleObjCCompilerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA616DA590000560FCF /* MulleObjCCompilerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41F31C8B1BB00D9F00A004B9 /* MulleScionObjectModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 41764BA316DA53BE00560FCF /* MulleScionObjectModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -501,30 +501,6 @@
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		41D6DF2216DE523D004833D6 /* Copy Headers */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "include/${PROJECT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-				41F31C7A1BB00D9400A004B9 /* MulleScion.h in Copy Headers */,
-				41F31C7B1BB00D9400A004B9 /* MulleObjCCompilerSettings.h in Copy Headers */,
-				41F31C7C1BB00D9400A004B9 /* MulleScionObjectModel.h in Copy Headers */,
-				41F31C7D1BB00D9400A004B9 /* MulleScionObjectModel+NSCoding.h in Copy Headers */,
-				41F31C7E1BB00D9400A004B9 /* MulleScionTemplate+CompressedArchive.h in Copy Headers */,
-				41F31C7F1BB00D9400A004B9 /* NSFileHandle+MulleOutputFileHandle.h in Copy Headers */,
-				41F31C801BB00D9400A004B9 /* MulleScionObjectModel+TraceDescription.h in Copy Headers */,
-				41F31C811BB00D9400A004B9 /* MulleScionParser.h in Copy Headers */,
-				41F31C821BB00D9400A004B9 /* MulleScionParser+Parsing.h in Copy Headers */,
-				41F31C831BB00D9400A004B9 /* MulleScionOutputProtocol.h in Copy Headers */,
-				41F31C841BB00D9400A004B9 /* MulleScionDataSourceProtocol.h in Copy Headers */,
-				41F31C851BB00D9400A004B9 /* MulleScionPrinter.h in Copy Headers */,
-				41F31C861BB00D9400A004B9 /* MulleScionPrintingException.h in Copy Headers */,
-				41F31C871BB00D9400A004B9 /* NSObject+MulleScionDescription.h in Copy Headers */,
-			);
-			name = "Copy Headers";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -1105,6 +1081,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		416EA9881BBB288600DCE3A3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41F31C7A1BB00D9400A004B9 /* MulleScion.h in Headers */,
+				41F31C7B1BB00D9400A004B9 /* MulleObjCCompilerSettings.h in Headers */,
+				41F31C7C1BB00D9400A004B9 /* MulleScionObjectModel.h in Headers */,
+				41F31C7D1BB00D9400A004B9 /* MulleScionObjectModel+NSCoding.h in Headers */,
+				41F31C7E1BB00D9400A004B9 /* MulleScionTemplate+CompressedArchive.h in Headers */,
+				41F31C7F1BB00D9400A004B9 /* NSFileHandle+MulleOutputFileHandle.h in Headers */,
+				41F31C801BB00D9400A004B9 /* MulleScionObjectModel+TraceDescription.h in Headers */,
+				41F31C811BB00D9400A004B9 /* MulleScionParser.h in Headers */,
+				41F31C821BB00D9400A004B9 /* MulleScionParser+Parsing.h in Headers */,
+				41F31C831BB00D9400A004B9 /* MulleScionOutputProtocol.h in Headers */,
+				41F31C841BB00D9400A004B9 /* MulleScionDataSourceProtocol.h in Headers */,
+				41F31C851BB00D9400A004B9 /* MulleScionPrinter.h in Headers */,
+				41F31C861BB00D9400A004B9 /* MulleScionPrintingException.h in Headers */,
+				41F31C871BB00D9400A004B9 /* NSObject+MulleScionDescription.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41F31C5D1BB00CE800A004B9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1297,10 +1294,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41D6DF2D16DE523E004833D6 /* Build configuration list for PBXNativeTarget "MulleScion (OSX Library)" */;
 			buildPhases = (
+				416EA9881BBB288600DCE3A3 /* Headers */,
 				41741ADD18303A560065E5FD /* Remove Library */,
 				41D6DF2016DE523D004833D6 /* Sources */,
 				41D6DF2116DE523D004833D6 /* Frameworks */,
-				41D6DF2216DE523D004833D6 /* Copy Headers */,
 				4146F1FA182D31E20020594C /* Add Dependency Libraries */,
 			);
 			buildRules = (

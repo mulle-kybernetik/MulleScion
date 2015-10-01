@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "syntax/straycloser.scion none"
+            argument = "commands/filter/filter-html.scion none"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
