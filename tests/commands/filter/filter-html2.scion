@@ -1,0 +1,3 @@
+{% filter htmlEscapedString, (output) %}
+<{% filter lowercaseString %}<VFL Bochum>{% endfilter %}>
+{% endfilter %}

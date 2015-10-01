@@ -1,3 +1,9 @@
+1853.1
+
+Fixed a bug, where `endfilter` did not respect the options setting of the
+returning filter. This could create havoc on plaintext, when your filter
+just specified (output).
+
 1853
 
 Made mulle-scion brew compatible. You can now brew it. As I wanted to use

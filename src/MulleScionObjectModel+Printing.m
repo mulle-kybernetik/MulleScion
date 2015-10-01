@@ -2237,10 +2237,11 @@ done:
                    localVariables:(NSMutableDictionary *) locals
                        dataSource:(id <MulleScionDataSource>) dataSource
 {
-   NSMutableArray       *stack;
-   NSAutoreleasePool    *pool;
-   MulleScionExpression *filter;
-   NSString             *s;
+   NSMutableArray         *stack;
+   NSAutoreleasePool      *pool;
+   MulleScionExpression   *filter;
+   NSString               *s;
+   NSNumber               *mode;
    
    TRACE_RENDER( self, s, locals, dataSource);
 
@@ -2264,9 +2265,18 @@ done:
       [locals setObject:filter
                  forKey:MulleScionCurrentFilterKey];
       [stack removeLastObject];
+
+      stack = [locals objectForKey:MulleScionPreviousFilterModesKey];
+      mode  = [stack lastObject];
+      [locals setObject:mode
+                 forKey:MulleScionCurrentFilterModeKey];
+      [stack removeLastObject];
    }
    else
+   {
       [locals removeObjectForKey:MulleScionCurrentFilterKey];
+      [locals removeObjectForKey:MulleScionPreviousFilterModesKey];
+   }
    
    // push flushed string through remaining filters
    if( s)
