@@ -2484,18 +2484,22 @@ static MulleScionFilter  * NS_RETURNS_RETAINED parser_do_filter( parser *p, NSUI
    MulleScionVariable     *var;
    
    expr = parser_do_expression( p);
+   if( [expr isFunction])
+      parser_error( p, "missing comma after filter identifier");
+   
    if( ! [expr isIdentifier] && ! [expr isPipe]  && ! [expr isMethod])
       parser_error( p, "identifier or pipe expected");
    
    flags = FilterOutput|FilterPlaintext;
 
    parser_skip_whitespace( p);
-   if( parser_peek_character( p) == ',')
+   switch( parser_peek_character( p))
    {
+   case ',' :
       parser_next_character( p);
       parser_skip_whitespace( p);
       parser_peek_expected_character( p, '(', "array expected after filter declaration");
-      
+
       // array ? -- allow plaintext and output as keywords
       flags = 0;
       array = parser_do_array_or_arguments( p, NO);

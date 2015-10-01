@@ -34,7 +34,12 @@ trap trace_ignore 5 6
 
 
 # parse optional parameters
-exe=`ls -1 ../?uild/Products/*/mulle-scion | tail -1`
+exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
+if [ ! -x "${exe}" ]
+then
+   exe=`ls -1 ../?uild/*/mulle-scion | tail -1 2> /dev/null`
+fi
+
 if [ -x "${exe}" ]
 then
    MULLE_SCION="${1:-${exe}}"
