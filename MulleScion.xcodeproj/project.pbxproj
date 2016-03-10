@@ -1344,7 +1344,7 @@
 		41764B8416DA511200560FCF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Mulle kybernetiK";
 			};
 			buildConfigurationList = 41764B8716DA511200560FCF /* Build configuration list for PBXProject "MulleScion" */;
@@ -1941,7 +1941,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1853.1;
+				CURRENT_PROJECT_VERSION = 1853.2;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1974,7 +1974,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1853.1;
+				CURRENT_PROJECT_VERSION = 1853.2;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -2044,7 +2044,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
-				CURRENT_PROJECT_VERSION = 1853.1;
+				CURRENT_PROJECT_VERSION = 1853.2;
 				DYLIB_COMPATIBILITY_VERSION = 1848.0;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
