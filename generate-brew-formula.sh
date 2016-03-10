@@ -4,15 +4,22 @@
 #
 PROJECT=MulleScion
 TARGET=mulle-scion
-HOMEPAGE="http://www.mulle-kybernetik.com/software/git/${PROJECT}"
+HOMEPAGE="https://www.mulle-kybernetik.com/software/git/${PROJECT}"
 DESC="creates text from templates and a data-source using Objective-C"
 VERSION="$1"
 shift
 ARCHIVEURL="$1"
 shift
 
-[ "$VERSION" = "" ] && exit 1
-[ "$ARCHIVEURL" = "" ] && exit 1
+usage()
+{
+   echo "generate-brew-formuala.sh VERSION ARCHIVEURL" >&2
+   exit 1
+}
+
+
+[ "$VERSION" = "" ] && usage
+[ "$ARCHIVEURL" = "" ] && usage
 
 
 TMPARCHIVE="/tmp/${PROJECT}-${VERSION}-archive"
