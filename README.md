@@ -1,8 +1,10 @@
 
-MulleScion is a modern template engine for Objective C
+MulleScion is a modern template engine for Objective C 
 =============
 (written in an oldfashioned way)
 ***
+
+[![Build Status](https://travis-ci.org/mulle-nat/MulleScion.svg?branch=master)](https://travis-ci.org/mulle-nat/MulleScion)
 
 It's **heavily** (very heavily) inspired by 
 
