@@ -1,3 +1,8 @@
+1853.2
+
+Experimental Travis CI integration on Github.
+Improvements in project structure due to better `mulle-bootstrap`
+
 1853.1
 
 Fixed a bug, where `endfilter` did not respect the options setting of the
@@ -23,7 +28,7 @@ as key=value arguments. This makes mulle-scion even more convenient to use
 in shell scripts.
 
 ~~~
-brew install http://www.mulle-kybernetik.com/software/formulae/mulle-scion.rb
+brew install https://www.mulle-kybernetik.com/software/formulae/mulle-scion.rb
 ~~~
 
 There are now "hidden" environment variables WWW_ROOT, WWW_PORT, WWW_PLIST for
