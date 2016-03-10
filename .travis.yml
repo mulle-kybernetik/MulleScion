@@ -1,0 +1,11 @@
+language: objective-c
+
+before_install:
+  - brew tap mulle-kybernetik/software
+  - brew install mulle-bootstrap
+
+before_script: mulle-bootstrap -y
+
+script: xcodebuild -target "OSX"
+
+after_success: (cd tests ; ./run-all-scion-tests.sh )

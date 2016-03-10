@@ -1,6 +1,7 @@
 Mac OS X
 ========
 
+	mulle-bootstrap
 	./install.sh OSX
 
 
@@ -13,6 +14,7 @@ It will also produce the **mulle-scion** executable. This will place the Framewo
 iOS
 =====
 
+	mulle-bootstrap
 	xcodebuild -target iOS
 
 to produce a static library libMulleScion.a with a set of include headers.
@@ -41,7 +43,7 @@ mulle-bootstrap
       
 to your
 
-      .bootstrap/gits
+      .bootstrap/repositories
 
 and say
 

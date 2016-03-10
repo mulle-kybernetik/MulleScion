@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 415DA59E182BBC8200F654F7 /* Build configuration list for PBXAggregateTarget "grab google-toolbox-for-mac from code.google.com" */;
-			buildPhases = (
-				415DA5A2182BBC9300F654F7 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "grab google-toolbox-for-mac from code.google.com";
-			productName = "grab google-toolbox-for-mac from code.google.com";
-		};
 		415DA5A5182BC9E300F654F7 /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 415DA5A6182BC9E300F654F7 /* Build configuration list for PBXAggregateTarget "All" */;
@@ -248,13 +237,6 @@
 			remoteGlobalIDString = 41FAED68182D275E002CD114;
 			remoteInfo = "MulleScionFoundation (OSX Library)";
 		};
-		411EEABC182D315200361ADF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41764B8416DA511200560FCF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 415DA59D182BBC8200F654F7;
-			remoteInfo = "grab google-toolbox-for-mac from code.google.com";
-		};
 		4146F1F2182D31A80020594C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 41764B8416DA511200560FCF /* Project object */;
@@ -415,13 +397,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 41FAED68182D275E002CD114;
 			remoteInfo = "MulleScionFoundation (OSX Library)";
-		};
-		41FAEDDB182D283B002CD114 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41764B8416DA511200560FCF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 415DA59D182BBC8200F654F7;
-			remoteInfo = "grab google-toolbox-for-mac from code.google.com";
 		};
 		41FAEE09182D28C4002CD114 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1196,7 +1171,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				411EEABD182D315200361ADF /* PBXTargetDependency */,
 			);
 			name = "MulleScionFoundation (iOS Library)";
 			productName = "MulleScion (iOS Library)";
@@ -1358,7 +1332,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				41FAEDDC182D283B002CD114 /* PBXTargetDependency */,
 			);
 			name = "MulleScionFoundation (OSX Library)";
 			productName = "MulleScionFoundation (OSX Library)";
@@ -1402,7 +1375,6 @@
 				412E7FD0182D2F80008A7FCC /* MulleScionGraphviz (iOS Library) */,
 				41EC013A182D301A00A17DBD /* MulleScionParser (iOS Library) */,
 				411EEA8B182D30B600361ADF /* MulleScionPrinter (iOS Library) */,
-				415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */,
 			);
 		};
 /* End PBXProject section */
@@ -1464,20 +1436,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "DIR=\"${OBJROOT}/UninstalledProducts\"\nLIB=\"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\"\n\nCHILDREN=\"MulleScionFoundation MulleScionParser MulleScionPrinter\"\n\n# first remove it otherwise libtool can choke\n# rm \"${DIR}/${EXECUTABLE_PATH}\" 2> /dev/null\n\n# libtool call looks dangerous but worked for me\nfor CHILD in $CHILDREN\ndo\n    CHILDPATH=\"${DIR}/lib${CHILD}.a\"\n    if [ ! -f \"${CHILDPATH}\" ]\n    then\n       CHILDPATH=\"${TARGET_BUILD_DIR}/lib${CHILD}.a\"\n    fi\n\n    echo \"Adding lib${CHILD}.a to ${LIB}\"\n    libtool -s -o \"$LIB\" \"$LIB\" \"${CHILDPATH}\"\n    if [ $? -ne 0 ]\n    then\n       echo \"libtool failed\"\n       exit 1\n    fi\ndone\n";
-			showEnvVarsInLog = 0;
-		};
-		415DA5A2182BBC9300F654F7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ ! -d \"$PROJECT_DIR\"/google-toolbox-for-mac ]\nthen\n( cd \"$PROJECT_DIR\" ;\n  svn checkout http://google-toolbox-for-mac.googlecode.com/svn/trunk/ google-toolbox-for-mac\n)\n\nfi\n\n# could optionally also \"update\" tidy\n\n";
 			showEnvVarsInLog = 0;
 		};
 		41741ADD18303A560065E5FD /* Remove Library */ = {
@@ -1654,11 +1612,6 @@
 			target = 41FAED68182D275E002CD114 /* MulleScionFoundation (OSX Library) */;
 			targetProxy = 410636961BBA8256008B84AC /* PBXContainerItemProxy */;
 		};
-		411EEABD182D315200361ADF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */;
-			targetProxy = 411EEABC182D315200361ADF /* PBXContainerItemProxy */;
-		};
 		4146F1F3182D31A80020594C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 411EEAA6182D311F00361ADF /* MulleScionFoundation (iOS Library) */;
@@ -1773,11 +1726,6 @@
 			isa = PBXTargetDependency;
 			target = 41FAED68182D275E002CD114 /* MulleScionFoundation (OSX Library) */;
 			targetProxy = 41FAEDD9182D2834002CD114 /* PBXContainerItemProxy */;
-		};
-		41FAEDDC182D283B002CD114 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 415DA59D182BBC8200F654F7 /* grab google-toolbox-for-mac from code.google.com */;
-			targetProxy = 41FAEDDB182D283B002CD114 /* PBXContainerItemProxy */;
 		};
 		41FAEE0A182D28C4002CD114 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1914,28 +1862,6 @@
 				PRODUCT_NAME = MulleScionGraphviz;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-			};
-			name = Profile;
-		};
-		415DA59F182BBC8200F654F7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		415DA5A0182BBC8200F654F7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				XXX_FLAGS = "-ObjC -xxx";
-			};
-			name = Release;
-		};
-		415DA5A1182BBC8200F654F7 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;
 		};
@@ -2407,16 +2333,6 @@
 				412E8003182D2F80008A7FCC /* Debug */,
 				412E8004182D2F80008A7FCC /* Release */,
 				412E8005182D2F80008A7FCC /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		415DA59E182BBC8200F654F7 /* Build configuration list for PBXAggregateTarget "grab google-toolbox-for-mac from code.google.com" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				415DA59F182BBC8200F654F7 /* Debug */,
-				415DA5A0182BBC8200F654F7 /* Release */,
-				415DA5A1182BBC8200F654F7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

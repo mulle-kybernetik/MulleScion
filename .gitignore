@@ -13,3 +13,7 @@ github*.json
 google-toolbox-for-mac/
 *.xxx
 tests/compare-parse-speed-to-unarchive-speed.sh
+.bootstrap.auto/
+.bootstrap.local/
+dependencies/
+.repos/
