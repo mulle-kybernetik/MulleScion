@@ -9,7 +9,7 @@ Release on [github](//github.com/mulle-nat/MulleScion): [![Build Status](https:/
 
 It's **heavily** (very heavily) inspired by
 
-[TWIG]("http://twig.sensiolabs.org/") "The flexible, fast, and secure template
+[TWIG](//twig.sensiolabs.org/) "The flexible, fast, and secure template
 engine for PHP"
 
 *MulleScion* is fairly flexible, reasonably fast and can be made as
