@@ -93,6 +93,29 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 }
 
 
++ (NSString *) descriptionWithUTF8Template:(unsigned char *) s
+                                dataSource:(id <MulleScionDataSource>) dataSource
+                            localVariables:(NSDictionary *) locals
+{
+   MulleScionTemplate   *template;
+   
+   template = [[[MulleScionTemplate alloc] initWithUTF8String:s] autorelease];
+   if( ! template)
+      return( nil);
+   return( [template descriptionWithDataSource:dataSource
+                                localVariables:locals]);
+}
+
+
++ (NSString *) descriptionWithUTF8Template:(unsigned char *) s
+                                dataSource:(id <MulleScionDataSource>) dataSource
+{
+   return( [self descriptionWithUTF8Template:s
+                                  dataSource:dataSource
+                              localVariables:nil]);
+}
+
+
 static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
 {
    NSData    *data;
@@ -147,6 +170,18 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
    return( [self descriptionWithTemplateFile:fileName
                             propertyListFile:plistFileName
                               localVariables:nil]);
+}
+
+
+- (id) initWithUTF8String:(unsigned char *) s
+{
+   MulleScionParser   *parser;
+
+   parser = [MulleScionParser parserWithUTF8String:s];
+   [self autorelease];
+   
+   self = [[parser template] retain];
+   return( self);
 }
 
 

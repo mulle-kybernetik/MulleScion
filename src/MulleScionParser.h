@@ -47,6 +47,8 @@
    NSString   *fileName_;
 }
 
++ (MulleScionParser *) parserWithUTF8String:(unsigned char *) s;
+
 + (MulleScionParser *) parserWithContentsOfFile:(NSString *) fileName;
 + (MulleScionParser *) parserWithContentsOfURL:(NSURL *) url;
 

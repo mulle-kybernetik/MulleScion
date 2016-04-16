@@ -65,6 +65,8 @@
  */
 @interface MulleScionTemplate ( Convenience)
 
+- (id) initWithUTF8String:(unsigned char *) s;
+
 - (id) initWithFile:(NSString *) fileName;            // template or archive
 
 - (id) initWithContentsOfFile:(NSObject <MulleScionStringOrURL> *) fileName;
@@ -85,6 +87,14 @@
 
 + (NSString *) descriptionWithTemplateFile:(NSObject <MulleScionStringOrURL> *) fileName
                           propertyListFile:(NSObject <MulleScionStringOrURL> *) plistFileName;
+
++ (NSString *) descriptionWithUTF8Template:(unsigned char *) s
+                                dataSource:(id <MulleScionDataSource>) dataSource
+                            localVariables:(NSDictionary *) locals;
+
+
++ (NSString *) descriptionWithUTF8Template:(unsigned char *) s
+                                dataSource:(id <MulleScionDataSource>) dataSource;
 
 
 + (BOOL) writeToOutput:(id <MulleScionOutput>) output

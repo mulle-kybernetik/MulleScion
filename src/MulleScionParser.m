@@ -94,6 +94,21 @@
 }
 
 
++ (MulleScionParser *) parserWithUTF8String:(unsigned char *) s
+{
+   NSData            *data;
+   MulleScionParser  *parser;
+   
+   data = [[[NSData alloc] initWithBytesNoCopy:s
+                                       length:strlen( s)
+                                 freeWhenDone:NO] autorelease];
+   parser = [[[self alloc] initWithData:data
+                               fileName:@"unknown.scion"] autorelease];
+   return( parser);
+}
+
+
+
 + (MulleScionParser *) parserWithContentsOfFile:(NSString *) path
 {
    NSData            *data;
