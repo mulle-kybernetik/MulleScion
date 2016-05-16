@@ -37,6 +37,8 @@
 
 #import "MulleScionTemplate+CompressedArchive.h"
 
+#include <fcntl.h>
+
 
 #ifdef HAVE_ZLIB
 # undef HAVE_ZLIB
@@ -235,15 +237,15 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
 - (id) initWithContentsOfArchive:(NSString *) fileName
 {
    NSAutoreleasePool   *pool;
-   MulleScionTemplate  *root;
-   
-   [self autorelease];
    
    pool = [NSAutoreleasePool new];
-   root = _newWithContentsOfArchive( fileName, &pool);
+
+   [self release];
+   self = _newWithContentsOfArchive( fileName, &pool);
+
    [pool release];
 
-   return( root);
+   return( self);
 }
 
 

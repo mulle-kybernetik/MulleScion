@@ -155,7 +155,7 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
 {
    MulleScionValueObject   *p;
    
-   p = [self newWithLineNumber:nr];
+   p         = [self newWithLineNumber:nr];
    p->value_ = [value copy];
    return( p);
 }
@@ -265,7 +265,7 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    
    NSParameterAssert( [s isKindOfClass:[NSString class]]);
 
-   p = newMulleScionValueObject( self, nil, nr);
+   p         = newMulleScionValueObject( self, nil, nr);
    p->value_ = s;
    return( p);
 }
@@ -473,6 +473,24 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
 }
 
 
+#if DEBUG
+- (void) release
+{
+   [super release];
+}
+
+- (id) retain
+{
+   return( [super retain]);
+}
+
+
+- (id) autorelease
+{
+   return( [super autorelease]);
+}
+#endif
+
 - (BOOL) isMethod
 {
    return( YES);
@@ -560,7 +578,7 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    
    NSParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
    
-   p = newMulleScionValueObject( self, nil, nr);
+   p         = newMulleScionValueObject( self, nil, nr);
    p->value_ = expr;
    return( p);
 }

@@ -392,7 +392,6 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
    NSDictionary         *info;
    NSEnumerator         *rover;
    NSString             *archiveName;
-   NSString             *fileName;
 
    arguments = [[NSProcessInfo processInfo] arguments];
    rover     = [arguments objectEnumerator];
@@ -406,7 +405,7 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
    if( [archiveName isEqualToString:@"-"])
       return( -3);
 
-   template = acquireTemplateFromPath( fileName);
+   template = acquireTemplateFromPath( archiveName);
 
    if( ! template)
       return( -1);
@@ -424,8 +423,8 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 
 static int   _main(int argc, const char * argv[])
 {
-   NSDictionary   *info;
-   NSFileHandle   *stream;
+   NSDictionary         *info;
+   NSFileHandle         *stream;
    MulleScionTemplate   *template;
 
    info = getInfoFromArguments();

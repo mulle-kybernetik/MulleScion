@@ -39,6 +39,7 @@
 
 #import "MulleScionObjectModel.h"
 #import "MulleScionObjectModel+Printing.h"
+#import "MulleCommonObjCRuntime.h"
 
 
 
@@ -50,7 +51,7 @@
 
    if( ! dataSource)
    {
-      [self autorelease];
+      [self release];
       return( nil);
    }
    dataSource_  = dataSource;
@@ -63,7 +64,7 @@
 - (void) dealloc
 {
    [dataSource_ release];
-   [defaultlocals_ release];
+   [defaultLocals_ release];
 
    // Instruments apparently lies cold blooded :)
    //NSLog( @"<%@ %p is dead>", MulleGetClass( self), self);
@@ -71,16 +72,16 @@
 }
 
 
-- (NSDictionary *) defaultlocals
+- (NSDictionary *) defaultLocalVariables
 {
-   return( defaultlocals_);
+   return( defaultLocals_);
 }
 
 
-- (void) setDefaultlocalVariables:(NSDictionary *) dictionary
+- (void) setDefaultLocalVariables:(NSDictionary *) dictionary
 {
-   [defaultlocals_ autorelease];
-   defaultlocals_ = [dictionary copy];
+   [defaultLocals_ autorelease];
+   defaultLocals_ = [dictionary copy];
 }
 
 
@@ -91,7 +92,7 @@
    
    NSParameterAssert( [template isKindOfClass:[MulleScionTemplate class]]);
 
-   locals = [template localVariablesWithDefaultValues:[self defaultlocals]];
+   locals = [template localVariablesWithDefaultValues:[self defaultLocalVariables]];
    
    NSParameterAssert( locals);  // could raise if Apple starts hating on nil
    [template renderInto:output

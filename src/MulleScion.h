@@ -124,6 +124,7 @@
 + (NSString *) cacheDirectory;
 + (void) setCacheEnabled:(BOOL) flag;
 + (BOOL) isCacheEnabled;
+- (NSString *) cachePathForPath:(NSString *) fileName;
 
 @end
 

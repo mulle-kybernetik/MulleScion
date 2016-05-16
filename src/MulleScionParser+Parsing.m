@@ -48,6 +48,24 @@
 
 @implementation MulleScionParser ( Parsing)
 
+
+- (void) parserWarning:(parser_warning_info *) info
+{
+   [self parser:info->parser
+warningInFileName:info->fileName ? info->fileName : @"template"
+     lineNumber:info->lineNumber
+         reason:info->message];
+}
+
+
+- (void) parserError:(parser_error_info *) info
+{
+   [self parser:info->parser
+errorInFileName:info->fileName ? info->fileName : @"template"
+     lineNumber:info->lineNumber
+         reason:info->message];
+}
+
 // parse it a little like Twig
 // {# comment #}
 // {{ identifier }}
@@ -100,8 +118,8 @@ typedef struct _parser
    
    MulleScionObject     *first;
 
-   void                 (*parser_do_error)( id self, SEL sel, void *parser, NSString *filename, NSUInteger line, NSString *message);
-   void                 (*parser_do_warning)( id self, SEL sel, void *parser, NSString *filename, NSUInteger line, NSString *message);
+   void                 (*parser_do_error)( id self, SEL sel, parser_warning_info *parser);
+   void                 (*parser_do_warning)( id self, SEL sel, parser_error_info *parser);
    id                   self;
    SEL                  sel;
    int                  skipComments;
@@ -159,16 +177,16 @@ static void   parser_init( parser *p, unsigned char *buf, size_t len)
 
 static inline void   parser_set_warning_callback( parser *p, id self, SEL sel)
 {
-   p->self        = self;
-   p->sel         = sel;
+   p->self              = self;
+   p->sel               = sel;
    p->parser_do_warning = (void *) [p->self methodForSelector:sel];
 }
 
 
 static inline void   parser_set_error_callback( parser *p, id self, SEL sel)
 {
-   p->self        = self;
-   p->sel         = sel;
+   p->self            = self;
+   p->sel             = sel;
    p->parser_do_error = (void *) [p->self methodForSelector:sel];
 }
 
@@ -234,6 +252,9 @@ static NSString   *parser_diagnostic_string( parser *p, NSString *reason)
    s_len  = p_len >= 6 ? 12 : 12 + 6 - p_len;
    prefix = &p->curr[ -p_len];
    suffix = &p->curr[ 1];
+
+   if( suffix > p->sentinel)
+      suffix = p->sentinel;
    
    if( prefix < p->buf)
    {
@@ -242,7 +263,7 @@ static NSString   *parser_diagnostic_string( parser *p, NSString *reason)
    }
    
    if( &suffix[ s_len] > p->sentinel)
-      s_len  = p->sentinel - p->curr;
+      s_len  = p->sentinel - suffix;
    
    // stop tail at linefeed
    for( i = 0; i < s_len; i++)
@@ -278,20 +299,29 @@ static NSString   *parser_diagnostic_string( parser *p, NSString *reason)
 
 static void  parser_warning( parser *p, char *c_format, ...)
 {
-   NSString       *reason;
-   NSString       *s;
-   va_list        args;
+   NSString              *reason;
+   parser_warning_info   info;
+   va_list               args;
    
-   if( p->parser_do_warning)
-   {
-      va_start( args, c_format);
-      reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
-                                       arguments:args] autorelease];
-      va_end( args);
+   if( ! p->parser_do_warning)
+      return;
+   
+   va_start( args, c_format);
+#ifdef __MULLE_OBJC_RUNTIME__
+   reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
+                                      va_list:args] autorelease];
+#else
+   reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
+                                    arguments:args] autorelease];
+#endif
+   va_end( args);
+   
+   info.parser     = p;
+   info.lineNumber = p->memo.lineNumber;
+   info.message    = parser_diagnostic_string( p, reason);
+   info.fileName   = p->fileName;
 
-      s = parser_diagnostic_string( p, reason);
-      (*p->parser_do_warning)( p->self, p->sel, p, p->fileName, p->memo.lineNumber, s);
-   }
+   (*p->parser_do_warning)( p->self, p->sel, &info);
 }
 
 
@@ -300,24 +330,32 @@ static void  parser_warning( parser *p, char *c_format, ...)
 //
 static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
 {
-   NSString       *reason;
-   NSString       *s;
-   va_list        args;
+   NSString            *reason;
+   parser_error_info   info;
+   va_list             args;
    
-   if( p->parser_do_error)
-   {
-      va_start( args, c_format);
-      reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
-                                       arguments:args] autorelease];
-      va_end( args);
+   if( ! p->parser_do_error)
+      abort();
+   
+   va_start( args, c_format);
+#ifdef __MULLE_OBJC_RUNTIME__
+   reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
+                                     va_list:args] autorelease];
+#else
+   reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
+                                    arguments:args] autorelease];
+#endif
+   va_end( args);
 
-      s = parser_diagnostic_string( p, reason);
-      (*p->parser_do_error)( p->self, p->sel, p, p->fileName, p->memo.lineNumber, s);
-   }
-   abort();
+   info.parser     = p;
+   info.lineNumber = p->memo.lineNumber;
+   info.message    = parser_diagnostic_string( p, reason);
+   info.fileName   = p->fileName;
+   
+   (*p->parser_do_error)( p->self, p->sel, &info);
 }
 
-   
+
 static unsigned char    *unescaped_string_if_needed( unsigned char *s,
                                                      NSUInteger len,
                                                      NSUInteger *result_len)
@@ -1294,7 +1332,7 @@ static NSMutableArray   *parser_do_arguments( parser *p)
 static MulleScionMethod  * NS_RETURNS_RETAINED parser_do_method( parser *p)
 {
    NSMutableString        *selBuf;
-   NSString              *selName;
+   NSString               *selName;
    NSMutableArray         *arguments;
    NSUInteger             line;
    MulleScionExpression   *target;
@@ -2557,7 +2595,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
    expr = parser_do_expression( p);
    
    [p->tables.definitionTable setObject:expr
-                          forKey:identifier];
+                                 forKey:identifier];
    [expr release];
    
    return( nil);
@@ -3067,8 +3105,8 @@ retry:
    parser_set_definitions_table( &parser, tables->definitionTable);
    parser_set_macro_table( &parser, tables->macroTable);
    parser_set_dependency_table( &parser, tables->dependencyTable);
-   parser_set_error_callback( &parser, self, @selector( parser:errorInFileName:lineNumber:reason:));
-   parser_set_warning_callback( &parser, self, @selector( parser:warningInFileName:lineNumber:reason:));
+   parser_set_error_callback( &parser, self, @selector( parserError:));
+   parser_set_warning_callback( &parser, self, @selector( parserWarning:));
 
    //
    // this make it possible to have scion templates as executable unix scripts

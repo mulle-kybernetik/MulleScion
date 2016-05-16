@@ -33,8 +33,6 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-
-
 #import "MulleScionPrintingException.h"
 
 #import "MulleScionObjectModel+Printing.h"
@@ -51,8 +49,14 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
    NSCParameterAssert( [format isKindOfClass:[NSString class]]);
    
    va_start( args, format);
+   
+#ifdef __MULLE_OBJC_RUNTIME__
+   s = [[[NSString alloc] initWithFormat:format
+                               va_list:args] autorelease];
+#else
    s = [[[NSString alloc] initWithFormat:format
                                arguments:args] autorelease];
+#endif
    
    va_end( args);
    

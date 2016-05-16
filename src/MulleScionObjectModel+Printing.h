@@ -82,3 +82,9 @@ void   MulleScionRenderString( NSString *value,
                                id <MulleScionOutput> output,
                                NSMutableDictionary *locals,
                                id <MulleScionDataSource> dataSource);
+
+void   MulleScionRenderPlaintextString( NSString *value,
+                                        id <MulleScionOutput> output,
+                                        NSMutableDictionary *locals,
+                                        id <MulleScionDataSource> dataSource);
+

@@ -43,6 +43,7 @@
 # define MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 #endif
 
+#pragma mark -
 //
 // after template expansion a MulleScionObject won't be mutated
 // by MulleScion
@@ -97,6 +98,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionValueObject : MulleScionObject
 {
    id    value_;         // convenient to serialize
@@ -107,6 +109,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 //
 // these objects can appear a few times in a template tree structure
 // they reset the fileName on occasion (for includes)
@@ -119,6 +122,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionPlainText : MulleScionValueObject
 
 + (id) newWithRetainedString:(NSString *) NS_CONSUMED s
@@ -129,12 +133,13 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionExpression : MulleScionValueObject
 @end
 
 
-
-// if nil, it's nil...
+#pragma mark -
+// if nil, you know it's nil...
 
 @interface MulleScionNumber : MulleScionExpression
 
@@ -143,6 +148,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 
 @end
 
+#pragma mark -
 
 @interface MulleScionString : MulleScionExpression
 
@@ -152,10 +158,13 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
+
 @interface MulleScionSelector : MulleScionString
 @end
 
 
+#pragma mark -
 @interface MulleScionArray : MulleScionExpression
 
 + (id) newWithArray:(NSArray *) s
@@ -164,6 +173,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionDictionary : MulleScionExpression
    
 + (id) newWithDictionary:(NSDictionary *) s
@@ -172,6 +182,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionIdentifierExpression : MulleScionExpression
 
 + (id) newWithIdentifier:(NSString *) s
@@ -182,10 +193,12 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionVariable : MulleScionIdentifierExpression
 @end
 
 
+#pragma mark -
 @interface MulleScionOperatorExpression : MulleScionExpression
 
 - (NSString *) operator;
@@ -193,6 +206,7 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionUnaryOperatorExpression : MulleScionOperatorExpression
 
 + (id) newWithRetainedExpression:(MulleScionExpression *) NS_CONSUMED left
@@ -200,10 +214,12 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionNot  : MulleScionUnaryOperatorExpression
 @end
 
 
+#pragma mark -
 @interface MulleScionBinaryOperatorExpression : MulleScionOperatorExpression
 {
    MulleScionExpression   *right_;
@@ -218,18 +234,24 @@ MULLE_SCION_OBJECT_NEXT_POINTER_VISIBILITY
 @end
 
 
+#pragma mark -
 @interface MulleScionAnd  : MulleScionBinaryOperatorExpression
 @end
 
+#pragma mark -
 @interface MulleScionOr   : MulleScionBinaryOperatorExpression
 @end
 
+#pragma mark -
 @interface MulleScionPipe : MulleScionBinaryOperatorExpression
 @end
 
+#pragma mark -
 @interface MulleScionIndexing : MulleScionBinaryOperatorExpression
 @end
 
+
+#pragma mark -
 
 typedef enum
 {
@@ -254,10 +276,12 @@ typedef enum
                           lineNumber:(NSUInteger) nr;
 @end
 
+#pragma mark -
 // might go away, it's a kludge (for NSRange really)
 @interface MulleScionDot : MulleScionBinaryOperatorExpression
 @end
 
+#pragma mark -
 
 @interface MulleScionFunction : MulleScionIdentifierExpression
 {
@@ -272,6 +296,7 @@ typedef enum
 
 @end
 
+#pragma mark -
 
 // is this really an expression ???
 @interface MulleScionParameterAssignment : MulleScionIdentifierExpression
@@ -289,6 +314,7 @@ typedef enum
 @end
 
 
+#pragma mark -
 //
 // used in if, while. NOT used in set/for and also not used as a
 // subexpression
@@ -304,6 +330,7 @@ typedef enum
 @end
 
 
+#pragma mark -
 @interface MulleScionMethod : MulleScionExpression
 {
    SEL       action_;
@@ -320,7 +347,8 @@ typedef enum
 @end
 
 
-// 
+#pragma mark -
+//
 @interface MulleScionConditional : MulleScionExpression
 {
    MulleScionExpression   *middle_;
@@ -334,6 +362,7 @@ typedef enum
 @end
 
 
+#pragma mark -
 //
 // Commands do not print anything
 //
@@ -347,15 +376,18 @@ typedef enum
 @end
 
 
+#pragma mark -
 @interface MulleScionTerminator : MulleScionCommand
 @end
 
 
 
+#pragma mark -
 @interface MulleScionEndFor : MulleScionTerminator
 @end
 
 
+#pragma mark -
 @interface MulleScionExpressionCommand : MulleScionCommand
 {
    MulleScionExpression   *expression_;
@@ -367,10 +399,12 @@ typedef enum
 @end
 
 
+#pragma mark -
 @interface MulleScionLog : MulleScionExpressionCommand
 @end
 
 
+#pragma mark -
 @interface MulleScionSet : MulleScionCommand
 {
    MulleScionExpression   *left_;
@@ -384,36 +418,44 @@ typedef enum
 @end
 
 
+#pragma mark -
 // "for" is pretty much the same as an assignment, just looped
 @interface MulleScionFor : MulleScionSet
 @end
 
+#pragma mark -
 
 @interface MulleScionIf : MulleScionExpressionCommand
 @end
 
+#pragma mark -
 
 @interface MulleScionElse : MulleScionTerminator
 @end
 
+#pragma mark -
 
 @interface MulleScionElseFor : MulleScionElse
 @end
 
+#pragma mark -
 
 @interface MulleScionEndIf : MulleScionTerminator
 @end
 
 
+#pragma mark -
 // "while" is pretty much the same as an 'if', just looped
 
 @interface MulleScionWhile : MulleScionIf
 @end
 
+#pragma mark -
 
 @interface MulleScionEndWhile : MulleScionTerminator
 @end
 
+#pragma mark -
 
 @interface MulleScionBlock : MulleScionCommand
 {
@@ -430,18 +472,23 @@ typedef enum
 
 @end
 
+#pragma mark -
 
 @interface MulleScionEndBlock : MulleScionTerminator
 @end
 
+#pragma mark -
 
 @interface MulleScionMethodCall : MulleScionExpressionCommand
 @end
 
+#pragma mark -
 
 @interface MulleScionFunctionCall : MulleScionExpressionCommand
 @end
 
+
+#pragma mark -
 
 enum
 {
@@ -449,6 +496,7 @@ enum
    FilterOutput              = 0x2,
    FilterApplyStackedFilters = 0x4
 };
+
 
 @interface MulleScionFilter : MulleScionExpressionCommand
 {
@@ -460,10 +508,12 @@ enum
                       lineNumber:(NSUInteger) nr;
 @end
 
+#pragma mark -
 
 @interface MulleScionEndFilter : MulleScionTerminator
 @end
 
+#pragma mark -
 
 @interface MulleScionMacro : MulleScionTemplate
 {
@@ -484,6 +534,7 @@ enum
 
 @end
 
+#pragma mark -
 
 @interface MulleScionRequires : MulleScionCommand
 {

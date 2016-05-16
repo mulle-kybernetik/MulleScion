@@ -11,7 +11,7 @@
 executable=`basename $0`
 executable=`basename $executable .sh`
 
-if [ "$executable" = "run-all-scion-tests" ]
+if [ "$executable" = "run-all-tests" ]
 then
    TEST=""
    VERBOSE=yes

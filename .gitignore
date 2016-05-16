@@ -17,3 +17,4 @@ tests/compare-parse-speed-to-unarchive-speed.sh
 .bootstrap.local/
 dependencies/
 .repos/
+mulle-configuration/
