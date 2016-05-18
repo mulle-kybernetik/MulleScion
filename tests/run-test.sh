@@ -366,6 +366,9 @@ absolute_path_if_relative()
 
 
 MULLE_SCION=`absolute_path_if_relative "$MULLE_SCION"`
+DYLD_FALLBACK_FRAMEWORK_PATH="`pwd`/../dependencies/Frameworks/Debug"
+export DYLD_FALLBACK_FRAMEWORK_PATH
+
 
 test_binary "$MULLE_SCION"
 

@@ -75,6 +75,7 @@ NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
 NSString   *MulleScionCurrentFilterModeKey    = @"__FILTER_MODE__";
 NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
 NSString   *MulleScionPreviousFilterModesKey  = @"__FILTER_MODE_STACK__";
+NSString   *MulleScionFoundationKey           = @"__FOUNDATION__";
 NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
 NSString   *MulleScionFunctionTableKey        = @"__FUNCTION_TABLE__";
 NSString   *MulleScionCurrentLineKey          = @"__LINE__";
@@ -547,6 +548,13 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
               forKey:MulleScionCurrentFileKey];
+#if __MULLE_OBJC_RUNTIME__
+   [locals setObject:@"Mulle"
+             forKey:MulleScionFoundationKey];
+#else
+   [locals setObject:@"Apple"
+             forKey:MulleScionFoundationKey];
+#endif
    [locals setObject:[NSNumber numberWithDouble:PROJECT_VERSION]
               forKey:MulleScionVersionKey];
 

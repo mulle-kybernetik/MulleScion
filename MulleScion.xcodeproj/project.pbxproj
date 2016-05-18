@@ -138,6 +138,7 @@
 		41B4C8D91BAB2CA2002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41B4C8DA1BAB2CA7002BFA33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B4C8D41BAB2C89002BFA33 /* Foundation.framework */; };
 		41C5E05F16DE6A5D00132904 /* MulleScionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764B9E16DA51A200560FCF /* MulleScionParser.m */; };
+		41CC3F531CE3A63E001EFDB9 /* MulleScionObjectModel+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */; };
 		41CFAFFE1A93E1E500B0783A /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF51A93E1E500B0783A /* autolink.c */; };
 		41CFAFFF1A93E1E500B0783A /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF61A93E1E500B0783A /* buffer.c */; };
 		41CFB0001A93E1E500B0783A /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 41CFAFF71A93E1E500B0783A /* document.c */; };
@@ -163,7 +164,6 @@
 		41D6DF3016DE5270004833D6 /* MulleScion.m in Sources */ = {isa = PBXBuildFile; fileRef = 41764BCD16DAF4C600560FCF /* MulleScion.m */; };
 		41D6DF3E16DE52D6004833D6 /* MulleScionParser+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DAFC16DCFFD600BFD60C /* MulleScionParser+Parsing.m */; };
 		41DCAF7916DE576F00C5A74E /* libMulleScion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D6DF2416DE523D004833D6 /* libMulleScion.a */; };
-		41DD0C99190025F6000F9CE2 /* NSObject+KVC_Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 415DA5D4182BED2100F654F7 /* NSObject+KVC_Compatibility.m */; };
 		41DD569F16E376F600C4D68A /* mongoose.c in Sources */ = {isa = PBXBuildFile; fileRef = 41DD569E16E376F600C4D68A /* mongoose.c */; };
 		41DD56A216E376FF00C4D68A /* MulleMongoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56A116E376FF00C4D68A /* MulleMongoose.m */; };
 		41DD56B716E3F7A700C4D68A /* MulleScionObjectModel+MulleMongoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */; };
@@ -224,7 +224,6 @@
 		41FAED6F182D275E002CD114 /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
 		41FAED70182D275E002CD114 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 415DA599182BBB0000F654F7 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-Ofast"; }; };
 		41FAED71182D275E002CD114 /* NSString+HTMLEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DD56BD16E4145000C4D68A /* NSString+HTMLEscape.m */; };
-		41FAED72182D275E002CD114 /* MulleScionObjectModel+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 410B32DF16DB6A9E005D0EAD /* MulleScionObjectModel+NSCoding.m */; };
 		41FAED74182D275E002CD114 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41764B8F16DA511200560FCF /* Foundation.framework */; };
 		41FE9FD718281F77005E7A41 /* RELEASENOTES.md in Resources */ = {isa = PBXBuildFile; fileRef = 41FE9FD618281F77005E7A41 /* RELEASENOTES.md */; };
 /* End PBXBuildFile section */
@@ -519,12 +518,32 @@
 		41348F94182E56E900367335 /* gcrt1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = gcrt1.o; path = usr/lib/gcrt1.o; sourceTree = SDKROOT; };
 		41348F97182E577D00367335 /* libobjc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libobjc.dylib; path = usr/lib/libobjc.dylib; sourceTree = SDKROOT; };
 		41348F99182E57C900367335 /* libgcc_s.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgcc_s.1.dylib; path = usr/lib/libgcc_s.1.dylib; sourceTree = SDKROOT; };
+		413C515E1CC284CA00F62468 /* Common.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = Common.cmake; sourceTree = "<group>"; };
+		413C515F1CC284CA00F62468 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		413C51601CC284CA00F62468 /* Debug.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = Debug.cmake; sourceTree = "<group>"; };
+		413C51611CC284CA00F62468 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		413C51621CC284CA00F62468 /* DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DynamicLibrary.xcconfig; sourceTree = "<group>"; };
+		413C51631CC284CA00F62468 /* DynamicLibraryOSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DynamicLibraryOSX.xcconfig; sourceTree = "<group>"; };
+		413C51641CC284CA00F62468 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkOSX.xcconfig; sourceTree = "<group>"; };
+		413C51661CC284CA00F62468 /* IOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOS.xcconfig; sourceTree = "<group>"; };
+		413C51671CC284CA00F62468 /* Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Library.xcconfig; sourceTree = "<group>"; };
+		413C51681CC284CA00F62468 /* OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OSX.xcconfig; sourceTree = "<group>"; };
+		413C51691CC284CA00F62468 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		413C516A1CC284CA00F62468 /* Release.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = Release.cmake; sourceTree = "<group>"; };
+		413C516B1CC284CA00F62468 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		413C516C1CC284CA00F62468 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibraryIOS.xcconfig; sourceTree = "<group>"; };
+		413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibraryOSX.xcconfig; sourceTree = "<group>"; };
+		413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ToolOSX.xcconfig; sourceTree = "<group>"; };
+		413C51701CC284CA00F62468 /* _Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = _Common.xcconfig; sourceTree = "<group>"; };
+		413C51711CC284CA00F62468 /* generate-dot.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-dot.sh"; sourceTree = "<group>"; };
+		413C51721CC284CA00F62468 /* update-all-configurations.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "update-all-configurations.sh"; sourceTree = "<group>"; };
 		414A435119040A120020C6FF /* log.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = log.scion; sourceTree = "<group>"; };
 		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		415918001A974419006ECD52 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		415918011A974419006ECD52 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		415918031A976C2A006ECD52 /* Environment_Variables.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Environment_Variables.scion; sourceTree = "<group>"; };
 		415C401D1A9641010072B73A /* __demo.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __demo.scion; sourceTree = "<group>"; };
 		415DA598182BBB0000F654F7 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../google-toolbox-for-mac/Foundation/GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -754,6 +773,34 @@
 			name = MulleScionLibrary;
 			sourceTree = "<group>";
 		};
+		413C515D1CC284CA00F62468 /* mulle-configuration */ = {
+			isa = PBXGroup;
+			children = (
+				413C515E1CC284CA00F62468 /* Common.cmake */,
+				413C515F1CC284CA00F62468 /* Common.xcconfig */,
+				413C51601CC284CA00F62468 /* Debug.cmake */,
+				413C51611CC284CA00F62468 /* Debug.xcconfig */,
+				413C51621CC284CA00F62468 /* DynamicLibrary.xcconfig */,
+				413C51631CC284CA00F62468 /* DynamicLibraryOSX.xcconfig */,
+				413C51641CC284CA00F62468 /* Framework.xcconfig */,
+				413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */,
+				413C51661CC284CA00F62468 /* IOS.xcconfig */,
+				413C51671CC284CA00F62468 /* Library.xcconfig */,
+				413C51681CC284CA00F62468 /* OSX.xcconfig */,
+				413C51691CC284CA00F62468 /* README.md */,
+				413C516A1CC284CA00F62468 /* Release.cmake */,
+				413C516B1CC284CA00F62468 /* Release.xcconfig */,
+				413C516C1CC284CA00F62468 /* StaticLibrary.xcconfig */,
+				413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */,
+				413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */,
+				413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */,
+				413C51701CC284CA00F62468 /* _Common.xcconfig */,
+				413C51711CC284CA00F62468 /* generate-dot.sh */,
+				413C51721CC284CA00F62468 /* update-all-configurations.sh */,
+			);
+			path = "mulle-configuration";
+			sourceTree = "<group>";
+		};
 		415918021A974436006ECD52 /* mongoose */ = {
 			isa = PBXGroup;
 			children = (
@@ -770,6 +817,7 @@
 				41FE9FD618281F77005E7A41 /* RELEASENOTES.md */,
 				41CD2F0D181FE17300FBBEB4 /* BUILD.md */,
 				414A842816E52DF50084AE1E /* LICENSE */,
+				413C515D1CC284CA00F62468 /* mulle-configuration */,
 				41764B9116DA511200560FCF /* src */,
 				41764B9416DA511200560FCF /* dox */,
 				41CCC55C18254FB00081FA1C /* tests */,
@@ -969,7 +1017,6 @@
 				41CFAFFC1A93E1E500B0783A /* stack.c */,
 				41CFAFFD1A93E1E500B0783A /* version.c */,
 				415918001A974419006ECD52 /* LICENSE */,
-				415918011A974419006ECD52 /* TemplateIcon2x.png */,
 			);
 			path = hoedown;
 			sourceTree = "<group>";
@@ -1593,13 +1640,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				41FAED6B182D275E002CD114 /* NSFileHandle+MulleOutputFileHandle.m in Sources */,
+				41CC3F531CE3A63E001EFDB9 /* MulleScionObjectModel+NSCoding.m in Sources */,
 				41FAED6D182D275E002CD114 /* MulleScionTemplate+CompressedArchive.m in Sources */,
 				41FAED6E182D275E002CD114 /* MulleScionObjectModel.m in Sources */,
 				41FAED6F182D275E002CD114 /* NSData+ZLib.m in Sources */,
 				41FAED70182D275E002CD114 /* GTMNSString+HTML.m in Sources */,
 				41FAED71182D275E002CD114 /* NSString+HTMLEscape.m in Sources */,
-				41FAED72182D275E002CD114 /* MulleScionObjectModel+NSCoding.m in Sources */,
-				41DD0C99190025F6000F9CE2 /* NSObject+KVC_Compatibility.m in Sources */,
 				41FAED6A182D275E002CD114 /* MulleScionObjectModel+TraceDescription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1747,6 +1793,7 @@
 /* Begin XCBuildConfiguration section */
 		4103007B1701DBE200197713 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
@@ -1759,6 +1806,7 @@
 		};
 		4103007C1701DBE200197713 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
@@ -1771,6 +1819,7 @@
 		};
 		4103007D1701DBE200197713 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
@@ -1783,6 +1832,7 @@
 		};
 		411EEA97182D30B600361ADF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
@@ -1792,6 +1842,7 @@
 		};
 		411EEA98182D30B600361ADF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
@@ -1801,6 +1852,7 @@
 		};
 		411EEA99182D30B600361ADF /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
@@ -1810,6 +1862,7 @@
 		};
 		411EEAB2182D311F00361ADF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
@@ -1819,6 +1872,7 @@
 		};
 		411EEAB3182D311F00361ADF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
@@ -1828,6 +1882,7 @@
 		};
 		411EEAB4182D311F00361ADF /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
@@ -1837,6 +1892,7 @@
 		};
 		412E8003182D2F80008A7FCC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
@@ -1847,6 +1903,7 @@
 		};
 		412E8004182D2F80008A7FCC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
@@ -1857,6 +1914,7 @@
 		};
 		412E8005182D2F80008A7FCC /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
@@ -1939,6 +1997,7 @@
 		};
 		41764B9816DA511200560FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C51611CC284CA00F62468 /* Debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
 				CURRENT_PROJECT_VERSION = 1853.2;
@@ -1963,6 +2022,7 @@
 				OTHER_CFLAGS = (
 					"-DPROJECT_VERSION=${CURRENT_PROJECT_VERSION}",
 					"$(inherited)",
+					"-H",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				SKIP_INSTALL = YES;
@@ -1972,6 +2032,7 @@
 		};
 		41764B9916DA511200560FCF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516B1CC284CA00F62468 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
 				CURRENT_PROJECT_VERSION = 1853.2;
@@ -1994,6 +2055,7 @@
 				OTHER_CFLAGS = (
 					"-DPROJECT_VERSION=${CURRENT_PROJECT_VERSION}",
 					"$(inherited)",
+					"-H",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				SKIP_INSTALL = YES;
@@ -2003,8 +2065,8 @@
 		};
 		41764B9B16DA511200560FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = "mulle-scion";
 				SKIP_INSTALL = NO;
 			};
@@ -2012,8 +2074,8 @@
 		};
 		41764B9C16DA511200560FCF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = "mulle-scion";
 				SKIP_INSTALL = NO;
 			};
@@ -2042,6 +2104,7 @@
 		};
 		4178D2FE16E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516B1CC284CA00F62468 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_INT_CONVERSION = YES;
 				CURRENT_PROJECT_VERSION = 1853.2;
@@ -2065,6 +2128,7 @@
 				OTHER_CFLAGS = (
 					"-DPROJECT_VERSION=${CURRENT_PROJECT_VERSION}",
 					"$(inherited)",
+					"-H",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				SKIP_INSTALL = YES;
@@ -2074,8 +2138,8 @@
 		};
 		4178D2FF16E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = "mulle-scion";
 				SKIP_INSTALL = NO;
 			};
@@ -2083,8 +2147,8 @@
 		};
 		4178D30116E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
@@ -2092,8 +2156,8 @@
 		};
 		4178D30216E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
@@ -2101,8 +2165,8 @@
 		};
 		4178D30416E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
@@ -2113,11 +2177,20 @@
 		};
 		4178D30516E00263001C9FB0 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-t",
+					"-Z",
+					"-L/usr/lib",
+					"-F$(BUILT_PRODUCTS_DIR)",
+					"-F$(DEPENDENCIES_DIR)/Frameworks/$(CONFIGURATION)",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = framework;
@@ -2126,8 +2199,8 @@
 		};
 		41AEA211182D097300840887 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = NO;
@@ -2136,8 +2209,8 @@
 		};
 		41AEA212182D097300840887 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = NO;
@@ -2146,8 +2219,8 @@
 		};
 		41AEA213182D097300840887 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
 				SKIP_INSTALL = NO;
@@ -2156,8 +2229,8 @@
 		};
 		41D6DEE316DE509F004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
@@ -2165,8 +2238,8 @@
 		};
 		41D6DEE416DE509F004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
@@ -2174,8 +2247,8 @@
 		};
 		41D6DF0E16DE51C9004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
@@ -2183,8 +2256,8 @@
 		};
 		41D6DF0F16DE51C9004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
@@ -2192,8 +2265,8 @@
 		};
 		41D6DF2E16DE523E004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
@@ -2204,8 +2277,8 @@
 		};
 		41D6DF2F16DE523E004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
@@ -2216,11 +2289,20 @@
 		};
 		41D6DF6E16DE53AE004833D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-t",
+					"-Z",
+					"-L/usr/lib",
+					"-F$(BUILT_PRODUCTS_DIR)",
+					"-F$(DEPENDENCIES_DIR)/Frameworks/$(CONFIGURATION)",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = framework;
@@ -2229,11 +2311,20 @@
 		};
 		41D6DF6F16DE53AE004833D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-t",
+					"-Z",
+					"-L/usr/lib",
+					"-F$(BUILT_PRODUCTS_DIR)",
+					"-F$(DEPENDENCIES_DIR)/Frameworks/$(CONFIGURATION)",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = framework;
@@ -2242,6 +2333,7 @@
 		};
 		41EC0146182D301A00A17DBD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
@@ -2251,6 +2343,7 @@
 		};
 		41EC0147182D301A00A17DBD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
@@ -2260,6 +2353,7 @@
 		};
 		41EC0148182D301A00A17DBD /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
@@ -2269,8 +2363,8 @@
 		};
 		41FAED7E182D275E002CD114 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
@@ -2278,8 +2372,8 @@
 		};
 		41FAED7F182D275E002CD114 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
@@ -2287,8 +2381,8 @@
 		};
 		41FAED80182D275E002CD114 /* Profile */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};

@@ -4,7 +4,11 @@ load available functionality to a standalone script.
 
 #### Example
 ```
+{% if __FOUNDATION__ == "Mulle" %}
+{% requires "com.mulle-kybernetik.foundation" %}
+{% else %}
 {% requires "com.apple.Foundation" %}
+{% endif %}
 ```
 
 requires searches in the following places:

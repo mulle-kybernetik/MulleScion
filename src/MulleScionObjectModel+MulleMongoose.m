@@ -44,6 +44,9 @@ static BOOL fileExists( NSString *fileName)
    NSFileManager  *manager;
    NSString       *dir;
    NSString       *path;
+
+   if( ! [fileName length])
+      return( NO);
    
    manager = [NSFileManager defaultManager];
    dir     = [manager currentDirectoryPath];
