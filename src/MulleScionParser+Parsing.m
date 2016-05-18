@@ -2557,7 +2557,7 @@ static MulleScionObject  * NS_RETURNS_RETAINED   parser_do_define( parser *p, NS
    expr = parser_do_expression( p);
    
    [p->tables.definitionTable setObject:expr
-                          forKey:identifier];
+                                 forKey:identifier];
    [expr release];
    
    return( nil);
