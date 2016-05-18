@@ -63,6 +63,11 @@ errorInFileName:(NSString *) fileName
      lineNumber:(NSUInteger) lineNumber
          reason:(NSString *) reason;
 
+- (void) parser:(void *) parser
+warningInFileName:(NSString *) fileName
+     lineNumber:(NSUInteger) lineNumber
+         reason:(NSString *) reason;
+
 - (NSString *) fileName;
 
 @end

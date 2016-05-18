@@ -11,7 +11,7 @@
 executable=`basename $0`
 executable=`basename $executable .sh`
 
-if [ "$executable" = "run-all-scion-tests" ]
+if [ "$executable" = "run-all-tests" ]
 then
    TEST=""
    VERBOSE=yes
@@ -366,6 +366,9 @@ absolute_path_if_relative()
 
 
 MULLE_SCION=`absolute_path_if_relative "$MULLE_SCION"`
+DYLD_FALLBACK_FRAMEWORK_PATH="`pwd`/../dependencies/Frameworks/Debug"
+export DYLD_FALLBACK_FRAMEWORK_PATH
+
 
 test_binary "$MULLE_SCION"
 

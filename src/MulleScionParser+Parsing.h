@@ -64,3 +64,15 @@ typedef struct
 
 
 @end
+
+
+typedef struct
+{
+   void         *parser;
+   NSString     *fileName;
+   NSUInteger   lineNumber;
+   NSString     *message;
+} parser_warning_info;
+
+typedef parser_warning_info   parser_error_info;
+

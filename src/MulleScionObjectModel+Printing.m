@@ -45,7 +45,9 @@
 #import "MulleCommonObjCRuntime.h"
 #if ! TARGET_OS_IPHONE
 # import <Foundation/NSDebug.h>
-# import <objc/objc-class.h>
+# ifndef __MULLE_OBJC_RUNTIME__
+#  import <objc/objc-class.h>
+# endif
 #else
 # import <objc/runtime.h>
 # import "NSObject+KVC_Compatibility.h"
@@ -73,6 +75,7 @@ NSString   *MulleScionCurrentFilterKey        = @"__FILTER__";
 NSString   *MulleScionCurrentFilterModeKey    = @"__FILTER_MODE__";
 NSString   *MulleScionPreviousFiltersKey      = @"__FILTER_STACK__";
 NSString   *MulleScionPreviousFilterModesKey  = @"__FILTER_MODE_STACK__";
+NSString   *MulleScionFoundationKey           = @"__FOUNDATION__";
 NSString   *MulleScionCurrentFunctionKey      = @"__FUNCTION__";
 NSString   *MulleScionFunctionTableKey        = @"__FUNCTION_TABLE__";
 NSString   *MulleScionCurrentLineKey          = @"__LINE__";
@@ -341,9 +344,9 @@ void   MulleScionRenderString( NSString *value,
 
 
 void   MulleScionRenderPlaintextString( NSString *value,
-                                       id <MulleScionOutput> output,
-                                       NSMutableDictionary *locals,
-                                       id <MulleScionDataSource> dataSource)
+                                        id <MulleScionOutput> output,
+                                        NSMutableDictionary *locals,
+                                        id <MulleScionDataSource> dataSource)
 {
    NSString   *s;
    
@@ -545,6 +548,13 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
               forKey:MulleScionCurrentFileKey];
+#if __MULLE_OBJC_RUNTIME__
+   [locals setObject:@"Mulle"
+             forKey:MulleScionFoundationKey];
+#else
+   [locals setObject:@"Apple"
+             forKey:MulleScionFoundationKey];
+#endif
    [locals setObject:[NSNumber numberWithDouble:PROJECT_VERSION]
               forKey:MulleScionVersionKey];
 
@@ -739,10 +749,10 @@ static void   pop( NSAutoreleasePool *pool, id value)
 
 static void   *numberBuffer( char *type, NSNumber *value)
 {
-   NSUInteger          size;
-   NSUInteger          alignment;
-   void                *buf;
-   char                *myType;
+   NSUInteger   alignment;
+   NSUInteger   size;
+   char         *myType;
+   void         *buf;
    
    if( value && ! [value isKindOfClass:[NSValue class]])
       return( NULL);
@@ -755,18 +765,18 @@ static void   *numberBuffer( char *type, NSNumber *value)
    
    switch( *type)
    {
-   case _C_CHR      : *(char *) buf = [value charValue]; return( buf);
-   case _C_UCHR     : *(unsigned char *) buf = [value unsignedCharValue]; return( buf);
-   case _C_SHT      : *(short *) buf = [value shortValue]; return( buf);
+   case _C_CHR      : *(char *)           buf = [value charValue]; return( buf);
+   case _C_UCHR     : *(unsigned char *)  buf = [value unsignedCharValue]; return( buf);
+   case _C_SHT      : *(short *)          buf = [value shortValue]; return( buf);
    case _C_USHT     : *(unsigned short *) buf = [value unsignedShortValue]; return( buf);
-   case _C_INT      : *(int *) buf = [value intValue]; return( buf);
-   case _C_UINT     : *(unsigned int *) buf = [value unsignedIntValue]; return( buf);
-   case _C_LNG      : *(long *) buf = [value longValue]; return( buf);
-   case _C_ULNG     : *(unsigned long *) buf = [value unsignedLongValue]; return( buf);
-   case _C_LNG_LNG  : *(long long *) buf = [value longLongValue]; return( buf);
+   case _C_INT      : *(int *)            buf = [value intValue]; return( buf);
+   case _C_UINT     : *(unsigned int *)   buf = [value unsignedIntValue]; return( buf);
+   case _C_LNG      : *(long *)           buf = [value longValue]; return( buf);
+   case _C_ULNG     : *(unsigned long *)  buf = [value unsignedLongValue]; return( buf);
+   case _C_LNG_LNG  : *(long long *)      buf = [value longLongValue]; return( buf);
    case _C_ULNG_LNG : *(unsigned long long *) buf = [value unsignedLongLongValue]; return( buf);
-   case _C_FLT      : *(float *) buf = [value floatValue]; return( buf);
-   case _C_DBL      : *(double *)             buf = [value doubleValue]; return( buf);
+   case _C_FLT      : *(float *)          buf = [value floatValue]; return( buf);
+   case _C_DBL      : *(double *)         buf = [value doubleValue]; return( buf);
    }
    
    myType = (char *) [value objCType];
@@ -810,7 +820,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
                                                          target:target];
    if( ! signature)
       MulleScionPrintingException( NSInvalidArgumentException, locals,
-                  @"Method \"%@\" is unknown on \"%@\"", NSStringFromSelector( action_), [target class]);
+                  @"Method \"%@\" (%p) is unknown on \"%@\"", NSStringFromSelector( action_), (void *) action_, [target class]);
    
    // remember varargs, there can be more arguments
    m = [signature numberOfArguments];
@@ -868,30 +878,34 @@ static void   *numberBuffer( char *type, NSNumber *value)
    length = [signature methodReturnLength];
    if( length)
    {
-      buf    = (id *) [[NSMutableData dataWithLength:length] mutableBytes];
+      if( length >= 1024)
+         buf = (id *) [[NSMutableData dataWithLength:length] mutableBytes];
+      else
+         buf = alloca( length);
+      
       [invocation getReturnValue:buf];
       
-      returnType =  (char *) [signature methodReturnType];
+      returnType = (char *) [signature methodReturnType];
       returnType = _NSObjCSkipRuntimeTypeQualifier( returnType);
       
       switch( *returnType)
       {
       case _C_ID       : result = *buf; break;
       case _C_CLASS    : result = *buf; break;
-      case _C_SEL      : result = [NSValue valueWithPointer:*(SEL *) buf]; break;
-      case _C_CHARPTR  : result = [NSString stringWithCString:(char *) buf]; break;
-      case _C_CHR      : result = [NSNumber numberWithChar:*(char *) buf]; break;
-      case _C_UCHR     : result = [NSNumber numberWithUnsignedChar:*(unsigned char *) buf]; break;
-      case _C_SHT      : result = [NSNumber numberWithShort:*(short *) buf]; break;
+      case _C_SEL      : result = [NSValue valueWithPointer:        (void *) *(SEL *) buf]; break;
+      case _C_CHARPTR  : result = [NSString stringWithCString:      (char *) buf]; break;
+      case _C_CHR      : result = [NSNumber numberWithChar:         *(char *) buf]; break;
+      case _C_UCHR     : result = [NSNumber numberWithUnsignedChar: *(unsigned char *) buf]; break;
+      case _C_SHT      : result = [NSNumber numberWithShort:        *(short *) buf]; break;
       case _C_USHT     : result = [NSNumber numberWithUnsignedShort:*(unsigned short *) buf]; break;
-      case _C_INT      : result = [NSNumber numberWithInt:*(int *) buf]; break;
-      case _C_UINT     : result = [NSNumber numberWithUnsignedInt:*(unsigned int *) buf]; break;
-      case _C_LNG      : result = [NSNumber numberWithLong:*(long *) buf]; break;
-      case _C_ULNG     : result = [NSNumber numberWithUnsignedLong:*(unsigned long *) buf]; break;
-      case _C_LNG_LNG  : result = [NSNumber numberWithLongLong:*(long long *) buf]; break;
+      case _C_INT      : result = [NSNumber numberWithInt:          *(int *) buf]; break;
+      case _C_UINT     : result = [NSNumber numberWithUnsignedInt:  *(unsigned int *) buf]; break;
+      case _C_LNG      : result = [NSNumber numberWithLong:         *(long *) buf]; break;
+      case _C_ULNG     : result = [NSNumber numberWithUnsignedLong: *(unsigned long *) buf]; break;
+      case _C_LNG_LNG  : result = [NSNumber numberWithLongLong:     *(long long *) buf]; break;
       case _C_ULNG_LNG : result = [NSNumber numberWithUnsignedLongLong:*(unsigned long long *) buf]; break;
-      case _C_FLT      : result = [NSNumber numberWithFloat:*(float *) buf]; break;
-      case _C_DBL      : result = [NSNumber numberWithDouble:*(double *) buf]; break;
+      case _C_FLT      : result = [NSNumber numberWithFloat:        *(float *) buf]; break;
+      case _C_DBL      : result = [NSNumber numberWithDouble:       *(double *) buf]; break;
 #ifdef _C_LNG_DBL
             //   case _C_LNG_DBL  : result = [NSNumber numberWithLongDouble: *(long double *) buf]; break;
 #endif
@@ -1050,7 +1064,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
                     dataSource:(id <MulleScionDataSource>) dataSource
 {
    NSParameterAssert( value_ != nil);
-   return( [NSValue valueWithPointer:NSSelectorFromString( value_)]);
+   return( [NSValue valueWithPointer:(void *) NSSelectorFromString( value_)]);
 }
 
 @end
@@ -2311,7 +2325,7 @@ static NSBundle  *search( NSFileManager *manager, NSString *identifier, NSString
    {
       if( ! [[[rover fileAttributes] objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory])
          continue;
-      [rover skipDescendents];
+      [rover skipDescendants];
          
       if( extension && ! [[item pathExtension] isEqualToString:extension])
          continue;

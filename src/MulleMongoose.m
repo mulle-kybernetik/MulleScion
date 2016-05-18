@@ -76,14 +76,14 @@ static NSURL   *_mulle_scion_url_from_request_info( struct mg_request_info   *in
    NSURL      *url;
    NSString   *s;
    
-   s    = [NSString stringWithCString:info->uri];
+   s    = [NSString stringWithCString:(char *) info->uri];
    if( [s hasPrefix:@"/"])
       s = [s substringFromIndex:1];
    s    = [s urlEscapedString];
    if( ! [s length])
-      return( [NSURL URLWithString:@"index.scion"]);
-
-   url  = [NSURL URLWithString:s];
+      url = [NSURL URLWithString:@"index.scion"];
+   else
+      url = [NSURL URLWithString:s];
    return( url);
 }
 
@@ -97,7 +97,7 @@ static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
    MulleScionTemplate       *template;
    NSString                 *response;
    NSData                   *utf8Data;
-   
+
    info = mg_get_request_info( conn);
    url  = _mulle_scion_url_from_request_info( info);
    
@@ -106,7 +106,7 @@ static int   _mulle_mongoose_begin_request( struct mg_connection *conn)
       return( 0);
 
    plist    = info->user_data;
-   query    = [NSString stringWithCString:info->query_string ? info->query_string : ""];
+   query    = [NSString stringWithCString:(char *) (info->query_string ? info->query_string : "")];
    template = [[[MulleScionTemplate alloc] initWithContentsOfFile:[url path]
                                                     optionsString:query] autorelease];
    if( template)

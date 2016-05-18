@@ -33,21 +33,30 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-#ifdef __LP64__
+#ifdef __MULLE_OBJC_RUNTIME__
 
-#import <objc/runtime.h>
+static inline Class   MulleGetClass( id self)
+{
+   return( mulle_objc_object_get_isa( self));
+}
+
+#else
+# ifdef __LP64__
+
+# import <objc/runtime.h>
 
 static inline Class   MulleGetClass( id self)
 {
    return( object_getClass( self));
 }
 
-#else
+# else
 
-#import <objc/objc.h>
+# import <objc/objc.h>
 
 static inline Class   MulleGetClass( id self)
 {
    return( ((struct objc_object *) self)->isa);
 }
+# endif
 #endif

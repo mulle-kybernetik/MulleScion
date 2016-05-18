@@ -75,16 +75,17 @@
    uint32_t  lineNumber;
    id        next;
    
-   [decoder decodeValuesOfObjCTypes:"l", &lineNumber];
+   [decoder decodeValueOfObjCType:@encode( uint32_t)
+                               at:&lineNumber];
 
     // needed to be coded like this otherwise keyed unarchiver trashes the
     // stack
-   next = [[decoder decodeObject] retain];
+   next = [decoder decodeObject];
    
    self = [self initWithLineNumber:lineNumber];
    assert( self);
 
-   self->next_ = next;
+   self->next_ = [next retain];
    return( self);
 }
 
@@ -94,7 +95,8 @@
    uint32_t  lineNumber;
    
    lineNumber = (uint32_t) lineNumber_;
-   [encoder encodeValuesOfObjCTypes:"l", &lineNumber];
+   [encoder encodeValueOfObjCType:@encode( uint32_t)
+                               at:&lineNumber];
    [encoder encodeObject:next_];
 }
 

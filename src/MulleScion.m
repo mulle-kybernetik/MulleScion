@@ -36,7 +36,10 @@
 
 
 #import "MulleScion.h"
+
 #import "MulleScionTemplate+CompressedArchive.h"
+#import "MulleCommonObjCRuntime.h"
+
 
 #ifndef PROJECT_VERSION
 # error "specify project version on command line -DPROJECT_VERSION=1848.x"
@@ -178,8 +181,8 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
    MulleScionParser   *parser;
 
    parser = [MulleScionParser parserWithUTF8String:s];
-   [self autorelease];
-   
+
+   [self release];
    self = [[parser template] retain];
    return( self);
 }
@@ -205,7 +208,7 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
    else
 #endif
    {
-      [self autorelease];
+      [self release];
       // self = nil;
    }
    
@@ -246,7 +249,7 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
    else
 #endif
    {
-      [self autorelease];
+      [self release];
       // self = nil;
    }
    
@@ -304,7 +307,7 @@ static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
    pool = [NSAutoreleasePool new];
 
    printer = createPrinterWithDatasource( dataSource);
-   [printer setDefaultlocalVariables:locals];
+   [printer setDefaultLocalVariables:locals];
    s = [printer describeWithTemplate:self];
    
    [s retain];
@@ -322,7 +325,7 @@ static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
    
    pool = [NSAutoreleasePool new];
    printer = createPrinterWithDatasource( dataSource);
-   [printer setDefaultlocalVariables:locals];
+   [printer setDefaultLocalVariables:locals];
    [printer writeToOutput:output
                  template:self];
    [pool release];

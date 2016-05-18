@@ -44,6 +44,9 @@ static BOOL fileExists( NSString *fileName)
    NSFileManager  *manager;
    NSString       *dir;
    NSString       *path;
+
+   if( ! [fileName length])
+      return( NO);
    
    manager = [NSFileManager defaultManager];
    dir     = [manager currentDirectoryPath];
@@ -71,14 +74,14 @@ static BOOL fileExists( NSString *fileName)
    // be sure, that users ain't spoofing us
    if( ! fileExists( fileName))
    {
-      [self autorelease];
+      [self release];
       return( nil);
    }
 
    data = [NSMutableData dataWithContentsOfMappedFile:wrapper];
    if( ! data)
    {
-      [self autorelease];
+      [self release];
       return( nil);
    }
    
@@ -105,7 +108,7 @@ static BOOL fileExists( NSString *fileName)
    // no caching :)
    parser = [[[MulleScionParser alloc] initWithData:data
                                            fileName:wrapper] autorelease];
-   [self autorelease];
+   [self release];
    self = [[parser template] retain];
    
    return( self);
@@ -175,14 +178,15 @@ static BOOL fileExists( NSString *fileName)
 {
    MulleScionParser    *parser;
    NSData              *data;
-   MulleScionTemplate  *template;
    
    data     = [s dataUsingEncoding:NSUTF8StringEncoding];
    parser   = [[[MulleScionParser alloc] initWithData:data
                                              fileName:@"inline"] autorelease];
-   template = [[parser template] retain];
-   [self autorelease];
-   return( template);
+
+   [self release];
+   self = [[parser template] retain];
+   
+   return( self);
 }
    
 @end

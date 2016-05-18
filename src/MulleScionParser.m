@@ -84,7 +84,6 @@
    if( ! data)
    {
       NSLog( @"%@", error);
-      [self autorelease];
       return( nil);
    }
    
@@ -99,8 +98,8 @@
    NSData            *data;
    MulleScionParser  *parser;
    
-   data = [[[NSData alloc] initWithBytesNoCopy:s
-                                       length:strlen( s)
+   data = [[[NSData alloc] initWithBytesNoCopy:(char *) s
+                                       length:strlen( (char *) s)
                                  freeWhenDone:NO] autorelease];
    parser = [[[self alloc] initWithData:data
                                fileName:@"unknown.scion"] autorelease];
@@ -117,7 +116,7 @@
    data = [NSData dataWithContentsOfMappedFile:path];
    if( ! data)
    {
-      [self autorelease];
+      NSLog( @"Could not open template file \"%@\"", path);
       return( nil);
    }
    

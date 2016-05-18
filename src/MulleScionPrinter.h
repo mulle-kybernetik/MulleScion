@@ -45,7 +45,7 @@
 @interface MulleScionPrinter : NSObject
 {
    id            dataSource_;
-   NSDictionary  *defaultlocals_;
+   NSDictionary  *defaultLocals_;
 }
 
 - (id) initWithDataSource:(id) dataSource;
@@ -54,8 +54,8 @@
 - (void) writeToOutput:(id <MulleScionOutput>) output
               template:(MulleScionTemplate *) template;
 
-- (NSDictionary *) defaultlocals;
-- (void) setDefaultlocalVariables:(NSDictionary *) dictionary;
+- (NSDictionary *) defaultLocalVariables;
+- (void) setDefaultLocalVariables:(NSDictionary *) dictionary;
 
 
 @end

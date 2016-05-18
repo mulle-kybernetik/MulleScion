@@ -52,6 +52,7 @@ extern NSString   *MulleScionRenderOutputKey;
 extern NSString   *MulleScionCurrentFileKey;
 extern NSString   *MulleScionCurrentLineKey;
 extern NSString   *MulleScionCurrentFunctionKey;
+extern NSString   *MulleScionFoundationKey;
 extern NSString   *MulleScionFunctionTableKey;
 extern NSString   *MulleScionArgumentsKey;
 extern NSString   *MulleScionVersionKey;
@@ -82,3 +83,9 @@ void   MulleScionRenderString( NSString *value,
                                id <MulleScionOutput> output,
                                NSMutableDictionary *locals,
                                id <MulleScionDataSource> dataSource);
+
+void   MulleScionRenderPlaintextString( NSString *value,
+                                        id <MulleScionOutput> output,
+                                        NSMutableDictionary *locals,
+                                        id <MulleScionDataSource> dataSource);
+
