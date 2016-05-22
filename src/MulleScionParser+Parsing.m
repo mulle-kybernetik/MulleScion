@@ -353,6 +353,7 @@ static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
    info.fileName   = p->fileName;
    
    (*p->parser_do_error)( p->self, p->sel, &info);
+   abort();
 }
 
 
