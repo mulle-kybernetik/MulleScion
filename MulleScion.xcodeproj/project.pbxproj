@@ -518,9 +518,7 @@
 		41348F94182E56E900367335 /* gcrt1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = gcrt1.o; path = usr/lib/gcrt1.o; sourceTree = SDKROOT; };
 		41348F97182E577D00367335 /* libobjc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libobjc.dylib; path = usr/lib/libobjc.dylib; sourceTree = SDKROOT; };
 		41348F99182E57C900367335 /* libgcc_s.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgcc_s.1.dylib; path = usr/lib/libgcc_s.1.dylib; sourceTree = SDKROOT; };
-		413C515E1CC284CA00F62468 /* Common.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = Common.cmake; sourceTree = "<group>"; };
 		413C515F1CC284CA00F62468 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
-		413C51601CC284CA00F62468 /* Debug.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = Debug.cmake; sourceTree = "<group>"; };
 		413C51611CC284CA00F62468 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		413C51621CC284CA00F62468 /* DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DynamicLibrary.xcconfig; sourceTree = "<group>"; };
 		413C51631CC284CA00F62468 /* DynamicLibraryOSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DynamicLibraryOSX.xcconfig; sourceTree = "<group>"; };
@@ -530,7 +528,6 @@
 		413C51671CC284CA00F62468 /* Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Library.xcconfig; sourceTree = "<group>"; };
 		413C51681CC284CA00F62468 /* OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OSX.xcconfig; sourceTree = "<group>"; };
 		413C51691CC284CA00F62468 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		413C516A1CC284CA00F62468 /* Release.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = Release.cmake; sourceTree = "<group>"; };
 		413C516B1CC284CA00F62468 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		413C516C1CC284CA00F62468 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
 		413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibraryIOS.xcconfig; sourceTree = "<group>"; };
@@ -776,9 +773,7 @@
 		413C515D1CC284CA00F62468 /* mulle-configuration */ = {
 			isa = PBXGroup;
 			children = (
-				413C515E1CC284CA00F62468 /* Common.cmake */,
 				413C515F1CC284CA00F62468 /* Common.xcconfig */,
-				413C51601CC284CA00F62468 /* Debug.cmake */,
 				413C51611CC284CA00F62468 /* Debug.xcconfig */,
 				413C51621CC284CA00F62468 /* DynamicLibrary.xcconfig */,
 				413C51631CC284CA00F62468 /* DynamicLibraryOSX.xcconfig */,
@@ -788,7 +783,6 @@
 				413C51671CC284CA00F62468 /* Library.xcconfig */,
 				413C51681CC284CA00F62468 /* OSX.xcconfig */,
 				413C51691CC284CA00F62468 /* README.md */,
-				413C516A1CC284CA00F62468 /* Release.cmake */,
 				413C516B1CC284CA00F62468 /* Release.xcconfig */,
 				413C516C1CC284CA00F62468 /* StaticLibrary.xcconfig */,
 				413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */,
@@ -1795,11 +1789,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}";
-				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 			};
 			name = Debug;
@@ -1808,11 +1798,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}";
-				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 			};
 			name = Release;
@@ -1821,11 +1807,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}";
-				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 			};
 			name = Profile;
@@ -1834,9 +1816,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
-				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1844,9 +1824,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
-				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -1854,9 +1832,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionPrinter;
-				SDKROOT = iphoneos;
 			};
 			name = Profile;
 		};
@@ -1864,9 +1840,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
-				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1874,9 +1848,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
-				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -1884,9 +1856,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionFoundation;
-				SDKROOT = iphoneos;
 			};
 			name = Profile;
 		};
@@ -1894,10 +1864,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
 			};
 			name = Debug;
 		};
@@ -1905,10 +1872,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};
@@ -1916,10 +1880,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionGraphviz;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
 			};
 			name = Profile;
 		};
@@ -2149,7 +2110,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
 			name = Profile;
@@ -2158,7 +2118,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
 			name = Profile;
@@ -2167,10 +2126,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}";
 				SKIP_INSTALL = NO;
 			};
 			name = Profile;
@@ -2179,21 +2135,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-t",
-					"-Z",
-					"-L/usr/lib",
-					"-F$(BUILT_PRODUCTS_DIR)",
-					"-F$(DEPENDENCIES_DIR)/Frameworks/$(CONFIGURATION)",
-					"$(inherited)",
-				);
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = NO;
-				WRAPPER_EXTENSION = framework;
 			};
 			name = Profile;
 		};
@@ -2201,9 +2145,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
-				SKIP_INSTALL = NO;
 			};
 			name = Debug;
 		};
@@ -2211,9 +2153,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
-				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};
@@ -2221,9 +2161,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionGraphviz;
-				SKIP_INSTALL = NO;
 			};
 			name = Profile;
 		};
@@ -2231,7 +2169,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
 			name = Debug;
@@ -2240,7 +2177,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionPrinter;
 			};
 			name = Release;
@@ -2249,7 +2185,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
 			name = Debug;
@@ -2258,7 +2193,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionParser;
 			};
 			name = Release;
@@ -2267,10 +2201,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}";
 				SKIP_INSTALL = NO;
 			};
 			name = Debug;
@@ -2279,10 +2210,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRIVATE_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}/private";
 				PRODUCT_NAME = MulleScion;
-				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/${PRODUCT_NAME}";
 				SKIP_INSTALL = NO;
 			};
 			name = Release;
@@ -2291,21 +2219,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-t",
-					"-Z",
-					"-L/usr/lib",
-					"-F$(BUILT_PRODUCTS_DIR)",
-					"-F$(DEPENDENCIES_DIR)/Frameworks/$(CONFIGURATION)",
-					"$(inherited)",
-				);
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = NO;
-				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
 		};
@@ -2313,21 +2229,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C51651CC284CA00F62468 /* FrameworkOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "src/MulleScion-Info.plist";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-t",
-					"-Z",
-					"-L/usr/lib",
-					"-F$(BUILT_PRODUCTS_DIR)",
-					"-F$(DEPENDENCIES_DIR)/Frameworks/$(CONFIGURATION)",
-					"$(inherited)",
-				);
 				PRODUCT_NAME = MulleScion;
 				SKIP_INSTALL = NO;
-				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
@@ -2335,9 +2239,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
-				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -2345,9 +2247,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
-				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -2355,9 +2255,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = MulleScionParser;
-				SDKROOT = iphoneos;
 			};
 			name = Profile;
 		};
@@ -2365,7 +2263,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
 			name = Debug;
@@ -2374,7 +2271,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
 			name = Release;
@@ -2383,7 +2279,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 413C516E1CC284CA00F62468 /* StaticLibraryOSX.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = MulleScionFoundation;
 			};
 			name = Profile;
