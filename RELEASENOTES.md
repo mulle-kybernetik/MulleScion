@@ -1,29 +1,44 @@
-1853.2
+## 1854
 
-Experimental Travis CI integration on Github.
-Improvements in project structure due to better `mulle-bootstrap`
+* Added a podspec fix from Hannes Tribus `<hons82@...com>`
 
-1853.1
+* Fixed an obvious KVC bug, in a code path that was probably never used
+* Some support for MulleFoundation merged in
+* Added local variable __FOUNDATION__
+* Use a fork of google-toolbox for html escaping/unescaping
+* Use mulle-configuration for compilation
+* --version prints version and exits
 
-Fixed a bug, where `endfilter` did not respect the options setting of the
+## 1853.2
+
+* Experimental Travis CI integration on Github.
+* Improvements in project structure due to better `mulle-bootstrap`
+
+## 1853.1
+
+* Fixed a bug, where `endfilter` did not respect the options setting of the
 returning filter. This could create havoc on plaintext, when your filter
 just specified (output).
 
-1853
+## 1853
 
-Made mulle-scion brew compatible. You can now brew it. As I wanted to use
+* Made mulle-scion brew compatible. You can now brew it. As I wanted to use
 mulle-scion to produce brew formulae, I needed some options in the way
 mulle-scion is called.
 
-It is now possible to do this:
+** It is now possible to do this:
 
+```
 echo '--- {{ VALUE }} ---' | mulle-scion - keyvalue - VALUE="xxx"
+```
 
 which produces predicatably
 
+```
 --- xxx ---
+```
 
-Templates can be passed in via stdin and the replacement values can be given
+* Templates can be passed in via stdin and the replacement values can be given
 as key=value arguments. This makes mulle-scion even more convenient to use
 in shell scripts.
 
@@ -31,14 +46,14 @@ in shell scripts.
 brew install https://www.mulle-kybernetik.com/software/formulae/mulle-scion.rb
 ~~~
 
-There are now "hidden" environment variables WWW_ROOT, WWW_PORT, WWW_PLIST for
+* There are now "hidden" environment variables WWW_ROOT, WWW_PORT, WWW_PLIST for
 the webserver.
 
-The way libraries are created and headers are written has been standardized and
+* The way libraries are created and headers are written has been standardized and
 improved. There is some support for a future "mulle-bootstrap", in case you are
 wondering what the .bootstrap folder does.
 
-1852
+## 1852
 
 ### API change
 
@@ -58,7 +73,7 @@ harmless in my opinion, but results may vary.
 
 
 
-1851.0
+## 1851.0
 
 *** BIG CHANGE!!! FILTER REDESIGNED ***
 
@@ -82,22 +97,22 @@ To keep in sync with the archive version, the version nr. has been bumped to
 1851.
 
 
-Improved the dependencyTable generation, by ignoring syntax errors.
+* Improved the dependencyTable generation, by ignoring syntax errors.
 
-The documentation is now in markdown format. With some hacking effort
+* The documentation is now in markdown format. With some hacking effort
 the builtin webserver can now show the "Results" much nicer.
 
-Stole a CSS to make it look more nicey, nicey.
+* Stole a CSS to make it look more nicey, nicey.
 
-Improved the LICENSE detail.
+* Improved the LICENSE detail.
 
-Made it more possible to call a macro from a macro, which failed in some cases.
+* Made it more possible to call a macro from a macro, which failed in some cases.
 
-There is now a hidden convert feature on includes, which allows to preprocess
+* There is now a hidden convert feature on includes, which allows to preprocess
 the data. convert > parse > print > filter
 
 
-1848.11
+## 1848.11
 
 *** This can break archived templates on iOS, regenerate them ***
 
@@ -105,6 +120,7 @@ the data. convert > parse > print > filter
 I found out, that when I use NSKeyedArchiver it's actually slower than parsing
 plain text and uses more space - even compressed.
 
+```
 Compile plaintext * 100
 -rw-r--r--  1 nat  _lpoperator  198016 Oct  9 17:00 big.scion
 
@@ -117,17 +133,18 @@ real	0m8.680s
 Compile keyed * 100
 -rw-r--r--  1 nat  wheel  750347 Oct  9 17:25 /tmp/keyed.scionz
 real	0m25.497s
+```
 
-If you are on iOS it's most likely better to not use archives and caching!
+* If you are on iOS it's most likely better to not use archives and caching!
 
-Fix erroneous trace output, which was always happening.
+* Fix erroneous trace output, which was always happening.
 
-Fix bug, where "for i in nil" would iterate once
+* Fix bug, where "for i in nil" would iterate once
 
-Fix bug, where MulleScionNull was passed as invocation argument
+* Fix bug, where MulleScionNull was passed as invocation argument
 
 
-1848.10
+## 1848.10
 
 *** This can break currently working templates, that contain unnoticed
     syntax errors! ***
@@ -146,12 +163,12 @@ iOS
 functions
 
 
-1848.9
+## 1848.9
 
 * added a podspec
 
 
-1848.8
+## 1848.8
 
 * allow # comments within {% %}
 
@@ -173,7 +190,7 @@ it "felt right"
 * updated documentation a bit regarding multi-line commands
 
 
-v1848.7
+## v1848.7
 
 * outsourced NSObject+MulleGraphviz because I need it in other code
 too and the dependency on MulleScion was annoying.
@@ -181,13 +198,13 @@ too and the dependency on MulleScion was annoying.
 * fixed some bad code in commandline tool, that reads the property list
 
 
-v1848.6
+## v1848.6
 
 * add __ARGV__ parsage to mulle-scion. Now you can use mulle-scion as an awk
 replacement in other shell scripts, if you so desire.
 
 
-v1848.5
+## v1848.5
 
 * bunch of fixes. Added an example how to write a non-plist datasource, in this
 case using CoreData.
@@ -196,7 +213,7 @@ case using CoreData.
 script (experimental)
 
 
-v1848.4
+## v1848.4
 
 * renamed to MulleScion, because now it's more than just a template engine, it's
 also somewhat useful as a little standalone Obj-C interpreter. Also
@@ -222,7 +239,7 @@ github: https://github.com/mulle-nat/MulleScionTemplates/
 </blockquote>
 
 
-v1848.3  !!**massive changes**!!
+## v1848.3  !!**massive changes**!!
 
 * your compiled scionz files are incompatible now. Throw them away
 and rebuild your caches
@@ -240,7 +257,7 @@ a simple shellscript that runs the tests
 * lots of smaller fixes, whose content one might glean from the git comments
 
 
-v1848.2
+## v1848.2
 
 * your scionz files are incompatible now. Throw them away
 and rebuild the caches

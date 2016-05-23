@@ -421,77 +421,6 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 }
 
 
-static int   _main(int argc, const char * argv[])
-{
-   NSDictionary         *info;
-   NSFileHandle         *stream;
-   MulleScionTemplate   *template;
-
-   info = getInfoFromArguments();
-   if( ! info)
-      return( -3);
-
-   template = acquireTemplateFromPath( [info objectForKey:@"MulleScionRootTemplate"]);
-   if( ! template)
-      return( -1);
-
-   stream = outputStreamWithInfo( info);
-   if( ! stream)
-      return( -2);
-
-   [template writeToOutput:stream
-                dataSource:[info objectForKey:@"dataSource"]
-            localVariables:localVariablesFromInfo( info)];
-   return( 0);
-}
-
-
-int main( int argc, const char * argv[])
-{
-   NSAutoreleasePool   *pool;
-   int                 rval;
-
-   if( argc > 1)
-   {
-#ifndef DONT_HAVE_WEBSERVER
-      if( ! strcmp( argv[ 1], "-w"))
-      {
-         int   main_www( int argc, const char * argv[]);
-
-         return( main_www( argc, argv));
-      }
-#endif
-
-      if( ! strcmp( argv[ 1], "-z"))
-         return( _archive_main( argc, argv, NO));
-
-      if( ! strcmp( argv[ 1], "-Z"))
-         return( _archive_main( argc, argv, YES));
-
-      if( ! strcmp( argv[ 1], "-h") || ! strcmp( argv[ 1], "--help"))
-      {
-         usage();
-         return( 0);
-      }
-   }
-
-   pool = [NSAutoreleasePool new];
-NS_DURING
-   rval = _main( argc, argv);
-NS_HANDLER
-   NSLog( @"%@", localException);
-   rval = -4;
-NS_ENDHANDLER
-#if defined( DEBUG) || defined( PROFILE)
-   [pool release];
-#endif
-# ifdef PROFILE
-   // sleeping for the sampler to hit stuff
-   sleep( 2);
-# endif
-   return( rval);
-}
-
 
 /*
  *
@@ -508,7 +437,7 @@ NS_ENDHANDLER
 };
 
 
-int   main_www( int argc, const char * argv[])
+static int   main_www( int argc, const char * argv[])
 {
    id         plist;
    char       *s;
@@ -540,4 +469,78 @@ int   main_www( int argc, const char * argv[])
 #endif
 
 
+static int   _main(int argc, const char * argv[])
+{
+   NSDictionary         *info;
+   NSFileHandle         *stream;
+   MulleScionTemplate   *template;
+   
+   info = getInfoFromArguments();
+   if( ! info)
+      return( -3);
+   
+   template = acquireTemplateFromPath( [info objectForKey:@"MulleScionRootTemplate"]);
+   if( ! template)
+      return( -1);
+   
+   stream = outputStreamWithInfo( info);
+   if( ! stream)
+      return( -2);
+   
+   [template writeToOutput:stream
+                dataSource:[info objectForKey:@"dataSource"]
+            localVariables:localVariablesFromInfo( info)];
+   return( 0);
+}
+
+
+int main( int argc, const char * argv[])
+{
+   NSAutoreleasePool   *pool;
+   int                 rval;
+   
+   if( argc > 1)
+   {
+      if( ! strcmp( argv[ 1], "--version"))
+      {
+         printf( "%s\n", MulleScionFrameworkVersion);
+         return( 0);
+      }
+
+      if( ! strcmp( argv[ 1], "-h") || ! strcmp( argv[ 1], "--help"))
+      {
+         usage();
+         return( 0);
+      }
+
+#ifndef DONT_HAVE_WEBSERVER
+      if( ! strcmp( argv[ 1], "-w"))
+      {
+         return( main_www( argc, argv));
+      }
+#endif
+      
+      if( ! strcmp( argv[ 1], "-z"))
+         return( _archive_main( argc, argv, NO));
+      
+      if( ! strcmp( argv[ 1], "-Z"))
+         return( _archive_main( argc, argv, YES));
+   }
+   
+   pool = [NSAutoreleasePool new];
+   NS_DURING
+   rval = _main( argc, argv);
+   NS_HANDLER
+   NSLog( @"%@", localException);
+   rval = -4;
+   NS_ENDHANDLER
+#if defined( DEBUG) || defined( PROFILE)
+   [pool release];
+#endif
+# ifdef PROFILE
+   // sleeping for the sampler to hit stuff
+   sleep( 2);
+# endif
+   return( rval);
+}
 
