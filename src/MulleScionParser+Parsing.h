@@ -42,10 +42,10 @@
 
 typedef struct
 {
-   NSMutableDictionary   *blockTable;
-   NSMutableDictionary   *definitionTable;
-   NSMutableDictionary   *macroTable;
-   NSMutableDictionary   *dependencyTable;
+   __unsafe_unretained NSMutableDictionary   *blockTable;
+   __unsafe_unretained NSMutableDictionary   *definitionTable;
+   __unsafe_unretained NSMutableDictionary   *macroTable;
+   __unsafe_unretained NSMutableDictionary   *dependencyTable;
 } MulleScionParserTables;
 
 
