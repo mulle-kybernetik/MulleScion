@@ -7,8 +7,8 @@
 //
 
 #import "NSObject+KVC_Compatibility.h"
-#import <objc/runtime.h>
-
+#if ! __MULLE_OBJC_RUNTIME__
+# import <objc/runtime.h>
 
 @implementation NSObject ( KVC_Compatibility)
 
@@ -40,3 +40,5 @@
 }
 
 @end
+
+#endif

@@ -85,10 +85,15 @@ typedef union
 } mulle_swappable_uint64_t;
 
 
+
+#ifndef ntohl
+extern uint32_t   ntohl( uint32_t value);
+#endif
+
 static inline uint64_t  _mulle_swap64( mulle_swappable_uint64_t v)
 {
    mulle_swappable_uint64_t   x;
-   
+
    x.l[ 1] = ntohl( v.l[ 0]);
    x.l[ 0] = ntohl( v.l[ 1]);
    return( x.q);

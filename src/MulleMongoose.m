@@ -38,13 +38,14 @@
 
 #import "MulleMongoose.h"
 
-#import <Foundation/Foundation.h>
 #import "MulleScion.h"
 #import "MulleScionObjectModel+MulleMongoose.h"
 #import "NSString+HTMLEscape.h"
 
 #include "mongoose.h"
 
+#import <Foundation/Foundation.h>
+#include <signal.h>
 
 /* this code is just for demo purposes. */
 #pragma mark -
