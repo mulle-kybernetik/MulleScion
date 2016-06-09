@@ -540,6 +540,7 @@
 		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
 		414A842816E52DF50084AE1E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		41551DA51CF34566005CBFF7 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		415918001A974419006ECD52 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		415918031A976C2A006ECD52 /* Environment_Variables.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Environment_Variables.scion; sourceTree = "<group>"; };
 		415C401D1A9641010072B73A /* __demo.scion */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = __demo.scion; sourceTree = "<group>"; };
@@ -761,11 +762,11 @@
 		4121DB0816DD410D00BFD60C /* MulleScionLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				410BF0061926AA7600838823 /* MulleCommonObjCRuntime.h */,
 				41DCAF7D16DE5C6800C5A74E /* MulleScion */,
 				41D6DF4F16DE532F004833D6 /* MulleScionFoundation */,
 				41D6DEA016DE28EE004833D6 /* MulleScionParser */,
 				41D6DE9F16DE28B8004833D6 /* MulleScionPrinter */,
-				41D6DEA116DE291F004833D6 /* ZLib */,
 			);
 			name = MulleScionLibrary;
 			sourceTree = "<group>";
@@ -807,6 +808,7 @@
 		41764B8316DA511200560FCF = {
 			isa = PBXGroup;
 			children = (
+				41551DA51CF34566005CBFF7 /* CMakeLists.txt */,
 				41DEE8A117DF22190042A439 /* README.md */,
 				41FE9FD618281F77005E7A41 /* RELEASENOTES.md */,
 				41CD2F0D181FE17300FBBEB4 /* BUILD.md */,
@@ -853,7 +855,6 @@
 		41764B9116DA511200560FCF /* src */ = {
 			isa = PBXGroup;
 			children = (
-				410BF0061926AA7600838823 /* MulleCommonObjCRuntime.h */,
 				41764B9216DA511200560FCF /* main.m */,
 				415918021A974436006ECD52 /* mongoose */,
 				41CFAFED1A93E18500B0783A /* hoedown */,
@@ -1081,6 +1082,7 @@
 				415DA5D3182BED2100F654F7 /* NSObject+KVC_Compatibility.h */,
 				415DA5D4182BED2100F654F7 /* NSObject+KVC_Compatibility.m */,
 				41AEA217182D09E100840887 /* HTML Escaping */,
+				41D6DEA116DE291F004833D6 /* ZLib */,
 			);
 			name = MulleScionFoundation;
 			sourceTree = "<group>";

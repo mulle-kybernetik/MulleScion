@@ -39,8 +39,8 @@
 
 #import "MulleScionDataSourceProtocol.h"
 #import "MulleScionOutputProtocol.h"
-#import "MulleScionPrinter.h"
 #import "MulleScionParser.h"
+#import "MulleScionPrinter.h"
 #import "MulleScionPrintingException.h"
 
 
