@@ -13,13 +13,23 @@ else()
 endif()
 
 # move to mulle-configuration
-IF(APPLE)
+if( CMAKE_SYSTEM_NAME MATCHES "Apple")
    find_library( FOUNDATION
                  NAMES Foundation
                  PATHS ${CMAKE_OSX_SYSROOT}/System/Library
                  PATH_SUFFIXES Frameworks
                  NO_DEFAULT_PATH)
-ENDIF (APPLE)
+endif()
+
+
+if( CMAKE_SYSTEM_NAME MATCHES "Linux")
+   find_library( FOUNDATION
+                 NAMES Foundation)
+   set( OS_SPECIFIC_LIBS
+-lpthread
+-ldl
+)
+endif()
 
 
 add_definitions( -DPROJECT_VERSION=1854)
@@ -166,6 +176,7 @@ ${TOOL_SOURCES}
 target_link_libraries( mulle-scion
 MulleScion
 "${FOUNDATION}"
+${OS_SPECIFIC_LIBS}
 )
 
 
