@@ -10,6 +10,7 @@
 #if ! __MULLE_OBJC_RUNTIME__
 # import <objc/runtime.h>
 
+
 @implementation NSObject ( KVC_Compatibility)
 
 + (void) load
