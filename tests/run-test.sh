@@ -1,10 +1,14 @@
-#!/bin/bash -m
+#!/usr/bin/env bash
 #
-#  scion-tests.sh
-#  MulleScion
+#  run-test.sh
+#  MulleObjC
 #
 #  Created by Nat! on 01.11.13.
 #  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
+#  (was run-mulle-scion-test)
+
+set -m
+
 
 # check if running a single test or all
 
