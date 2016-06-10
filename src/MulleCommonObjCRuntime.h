@@ -56,7 +56,7 @@ static inline Class   MulleGetClass( id self)
 
 static inline Class   MulleGetClass( id self)
 {
-   return( ((struct objc_object *) self)->isa);
+   return( ((__bridge struct objc_object *) self)->isa);
 }
 # endif
 #endif
