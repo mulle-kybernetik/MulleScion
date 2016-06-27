@@ -165,7 +165,8 @@ ${TOOL_SOURCES}
 
 target_link_libraries( mulle-scion
 MulleScion
-"${FOUNDATION}"
+${FOUNDATION}
+${OS_SPECIFIC_LIBS}
 )
 
 
