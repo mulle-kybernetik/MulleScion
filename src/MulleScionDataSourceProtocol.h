@@ -100,7 +100,7 @@
 // 
 // NSObject has default implementations for all methods (also KVC)
 //
-@interface NSObject ( MulleScionDataSource) < MulleScionDataSource >
+@interface NSObject ( MulleScionDataSource) 
 
 - (id) mulleScionDataSource;
 

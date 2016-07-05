@@ -54,7 +54,7 @@
 // Your dataSource can override this method and check if the keyPath is OK.
 // If not, raise an exception otherwise call super.
 //
-@implementation NSObject ( MulleScionDataSource)
+@implementation NSObject ( MulleScionDataSourceSupport)
 
 - (id) mulleScionValueForKeyPath:(NSString *) keyPath
                   localVariables:(NSMutableDictionary *) locals

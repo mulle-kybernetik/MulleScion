@@ -26,10 +26,10 @@
 - (NSData *) compressedDataUsingZLib
 {
    NSMutableData   *dst;
-   uLongf          len;    
+   uLongf          len;
 
    len = [self length] + [self length] / 500 + 128;
-   dst = [[[NSMutableData allocWithZone: [self zone]] initWithLength:len] autorelease];
+   dst = [[[NSMutableData allocWithZone:[self zone]] initWithLength:len] autorelease];
    switch( compress( [dst mutableBytes], &len, [self bytes], [self length]))
    {
    case Z_MEM_ERROR :
