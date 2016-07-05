@@ -385,7 +385,7 @@ static void  loadBundles( void)
 }
 
 
-static int   _archive_main( int argc, const char * argv[], int keyed)
+static int   _archive_main( int argc, char *argv[], int keyed)
 {
    MulleScionTemplate   *template;
    NSArray              *arguments;
@@ -437,25 +437,35 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 };
 
 
-static int   main_www( int argc, const char * argv[])
+static int   main_www( int argc, char *argv[])
 {
    id         plist;
    char       *s;
    NSString   *path;
+   NSString   *root;
 
    loadBundles();
 
+   root = @"/tmp/MulleScionDox";
+   
    // hack to get something else going
-   s = getenv( "MulleScionServerRoot");
+   if( argc)
+      s = argv[ 0];
+   else
+      s = getenv( "MulleScionServerRoot");
+
    if( s)
+   {
+      root = [NSString stringWithCString:s];
       default_options[ 1] = s;
+   }
 
    s = getenv( "MulleScionServerPort");
    if( s)
       default_options[ 3] = s;
 
-   path = @"/tmp/MulleScionDox/properties.plist";
-   s = getenv( "MulleScionServerPlist");
+   path = [root stringByAppendingPathComponent:@"properties.plist"];
+   s    = getenv( "MulleScionServerPlist");
    if( s)
       path = [NSString stringWithCString:s];
 
@@ -469,7 +479,7 @@ static int   main_www( int argc, const char * argv[])
 #endif
 
 
-static int   _main(int argc, const char * argv[])
+static int   _main(int argc, char *argv[])
 {
    NSDictionary         *info;
    NSFileHandle         *stream;
@@ -494,7 +504,7 @@ static int   _main(int argc, const char * argv[])
 }
 
 
-int main( int argc, const char * argv[])
+int main( int argc, char *argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
@@ -516,15 +526,15 @@ int main( int argc, const char * argv[])
 #ifndef DONT_HAVE_WEBSERVER
       if( ! strcmp( argv[ 1], "-w"))
       {
-         return( main_www( argc, argv));
+         return( main_www( argc - 2, &argv[ 2]));
       }
 #endif
       
       if( ! strcmp( argv[ 1], "-z"))
-         return( _archive_main( argc, argv, NO));
+         return( _archive_main( argc - 2, &argv[ 2], NO));
       
       if( ! strcmp( argv[ 1], "-Z"))
-         return( _archive_main( argc, argv, YES));
+         return( _archive_main( argc - 2, &argv[ 2], YES));
    }
    
    pool = [NSAutoreleasePool new];
