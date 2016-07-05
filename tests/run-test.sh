@@ -9,7 +9,6 @@
 
 set -m
 
-
 # check if running a single test or all
 
 executable=`basename $0`
@@ -38,11 +37,7 @@ trap trace_ignore 5 6
 
 
 # parse optional parameters
-exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
-if [ ! -x "${exe}" ]
-then
-   exe=`ls -1 ../?uild/*/mulle-scion | tail -1 2> /dev/null`
-fi
+exe=`ls -1 ../bin/mulle-scion 2> /dev/null | tail -1`
 
 if [ -x "${exe}" ]
 then
@@ -121,7 +116,7 @@ run()
    stdout="$4"
    stderr="$5"
 
-   random=`mktemp -t "mulle-scion"`
+   random=`mktemp -t "mulle-scion-XXXX"`
    output="$random.stdout"
    errput="$random.stderr"
    errors=`basename $template .scion`.errors
@@ -335,7 +330,7 @@ test_binary()
    local output
    local errput
 
-   random=`mktemp -t "mulle-scion"`
+   random=`mktemp -t "mulle-scion-XXXX"`
    output="$random.stdout"
    errput="$random.stderr"
 
@@ -370,8 +365,19 @@ absolute_path_if_relative()
 
 
 MULLE_SCION=`absolute_path_if_relative "$MULLE_SCION"`
-DYLD_FALLBACK_FRAMEWORK_PATH="`pwd`/../dependencies/Frameworks/Debug"
-export DYLD_FALLBACK_FRAMEWORK_PATH
+
+case "`uname`" in
+   Darwin)
+      DYLD_FALLBACK_FRAMEWORK_PATH="`pwd`/../dependencies/Frameworks/Debug"
+      export DYLD_FALLBACK_FRAMEWORK_PATH
+      ;;
+
+   *) 
+      path="`dirname "${MULLE_SCION}"`"
+      LD_LIBRARY_PATH="`dirname "${path}"`/lib:${LD_LIBRARY_PATH}"
+      export LD_LIBRARY_PATH
+      ;;
+esac
 
 
 test_binary "$MULLE_SCION"

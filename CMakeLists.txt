@@ -19,7 +19,12 @@ IF(APPLE)
                  PATHS ${CMAKE_OSX_SYSROOT}/System/Library
                  PATH_SUFFIXES Frameworks
                  NO_DEFAULT_PATH)
-ENDIF (APPLE)
+else()
+   find_library( FOUNDATION
+                 NAMES Foundation
+                 HINTS lib dependencies/lib
+                )
+endif()
 
 
 add_definitions( -DPROJECT_VERSION=1854)
@@ -162,10 +167,15 @@ add_executable( mulle-scion
 ${MONGOOSE_SOURCES}
 ${TOOL_SOURCES}
 )
+ 
+set( OS_SPECIFIC_LIBS ${OS_SPECIFIC_LIBS} -lz)
 
 target_link_libraries( mulle-scion
+${BEGIN_ALL_LOAD}
 MulleScion
-"${FOUNDATION}"
+${FOUNDATION}
+${END_ALL_LOAD}
+${OS_SPECIFIC_LIBS}
 )
 
 
