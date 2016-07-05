@@ -22,7 +22,7 @@ IF(APPLE)
 else()
    find_library( FOUNDATION
                  NAMES Foundation
-                 HINTS dependencies/lib
+                 HINTS lib dependencies/lib
                 )
 endif()
 
@@ -167,10 +167,14 @@ add_executable( mulle-scion
 ${MONGOOSE_SOURCES}
 ${TOOL_SOURCES}
 )
+ 
+set( OS_SPECIFIC_LIBS ${OS_SPECIFIC_LIBS} -lz)
 
 target_link_libraries( mulle-scion
+${BEGIN_ALL_LOAD}
 MulleScion
 ${FOUNDATION}
+${END_ALL_LOAD}
 ${OS_SPECIFIC_LIBS}
 )
 
