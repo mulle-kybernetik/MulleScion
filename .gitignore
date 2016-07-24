@@ -16,5 +16,10 @@ tests/compare-parse-speed-to-unarchive-speed.sh
 .bootstrap.auto/
 .bootstrap.local/
 dependencies/
+/include
+/lib
+/bin
 .repos/
 mulle-configuration/
+.repos/mulle-thread/mintomic/
+.repos/mulle-thread/mulle-configuration/

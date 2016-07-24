@@ -176,6 +176,7 @@ MulleScion
 ${FOUNDATION}
 ${END_ALL_LOAD}
 ${OS_SPECIFIC_LIBS}
+-lz
 )
 
 

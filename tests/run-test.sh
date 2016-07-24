@@ -38,7 +38,16 @@ trap trace_ignore 5 6
 
 # parse optional parameters
 exe=`ls -1 ../bin/mulle-scion 2> /dev/null | tail -1`
+if [ ! -x "${exe}" ]
+then
+   exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
+   if [ ! -x "${exe}" ]
+   then
+      exe=`ls -1 ../?uild/*/mulle-scion | tail -1 2> /dev/null`
+   fi
+fi
 
+ 
 if [ -x "${exe}" ]
 then
    MULLE_SCION="${1:-${exe}}"
@@ -339,7 +348,7 @@ test_binary()
 
    if [ $code -eq 127 ]
    then
-      echo "mulle-scion can not be found" >&2
+      echo "mulle-scion can not be run (missing shared library probably)" >&2
       exit 1
    fi
 
@@ -371,10 +380,9 @@ case "`uname`" in
       DYLD_FALLBACK_FRAMEWORK_PATH="`pwd`/../dependencies/Frameworks/Debug"
       export DYLD_FALLBACK_FRAMEWORK_PATH
       ;;
-
-   *) 
-      path="`dirname "${MULLE_SCION}"`"
-      LD_LIBRARY_PATH="`dirname "${path}"`/lib:${LD_LIBRARY_PATH}"
+ 
+   *)
+      LD_LIBRARY_PATH="`pwd`/../dependencies/lib:${LD_LIBRARY_PATH}"
       export LD_LIBRARY_PATH
       ;;
 esac
