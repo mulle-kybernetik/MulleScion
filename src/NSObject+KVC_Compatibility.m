@@ -7,7 +7,7 @@
 //
 
 #import "NSObject+KVC_Compatibility.h"
-#if ! __MULLE_OBJC_RUNTIME__
+#if ! __MULLE_OBJC__
 # import <objc/runtime.h>
 
 

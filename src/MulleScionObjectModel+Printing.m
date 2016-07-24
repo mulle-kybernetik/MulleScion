@@ -45,7 +45,7 @@
 #import "MulleCommonObjCRuntime.h"
 #if ! TARGET_OS_IPHONE
 # import <Foundation/NSDebug.h>
-# ifndef __MULLE_OBJC_RUNTIME__
+# ifndef __MULLE_OBJC__
 #  import <objc/objc-class.h>
 # endif
 #else
@@ -548,7 +548,7 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
               forKey:MulleScionRenderOutputKey];
    [locals setObject:value_
               forKey:MulleScionCurrentFileKey];
-#if __MULLE_OBJC_RUNTIME__
+#if __MULLE_OBJC__
    [locals setObject:@"Mulle"
              forKey:MulleScionFoundationKey];
 #else

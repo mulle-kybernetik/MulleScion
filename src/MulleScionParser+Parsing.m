@@ -307,7 +307,7 @@ static void  parser_warning( parser *p, char *c_format, ...)
       return;
    
    va_start( args, c_format);
-#ifdef __MULLE_OBJC_RUNTIME__
+#ifdef __MULLE_OBJC__
    reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
                                       va_list:args] autorelease];
 #else
@@ -338,7 +338,7 @@ static void  MULLE_NO_RETURN  parser_error( parser *p, char *c_format, ...)
       abort();
    
    va_start( args, c_format);
-#ifdef __MULLE_OBJC_RUNTIME__
+#ifdef __MULLE_OBJC__
    reason = [[[NSString alloc] initWithFormat:[NSString stringWithCString:c_format]
                                      va_list:args] autorelease];
 #else

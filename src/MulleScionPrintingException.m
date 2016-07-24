@@ -50,7 +50,7 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
    
    va_start( args, format);
    
-#ifdef __MULLE_OBJC_RUNTIME__
+#ifdef __MULLE_OBJC__
    s = [[[NSString alloc] initWithFormat:format
                                va_list:args] autorelease];
 #else
