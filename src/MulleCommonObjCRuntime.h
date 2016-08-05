@@ -33,6 +33,20 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
+
+//
+// allow sparing use of ARC notation in otherwise beautiful ObjC code :)
+//
+#ifndef __OBJC2__ // __has_feature( objc-arc), clangism
+# ifndef __bridge
+#  define __bridge
+# endif
+# ifndef __unsafe_unretained
+#  define __unsafe_unretained
+# endif
+#endif
+
+
 #ifdef __MULLE_OBJC_RUNTIME__
 
 static inline Class   MulleGetClass( id self)
@@ -56,7 +70,7 @@ static inline Class   MulleGetClass( id self)
 
 static inline Class   MulleGetClass( id self)
 {
-   return( ((struct objc_object *) self)->isa);
+   return( ((__bridge struct objc_object *) self)->isa);
 }
 # endif
 #endif

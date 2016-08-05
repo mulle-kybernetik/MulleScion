@@ -42,10 +42,10 @@
 
 typedef struct
 {
-   NSMutableDictionary   *blockTable;
-   NSMutableDictionary   *definitionTable;
-   NSMutableDictionary   *macroTable;
-   NSMutableDictionary   *dependencyTable;
+   __unsafe_unretained NSMutableDictionary   *blockTable;
+   __unsafe_unretained NSMutableDictionary   *definitionTable;
+   __unsafe_unretained NSMutableDictionary   *macroTable;
+   __unsafe_unretained NSMutableDictionary   *dependencyTable;
 } MulleScionParserTables;
 
 
@@ -69,9 +69,9 @@ typedef struct
 typedef struct
 {
    void         *parser;
-   NSString     *fileName;
+   __unsafe_unretained NSString     *fileName;
    NSUInteger   lineNumber;
-   NSString     *message;
+   __unsafe_unretained NSString     *message;
 } parser_warning_info;
 
 typedef parser_warning_info   parser_error_info;

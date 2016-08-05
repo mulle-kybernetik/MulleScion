@@ -777,6 +777,9 @@ static void   *numberBuffer( char *type, NSNumber *value)
    case _C_ULNG_LNG : *(unsigned long long *) buf = [value unsignedLongLongValue]; return( buf);
    case _C_FLT      : *(float *)          buf = [value floatValue]; return( buf);
    case _C_DBL      : *(double *)         buf = [value doubleValue]; return( buf);
+#ifdef _C_BOOL
+   case _C_BOOL     : *(bool *)           buf = [value boolValue]; return( buf);
+#endif
    }
    
    myType = (char *) [value objCType];
