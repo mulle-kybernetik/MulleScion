@@ -1,3 +1,9 @@
+## 1855
+
+* Bool fix from Hannes Tribus `<hons82@...com>`
+* IOS/ARC fixes from Hannes Tribus `<hons82@...com>`
+* Some portability fixes for MulleFoundation
+
 ## 1854
 
 * Added a podspec fix from Hannes Tribus `<hons82@...com>`

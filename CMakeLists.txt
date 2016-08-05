@@ -22,7 +22,7 @@ IF(APPLE)
 ENDIF (APPLE)
 
 
-add_definitions( -DPROJECT_VERSION=1854)
+add_definitions( -DPROJECT_VERSION=1855)
 
 include_directories(
 src

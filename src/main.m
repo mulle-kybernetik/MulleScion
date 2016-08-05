@@ -236,6 +236,7 @@ static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
       else
          return( acquireDataSourceFromBundle( s));
    }
+
    error = nil;
    plist = [NSPropertyListSerialization propertyListFromData:data
                                             mutabilityOption:NSPropertyListImmutable
@@ -411,7 +412,7 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
       return( -1);
 
    if( ! [template writeArchive:archiveName
-                          keyed:keyed])
+                          keyed:keyed ? YES : NO])
    {
       NSLog( @"Archive \"%@\" could not be written", archiveName);
       return( -1);
