@@ -21,7 +21,11 @@ Name                | Description
 `footer`            | see below
 `division`          | see below
 `modulo`            | see below
+                    |
 `i`                 | the loop count
+`previ`             | the loop count - 1
+`nexti`             | the loop count + 1
+                    |
 `isFirst`           | will be set YES, if it's the first loop iteration
 `isEven`            | will be set YES, if the loop count is even  (0,2,4 ...)
 `isLast`            | will be set YES, if it's the last loop iteration

@@ -1,3 +1,7 @@
+## 1856
+
+* add nexti/previ to for loop dictionary.
+
 ## 1855
 
 * Bool fix from Hannes Tribus `<hons82@...com>`

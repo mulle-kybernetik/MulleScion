@@ -1498,6 +1498,7 @@ static BOOL  isTrue( id value)
    NSUInteger            i;
    NSInteger             division;
    NSNumber              *yes, *no;
+   NSNumber              *oldi, *newi, *newi1;
    id                    value;
    
    TRACE_RENDER( self, s, locals, dataSource);
@@ -1572,7 +1573,7 @@ static BOOL  isTrue( id value)
    if( ! identifier)
       goto done;
    
-   info    = [NSMutableDictionary dictionary];
+   info    = [NSMutableDictionary dictionaryWithCapacity:16];
    infoKey = [NSString stringWithFormat:@"%@#", identifier];
    [locals setObject:info
               forKey:infoKey];
@@ -1581,6 +1582,7 @@ static BOOL  isTrue( id value)
    no   = [NSNumber numberWithBool:NO];
 
    i    = 0;
+   newi = nil;
    next = [rover nextObject];
    while( key = next)
    {
@@ -1594,11 +1596,29 @@ static BOOL  isTrue( id value)
       isSubdivisionEnd   = (i % division) == (NSUInteger) (division - 1);
       isSubdivisionStart = ! (i % division);
 
-      [info setObject:[NSNumber numberWithInteger:i]
+      // try to reuse previous NSNumbers
+      if( ! newi)
+      {
+         oldi  = [NSNumber numberWithInteger:i - 1];
+         newi  = [NSNumber numberWithInteger:i];
+      }
+      else
+      {
+         oldi  = newi;
+         newi  = newi1;
+      }
+      newi1 = [NSNumber numberWithInteger:i + 1];
+      
+      [info setObject:newi
                forKey:@"i"];
+      [info setObject:newi1
+               forKey:@"nexti"];
+      [info setObject:oldi
+               forKey:@"previ"];
+
       [info setObject:[NSNumber numberWithInteger:i % division]
                forKey:@"modulo"];
-      [info setObject:[NSNumber numberWithInteger:i / division]
+      [info setObject:division == 1 ? newi : [NSNumber numberWithInteger:i / division]
                forKey:@"division"];
       
       [info setObject:isFirst ? opener : (isSubdivisionStart ? subdivisionOpener : @"")

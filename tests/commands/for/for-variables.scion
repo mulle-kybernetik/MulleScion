@@ -1,0 +1,10 @@
+{% for number in @( 1, 2, 3) %}
+number={{ number }}
+i={{ number#.i }}
+previ={{ number#.previ }}
+nexti={{ number#.nexti }}
+isFirst={{ number#.isFirst }}
+isLast={{ number#.isLast }}
+isEven={{ number#.isEven }}
+evenOdd={{ number#.evenOdd }}
+{% endfor %}
