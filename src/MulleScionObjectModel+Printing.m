@@ -199,7 +199,7 @@ static inline void   TRACE_EVAL_BEGIN_END( MulleScionObject *self, id value, id 
 # define TRACE_EVAL_BEGIN_END( self, value, result)
 #endif
 
-@interface MulleScionExpression ( Printing)
+@interface MulleScionExpression( Printing)
 
 // this should never return nil, but MulleScionNull instead
 // should also never receive nil as value
@@ -216,7 +216,7 @@ static inline void   TRACE_EVAL_BEGIN_END( MulleScionObject *self, id value, id 
 
 #pragma mark -
 
-@implementation MulleScionObject ( Printing)
+@implementation MulleScionObject( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -363,7 +363,7 @@ void   MulleScionRenderPlaintextString( NSString *value,
 
 #pragma mark -
 
-@implementation MulleScionTemplate ( Printing)
+@implementation MulleScionTemplate( Printing)
 
 static void   initLineNumber( NSMutableDictionary *locals)
 {
@@ -576,7 +576,7 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
 
 #pragma mark -
 
-@implementation MulleScionPlainText ( Printing)
+@implementation MulleScionPlainText( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -622,7 +622,7 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 
 #pragma mark -
 
-@implementation MulleScionVariable ( Printing)
+@implementation MulleScionVariable( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -667,7 +667,7 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 
 #pragma mark -
 
-@implementation MulleScionFunction ( Printing)
+@implementation MulleScionFunction( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -700,7 +700,7 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 
 #pragma mark -
 
-@implementation MulleScionMethod ( Printing)
+@implementation MulleScionMethod( Printing)
 
 static char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
 {
@@ -957,7 +957,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionExpression ( Printing)
+@implementation MulleScionExpression( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -1030,7 +1030,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionNumber ( Printing)
+@implementation MulleScionNumber( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1044,7 +1044,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionString ( Printing)
+@implementation MulleScionString( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1058,7 +1058,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionSelector ( Printing)
+@implementation MulleScionSelector( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1072,7 +1072,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionArray ( Printing)
+@implementation MulleScionArray( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1102,7 +1102,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionDictionary ( Printing)
+@implementation MulleScionDictionary( Printing)
    
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1134,7 +1134,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionParameterAssignment ( Printing)
+@implementation MulleScionParameterAssignment( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1189,7 +1189,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionCommand ( Printing)
+@implementation MulleScionCommand( Printing)
 
 - (MulleScionObject *) renderBlock:(MulleScionObject *) curr
                               into:(id <MulleScionOutput>) output
@@ -1220,7 +1220,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionAssignmentExpression ( Printing)
+@implementation MulleScionAssignmentExpression( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1242,7 +1242,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 @end
 
 
-@implementation MulleScionSet ( Printing)
+@implementation MulleScionSet( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1284,7 +1284,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 #pragma mark -
 
 
-@implementation MulleScionLog ( Printing)
+@implementation MulleScionLog( Printing)
 
 - (id) valueWithLocalVariables:(NSMutableDictionary *) locals
                     dataSource:(id <MulleScionDataSource>) dataSource
@@ -1325,7 +1325,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionTerminator ( Printing)
+@implementation MulleScionTerminator( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -1342,7 +1342,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionExpressionCommand ( Printing)
+@implementation MulleScionExpressionCommand( Printing)
 
 // just executes the expression, but discards the value
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
@@ -1371,7 +1371,7 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 #pragma mark -
 
-@implementation MulleScionIf ( Printing)
+@implementation MulleScionIf( Printing)
 
 static Class  _nsStringClass;
 
@@ -1465,7 +1465,7 @@ static BOOL  isTrue( id value)
 
 #pragma mark -
 
-@implementation MulleScionFor ( Printing)
+@implementation MulleScionFor( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -1650,7 +1650,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionWhile ( Printing)
+@implementation MulleScionWhile( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -1699,7 +1699,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionBlock ( Printing)
+@implementation MulleScionBlock( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -1732,7 +1732,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionEndBlock ( Printing)
+@implementation MulleScionEndBlock( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -1771,7 +1771,7 @@ done:
 @end
 
 
-@implementation MulleScionComparison ( Printing)
+@implementation MulleScionComparison( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -1825,7 +1825,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionNot ( Printing)
+@implementation MulleScionNot( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -1846,7 +1846,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionAnd ( Printing)
+@implementation MulleScionAnd( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -1881,7 +1881,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionOr ( Printing)
+@implementation MulleScionOr( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -1917,7 +1917,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionIndexing ( Printing)
+@implementation MulleScionIndexing( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -2009,7 +2009,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionPipe ( Printing)
+@implementation MulleScionPipe( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -2075,7 +2075,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionDot ( Printing)
+@implementation MulleScionDot( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -2140,7 +2140,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionConditional ( Printing)
+@implementation MulleScionConditional( Printing)
 
 - (id) evaluateValue:(id) value
       localVariables:(NSMutableDictionary *) locals
@@ -2168,7 +2168,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionFilter ( Printing)
+@implementation MulleScionFilter( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -2245,7 +2245,7 @@ done:
 
 #pragma mark -
 
-@implementation MulleScionEndFilter ( Printing)
+@implementation MulleScionEndFilter( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -2357,7 +2357,7 @@ static NSBundle  *searchForBundleInDirectory( NSFileManager *manager, NSString *
 
 #pragma mark -
 
-@implementation MulleScionRequires ( Printing)
+@implementation MulleScionRequires( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals

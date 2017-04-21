@@ -38,14 +38,14 @@
 #import "MulleScionObjectModel.h"
 
 
-@interface NSObject ( TraceValueDescription)
+@interface NSObject( TraceValueDescription)
 
 - (NSString *) traceValueDescription;
 
 @end
 
 
-@interface MulleScionObject ( TraceDescription)
+@interface MulleScionObject( TraceDescription)
 
 - (NSString *) traceDescription;
 - (NSString *) dumpDescription;

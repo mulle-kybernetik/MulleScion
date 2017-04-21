@@ -20,7 +20,7 @@
 #include <zlib.h>
 
 
-@implementation NSData ( ZLib)
+@implementation NSData( ZLib)
 
 
 - (NSData *) compressedDataUsingZLib
@@ -29,7 +29,7 @@
    uLongf          len;
 
    len = [self length] + [self length] / 500 + 128;
-   dst = [[[NSMutableData allocWithZone:[self zone]] initWithLength:len] autorelease];
+   dst = [NSMutableData dataWithLength:len];
    switch( compress( [dst mutableBytes], &len, [self bytes], [self length]))
    {
    case Z_MEM_ERROR :
@@ -53,7 +53,7 @@
    uLongf             len;
 
    len = decompressedSize * 2 + 8192;
-   dst = [[[NSMutableData allocWithZone:[self zone]] initWithLength:len] autorelease];
+   dst = [NSMutableData dataWithLength:len];
    switch( uncompress( [dst mutableBytes], &len, buf, decompressedSize))
    {
    case Z_DATA_ERROR :
@@ -78,7 +78,7 @@
    uLongf             len;
 
    len = decompressedSize * 2 + 8192;
-   dst = [[[NSMutableData allocWithZone:[self zone]] initWithLength:len] autorelease];
+   dst = [NSMutableData dataWithLength:len];
    switch( uncompress( [dst mutableBytes], &len, [self bytes], [self length]))
    {
    case Z_DATA_ERROR :

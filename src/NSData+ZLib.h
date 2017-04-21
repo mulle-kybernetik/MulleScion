@@ -23,7 +23,7 @@
 //
 // Simplistic Obj-C interface to Apple supplied Zip Library, which is zlib in a framework
 //
-@interface NSData ( ZLib)
+@interface NSData( ZLib)
 
 - (NSData *) compressedDataUsingZLib;
 - (NSData *) decompressedDataUsingZLib:(NSUInteger) decompressedSize;

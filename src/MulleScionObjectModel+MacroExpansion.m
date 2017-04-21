@@ -42,7 +42,7 @@
 // this is totally hackish
 
 
-@implementation MulleScionObject ( VariableSubstitution)
+@implementation MulleScionObject( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *)identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -53,7 +53,7 @@
 @end
 
 
-@implementation MulleScionIdentifierExpression ( VariableSubstitution)
+@implementation MulleScionIdentifierExpression( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -153,7 +153,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 }
 
 
-@implementation MulleScionArray ( VariableSubstitution)
+@implementation MulleScionArray( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -174,7 +174,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 
 
 
-@implementation MulleScionDictionary ( VariableSubstitution)
+@implementation MulleScionDictionary( VariableSubstitution)
    
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -194,7 +194,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionFunction ( VariableSubstitution)
+@implementation MulleScionFunction( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -215,7 +215,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionMethod ( VariableSubstitution)
+@implementation MulleScionMethod( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -250,7 +250,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 
 
 
-@implementation MulleScionUnaryOperatorExpression ( VariableSubstitution)
+@implementation MulleScionUnaryOperatorExpression( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -272,7 +272,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionBinaryOperatorExpression ( VariableSubstitution)
+@implementation MulleScionBinaryOperatorExpression( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -307,7 +307,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 //
 // can't fully macro expand right side of a pipe
 //
-@implementation MulleScionPipe ( Printing)
+@implementation MulleScionPipe( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -340,7 +340,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionDot ( Printing)
+@implementation MulleScionDot( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -372,7 +372,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionConditional ( VariableSubstitution)
+@implementation MulleScionConditional( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -409,7 +409,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionAssignmentExpression ( VariableSubstitution)
+@implementation MulleScionAssignmentExpression( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -439,7 +439,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionSet ( VariableSubstitution)
+@implementation MulleScionSet( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                      withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -469,7 +469,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 @end
 
 
-@implementation MulleScionExpressionCommand ( VariableSubstitution)
+@implementation MulleScionExpressionCommand( VariableSubstitution)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -494,7 +494,7 @@ static NSMutableArray  *replaceVariablesWithIdentifierInArray( NSArray *array,
 # pragma mark -
 # pragma Expansion Works
 
-@implementation MulleScionMacro ( MacroExpansion)
+@implementation MulleScionMacro( MacroExpansion)
 
 - (id) replaceVariableWithIdentifier:(NSString *) identifier
                       withExpression:(MulleScionExpression *) expr NS_RETURNS_RETAINED
@@ -605,12 +605,14 @@ typedef struct
    id                              value;
    NSString                        *identifier;
    NSMutableArray                  *identifiers;
+   NSArray                         *arguments;
    
    parameters  = [NSMutableDictionary dictionary];
    identifiers = [NSMutableArray array];
    
    // first setup default values for macro and remember where what is
-   rover = [[[self function] arguments] objectEnumerator];
+   arguments = [[self function] arguments];
+   rover     = [arguments objectEnumerator];
    
    while( expr = [rover nextObject])
    {

@@ -40,7 +40,7 @@
 // this is not very pretty, may screw up programs who depend on NSValue
 // not responding to location/length (who codes like that ??)
 
-@implementation NSValue ( CheatAndHack)
+@implementation NSValue( CheatAndHack)
 
 - (NSUInteger) location
 {

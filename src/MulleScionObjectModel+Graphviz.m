@@ -8,7 +8,7 @@
 #import "MulleScionObjectModel.h"
 
 
-@interface NSObject ( MulleGraphvizSubclassing)
+@interface NSObject( MulleGraphvizSubclassing)
 
 - (NSMutableDictionary *) mulleGraphvizAttributes;
 - (NSMutableDictionary *) mulleGraphvizChildrenByName;
@@ -22,7 +22,7 @@
 
 
 // a beginning, not the end
-@implementation MulleScionObject ( MulleGraphviz)
+@implementation MulleScionObject( MulleGraphviz)
 
 - (NSMutableDictionary *) mulleGraphvizChildrenByName
 {
@@ -56,7 +56,7 @@
 
 
 
-@implementation MulleScionValueObject ( MulleGraphviz)
+@implementation MulleScionValueObject( MulleGraphviz)
 
 - (NSMutableDictionary *) mulleGraphvizAttributes
 {
@@ -71,7 +71,7 @@
 @end
 
 
-@implementation MulleScionBinaryOperatorExpression ( Graphviz)
+@implementation MulleScionBinaryOperatorExpression( Graphviz)
 
 - (NSMutableDictionary *) mulleGraphvizAttributes
 {
@@ -95,7 +95,7 @@
 @end
 
 
-@implementation MulleScionComparison ( MulleGraphviz)
+@implementation MulleScionComparison( MulleGraphviz)
 
 - (NSMutableDictionary *) mulleGraphvizAttributes
 {

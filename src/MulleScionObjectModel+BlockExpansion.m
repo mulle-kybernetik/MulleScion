@@ -39,7 +39,7 @@
 #import "MulleScionObjectModel+NSCoding.h"
 
 
-@implementation MulleScionObject ( BlockExpansion)
+@implementation MulleScionObject( BlockExpansion)
 
 - (MulleScionObject *) nextOwnerOfBlockCommand
 {

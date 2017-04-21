@@ -57,7 +57,7 @@
 #endif
 
 
-@implementation MulleScionTemplate ( CompressedArchive)
+@implementation MulleScionTemplate( CompressedArchive)
 
 typedef struct
 {

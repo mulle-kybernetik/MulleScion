@@ -41,7 +41,7 @@
 // keyed encoding, at least in my experience is slower than
 // just parsing the template file new (!)
 //
-@interface MulleScionTemplate ( CompressedArchive)
+@interface MulleScionTemplate( CompressedArchive)
 
 - (id) initWithContentsOfArchive:(NSString *) fileName;
 - (BOOL) writeArchive:(NSString *) fileName;

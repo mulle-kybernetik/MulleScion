@@ -1,5 +1,5 @@
 //
-//  MulleScionException.m
+//  MulleScionPrintingException.m
 //  MulleScion
 //
 //  Created by Nat! on 27.02.13.
@@ -52,7 +52,7 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
    
 #ifdef __MULLE_OBJC__
    s = [[[NSString alloc] initWithFormat:format
-                               va_list:args] autorelease];
+                              varargList:args] autorelease];
 #else
    s = [[[NSString alloc] initWithFormat:format
                                arguments:args] autorelease];

@@ -37,7 +37,7 @@
 #import "MulleScionObjectModel.h"
 
 
-@interface MulleScionObject ( NSCoding) < NSCoding, NSCopying >
+@interface MulleScionObject( NSCoding) < NSCoding, NSCopying >
 
 - (id) initWithCoder:(NSCoder *) decoder;
 - (void) encodeWithCoder:(NSCoder *) encoder;

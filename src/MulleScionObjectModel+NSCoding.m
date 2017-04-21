@@ -38,7 +38,7 @@
 #import "MulleScionObjectModel+NSCoding.h"
 
 
-@implementation MulleScionObject ( NSCoding)
+@implementation MulleScionObject( NSCoding)
 
 + (void) load
 {
@@ -50,12 +50,12 @@
 // use NSCoding to make a copy, so I don't have to write all those
 // copy routines
 //
-- (id) copyWithZone:(NSZone *) zone
+static id  _copy(id self)
 {
    NSData             *data;
    NSAutoreleasePool  *pool;
    id                 copy;
-   
+
    pool = [NSAutoreleasePool new];
 #if TARGET_OS_IPHONE  // much slower...
    data = [NSKeyedArchiver archivedDataWithRootObject:self];
@@ -65,23 +65,35 @@
    copy = [[NSUnarchiver unarchiveObjectWithData:data] retain];
 #endif
    [pool release];
-   
+
    return( copy);
 }
-    
-    
+
+
+- (id) copyWithZone:(NSZone *) zone
+{
+   return( _copy( self));
+}
+
+
+- (id) copy
+{
+   return( _copy( self));
+}
+
+
 - (id) initWithCoder:(NSCoder *) decoder
 {
    uint32_t  lineNumber;
    id        next;
-   
+
    [decoder decodeValueOfObjCType:@encode( uint32_t)
                                at:&lineNumber];
 
     // needed to be coded like this otherwise keyed unarchiver trashes the
     // stack
    next = [decoder decodeObject];
-   
+
    self = [self initWithLineNumber:lineNumber];
    assert( self);
 
@@ -93,7 +105,7 @@
 - (void) encodeWithCoder:(NSCoder *) encoder
 {
    uint32_t  lineNumber;
-   
+
    lineNumber = (uint32_t) lineNumber_;
    [encoder encodeValueOfObjCType:@encode( uint32_t)
                                at:&lineNumber];
@@ -103,13 +115,13 @@
 @end
 
 
-@implementation MulleScionValueObject ( NSCoding)
+@implementation MulleScionValueObject( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &value_];
    return( self);
 }
@@ -124,13 +136,13 @@
 @end
 
 
-@implementation MulleScionAssignmentExpression ( NSCoding )
+@implementation MulleScionAssignmentExpression( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &right_];
    return( self);
 }
@@ -145,13 +157,13 @@
 @end
 
 
-@implementation MulleScionParameterAssignment ( NSCoding )
+@implementation MulleScionParameterAssignment( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &expression_];
    return( self);
 }
@@ -166,13 +178,13 @@
 @end
 
 
-@implementation MulleScionFunction ( NSCoding )
+@implementation MulleScionFunction( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &arguments_];
    return( self);
 }
@@ -187,15 +199,15 @@
 @end
 
 
-@implementation MulleScionMethod ( NSCoding )
+@implementation MulleScionMethod( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    NSString  *methodName;
-   
+
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@@", &arguments_, &methodName];
    action_ = NSSelectorFromString( methodName);
    [methodName release];
@@ -215,13 +227,13 @@
 @end
 
 
-@implementation MulleScionBinaryOperatorExpression  ( NSCoding )
+@implementation MulleScionBinaryOperatorExpression ( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &right_];
    return( self);
 }
@@ -236,7 +248,7 @@
 @end
 
 
-@implementation MulleScionComparison  ( NSCoding )
+@implementation MulleScionComparison ( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
@@ -244,7 +256,7 @@
 
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"C", &code];
    comparison_ = code;
    return( self);
@@ -254,7 +266,7 @@
 - (void) encodeWithCoder:(NSCoder *) encoder
 {
    unsigned char   code;
-   
+
    [super encodeWithCoder:encoder];
    code = comparison_;
    [encoder encodeValuesOfObjCTypes:"C", &code];
@@ -263,13 +275,13 @@
 @end
 
 
-@implementation MulleScionConditional ( NSCoding )
+@implementation MulleScionConditional( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@@", &middle_, &right_];
    return( self);
 }
@@ -284,13 +296,13 @@
 @end
 
 
-@implementation MulleScionExpressionCommand ( NSCoding)
+@implementation MulleScionExpressionCommand( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &expression_];
    return( self);
 }
@@ -305,7 +317,7 @@
 @end
 
 
-@implementation MulleScionFilter ( NSCoding)
+@implementation MulleScionFilter( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
@@ -326,13 +338,13 @@
 
 
 
-@implementation MulleScionSet ( NSCoding)
+@implementation MulleScionSet( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@@", &left_, &right_];
    return( self);
 }
@@ -348,13 +360,13 @@
 
 
 
-@implementation MulleScionBlock ( NSCoding)
+@implementation MulleScionBlock( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@@", &identifier_, &fileName_];
    return( self);
 }
@@ -370,7 +382,7 @@
 
 
 #ifdef DEBUG
-@implementation MulleScionMacro ( NSCoding )
+@implementation MulleScionMacro( NSCoding )
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
@@ -386,13 +398,13 @@
 #endif
 
 
-@implementation MulleScionRequires ( NSCoding)
+@implementation MulleScionRequires( NSCoding)
 
 - (id) initWithCoder:(NSCoder *) decoder
 {
    self = [super initWithCoder:decoder];
    assert( self);
-   
+
    [decoder decodeValuesOfObjCTypes:"@", &identifier_];
    return( self);
 }

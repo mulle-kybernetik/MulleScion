@@ -40,7 +40,7 @@
 #import "MulleScionOutputProtocol.h"
 
 
-@interface MulleScionObject ( Printing)
+@interface MulleScionObject( Printing)
 
 - (MulleScionObject *) renderInto:(id <MulleScionOutput>) output
                    localVariables:(NSMutableDictionary *) locals
@@ -66,7 +66,7 @@ extern NSString   *MulleScionEvenKey;
 extern NSString   *MulleScionOddKey;
 
 
-@interface MulleScionTemplate ( Printing)
+@interface MulleScionTemplate( Printing)
 
 - (NSMutableDictionary *) localVariablesWithDefaultValues:(NSDictionary *) defaults;
 + (NSMutableDictionary *) mulleScionDefaultBuiltinFunctionTable;

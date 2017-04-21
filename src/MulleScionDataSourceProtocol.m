@@ -1,5 +1,5 @@
 //
-//  NSObject+MulleScionDataSource.m
+//  MulleScionDataSourceProtocol.m
 //  MulleScion
 //
 //  Created by Nat! on 27.02.13.
@@ -41,7 +41,7 @@
 #import "MulleScionPrintingException.h"
 
 
-@interface NSObject ( OldMethods)
+@interface NSObject( OldMethods)
 
 + (void) poseAs:(Class) cls;
 
@@ -54,7 +54,7 @@
 // Your dataSource can override this method and check if the keyPath is OK.
 // If not, raise an exception otherwise call super.
 //
-@implementation NSObject ( MulleScionDataSourceSupport)
+@implementation NSObject( MulleScionDataSourceSupport)
 
 - (id) mulleScionValueForKeyPath:(NSString *) keyPath
                   localVariables:(NSMutableDictionary *) locals

@@ -47,11 +47,11 @@ static NSDictionary  *getInfoFromArguments( void);
 static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
 
 
-@interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
+@interface NSFileHandle( MulleScionOutput) < MulleScionOutput >
 @end
 
 
-@implementation NSFileHandle ( MulleScionOutput)
+@implementation NSFileHandle( MulleScionOutput)
 
 - (void) appendString:(NSString *) s
 {
@@ -385,7 +385,7 @@ static void  loadBundles( void)
 }
 
 
-static int   _archive_main( int argc, char *argv[], int keyed)
+static int   _archive_main( int argc, char *argv[], BOOL keyed)
 {
    MulleScionTemplate   *template;
    NSArray              *arguments;

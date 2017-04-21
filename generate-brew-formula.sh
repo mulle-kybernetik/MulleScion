@@ -61,7 +61,7 @@ class ${PROJECT} < Formula
   version "${VERSION}"
   sha256 "${HASH}"
 
-  depends_on "mulle-bootstrap"
+  depends_on "mulle-kybernetik/software/mulle-bootstrap"
   depends_on :xcode => :build
   depends_on :macos => :snow_leopard
 

@@ -38,7 +38,7 @@
 #import "MulleScionObjectModel+Parsing.h"
 
 
-@interface MulleScionObject ( BlockExpansion)
+@interface MulleScionObject( BlockExpansion)
 
 - (MulleScionObject *) ownerOfBlockWithIdentifier:(NSString *) identifier;
 - (MulleScionObject *) nextOwnerOfBlockCommand;

@@ -37,7 +37,7 @@
 #import "MulleScionObjectModel+Parsing.h"
 
 
-@interface MulleScionMacro ( MacroExpansion)
+@interface MulleScionMacro( MacroExpansion)
 
 - (NSDictionary *) parametersWithArguments:(NSArray *) arguments
                                   fileName:(NSString *) fileName
@@ -49,7 +49,7 @@
 @end
 
 
-@interface MulleScionObject ( VariableSubstitution)
+@interface MulleScionObject( VariableSubstitution)
 
 //
 // will return nil, if the object itself needs not to be exchanged

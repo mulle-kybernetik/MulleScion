@@ -23,3 +23,7 @@ dependencies/
 mulle-configuration/
 .repos/mulle-thread/mintomic/
 .repos/mulle-thread/mulle-configuration/
+/addictions
+/.bootstrap.repos
+/stashes
+mulle-configuration

@@ -1,0 +1,1 @@
+${MULLE_CONFIGURATION_CLONE:-https://github.com/mulle-nat/mulle-configuration;;${MULLE_CONFIGURATION_BRANCH:-release}

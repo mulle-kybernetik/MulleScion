@@ -11,62 +11,6 @@ set -m
 
 # check if running a single test or all
 
-executable=`basename $0`
-executable=`basename $executable .sh`
-
-if [ "$executable" = "run-all-tests" ]
-then
-   TEST=""
-   VERBOSE=yes
-   if [ "$1" = "-q" ]
-   then
-      VERBOSE=no
-      shift
-   fi
-else
-   TEST="$1"
-   shift
-fi
-
-trace_ignore()
-{
-  return 0
-}
-
-trap trace_ignore 5 6
-
-
-# parse optional parameters
-exe=`ls -1 ../bin/mulle-scion 2> /dev/null | tail -1`
-if [ ! -x "${exe}" ]
-then
-   exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
-   if [ ! -x "${exe}" ]
-   then
-      exe=`ls -1 ../?uild/*/mulle-scion | tail -1 2> /dev/null`
-   fi
-fi
-
- 
-if [ -x "${exe}" ]
-then
-   MULLE_SCION="${1:-${exe}}"
-else
-   MULLE_SCION=${1:-`which mulle-scion`}
-fi
-shift
-
-if [ -z "${MULLE_SCION}" ]
-then
-   echo "mulle-scion can not be found" >&2
-   exit 1
-fi
-
-DIR=${1:-`pwd`}
-shift
-
-HAVE_WARNED="no"
-RUNS=0
 
 search_plist()
 {
@@ -304,7 +248,6 @@ run_test()
 }
 
 
-
 scan_directory()
 {
    local i
@@ -354,7 +297,7 @@ test_binary()
 
    if [ $code -ne 253 ]
    then
-      echo "$MULLE_SCION is wrong executable" >&2
+      echo "${MULLE_SCION} is wrong executable" >&2
       exit 1
    fi
 
@@ -373,61 +316,145 @@ absolute_path_if_relative()
 }
 
 
-MULLE_SCION=`absolute_path_if_relative "$MULLE_SCION"`
 
-case "`uname`" in
-   Darwin)
-      DYLD_FALLBACK_FRAMEWORK_PATH="`pwd`/../dependencies/Frameworks/Debug"
-      export DYLD_FALLBACK_FRAMEWORK_PATH
-      ;;
- 
-   *)
-      LD_LIBRARY_PATH="`pwd`/../dependencies/lib:${LD_LIBRARY_PATH}"
-      export LD_LIBRARY_PATH
-      ;;
-esac
+trace_ignore()
+{
+  return 0
+}
 
 
-test_binary "$MULLE_SCION"
+main()
+{
+   trap trace_ignore 5 6
 
-if [ "$TEST" = "" ]
-then
-   scan_directory "$DIR"
+   while [ $# -ne 0 ]
+   do
+      case "$1" in
+         -q)
+            VERBOSE="no"
+         ;;
 
-   if [ "$RUNS" -ne 0 ]
+         -v)
+            VERBOSE="yes"
+         ;;
+
+         --path-prefix)
+            shift
+         ;;
+
+         -*)
+            echo "unknown option \"$1\"" >&2 && exit 1
+         ;;
+
+         *)
+            break
+         ;;
+      esac
+
+      shift
+   done
+
+
+   TEST="$1"
+
+   #
+   # find executable
+   #
+   exe=`ls -1 ../bin/mulle-scion 2> /dev/null | tail -1`
+   if [ ! -x "${exe}" ]
    then
-       echo "All tests ($RUNS) passed successfully"
+      exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
+      if [ ! -x "${exe}" ]
+      then
+         exe=`ls -1 ../?uild/*/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
+         if [ ! -x "${exe}" ]
+         then
+            exe=`ls -1 ../?uild*/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
+         fi
+      fi
+   fi
+
+
+   if [ -x "${exe}" ]
+   then
+      MULLE_SCION="${exe}"
    else
-      echo "no tests found" >&2
+      MULLE_SCION="`which mulle-scion`"
+   fi
+
+   if [ -z "${MULLE_SCION}" ]
+   then
+      echo "mulle-scion can not be found" >&2
       exit 1
    fi
-else
-    dirname=`dirname "$TEST"`
-    if [ "$dirname" = "" ]
-    then
-       dirname="."
-    fi
-    file=`basename "$TEST"`
-    filename=`basename "$file" .scion`
 
-    if [ "$file" = "$filename" ]
-    then
-       echo "error: template file must have .scion extension" >& 2
-       exit 1
-    fi
+   MULLE_SCION=`absolute_path_if_relative "${MULLE_SCION}"`
 
-    if [ ! -f "$TEST" ]
-    then
-       echo "error: template file not found" >& 2
-       exit 1
-    fi
+   DEPENDENCIES="`mulle-bootstrap paths dependencies 2> /dev/null`"
+   if [ ! -z "${DEPENDENCIES}" ]
+   then
+      case "`uname`" in
+         Darwin)
+            DYLD_FALLBACK_FRAMEWORK_PATH="${DEPENDENCIES}/Frameworks"
+            export DYLD_FALLBACK_FRAMEWORK_PATH
+            ;;
 
-    old=`pwd`
-    cd "$dirname"
-    run_test "$filename" "$dirname"
-    rval=$?
-    cd "$old"
-    exit $rval
-fi
+         *)
+            LD_LIBRARY_PATH="${DEPENDENCIES}/lib:${LD_LIBRARY_PATH}"
+            export LD_LIBRARY_PATH
+            ;;
+      esac
+   fi
 
+   test_binary "$MULLE_SCION"
 
+   DIR="`pwd -P`"
+
+   HAVE_WARNED="no"
+   RUNS=0
+
+   if [ -z "$TEST" ]
+   then
+      scan_directory "$DIR"
+
+      if [ "$RUNS" -ne 0 ]
+      then
+          echo "All tests ($RUNS) passed successfully"
+      else
+         echo "no tests found" >&2
+         exit 1
+      fi
+   else
+       local directory
+
+       directory="`dirname "$TEST"`"
+       if [ "${directory}" = "" ]
+       then
+          directory="."
+       fi
+
+       file=`basename "$TEST"`
+       filename=`basename "$file" .scion`
+
+       if [ "$file" = "$filename" ]
+       then
+          echo "error: template file must have .scion extension" >& 2
+          exit 1
+       fi
+
+       if [ ! -f "$TEST" ]
+       then
+          echo "error: template file not found" >& 2
+          exit 1
+       fi
+
+       old=`pwd`
+       cd "${directory}"
+       run_test "$filename" "${directory}"
+       rval=$?
+       cd "$old"
+       exit $rval
+   fi
+}
+
+main "$@"

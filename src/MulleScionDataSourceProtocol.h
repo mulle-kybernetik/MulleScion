@@ -1,5 +1,5 @@
 //
-//  MulleScionOutputProtocol.h
+//  MulleScionDataSourceProtocol.h
 //  MulleScion
 //
 //  Created by Nat! on 27.02.13.
@@ -100,7 +100,7 @@
 // 
 // NSObject has default implementations for all methods (also KVC)
 //
-@interface NSObject ( MulleScionDataSource) 
+@interface NSObject( MulleScionDataSource) 
 
 - (id) mulleScionDataSource;
 
