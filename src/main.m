@@ -288,7 +288,10 @@ static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
                                                       format:NULL
                                             errorDescription:&error];
    if( ! plist)
-      NSLog( @"property list failure: %@", error);
+   {
+      NSLog( @"property list failure for \"%@\": %@", s, error);
+      exit( 1);
+   }
 
    return( plist);
 }
@@ -441,7 +444,11 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 
  static char    *default_options[] =
 {
-   "document_root",   "/tmp/MulleScionDox",
+#ifndef DEBUG
+   "document_root", "/usr/local/share/mulle-scion/dox",
+#else
+   "document_root", "/Volumes/Source/srcM/MulleScion/dox",
+#endif
    "listening_ports", "127.0.0.1:18048",
    "num_threads", "1",
    "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
@@ -466,7 +473,11 @@ static int   main_www( int argc, const char * argv[])
    if( s)
       default_options[ 3] = s;
 
-   path = @"/tmp/MulleScionDox/properties.plist";
+#ifndef DEBUG
+   path = @"/usr/local/share/mulle-scion/dox/properties.plist";
+#else
+   path = @"/Volumes/Source/srcM/MulleScion/dox/properties.plist";
+#endif
    s = getenv( "MulleScionServerPlist");
    if( s)
       path = [NSString stringWithCString:s];

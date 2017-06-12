@@ -116,7 +116,8 @@
    data = [NSData dataWithContentsOfMappedFile:path];
    if( ! data)
    {
-      NSLog( @"Could not open template file \"%@\"", path);
+      NSLog( @"Could not open template file \"%@\" (%@)", path,
+               [[NSFileManager defaultManager] currentDirectoryPath]);
       return( nil);
    }
    

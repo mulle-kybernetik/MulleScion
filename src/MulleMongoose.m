@@ -235,8 +235,9 @@ void    _mulle_mongoose_main( void *datasource, char **options)
 
    start_mongoose( datasource, options);
 
-   NSLog( @"%s started on port(s) %s",
-          server_name, mg_get_option(ctx, "listening_ports"));
+   NSLog( @"%s started on port(s) %s with document root \"%s\"",
+          server_name, mg_get_option(ctx, "listening_ports"),
+          mg_get_option( ctx, "document_root"));
 
    while( exit_flag == 0)
       sleep( 1);

@@ -1,10 +1,9 @@
-## 1857
-
-* clarify usage
- 
 ## 1856
 
+* clarify usage output
 * add nexti/previ to for loop dictionary.
+* modernized tests a little bit to be compatible with mulle-tests also improved
+CmakeLists.txt slightly
 
 ## 1855
 

@@ -15,19 +15,37 @@ set -m
 executable=`basename $0`
 executable=`basename $executable .sh`
 
-if [ "$executable" = "run-all-tests" ]
-then
-   TEST=""
-   VERBOSE=yes
-   if [ "$1" = "-q" ]
-   then
-      VERBOSE=no
-      shift
-   fi
-else
-   TEST="$1"
+
+VERBOSE="YES"
+
+while [ $# -ne 0 ]
+do
+   case "$1" in
+      -v)
+         VERBOSE="YES"
+      ;;
+
+      -q)
+         VERBOSE="NO"
+      ;;
+
+      --path-prefix)
+         shift # ignore argument
+      ;;
+      -*)
+         echo "unknown option $1" >&2
+         exit 1
+      ;;
+
+      *)
+         break
+      ;;
+   esac
    shift
-fi
+done
+
+TEST="$1"
+shift
 
 trace_ignore()
 {
@@ -38,30 +56,18 @@ trap trace_ignore 5 6
 
 
 # parse optional parameters
-exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
-if [ ! -x "${exe}" ]
-then
-   exe=`ls -1 ../?uild/*/mulle-scion | tail -1 2> /dev/null`
-fi
-
-if [ -x "${exe}" ]
-then
-   MULLE_SCION="${1:-${exe}}"
-else
-   MULLE_SCION=${1:-`which mulle-scion`}
-fi
-shift
+MULLE_SCION=`ls -1 "${PWD}/../build/mulle-scion" | tail -1 2> /dev/null`
 
 if [ -z "${MULLE_SCION}" ]
 then
-   echo "mulle-scion can not be found" >&2
+   echo "mulle-scion can not be found ($PWD)" >&2
    exit 1
 fi
 
-DIR=${1:-`pwd`}
+DIR=`pwd`
 shift
 
-HAVE_WARNED="no"
+HAVE_WARNED="NO"
 RUNS=0
 
 search_plist()
@@ -128,9 +134,9 @@ run()
 
    pwd=`pwd`
    pretty_template=`relpath "$pwd"/"$template" "$root"`
-   if [ "$VERBOSE" = "yes" ]
+   if [ "$VERBOSE" = "YES" ]
    then
-      echo "$pretty_template"
+      echo "$pretty_template" >&2
    fi
 
    RUNS=`expr $RUNS + 1`
@@ -246,10 +252,10 @@ run_test()
       if [ "$plist" = "" ]
       then
          plist="none"
-         if [ "$HAVE_WARNED" != "yes" ]
+         if [ "$HAVE_WARNED" != "YES" ]
          then
             echo "warning: no default.plist found" >&2
-            HAVE_WARNED="yes"
+            HAVE_WARNED="YES"
          fi
       fi
    fi
@@ -344,7 +350,7 @@ test_binary()
 
    if [ $code -eq 127 ]
    then
-      echo "mulle-scion can not be found" >&2
+      echo "$MULLE_SCION not in path ($PWD, $PATH)" >&2
       exit 1
    fi
 

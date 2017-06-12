@@ -18,4 +18,6 @@ tests/compare-parse-speed-to-unarchive-speed.sh
 dependencies/
 .repos/
 mulle-configuration/
-addictions/
+addictions//.bootstrap.repos
+/addictions
+/.bootstrap.repos
