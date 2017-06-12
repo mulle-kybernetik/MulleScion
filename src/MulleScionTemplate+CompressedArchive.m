@@ -38,7 +38,7 @@
 #import "MulleScionTemplate+CompressedArchive.h"
 
 #include <fcntl.h>
-
+#include <unistd.h>
 
 #ifdef HAVE_ZLIB
 # undef HAVE_ZLIB
@@ -291,7 +291,8 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    strcpy( header->version, version);
    header->size   = htonq( length);
    header->bits   = sizeof( NSUInteger);  // memorize architecture
-   header->endian = BYTE_ORDER == LITTLE_ENDIAN;
+   header->endian = NSHostByteOrder() == NS_LittleEndian;
+
    header->coding = keyed;
    
    [data appendData:payload];
