@@ -42,9 +42,54 @@
 #import "NSFileHandle+MulleOutputFileHandle.h"
 
 
+static NSString  *processName( void);
+
+
+static void   usage( void)
+{
+   fprintf( stderr, "%s [options] <input> [datasource] [output] [arguments]\n", [processName() cString]);
+   fprintf( stderr,
+"options:\n"
+   "\t-w       : start webserver for /tmp/MulleScionDox\n"
+   "\t-z       : write compressed archive to outputfile\n"
+   "\t-Z       : write compressed keyed archive to outputfile (for IOS)\n"
+"input:\n"
+   "\t-        : Read template from stdin\n"
+   "\ttemplate : a MulleScion template path or URL\n"
+"datasource:\n"
+   "\t-        : Read data from stdin (only if input is not stdin already)\n"
+   "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
+   "\tplist    : a property list path or URL as datasource, see: plist(5)\n"
+   "\args      : use arguments as datasource (see below)\n"
+   "\tnone     : empty datasource\n"
+"output:\n"
+   "\t-        : Write result to stdout\n"
+   "\tfile     : Write result to file\n"
+"arguments:\n"
+   "\tkey=value  : key/value pairs to be used as __ARGV__ contents\n"
+   "\t             (unless args as datasource was specified)\n"
+"Examples:\n"
+   "\techo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
+   "\techo '***{{ __ARGV__[ 0]}}***' | mulle-scion - none - \"VfL Bochum 1848\"\n"
+   );
+}
+
+
+
 static NSFileHandle  *outputStreamWithInfo( NSDictionary *info);
 static NSDictionary  *getInfoFromArguments( void);
 static id            acquirePropertyListOrDataSourceFromBundle( NSString *s);
+
+
+static NSString  *processName( void)
+{
+   NSArray        *arguments;
+   NSEnumerator   *rover;
+
+   arguments = [[NSProcessInfo processInfo] arguments];
+   rover     = [arguments objectEnumerator];
+   return( [[rover nextObject] lastPathComponent]);
+}
 
 
 @interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
@@ -249,40 +294,6 @@ static id   acquirePropertyListOrDataSourceFromBundle( NSString *s)
 }
 
 
-static NSString  *processName( void)
-{
-   NSArray        *arguments;
-   NSEnumerator   *rover;
-
-   arguments = [[NSProcessInfo processInfo] arguments];
-   rover     = [arguments objectEnumerator];
-   return( [[rover nextObject] lastPathComponent]);
-}
-
-
-static void   usage( void)
-{
-   fprintf( stderr, "%s [-w|-z] <-|template> [bundle|plist|-|'keyvalue'|'none'] [-|outputfile] [args|<key>[=value]]*\n", [processName() cString]);
-   fprintf( stderr, "v%s\n", MulleScionFrameworkVersion);
-   fprintf( stderr,
-   "\t-w       : start webserver for /tmp/MulleScionDox\n"
-   "\t-z       : write compressed archive to outputfile\n"
-   "\t-Z       : write compressed keyed archive to outputfile (for IOS)\n"
-   "\n"
-   "\ttemplate : a MulleScion template path or URL\n\n"
-   "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
-   "\tplist    : a property list path or URL as datasource, see: plist(5)\n"
-   "\t'keyvalue' : use keyvalue arguments as datasource (see below)\n"
-   "\t'none'   : empty datasource\n"
-   "\targs     : arguments made available to the template via __ARGV__ (default)\n"
-   "\tkey      : key values as datasource contents (only with keyvalue)\n"
-   "\n"
-   "example:\n"
-   "\techo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
-   );
-}
-
-
 static NSDictionary  *getInfoFromEnumerator( NSEnumerator *rover)
 {
    NSArray               *argv;
@@ -307,7 +318,7 @@ static NSDictionary  *getInfoFromEnumerator( NSEnumerator *rover)
    if( ! [outputName length])
       outputName = @"-";
 
-   if( [plistName isEqualToString:@"keyvalue"])
+   if( [plistName isEqualToString:@"keyvalue"] || [plistName isEqualToString:@"args"])
    {
       plist = acquirePropertyListFromArgs( argv);
       argv  = [NSArray array];

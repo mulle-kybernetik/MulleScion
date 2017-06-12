@@ -1,3 +1,7 @@
+## 1857
+
+* clarify usage
+ 
 ## 1856
 
 * add nexti/previ to for loop dictionary.

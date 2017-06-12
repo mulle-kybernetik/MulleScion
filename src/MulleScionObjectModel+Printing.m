@@ -284,7 +284,7 @@ NSString  *MulleScionFilteredString( NSString *value,
       return( value);
    
    // if turned off, don't filter
-   mask = [[locals objectForKey:MulleScionCurrentFilterModeKey] unsignedIntegerValue];
+   mask = [[locals objectForKey:MulleScionCurrentFilterModeKey] integerValue];
    if( mask & bit)
    {
       filtered = [filter evaluateValue:(id) value
@@ -307,7 +307,7 @@ NSString  *MulleScionFilteredString( NSString *value,
       modeRover = [[locals objectForKey:MulleScionPreviousFilterModesKey] reverseObjectEnumerator];
       while( filter = [rover nextObject])
       {
-         mask = [[modeRover nextObject] unsignedIntegerValue];
+         mask = [[modeRover nextObject] integerValue];
          if( mask & bit)
          {
             filtered = [filter evaluateValue:value
@@ -1961,7 +1961,7 @@ done:
    TRACE_EVAL_CONT( self, otherValue);
    
    if( [value respondsToSelector:@selector( objectAtIndex:)])
-      result = [value objectAtIndex:[otherValue unsignedIntegerValue]]; // must be a NSNumber or NSString (?)
+      result = [value objectAtIndex:[otherValue integerValue]]; // must be a NSNumber or NSString (?)
    else
       if( [value respondsToSelector:@selector( objectForKey:)])
       {
@@ -2005,7 +2005,7 @@ done:
    
    if( [value respondsToSelector:@selector( objectAtIndex:)])
    {
-      index = [otherValue unsignedIntegerValue];
+      index = [otherValue integerValue];
       n     = [value count];
       while( index > n)
       {

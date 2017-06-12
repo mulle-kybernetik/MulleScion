@@ -90,4 +90,17 @@ id   MulleScionZero;
    return( @"nil");
 }
 
+
++ (NSInteger)  integerValue
+{
+   return( 0);
+}
+
+
++ (BOOL)  boolValue
+{
+   return( NO);
+}
+
+
 @end
