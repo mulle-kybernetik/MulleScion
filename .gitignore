@@ -27,3 +27,6 @@ mulle-configuration/
 /.bootstrap.repos
 /stashes
 mulle-configuration
+tests/include/
+tests/bin/
+tests/lib/

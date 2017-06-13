@@ -71,13 +71,17 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
 
 void  MulleScionPrintingValidateArgumentCount( NSArray *arguments, NSUInteger n,  NSDictionary *locals)
 {
-   if( [arguments count] == n)
+   NSUInteger   count;
+   
+   count = [arguments count];
+   if( count == n)
       return;
    
    MulleScionPrintingException( NSInvalidArgumentException, locals,
-                               @"%@ expects %ld arguments",
+                               @"%@ expects %ld arguments (got %ld)",
                                [locals valueForKey:MulleScionCurrentFunctionKey],
                                (long) n,
+                               (long) count,
                                locals);
 }
 

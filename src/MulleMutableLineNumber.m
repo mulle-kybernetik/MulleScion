@@ -40,6 +40,21 @@
 
 @implementation MulleMutableLineNumber
 
+// as we are "breaking out" of the class cluster, use standard
+// allocation
+
++ (instancetype) alloc
+{
+   return( NSAllocateObject( self, 0, NULL));
+}
+
+
++ (instancetype) allocWithZone:(NSZone *) zone
+{
+   return( NSAllocateObject( self, 0, NULL));
+}
+
+
 - (void) setUnsignedInteger:(NSUInteger) value
 {
    lineNumber_ = value;

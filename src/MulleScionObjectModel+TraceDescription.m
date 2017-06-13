@@ -87,7 +87,11 @@ static Class   NSPlaceholderStringClass;
 
 + (void) load
 {
-   NSPlaceholderStringClass = [[[self alloc] autorelease] class];
+   NSString  *s;
+   
+   s = [NSString alloc];
+   NSPlaceholderStringClass = [s class];
+   [s release];
 }
 
 

@@ -91,7 +91,7 @@ static MulleScionTemplate   *acquireTemplateFromPath( NSString *fileName)
    NSString             *string;
    NSData               *data;
    NSURL                *url;
-   
+
    template = nil;
    //
    // if fileName stars with '{' assume, that it's a command line template
@@ -447,7 +447,7 @@ static int   main_www( int argc, char *argv[])
    loadBundles();
 
    root = @"/tmp/MulleScionDox";
-   
+
    // hack to get something else going
    if( argc)
       s = argv[ 0];
@@ -484,19 +484,19 @@ static int   _main(int argc, char *argv[])
    NSDictionary         *info;
    NSFileHandle         *stream;
    MulleScionTemplate   *template;
-   
+
    info = getInfoFromArguments();
    if( ! info)
       return( -3);
-   
+
    template = acquireTemplateFromPath( [info objectForKey:@"MulleScionRootTemplate"]);
    if( ! template)
       return( -1);
-   
+
    stream = outputStreamWithInfo( info);
    if( ! stream)
       return( -2);
-   
+
    [template writeToOutput:stream
                 dataSource:[info objectForKey:@"dataSource"]
             localVariables:localVariablesFromInfo( info)];
@@ -508,7 +508,11 @@ int main( int argc, char *argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
-   
+
+#if defined( __MULLE_OBJC__) && defined( DEBUG)
+   mulle_objc_check_runtime();
+#endif
+
    if( argc > 1)
    {
       if( ! strcmp( argv[ 1], "--version"))
@@ -529,21 +533,21 @@ int main( int argc, char *argv[])
          return( main_www( argc - 2, &argv[ 2]));
       }
 #endif
-      
+
       if( ! strcmp( argv[ 1], "-z"))
          return( _archive_main( argc - 2, &argv[ 2], NO));
-      
+
       if( ! strcmp( argv[ 1], "-Z"))
          return( _archive_main( argc - 2, &argv[ 2], YES));
    }
-   
+
    pool = [NSAutoreleasePool new];
-   NS_DURING
+NS_DURING
    rval = _main( argc, argv);
-   NS_HANDLER
+NS_HANDLER
    NSLog( @"%@", localException);
    rval = -4;
-   NS_ENDHANDLER
+NS_ENDHANDLER
 #if defined( DEBUG) || defined( PROFILE)
    [pool release];
 #endif

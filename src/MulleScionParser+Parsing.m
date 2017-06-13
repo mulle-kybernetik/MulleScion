@@ -1312,6 +1312,8 @@ static NSMutableArray   *parser_do_array_or_arguments( parser *p, int allow_argu
          expr = parser_do_expression( p);
       }
       
+      NSCParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
+
       [array addObject:expr];
       [expr release];
    }
@@ -1741,6 +1743,8 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
    MulleScionComparisonOperator   comparator;
    MulleScionDot                  *dot;
 
+   NSCParameterAssert( [left isKindOfClass:[MulleScionExpression class]]);
+   
    parser_skip_whitespace( p);
 
    /* get the operator */
@@ -1839,9 +1843,13 @@ static MulleScionExpression * NS_RETURNS_RETAINED  _parser_do_expression( parser
 static MulleScionExpression * NS_RETURNS_RETAINED  parser_do_expression( parser *p)
 {
    MulleScionExpression  *left;
+   MulleScionExpression  *expr;
 
    left = parser_do_unary_expression( p);
-   return( _parser_do_expression( p, left));
+   expr = _parser_do_expression( p, left);
+   NSCParameterAssert( [expr isKindOfClass:[MulleScionExpression class]]);
+
+   return( expr);
 }
 
 
