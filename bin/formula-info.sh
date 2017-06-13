@@ -25,4 +25,5 @@ NAME="mulle-scion"        # formula filename w/o .rb extension
 # edit bin/release.sh
 #
 BUILD_DEPENDENCIES='${BOOTSTRAP_TAP}mulle-build
+${BOOTSTRAP_TAP}mulle-bootstrap
 cmake'
