@@ -360,7 +360,7 @@ main()
    #
    # find executable
    #
-   exe=`ls -1 ../bin/mulle-scion 2> /dev/null | tail -1`
+   exe=`ls -1 ./bin/mulle-scion 2> /dev/null | tail -1`
    if [ ! -x "${exe}" ]
    then
       exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
@@ -397,11 +397,13 @@ main()
          Darwin)
             DYLD_FALLBACK_FRAMEWORK_PATH="${DEPENDENCIES}/Frameworks"
             export DYLD_FALLBACK_FRAMEWORK_PATH
+            echo "DYLD_FALLBACK_FRAMEWORK_PATH='${DEPENDENCIES}/Frameworks'" >&2
             ;;
 
          *)
             LD_LIBRARY_PATH="${DEPENDENCIES}/lib:${LD_LIBRARY_PATH}"
             export LD_LIBRARY_PATH
+            echo "LD_LIBRARY_PATH='${DEPENDENCIES}/lib:${LD_LIBRARY_PATH}'" >&2
             ;;
       esac
    fi
