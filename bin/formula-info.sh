@@ -5,7 +5,7 @@
 PROJECT="MulleScion"      # your project name, requires camel-case
 DESC="A modern template engine for Objective C"
 LANGUAGE="objc"           # c,cpp, objc, bash ...
-RBFILE="mulle-scion.rb"   # formula filename
+NAME="mulle-scion"        # formula filename w/o .rb extension
 
 
 #
