@@ -184,7 +184,7 @@ static void signal_handler( int sig_num)
 
 static int log_message( const struct mg_connection *conn, const char *message)
 {
-   NSLog(@"%s", message);
+   NSLog( @"%s", message);
    return( 0);
 }
 
@@ -210,6 +210,7 @@ static void   start_mongoose( void  *datasource, char **options)
    {
       if( strcmp( *p, "document_root"))
          continue;
+
       if( *++p)
       {
          dir = [NSString stringWithCString:*p];

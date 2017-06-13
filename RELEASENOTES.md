@@ -1,3 +1,9 @@
+## 1857
+
+* fix missing menu due to change of root dox
+* fix podspec version
+* add dump of includes for debugging
+
 ## 1856
 
 * clarify usage output

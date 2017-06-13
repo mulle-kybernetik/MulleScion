@@ -1,7 +1,8 @@
 {% includes "__scion_macros.scion" %}
 {% result = @();
    fileManager = [NSFileManager defaultManager];
-   for file in [[fileManager directoryContentsAtPath:@"/tmp/MulleScionDox"] sortedArrayUsingSelector:@selector( compare:)]
+   workingDir  = [fileManager currentDirectoryPath];
+   for file in [[fileManager directoryContentsAtPath:workingDir] sortedArrayUsingSelector:@selector( compare:)]
       if [file hasSuffix:@".scion"] and 
          not [file hasPrefix:@"_"] and 
          not [file hasPrefix:@"index."]

@@ -138,7 +138,8 @@ enum
    MULLESCION_NO_HASHBANG               = 0x02,
    MULLESCION_DUMP_MACROS               = 0x04,
    MULLESCION_DUMP_COMMANDS             = 0x08,
-   MULLESCION_DUMP_EXPRESSIONS          = 0x10
+   MULLESCION_DUMP_EXPRESSIONS          = 0x10,
+   MULLESCION_DUMP_FILE_INCLUDES        = 0x20
 };
 
 static void   parser_skip_after_newline( parser *p);
@@ -172,6 +173,7 @@ static void   parser_init( parser *p, unsigned char *buf, size_t len)
    p->environment |= getenv( "MULLESCION_NO_HASHBANG") ? MULLESCION_NO_HASHBANG : 0;
    p->environment |= getenv( "MULLESCION_DUMP_COMMANDS") ? MULLESCION_DUMP_COMMANDS : 0;
    p->environment |= getenv( "MULLESCION_DUMP_EXPRESSIONS") ? MULLESCION_DUMP_EXPRESSIONS : 0;
+   p->environment |= getenv( "MULLESCION_DUMP_FILE_INCLUDES") ? MULLESCION_DUMP_FILE_INCLUDES : 0;
 }
 
 
@@ -2256,6 +2258,9 @@ retry:
    if( ! [fileName length])
       parser_error( p, "a filename was expected as a quoted string");
 
+   if( p->environment & MULLESCION_DUMP_FILE_INCLUDES)
+      fprintf( stderr, "-> opening \"%s\"\n", [fileName UTF8String]);
+   
    if( verbatim)
    {
       s = [[NSString alloc] initWithContentsOfFile:fileName];
