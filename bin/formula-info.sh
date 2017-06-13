@@ -2,9 +2,10 @@
 # If you don't have this file, there will be no homebrew
 # formula operations.
 #
-PROJECT="MulleScion"   # your project name, requires camel-case
+PROJECT="MulleScion"      # your project name, requires camel-case
 DESC="A modern template engine for Objective C"
-LANGUAGE="objc"        # c,cpp, objc, bash ...
+LANGUAGE="objc"           # c,cpp, objc, bash ...
+RBFILE="mulle-scion.rb"   # formula filename
 
 
 #
@@ -12,7 +13,7 @@ LANGUAGE="objc"        # c,cpp, objc, bash ...
 # `brew install`.
 #
 # Use the ${DEPENDENCY_TAP} prefix for non-official dependencies.
-# DEPENDENCIES and BUILD_DEPENDENCIES will be evaled later! 
+# DEPENDENCIES and BUILD_DEPENDENCIES will be evaled later!
 # So keep them single quoted.
 #
 # DEPENDENCIES='${DEPENDENCY_TAP}mulle-concurrent
@@ -25,11 +26,3 @@ LANGUAGE="objc"        # c,cpp, objc, bash ...
 #
 BUILD_DEPENDENCIES='${BOOTSTRAP_TAP}mulle-build
 cmake'
-
-
-# Uncomment this if you don't want to push the formula
-# OPTION_NO_TAP_PUSH="YES"
-
-# Often it's more flexible to pass these via parameters
-# PUBLISHER="mulle-nat"
-# PUBLISHER_TAP="mulle-kybernetik/software/"
