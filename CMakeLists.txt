@@ -6,25 +6,40 @@ project (MulleScion)
 set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/mulle-configuration)
 message(STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
 message(STATUS "CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
+
+set( MULLE_LANGUAGE "ObjC")
+
 if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   include( Debug)
 else()
   include( Release)
 endif()
 
+include( CMakeSourcesAndHeaders.txt )
+
+set( GOOGLE_TOOLBOX_SOURCES
+"google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"
+)
+
+
+set( HEADERS
+${MULLE_SCION_HEADERS}
+${MULLE_SCION_FOUNDATION_HEADERS}
+${MULLE_SCION_PARSER_HEADERS}
+${MULLE_SCION_PRINTER_HEADERS}
+)
+
+# move to mulle-configuration ?
+set( CMAKE_FIND_FRAMEWORK "LAST")
+
 find_library( FOUNDATION_LIBRARY NAMES Foundation)
+message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
 FIND_PACKAGE( ZLIB REQUIRED)
 
 message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
 message( STATUS "ZLIB_LIBRARIES is ${ZLIB_LIBRARIES}")
 
 add_definitions( -DPROJECT_VERSION=1856)
-
-include( CMakeSourcesAndHeaders.txt )
-
-set( GOOGLE_TOOLBOX_SOURCES
-"google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"
-)
 
 
 add_library( MulleScion STATIC
@@ -43,14 +58,6 @@ ${TOOL_SOURCES}
 )
 
 
-set( HEADERS
-${MULLE_SCION_HEADERS}
-${MULLE_SCION_FOUNDATION_HEADERS}
-${MULLE_SCION_PARSER_HEADERS}
-${MULLE_SCION_PRINTER_HEADERS}
-)
-
-
 target_link_libraries( mulle-scion
 ${BEGIN_ALL_LOAD}
 MulleScion
@@ -64,6 +71,7 @@ ${OS_SPECIFIC_LIBS}
 
 # INSTALL( TARGETS MulleScion DESTINATION "lib")
 # INSTALL( FILES ${HEADERS} DESTINATION "include/MulleScion")
+
 INSTALL( TARGETS mulle-scion DESTINATION "bin")
 INSTALL( FILES ${SCIONS} DESTINATION "share/mulle-scion/dox")
 

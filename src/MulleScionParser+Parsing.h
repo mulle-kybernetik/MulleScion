@@ -49,7 +49,7 @@ typedef struct
 } MulleScionParserTables;
 
 
-@interface MulleScionParser ( Parsing)
+@interface MulleScionParser( Parsing)
 
 - (void) parseData:(NSData *) data
     intoRootObject:(MulleScionObject *) root

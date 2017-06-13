@@ -1,5 +1,5 @@
 //
-//  MulleScionException.h
+//  MulleScionPrintingException.h
 //  MulleScion
 //
 //  Created by Nat! on 27.02.13.

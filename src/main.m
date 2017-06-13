@@ -42,35 +42,48 @@
 #import "NSFileHandle+MulleOutputFileHandle.h"
 
 
+#ifndef DEBUG
+# define DOCUMENT_ROOT "/usr/local/share/mulle-scion/dox"  // C string!
+#else
+# define DOCUMENT_ROOT "/Volumes/Source/srcM/MulleScion/dox"
+#endif
+
+
 static NSString  *processName( void);
 
 
 static void   usage( void)
 {
-   fprintf( stderr, "%s [options] <input> [datasource] [output] [arguments]\n", [processName() cString]);
+   fprintf( stderr, "Usage:\n   %s [options] <input> [datasource] [output] [arguments]\n", [processName() cString]);
    fprintf( stderr,
-"options:\n"
-   "\t-w       : start webserver for /tmp/MulleScionDox\n"
-   "\t-z       : write compressed archive to outputfile\n"
-   "\t-Z       : write compressed keyed archive to outputfile (for IOS)\n"
-"input:\n"
-   "\t-        : Read template from stdin\n"
-   "\ttemplate : a MulleScion template path or URL\n"
-"datasource:\n"
-   "\t-        : Read data from stdin (only if input is not stdin already)\n"
-   "\tbundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
-   "\tplist    : a property list path or URL as datasource, see: plist(5)\n"
-   "\args      : use arguments as datasource (see below)\n"
-   "\tnone     : empty datasource\n"
-"output:\n"
-   "\t-        : Write result to stdout\n"
-   "\tfile     : Write result to file\n"
-"arguments:\n"
-   "\tkey=value  : key/value pairs to be used as __ARGV__ contents\n"
-   "\t             (unless args as datasource was specified)\n"
+"\n"
+"Options:\n"
+"   -w       : start webserver for " DOCUMENT_ROOT "\n"
+"   -z       : write compressed archive to outputfile\n"
+"   -Z       : write compressed keyed archive to outputfile (for IOS)\n"
+"\n"
+"Input:\n"
+"   -        : Read template from stdin\n"
+"   template : a MulleScion template path or URL\n"
+"\n"
+"Datasource:\n"
+"   -        : Read data from stdin (only if input is not stdin already)\n"
+"   args     : use arguments as datasource (see below)\n"
+"   bundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource\n"
+"   plist    : a property list path or URL as datasource, see: plist(5)\n"
+"   none     : empty datasource\n"
+"\n"
+"Output:\n"
+"   -        : Write result to stdout\n"
+"   file     : Write result to file\n"
+"\n"
+"Arguments:\n"
+"   key=value: key/value pairs to be used as __ARGV__ contents\n"
+"              (unless args as datasource was specified)\n"
+"\n"
 "Examples:\n"
-   "\techo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
-   "\techo '***{{ __ARGV__[ 0]}}***' | mulle-scion - none - \"VfL Bochum 1848\"\n"
+"   echo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
+"   echo '***{{ __ARGV__[ 0]}}***' | mulle-scion - none - \"VfL Bochum 1848\"\n"
    );
 }
 
@@ -92,11 +105,11 @@ static NSString  *processName( void)
 }
 
 
-@interface NSFileHandle ( MulleScionOutput) < MulleScionOutput >
+@interface NSFileHandle( MulleScionOutput) < MulleScionOutput >
 @end
 
 
-@implementation NSFileHandle ( MulleScionOutput)
+@implementation NSFileHandle( MulleScionOutput)
 
 - (void) appendString:(NSString *) s
 {
@@ -136,7 +149,7 @@ static MulleScionTemplate   *acquireTemplateFromPath( NSString *fileName)
    NSString             *string;
    NSData               *data;
    NSURL                *url;
-   
+
    template = nil;
    //
    // if fileName stars with '{' assume, that it's a command line template
@@ -400,7 +413,7 @@ static void  loadBundles( void)
 }
 
 
-static int   _archive_main( int argc, const char * argv[], int keyed)
+static int   _archive_main( int argc, char *argv[], BOOL keyed)
 {
    MulleScionTemplate   *template;
    NSArray              *arguments;
@@ -444,11 +457,7 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 
  static char    *default_options[] =
 {
-#ifndef DEBUG
-   "document_root", "/usr/local/share/mulle-scion/dox",
-#else
-   "document_root", "/Volumes/Source/srcM/MulleScion/dox",
-#endif
+   "document_root", DOCUMENT_ROOT,
    "listening_ports", "127.0.0.1:18048",
    "num_threads", "1",
    "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
@@ -456,29 +465,35 @@ static int   _archive_main( int argc, const char * argv[], int keyed)
 };
 
 
-static int   main_www( int argc, const char * argv[])
+static int   main_www( int argc, char *argv[])
 {
    id         plist;
    char       *s;
    NSString   *path;
+   NSString   *root;
 
    loadBundles();
 
+   root = [NSString stringWithCString:DOCUMENT_ROOT];
+   
    // hack to get something else going
-   s = getenv( "MulleScionServerRoot");
+   if( argc)
+      s = argv[ 0];
+   else
+      s = getenv( "MulleScionServerRoot");
+
    if( s)
+   {
+      root = [NSString stringWithCString:s];
       default_options[ 1] = s;
+   }
 
    s = getenv( "MulleScionServerPort");
    if( s)
       default_options[ 3] = s;
 
-#ifndef DEBUG
-   path = @"/usr/local/share/mulle-scion/dox/properties.plist";
-#else
-   path = @"/Volumes/Source/srcM/MulleScion/dox/properties.plist";
-#endif
-   s = getenv( "MulleScionServerPlist");
+   path = [root stringByAppendingPathComponent:@"properties.plist"];
+   s    = getenv( "MulleScionServerPlist");
    if( s)
       path = [NSString stringWithCString:s];
 
@@ -492,24 +507,24 @@ static int   main_www( int argc, const char * argv[])
 #endif
 
 
-static int   _main(int argc, const char * argv[])
+static int   _main(int argc, char *argv[])
 {
    NSDictionary         *info;
    NSFileHandle         *stream;
    MulleScionTemplate   *template;
-   
+
    info = getInfoFromArguments();
    if( ! info)
       return( -3);
-   
+
    template = acquireTemplateFromPath( [info objectForKey:@"MulleScionRootTemplate"]);
    if( ! template)
       return( -1);
-   
+
    stream = outputStreamWithInfo( info);
    if( ! stream)
       return( -2);
-   
+
    [template writeToOutput:stream
                 dataSource:[info objectForKey:@"dataSource"]
             localVariables:localVariablesFromInfo( info)];
@@ -517,11 +532,15 @@ static int   _main(int argc, const char * argv[])
 }
 
 
-int main( int argc, const char * argv[])
+int main( int argc, char *argv[])
 {
    NSAutoreleasePool   *pool;
    int                 rval;
-   
+
+#if defined( __MULLE_OBJC__) && defined( DEBUG)
+   mulle_objc_check_runtime();
+#endif
+
    if( argc > 1)
    {
       if( ! strcmp( argv[ 1], "--version"))
@@ -539,24 +558,24 @@ int main( int argc, const char * argv[])
 #ifndef DONT_HAVE_WEBSERVER
       if( ! strcmp( argv[ 1], "-w"))
       {
-         return( main_www( argc, argv));
+         return( main_www( argc - 2, &argv[ 2]));
       }
 #endif
-      
+
       if( ! strcmp( argv[ 1], "-z"))
-         return( _archive_main( argc, argv, NO));
-      
+         return( _archive_main( argc - 2, &argv[ 2], NO));
+
       if( ! strcmp( argv[ 1], "-Z"))
-         return( _archive_main( argc, argv, YES));
+         return( _archive_main( argc - 2, &argv[ 2], YES));
    }
-   
+
    pool = [NSAutoreleasePool new];
-   NS_DURING
+NS_DURING
    rval = _main( argc, argv);
-   NS_HANDLER
+NS_HANDLER
    NSLog( @"%@", localException);
    rval = -4;
-   NS_ENDHANDLER
+NS_ENDHANDLER
 #if defined( DEBUG) || defined( PROFILE)
    [pool release];
 #endif

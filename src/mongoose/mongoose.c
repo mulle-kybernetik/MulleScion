@@ -2020,7 +2020,7 @@ static void byteReverse(unsigned char *buf, unsigned longs) {
 #define F4(x, y, z) (y ^ (x | ~z))
 
 #define MD5STEP(f, w, x, y, z, data, s) \
-  ( w += f(x, y, z) + data,  w = w<<s | w>>(32-s),  w += x )
+ ( w += f(x, y, z) + data,  w = w<<s | w>>(32-s),  w += x )
 
 // Start MD5 accumulation.  Set bit count to 0 and buffer to mysterious
 // initialization constants.
@@ -3712,7 +3712,7 @@ static void SHA1Update(SHA1_CTX* context, const unsigned char* data,
   if ((j + len) > 63) {
     memcpy(&context->buffer[j], data, (i = 64-j));
     SHA1Transform(context->state, context->buffer);
-    for ( ; i + 63 < len; i += 64) {
+    for( ; i + 63 < len; i += 64) {
       SHA1Transform(context->state, &data[i]);
     }
     j = 0;

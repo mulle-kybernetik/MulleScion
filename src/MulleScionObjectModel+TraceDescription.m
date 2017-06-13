@@ -81,13 +81,17 @@ NSString   *mulleLinefeedEscapedShortenedString( NSString *s, size_t max)
 }
 
 
-@implementation NSString ( TraceValueDescription)
+@implementation NSString( TraceValueDescription)
 
 static Class   NSPlaceholderStringClass;
 
 + (void) load
 {
-   NSPlaceholderStringClass = [[[self alloc] autorelease] class];
+   NSString  *s;
+   
+   s = [NSString alloc];
+   NSPlaceholderStringClass = [s class];
+   [s release];
 }
 
 
@@ -102,7 +106,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation NSObject ( TraceValueDescription)
+@implementation NSObject( TraceValueDescription)
 
 
 - (NSString *) traceValueDescription
@@ -113,7 +117,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation NSArray ( TraceValueDescription)
+@implementation NSArray( TraceValueDescription)
 
 - (NSString *) traceValueDescription
 {
@@ -146,7 +150,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation NSDictionary ( TraceValueDescription)
+@implementation NSDictionary( TraceValueDescription)
 
 - (NSString *) traceValueDescription
 {
@@ -186,7 +190,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionObject ( TraceDescription)
+@implementation MulleScionObject( TraceDescription)
 
 - (NSString *) _templateDescriptionSeparator
 {
@@ -252,7 +256,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionPlainText ( TraceDescription)
+@implementation MulleScionPlainText( TraceDescription)
 
 - (NSString *) _templateDescription
 {
@@ -272,7 +276,7 @@ static Class   NSPlaceholderStringClass;
 
 
 
-@implementation MulleScionTemplate ( TraceDescription)
+@implementation MulleScionTemplate( TraceDescription)
 
 - (NSString *) traceDescription
 {
@@ -289,7 +293,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@interface NSObject ( ExpressionDescription)
+@interface NSObject( ExpressionDescription)
 
 - (NSString *) _expressionDescription;
 
@@ -319,7 +323,7 @@ static Class   NSPlaceholderStringClass;
 
 
 
-@implementation MulleScionValueObject ( TraceDescription)
+@implementation MulleScionValueObject( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -334,7 +338,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionString ( TraceDescription)
+@implementation MulleScionString( TraceDescription)
 
 - (NSString *) _traceDescription
 {
@@ -361,7 +365,7 @@ static Class   NSPlaceholderStringClass;
 
 
 
-@implementation MulleScionExpression ( TraceDescription)
+@implementation MulleScionExpression( TraceDescription)
 
 - (NSString *) _templateDescription
 {
@@ -371,7 +375,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionArray ( TraceDescription)
+@implementation MulleScionArray( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -396,7 +400,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionDictionary ( TraceDescription)
+@implementation MulleScionDictionary( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -422,7 +426,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionFunction ( TraceDescription)
+@implementation MulleScionFunction( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -451,7 +455,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionMethod ( TraceDescription)
+@implementation MulleScionMethod( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -490,7 +494,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionNot ( TraceDescription)
+@implementation MulleScionNot( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -501,7 +505,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionBinaryOperatorExpression ( TraceDescription)
+@implementation MulleScionBinaryOperatorExpression( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -512,7 +516,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionIndexing ( TraceDescription)
+@implementation MulleScionIndexing( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -523,7 +527,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionConditional ( TraceDescription)
+@implementation MulleScionConditional( TraceDescription)
 
 - (NSString *) _expressionDescription
 {
@@ -534,7 +538,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionTerminator ( TraceDescription)
+@implementation MulleScionTerminator( TraceDescription)
 
 - (NSString *) commandDescription
 {
@@ -544,14 +548,14 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@interface MulleScionCommand ( TraceDescription)
+@interface MulleScionCommand( TraceDescription)
 
 - (NSString *) _commandDescription;
 
 @end
 
 
-@implementation MulleScionCommand ( TraceDescription)
+@implementation MulleScionCommand( TraceDescription)
 
 - (NSString *) _templateDescriptionSeparator
 {
@@ -585,7 +589,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionSet ( Debug)
+@implementation MulleScionSet( Debug)
 
 - (NSString *) commandDescription
 {
@@ -598,7 +602,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionFor ( Debug)
+@implementation MulleScionFor( Debug)
 
 - (NSString *) commandDescription
 {
@@ -611,7 +615,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionExpressionCommand ( Debug)
+@implementation MulleScionExpressionCommand( Debug)
 
 - (NSString *) commandDescription
 {
@@ -624,7 +628,7 @@ static Class   NSPlaceholderStringClass;
 @end
 
 
-@implementation MulleScionBlock ( Debug)
+@implementation MulleScionBlock( Debug)
 
 - (NSString *) commandDescription
 {

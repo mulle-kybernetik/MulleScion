@@ -40,6 +40,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+
 #ifdef HAVE_ZLIB
 # undef HAVE_ZLIB
 #endif
@@ -56,7 +57,7 @@
 #endif
 
 
-@implementation MulleScionTemplate ( CompressedArchive)
+@implementation MulleScionTemplate( CompressedArchive)
 
 typedef struct
 {
@@ -108,7 +109,7 @@ static inline uint64_t  mulle_swap64( uint64_t value)
 
 static inline uint64_t  htonq( uint64_t value)
 {
-#ifdef LITTLE_ENDIAN
+#if __LITTLE_ENDIAN__
    return( mulle_swap64( value));
 #else
    return( value);
@@ -118,7 +119,7 @@ static inline uint64_t  htonq( uint64_t value)
 
 static inline uint64_t  ntohq( uint64_t value)
 {
-#ifdef LITTLE_ENDIAN
+#if __LITTLE_ENDIAN__
    return( mulle_swap64( value));
 #else
    return( value);
@@ -292,7 +293,6 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
    header->size   = htonq( length);
    header->bits   = sizeof( NSUInteger);  // memorize architecture
    header->endian = NSHostByteOrder() == NS_LittleEndian;
-
    header->coding = keyed;
    
    [data appendData:payload];

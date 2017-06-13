@@ -47,11 +47,11 @@
 #endif
 
 
-#ifdef __MULLE_OBJC_RUNTIME__
+#ifdef __MULLE_OBJC__
 
 static inline Class   MulleGetClass( id self)
 {
-   return( mulle_objc_object_get_isa( self));
+   return( self ? (Class) _mulle_objc_object_get_isa( self) : Nil);
 }
 
 #else
@@ -70,7 +70,7 @@ static inline Class   MulleGetClass( id self)
 
 static inline Class   MulleGetClass( id self)
 {
-   return( ((__bridge struct objc_object *) self)->isa);
+   return( self ? ((__bridge struct objc_object *) self)->isa : Nil);
 }
 # endif
 #endif

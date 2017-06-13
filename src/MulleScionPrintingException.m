@@ -1,5 +1,5 @@
 //
-//  MulleScionException.m
+//  MulleScionPrintingException.m
 //  MulleScion
 //
 //  Created by Nat! on 27.02.13.
@@ -50,9 +50,9 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
    
    va_start( args, format);
    
-#ifdef __MULLE_OBJC_RUNTIME__
+#ifdef __MULLE_OBJC__
    s = [[[NSString alloc] initWithFormat:format
-                               va_list:args] autorelease];
+                              varargList:args] autorelease];
 #else
    s = [[[NSString alloc] initWithFormat:format
                                arguments:args] autorelease];
@@ -71,13 +71,17 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
 
 void  MulleScionPrintingValidateArgumentCount( NSArray *arguments, NSUInteger n,  NSDictionary *locals)
 {
-   if( [arguments count] == n)
+   NSUInteger   count;
+   
+   count = [arguments count];
+   if( count == n)
       return;
    
    MulleScionPrintingException( NSInvalidArgumentException, locals,
-                               @"%@ expects %ld arguments",
+                               @"%@ expects %ld arguments (got %ld)",
                                [locals valueForKey:MulleScionCurrentFunctionKey],
                                (long) n,
+                               (long) count,
                                locals);
 }
 

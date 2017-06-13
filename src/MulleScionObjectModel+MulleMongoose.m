@@ -37,7 +37,7 @@
 #import "MulleScionObjectModel+MulleMongoose.h"
 
 
-@implementation MulleScionTemplate ( MulleMongoose)
+@implementation MulleScionTemplate( MulleMongoose)
 
 static BOOL fileExists( NSString *fileName)
 {

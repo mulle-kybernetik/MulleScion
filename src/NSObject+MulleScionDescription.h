@@ -38,7 +38,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface NSObject ( MulleScionDescription)
+@interface NSObject( MulleScionDescription)
 
 - (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context;
 

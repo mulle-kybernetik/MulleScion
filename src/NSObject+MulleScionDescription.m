@@ -53,7 +53,7 @@ NSString   *MulleScionStringEllipsisKey       = @"MulleScionStringEllipsis";
 extern void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NSString *format, ...);
 
 
-@implementation NSObject ( MulleScionDescription)
+@implementation NSObject( MulleScionDescription)
 
 - (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
 {
@@ -63,7 +63,7 @@ extern void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionN
 @end
 
 
-@implementation NSNull ( MulleScionDescription)
+@implementation NSNull( MulleScionDescription)
 
 - (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
 {
@@ -78,7 +78,7 @@ extern void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionN
 @end
 
 
-@implementation _MulleScionNull ( MulleScionDescription)
+@implementation _MulleScionNull( MulleScionDescription)
 
 + (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
 {
@@ -93,7 +93,7 @@ extern void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionN
 @end
 
 
-@implementation NSString ( MulleScionDescription)
+@implementation NSString( MulleScionDescription)
 
 - (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
 {
@@ -176,7 +176,7 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
 }
 
 
-@implementation NSNumber ( MulleScionDescription)
+@implementation NSNumber( MulleScionDescription)
 
 - (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
 {
@@ -223,7 +223,7 @@ static NSString   *getFormat( NSMutableDictionary *context, NSString *key)
 @end
 
 
-@implementation NSDate ( MulleScionDescription)
+@implementation NSDate( MulleScionDescription)
 
 - (NSString *) mulleScionDescriptionWithLocalVariables:(NSMutableDictionary *) context
 {

@@ -1,5 +1,5 @@
 //
-//  NSLineCountNumber.h
+//  MulleMutableLineNumber.h
 //  MulleScion
 //
 //  Created by Nat! on 25.02.13.

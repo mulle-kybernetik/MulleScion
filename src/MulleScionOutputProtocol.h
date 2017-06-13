@@ -44,6 +44,6 @@
 @end
 
 
-@interface NSMutableString ( MulleScionOutput) < MulleScionOutput>
+@interface NSMutableString( MulleScionOutput) < MulleScionOutput>
 @end
 

@@ -43,6 +43,7 @@
 id   MulleScionNull;
 id   MulleScionZero;
 
+
 + (void) load
 {
    MulleScionNull = self;

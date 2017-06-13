@@ -63,7 +63,7 @@
  printf( "%s", [output UTF8String]);
  * --------------snip------------------------
  */
-@interface MulleScionTemplate ( Convenience)
+@interface MulleScionTemplate( Convenience)
 
 - (id) initWithUTF8String:(unsigned char *) s;
 
@@ -117,7 +117,7 @@
 
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
 
-@interface MulleScionTemplate ( Caching)
+@interface MulleScionTemplate( Caching)
 
 // Easier to use environment variable: MulleScionCacheDirectory
 + (void) setCacheDirectory:(NSString *) directory;

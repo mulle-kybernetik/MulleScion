@@ -52,7 +52,7 @@
 char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
 
 
-@implementation MulleScionTemplate ( Convenience)
+@implementation MulleScionTemplate( Convenience)
 
 + (BOOL) writeToOutput:(id <MulleScionOutput>) output
           templateFile:(NSObject <MulleScionStringOrURL> *) fileName
@@ -338,7 +338,7 @@ static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
 
 #define MulleScionCacheDirectoryKey   @"MulleScionCacheDirectory"
 
-@implementation MulleScionTemplate ( Caching)
+@implementation MulleScionTemplate( Caching)
 
 static BOOL       cacheEnabled_;
 static NSString   *cacheDirectory_;
