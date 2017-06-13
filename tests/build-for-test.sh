@@ -4,16 +4,26 @@ set -e
 
 TESTDIR="`pwd -P`"
 
-mulle-bootstrap build -c Debug -k "$@"
+mulle-bootstrap build -c Debug -k
 
-if [ -d ../build ]
+cd ..
+
+
+if [ -f .CC ]
 then
-   rm -rf ../build
+   OPTIONS="-DCMAKE_C_COMPILER=`cat .CC` -DCMAKE_CXX_COMPILER=`cat .CXX`"
 fi
 
-mkdir ../build
-cd ../build
-   cmake -DCMAKE_OSX_SYSROOT=macosx \
-         -DCMAKE_INSTALL_PREFIX="${TESTDIR}" \
-         -DCMAKE_BUILD_TYPE=Debug ..
-   make -j 4 install
+if [ -d build ]
+then
+   rm -rf build
+fi
+mkdir build
+
+
+cd build
+   eval cmake -DCMAKE_OSX_SYSROOT=macosx \
+              -DCMAKE_INSTALL_PREFIX="'${TESTDIR}'" \
+              ${OPTIONS} \
+              -DCMAKE_BUILD_TYPE=Debug ..
+   make -j 4 "$@" install
