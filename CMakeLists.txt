@@ -73,5 +73,5 @@ ${OS_SPECIFIC_LIBS}
 # INSTALL( FILES ${HEADERS} DESTINATION "include/MulleScion")
 
 INSTALL( TARGETS mulle-scion DESTINATION "bin")
-INSTALL( FILES ${SCIONS} DESTINATION "share/mulle-scion/dox")
+INSTALL( FILES ${SCIONS} ${PLISTS} DESTINATION "share/mulle-scion/dox")
 
