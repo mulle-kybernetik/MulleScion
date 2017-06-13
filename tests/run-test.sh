@@ -20,7 +20,7 @@ VERBOSE="YES"
 while [ $# -ne 0 ]
 do
    case "$1" in
-      -v)
+      -v|-vv|-vvv|-V) # not really the same :)
          VERBOSE="YES"
       ;;
 
