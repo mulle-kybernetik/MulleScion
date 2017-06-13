@@ -71,6 +71,7 @@ This is the general architecture of *MulleScion*
 enough iterations to pronounce it "ready for production".
 
 
+
 TOOLS
 =============
 There is an interactive editor available for OS X called [MulleScionist](http://www.mulle-kybernetik.com/software/git/MulleScionist/),
@@ -133,6 +134,50 @@ releases are pushed to github
 TODO
 =============
 It might be nice to have delayed evaluation for render results. More tests.
+
+
+INSTALLATION (mulle-scion command line tool only)
+=============
+
+```
+brew install mulle-kybernetik/software/mulle-scion
+```
+
+USAGE mulle-scion
+=============
+
+```
+Usage:
+   mulle-scion [options] <input> <datasource> [output] [arguments]
+
+Options:
+   -w       : start webserver for /usr/local/share/mulle-scion/dox
+   -z       : write compressed archive to outputfile
+   -Z       : write compressed keyed archive to outputfile (for IOS)
+
+Input:
+   -        : Read template from stdin
+   template : a MulleScion template path or URL
+
+Datasource:
+   -        : Read data from stdin (only if input is not stdin already)
+   args     : use arguments as datasource (see below)
+   bundle   : a NSBundle. It's NSPrincipalClass will be used as the datasource
+   plist    : a property list path or URL as datasource, see: plist(5)
+   none     : empty datasource
+
+Output:
+   -        : Write result to stdout
+   file     : Write result to file
+
+Arguments:
+   key=value: key/value pairs to be used as __ARGV__ contents
+              (unless args as datasource was specified)
+
+Examples:
+   echo '***{{ VALUE }}***' | mulle-scion - args - VALUE="VfL Bochum 1848"
+   echo '***{{ __ARGV__[ 0]}}***' | mulle-scion - none - "VfL Bochum 1848"
+```
 
 
 AUTHOR

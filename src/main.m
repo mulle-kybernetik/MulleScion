@@ -54,7 +54,9 @@ static NSString  *processName( void);
 
 static void   usage( void)
 {
-   fprintf( stderr, "Usage:\n   %s [options] <input> [datasource] [output] [arguments]\n", [processName() cString]);
+   fprintf( stderr, "Usage:\n"
+                    "   %s [options] <input> <datasource> [output] [arguments]\n",
+                        [processName() cString]);
    fprintf( stderr,
 "\n"
 "Options:\n"
@@ -82,7 +84,7 @@ static void   usage( void)
 "              (unless args as datasource was specified)\n"
 "\n"
 "Examples:\n"
-"   echo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
+"   echo '***{{ VALUE }}***' | mulle-scion - args - VALUE=\"VfL Bochum 1848\"\n"
 "   echo '***{{ __ARGV__[ 0]}}***' | mulle-scion - none - \"VfL Bochum 1848\"\n"
    );
 }
@@ -475,7 +477,7 @@ static int   main_www( int argc, char *argv[])
    loadBundles();
 
    root = [NSString stringWithCString:DOCUMENT_ROOT];
-   
+
    // hack to get something else going
    if( argc)
       s = argv[ 0];

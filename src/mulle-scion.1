@@ -3,7 +3,7 @@
 .Os Darwin
 .Sh NAME       
 .Nm mulle-scion
-.Nd creates text output from a template and a property list.
+.Nd create text output from a template and a property list.
 .Sh SYNOPSIS      
 .Nm
 .Op Fl w z Z
@@ -47,15 +47,14 @@ be read from standard input.
 .It Ar plist  
 A property list filename or URL. If you give '-' as a path, the property list will 
 be read from standard input, unless you already used '-' for the template.
-You can also give 'none' for no property list. Giving the keyword 'keyvalue'
-makes mulle-scion treat the arguments as key value pairs for a datasource plist
-instead.
+You can also give 'none' for no property list. Giving the keyword 'args
+makes mulle-scion treat the arguments as key value pairs for a datasource plist.
 .It Ar outputfile
 The output file to write the output to. If this parameter is '-' or omitted, the 
 output is written to standard output.
 .It Ar arguments
 All other trailing arguments are collected and are available as an array in the
-MulleScion variable __ARGV__, unless 'keyvalue' has been set. In which case the
+MulleScion variable __ARGV__, unless 'args' has been set. In which case the
 arguments become the datasource.
 .El 
 .Pp                     
