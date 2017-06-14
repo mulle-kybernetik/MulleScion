@@ -134,12 +134,13 @@ typedef struct _parser
 
 enum
 {
-   MULLESCION_VERBATIM_INCLUDE_HASHBANG = 0x01,
+   MULLESCION_ALLOW_GETENV_INCLUDES     = 0x01,
    MULLESCION_NO_HASHBANG               = 0x02,
-   MULLESCION_DUMP_MACROS               = 0x04,
+   MULLESCION_VERBATIM_INCLUDE_HASHBANG = 0x04,
    MULLESCION_DUMP_COMMANDS             = 0x08,
    MULLESCION_DUMP_EXPRESSIONS          = 0x10,
-   MULLESCION_DUMP_FILE_INCLUDES        = 0x20
+   MULLESCION_DUMP_FILE_INCLUDES        = 0x20,
+   MULLESCION_DUMP_MACROS               = 0x40
 };
 
 static void   parser_skip_after_newline( parser *p);
@@ -158,6 +159,33 @@ static void   parser_skip_initial_hashbang_line_if_present( parser *p)
 }
 
 
+static int   getenv_yes_no_default( char *name, int default_value)
+{
+   char   *s;
+
+   s = getenv( name);
+   if( ! s)
+      return( default_value);
+
+   switch( *s)
+   {
+   case 'f' :
+   case 'F' :
+   case 'n' :
+   case 'N' :
+   case '0' : return( 0);
+   }
+
+   return( 1);
+}
+
+
+static inline int  getenv_yes_no( char *name)
+{
+   return( getenv_yes_no_default( name, 0));
+}
+
+
 static void   parser_init( parser *p, unsigned char *buf, size_t len)
 {
    memset( p, 0, sizeof( parser));
@@ -168,12 +196,13 @@ static void   parser_init( parser *p, unsigned char *buf, size_t len)
       p->lineNumber = 1;
    }
 
-   p->environment |= getenv( "MULLESCION_DUMP_MACROS") ? MULLESCION_DUMP_MACROS : 0;
-   p->environment |= getenv( "MULLESCION_VERBATIM_INCLUDE_HASHBANG") ? MULLESCION_VERBATIM_INCLUDE_HASHBANG : 0;
-   p->environment |= getenv( "MULLESCION_NO_HASHBANG") ? MULLESCION_NO_HASHBANG : 0;
-   p->environment |= getenv( "MULLESCION_DUMP_COMMANDS") ? MULLESCION_DUMP_COMMANDS : 0;
-   p->environment |= getenv( "MULLESCION_DUMP_EXPRESSIONS") ? MULLESCION_DUMP_EXPRESSIONS : 0;
-   p->environment |= getenv( "MULLESCION_DUMP_FILE_INCLUDES") ? MULLESCION_DUMP_FILE_INCLUDES : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_ALLOW_GETENV_INCLUDES") ? MULLESCION_ALLOW_GETENV_INCLUDES : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_NO_HASHBANG") ? MULLESCION_NO_HASHBANG : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_VERBATIM_INCLUDE_HASHBANG") ? MULLESCION_VERBATIM_INCLUDE_HASHBANG : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_DUMP_COMMANDS") ? MULLESCION_DUMP_COMMANDS : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_DUMP_EXPRESSIONS") ? MULLESCION_DUMP_EXPRESSIONS : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_DUMP_FILE_INCLUDES") ? MULLESCION_DUMP_FILE_INCLUDES : 0;
+   p->environment |= getenv_yes_no( "MULLESCION_DUMP_MACROS") ? MULLESCION_DUMP_MACROS : 0;
 }
 
 
@@ -2224,7 +2253,8 @@ static MulleScionObject * NS_RETURNS_RETAINED  _parser_do_includes( parser *p, B
    NSString               *converter;
    SEL                    sel;
    NSString               *s;
-
+   char                   *env;
+   
    if( p->inMacro)
       parser_error( p, "no including or extending in macro");
 
@@ -2245,19 +2275,30 @@ retry:
          converter = nil;
          goto retry;
       }
-
+   
+      if( p->environment & MULLESCION_ALLOW_GETENV_INCLUDES)
+      {
+         env = getenv( [converter cString]);
+         if( env)
+         {
+            fileName = [NSString stringWithCString:env];
+            goto env_string;
+         }
+      }
+         
       //
       // markdown -> markdownedData or some other variety
       // (rarely useful)
       sel = NSSelectorFromString( converter);
       if( ! [NSData instancesRespondToSelector:sel])
-         parser_error( p, "converter method \"%s\" not found on NSData", [converter cString]);
+         parser_error( p, "unknown converter method \"%s\" (hint: use quoted strings for filenames)", [converter cString]);
    }
 
    fileName = parser_do_string( p);
    if( ! [fileName length])
       parser_error( p, "a filename was expected as a quoted string");
 
+env_string:
    if( p->environment & MULLESCION_DUMP_FILE_INCLUDES)
       fprintf( stderr, "-> opening \"%s\"\n", [fileName UTF8String]);
    

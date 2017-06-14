@@ -42,12 +42,14 @@
 #import "NSFileHandle+MulleOutputFileHandle.h"
 
 
+// all C strings
 #ifndef DEBUG
-# define DOCUMENT_ROOT "/usr/local/share/mulle-scion/dox"  // C string!
+# define DOCUMENT_ROOT "/usr/local/share/mulle-scion/dox"
 #else
 # define DOCUMENT_ROOT "/Volumes/Source/srcM/MulleScion/dox"
 #endif
-
+#define SERVER_HOST "127.0.0.1"
+#define SERVER_PORT "18048"
 
 static NSString  *processName( void);
 
@@ -460,7 +462,7 @@ static int   _archive_main( int argc, char *argv[], BOOL keyed)
  static char    *default_options[] =
 {
    "document_root", DOCUMENT_ROOT,
-   "listening_ports", "127.0.0.1:18048",
+   "listening_ports", SERVER_HOST ":" SERVER_PORT,
    "num_threads", "1",
    "index_files", "index.scion,index.html,index.htm,index.cgi,index.shtml,index.php,index.lp",
    NULL
@@ -503,6 +505,9 @@ static int   main_www( int argc, char *argv[])
    if( ! plist)
       plist = [NSDictionary dictionary];
 
+#if __APPLE__
+   system( "(sleep 1 ; open http://" SERVER_HOST ":" SERVER_PORT ") &");
+#endif
    mulle_mongoose_main( plist, default_options);
    return( 0);
 }

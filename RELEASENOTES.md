@@ -1,3 +1,12 @@
+## 1858
+
+There is an option that allows specifying includes via the environment like
+so:
+`MULLESCION_ALLOW_GETENV_INCLUDES="YES" MY_INCLUDE="foo.scion" mulle-scion bar.scion none`
+and then in `bar.scion` use `{% includes MY_INCLUDE %}`. This looks obscure,
+but I needed it to wrap code around existing templates.
+* MULLESCION_.. environment variables now are of the YES/NO variety.
+
 ## 1857
 
 * fix missing menu due to change of root dox
