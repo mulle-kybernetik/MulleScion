@@ -1,6 +1,6 @@
 `filter` pushes the resultant text of template texts and expressions through a
 **NSString** method returning a string. A `filter` has a corresponding `endfilter`
-to turn of filtering.
+to turn off filtering.
 
 #### Example 1
 ```

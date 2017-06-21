@@ -1,3 +1,7 @@
+### 1858.1
+
+* fix build problem with new mulle-configuration
+
 ## 1858
 
 There is an option that allows specifying includes via the environment like

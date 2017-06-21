@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.0)
 project (MulleScion)
 
 
-set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/mulle-configuration)
+set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/mulle-configuration/cmake)
 message(STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
 message(STATUS "CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
 
@@ -39,7 +39,7 @@ FIND_PACKAGE( ZLIB REQUIRED)
 message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
 message( STATUS "ZLIB_LIBRARIES is ${ZLIB_LIBRARIES}")
 
-add_definitions( -DPROJECT_VERSION=1858)
+add_definitions( -DPROJECT_VERSION=1858.1)
 
 
 add_library( MulleScion STATIC

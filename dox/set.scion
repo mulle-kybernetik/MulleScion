@@ -1,4 +1,4 @@
-`set` is used to assigning values to variables. You may omit the `set` keyword
+`set` is used to assign values to variables. You may omit the `set` keyword
 if you want.
 
 #### Example
