@@ -1,3 +1,7 @@
+### 1858.2
+
+* adapt to changes in mulle-configuration
+
 ### 1858.1
 
 * fix build problem with new mulle-configuration

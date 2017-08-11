@@ -39,7 +39,7 @@ FIND_PACKAGE( ZLIB REQUIRED)
 message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
 message( STATUS "ZLIB_LIBRARIES is ${ZLIB_LIBRARIES}")
 
-add_definitions( -DPROJECT_VERSION=1858.1)
+add_definitions( -DPROJECT_VERSION=1858.2)
 
 
 add_library( MulleScion STATIC
@@ -58,13 +58,29 @@ ${TOOL_SOURCES}
 )
 
 
+add_dependencies( mulle-scion MulleScion)
+
+set( TARGET_ALL_LOAD_LIBRARIES
+$<TARGET_FILE:MulleScion>
+${OBJC_DEPENDENCY_LIBRARIES}
+)
+
+if( FORCE_LOAD)
+   set( TMP)
+   foreach( library ${TARGET_ALL_LOAD_LIBRARIES})
+      list( APPEND TMP "${FORCE_LOAD} ${library}")
+   endforeach( library)
+   set( TARGET_ALL_LOAD_LIBRARIES ${TMP})
+endif()
+
+
 target_link_libraries( mulle-scion
 ${BEGIN_ALL_LOAD}
-MulleScion
-${DEPENDENCY_LIBRARIES}
-${FOUNDATION_LIBRARY}
-${ZLIB_LIBRARIES}
+${TARGET_ALL_LOAD_LIBRARIES}
 ${END_ALL_LOAD}
+${ZLIB_LIBRARIES}
+${C_DEPENDENCY_LIBRARIES}
+${FOUNDATION_LIBRARY}
 ${OS_SPECIFIC_LIBS}
 )
 
