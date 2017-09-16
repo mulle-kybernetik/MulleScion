@@ -21,7 +21,6 @@ set( GOOGLE_TOOLBOX_SOURCES
 "google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"
 )
 
-
 set( HEADERS
 ${MULLE_SCION_HEADERS}
 ${MULLE_SCION_FOUNDATION_HEADERS}
@@ -39,7 +38,7 @@ FIND_PACKAGE( ZLIB REQUIRED)
 message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
 message( STATUS "ZLIB_LIBRARIES is ${ZLIB_LIBRARIES}")
 
-add_definitions( -DPROJECT_VERSION=1858.2)
+add_definitions( -DPROJECT_VERSION=1858.3)
 
 
 add_library( MulleScion STATIC
@@ -49,12 +48,15 @@ ${MULLE_SCION_PARSER_SOURCES}
 ${MULLE_SCION_PRINTER_SOURCES}
 ${GOOGLE_TOOLBOX_SOURCES}
 ${HOEDOWN_SOURCES}
+${HEADERS}
+CMakeSourcesAndHeaders.txt
 )
 
 
 add_executable( mulle-scion
 ${MONGOOSE_SOURCES}
 ${TOOL_SOURCES}
+CMakeSourcesAndHeaders.txt
 )
 
 
@@ -65,24 +67,16 @@ $<TARGET_FILE:MulleScion>
 ${OBJC_DEPENDENCY_LIBRARIES}
 )
 
-if( FORCE_LOAD)
-   set( TMP)
-   foreach( library ${TARGET_ALL_LOAD_LIBRARIES})
-      list( APPEND TMP "${FORCE_LOAD} ${library}")
-   endforeach( library)
-   set( TARGET_ALL_LOAD_LIBRARIES ${TMP})
-endif()
 
-
-target_link_libraries( mulle-scion
-${BEGIN_ALL_LOAD}
-${TARGET_ALL_LOAD_LIBRARIES}
-${END_ALL_LOAD}
+set( EXECUTABLE_NAME "mulle-scion")
+set( EXECUTABLE_ALL_LOAD_LIBRARIES ${TARGET_ALL_LOAD_LIBRARIES})
+set( EXECUTABLE_NORMAL_LOAD_LIBRARIES
 ${ZLIB_LIBRARIES}
 ${C_DEPENDENCY_LIBRARIES}
 ${FOUNDATION_LIBRARY}
-${OS_SPECIFIC_LIBS}
 )
+
+include( ExecutableObjC)
 
 
 # INSTALL( TARGETS MulleScion DESTINATION "lib")

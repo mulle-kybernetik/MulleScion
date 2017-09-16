@@ -527,7 +527,6 @@
 		413C51661CC284CA00F62468 /* IOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOS.xcconfig; sourceTree = "<group>"; };
 		413C51671CC284CA00F62468 /* Library.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Library.xcconfig; sourceTree = "<group>"; };
 		413C51681CC284CA00F62468 /* OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OSX.xcconfig; sourceTree = "<group>"; };
-		413C51691CC284CA00F62468 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		413C516B1CC284CA00F62468 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		413C516C1CC284CA00F62468 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
 		413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibraryIOS.xcconfig; sourceTree = "<group>"; };
@@ -535,7 +534,6 @@
 		413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ToolOSX.xcconfig; sourceTree = "<group>"; };
 		413C51701CC284CA00F62468 /* _Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = _Common.xcconfig; sourceTree = "<group>"; };
 		413C51711CC284CA00F62468 /* generate-dot.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-dot.sh"; sourceTree = "<group>"; };
-		413C51721CC284CA00F62468 /* update-all-configurations.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "update-all-configurations.sh"; sourceTree = "<group>"; };
 		414A435119040A120020C6FF /* log.scion */ = {isa = PBXFileReference; lastKnownFileType = text; path = log.scion; sourceTree = "<group>"; };
 		414A842516E528890084AE1E /* MulleScionDataFlow.graffle */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MulleScionDataFlow.graffle; sourceTree = "<group>"; };
 		414A842616E5288A0084AE1E /* MulleScionDataFlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MulleScionDataFlow.png; sourceTree = "<group>"; };
@@ -783,7 +781,6 @@
 				413C51661CC284CA00F62468 /* IOS.xcconfig */,
 				413C51671CC284CA00F62468 /* Library.xcconfig */,
 				413C51681CC284CA00F62468 /* OSX.xcconfig */,
-				413C51691CC284CA00F62468 /* README.md */,
 				413C516B1CC284CA00F62468 /* Release.xcconfig */,
 				413C516C1CC284CA00F62468 /* StaticLibrary.xcconfig */,
 				413C516D1CC284CA00F62468 /* StaticLibraryIOS.xcconfig */,
@@ -791,9 +788,9 @@
 				413C516F1CC284CA00F62468 /* ToolOSX.xcconfig */,
 				413C51701CC284CA00F62468 /* _Common.xcconfig */,
 				413C51711CC284CA00F62468 /* generate-dot.sh */,
-				413C51721CC284CA00F62468 /* update-all-configurations.sh */,
 			);
-			path = "mulle-configuration";
+			name = "mulle-configuration";
+			path = "mulle-configuration/xcode";
 			sourceTree = "<group>";
 		};
 		415918021A974436006ECD52 /* mongoose */ = {
