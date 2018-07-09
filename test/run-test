@@ -448,20 +448,19 @@ main()
 
    MULLE_SCION=`absolute_path_if_relative "${MULLE_SCION}"`
 
-   DEPENDENCIES="`mulle-bootstrap paths dependencies 2> /dev/null`"
-   if [ ! -z "${DEPENDENCIES}" ]
+   if [ ! -z "${DEPENDENCY_DIR}" ]
    then
       case "`uname`" in
          Darwin)
-            DYLD_FALLBACK_FRAMEWORK_PATH="${DEPENDENCIES}/Frameworks"
+            DYLD_FALLBACK_FRAMEWORK_PATH="${DEPENDENCY_DIR}/Frameworks"
             export DYLD_FALLBACK_FRAMEWORK_PATH
-            echo "DYLD_FALLBACK_FRAMEWORK_PATH='${DEPENDENCIES}/Frameworks'" >&2
+            echo "DYLD_FALLBACK_FRAMEWORK_PATH='${DEPENDENCY_DIR}/Frameworks'" >&2
             ;;
 
          *)
-            LD_LIBRARY_PATH="${DEPENDENCIES}/lib:${LD_LIBRARY_PATH}"
+            LD_LIBRARY_PATH="${DEPENDENCY_DIR}/lib:${LD_LIBRARY_PATH}"
             export LD_LIBRARY_PATH
-            echo "LD_LIBRARY_PATH='${DEPENDENCIES}/lib:${LD_LIBRARY_PATH}'" >&2
+            echo "LD_LIBRARY_PATH='${DEPENDENCY_DIR}/lib:${LD_LIBRARY_PATH}'" >&2
             ;;
       esac
    fi

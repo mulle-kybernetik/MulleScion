@@ -16,7 +16,7 @@
 // Merciful release
 //
 //
-#import <Foundation/Foundation.h>
+#import "import.h"
 
 #ifndef DONT_HAVE_ZLIB
 

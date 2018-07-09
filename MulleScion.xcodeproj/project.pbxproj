@@ -492,6 +492,14 @@
 		410C7FD216E0CE4100DC2465 /* MulleScionObjectModel+BlockExpansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+BlockExpansion.m"; sourceTree = "<group>"; };
 		410C7FD416E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MulleScionObjectModel+Parsing.h"; sourceTree = "<group>"; };
 		410C7FD516E0CF5A00DC2465 /* MulleScionObjectModel+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MulleScionObjectModel+Parsing.m"; sourceTree = "<group>"; };
+		411C944120F3788A007313FD /* include-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "include-private.h"; sourceTree = "<group>"; };
+		411C944220F3788B007313FD /* _MulleScion-import-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_MulleScion-import-private.h"; sourceTree = "<group>"; };
+		411C944320F3788B007313FD /* import-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "import-private.h"; sourceTree = "<group>"; };
+		411C944420F3788B007313FD /* include.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = include.h; sourceTree = "<group>"; };
+		411C944520F3788B007313FD /* _MulleScion-include-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_MulleScion-include-private.h"; sourceTree = "<group>"; };
+		411C944620F3788B007313FD /* _MulleScion-include.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_MulleScion-include.h"; sourceTree = "<group>"; };
+		411C944720F3788B007313FD /* import.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = import.h; sourceTree = "<group>"; };
+		411C944820F3788B007313FD /* _MulleScion-import.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_MulleScion-import.h"; sourceTree = "<group>"; };
 		411EEA9A182D30B600361ADF /* libMulleScionPrinter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionPrinter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		411EEAB5182D311F00361ADF /* libMulleScionFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMulleScionFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		411F77F71A94A29B00307651 /* Hoedown+MulleScionPrinting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hoedown+MulleScionPrinting.h"; sourceTree = "<group>"; };
@@ -769,7 +777,7 @@
 			name = MulleScionLibrary;
 			sourceTree = "<group>";
 		};
-		413C515D1CC284CA00F62468 /* mulle-configuration */ = {
+		413C515D1CC284CA00F62468 /* mulle-sde-xcconfig */ = {
 			isa = PBXGroup;
 			children = (
 				413C515F1CC284CA00F62468 /* Common.xcconfig */,
@@ -789,8 +797,8 @@
 				413C51701CC284CA00F62468 /* _Common.xcconfig */,
 				413C51711CC284CA00F62468 /* generate-dot.sh */,
 			);
-			name = "mulle-configuration";
-			path = "mulle-configuration/xcode";
+			name = "mulle-sde-xcconfig";
+			path = "mulle-sde-xcconfig";
 			sourceTree = "<group>";
 		};
 		415918021A974436006ECD52 /* mongoose */ = {
@@ -810,7 +818,7 @@
 				41FE9FD618281F77005E7A41 /* RELEASENOTES.md */,
 				41CD2F0D181FE17300FBBEB4 /* BUILD.md */,
 				414A842816E52DF50084AE1E /* LICENSE */,
-				413C515D1CC284CA00F62468 /* mulle-configuration */,
+				413C515D1CC284CA00F62468 /* mulle-sde-xcconfig */,
 				41764B9116DA511200560FCF /* src */,
 				41764B9416DA511200560FCF /* dox */,
 				41CCC55C18254FB00081FA1C /* tests */,
@@ -852,6 +860,14 @@
 		41764B9116DA511200560FCF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				411C944220F3788B007313FD /* _MulleScion-import-private.h */,
+				411C944820F3788B007313FD /* _MulleScion-import.h */,
+				411C944520F3788B007313FD /* _MulleScion-include-private.h */,
+				411C944620F3788B007313FD /* _MulleScion-include.h */,
+				411C944320F3788B007313FD /* import-private.h */,
+				411C944720F3788B007313FD /* import.h */,
+				411C944120F3788A007313FD /* include-private.h */,
+				411C944420F3788B007313FD /* include.h */,
 				41764B9216DA511200560FCF /* main.m */,
 				415918021A974436006ECD52 /* mongoose */,
 				41CFAFED1A93E18500B0783A /* hoedown */,

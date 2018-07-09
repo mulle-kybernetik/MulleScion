@@ -1,21 +1,16 @@
 cmake_minimum_required (VERSION 3.0)
 
-project (MulleScion)
+project( MulleScion C)
 
 
-set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/mulle-configuration/cmake)
-message(STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
-message(STATUS "CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
+# add cmake module paths to search path
+list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake/share")
+list( INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 
-set( MULLE_LANGUAGE "ObjC")
-
-if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  include( Debug)
-else()
-  include( Release)
-endif()
+include( Environment)
 
 include( CMakeSourcesAndHeaders.txt )
+include( DependenciesAndLibraries)
 
 set( GOOGLE_TOOLBOX_SOURCES
 "google-toolbox-for-mac/Foundation/GTMNSString+HTML.m"
@@ -28,18 +23,9 @@ ${MULLE_SCION_PARSER_HEADERS}
 ${MULLE_SCION_PRINTER_HEADERS}
 )
 
-# move to mulle-configuration ?
-set( CMAKE_FIND_FRAMEWORK "LAST")
-
-find_library( FOUNDATION_LIBRARY NAMES Foundation)
-message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
-FIND_PACKAGE( ZLIB REQUIRED)
-
-message( STATUS "FOUNDATION_LIBRARY is ${FOUNDATION_LIBRARY}")
-message( STATUS "ZLIB_LIBRARIES is ${ZLIB_LIBRARIES}")
-
 add_definitions( -DPROJECT_VERSION=1858.3)
 
+include( PreLibrary OPTIONAL)
 
 add_library( MulleScion STATIC
 ${MULLE_SCION_SOURCES}
@@ -52,6 +38,13 @@ ${HEADERS}
 CMakeSourcesAndHeaders.txt
 )
 
+include( Library OPTIONAL)
+
+
+include( PostLibrary OPTIONAL)
+
+
+include( PreExecutable OPTIONAL)
 
 add_executable( mulle-scion
 ${MONGOOSE_SOURCES}
@@ -59,25 +52,28 @@ ${TOOL_SOURCES}
 CMakeSourcesAndHeaders.txt
 )
 
+set( EXECUTABLE_NAME "mulle-scion")
+
+set( EXECUTABLE_LIBRARY_LIST
+   ${ALL_LOAD_DEPENDENCY_LIBRARIES}
+   ${OPTIONAL_DEPENDENCY_LIBRARIES}
+   ${DEPENDENCY_LIBRARIES}
+   ${OS_SPECIFIC_LIBRARIES}
+)
+
+include( Executable OPTIONAL)
+
+target_link_libraries( "mulle-scion"
+$<TARGET_FILE:MulleScion>
+${EXECUTABLE_LIBRARY_LIST}
+)
 
 add_dependencies( mulle-scion MulleScion)
 
-set( TARGET_ALL_LOAD_LIBRARIES
-$<TARGET_FILE:MulleScion>
-${OBJC_DEPENDENCY_LIBRARIES}
-)
+include( PostExecutable OPTIONAL)
 
 
-set( EXECUTABLE_NAME "mulle-scion")
-set( EXECUTABLE_ALL_LOAD_LIBRARIES ${TARGET_ALL_LOAD_LIBRARIES})
-set( EXECUTABLE_NORMAL_LOAD_LIBRARIES
-${ZLIB_LIBRARIES}
-${C_DEPENDENCY_LIBRARIES}
-${FOUNDATION_LIBRARY}
-)
-
-include( ExecutableObjC)
-
+include( PreInstall OPTIONAL)
 
 # INSTALL( TARGETS MulleScion DESTINATION "lib")
 # INSTALL( FILES ${HEADERS} DESTINATION "include/MulleScion")
@@ -85,3 +81,4 @@ include( ExecutableObjC)
 INSTALL( TARGETS mulle-scion DESTINATION "bin")
 INSTALL( FILES ${SCIONS} ${PLISTS} DESTINATION "share/mulle-scion/dox")
 
+include( PostInstall OPTIONAL)

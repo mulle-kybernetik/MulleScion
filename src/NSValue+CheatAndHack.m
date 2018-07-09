@@ -34,7 +34,7 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
+#import "import-private.h"
 
 
 // this is not very pretty, may screw up programs who depend on NSValue

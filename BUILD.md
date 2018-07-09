@@ -1,11 +1,11 @@
 Mac OS X
 ========
 
-	mulle-bootstrap
+   mulle-sde craft --no-local -- -DCREATE_OBJC_LOADER_INC=OFF -DLINK_STARTUP_LIBRARY=OFF
 	./install.sh OSX
 
 
-will produce all OS X outputs. You have the choice between a "normal" 
+will produce all OS X outputs. You have the choice between a "normal"
 dynamically linked framework `MulleScion.framework` or a static library `libMulleScion.a` with a set of include headers.
 
 It will also produce the **mulle-scion** executable. This will place the Framework in `/Library/Frameworks` and the executable in `/usr/local/bin.`
@@ -29,8 +29,8 @@ it simply add the following line to your Podfile:
 
     pod "MulleScion"
 
-and add 
-  
+and add
+
     pod repo add Mulle-kybernetiK http://www.mulle-kybernetik.com/repositories/CocoaPodSpecs
 
 on the commandline.
@@ -40,7 +40,7 @@ mulle-bootstrap
 =========
 
       Add http://www.mulle-kybernetik.com/repositories/MulleScion
-      
+
 to your
 
       .bootstrap/repositories
@@ -63,7 +63,7 @@ or when using the framework
 	FRAMEWORK_SEARCH_PATHS = $(inherited) $(PROJECT_DIR)/../MulleScion/Build/Products/Debug-iphonesimulator
 
 
-Avoid runtime errors by using 
+Avoid runtime errors by using
 
 	OTHER_LDFLAGS = -ObjC
 

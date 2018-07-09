@@ -17,7 +17,7 @@
 
 #ifndef DONT_HAVE_ZLIB
 
-#include <zlib.h>
+#import "include-private.h"
 
 
 @implementation NSData( ZLib)

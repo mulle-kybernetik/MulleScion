@@ -33,8 +33,6 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-
-
 #import "MulleScion.h"
 
 #import "MulleScionTemplate+CompressedArchive.h"
@@ -60,15 +58,15 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
         localVariables:(NSDictionary *) locals
 {
    MulleScionTemplate   *template;
-   
+
    template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
    if( ! template)
       return( NO);
-   
+
    [template writeToOutput:output
                 dataSource:dataSource
             localVariables:locals];
-   
+
    return( YES);
 }
 
@@ -78,7 +76,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
                             localVariables:(NSDictionary *) locals
 {
    MulleScionTemplate   *template;
-   
+
    template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
    if( ! template)
       return( nil);
@@ -101,7 +99,7 @@ char  MulleScionFrameworkVersion[] = STRINGIFY( PROJECT_VERSION);
                             localVariables:(NSDictionary *) locals
 {
    MulleScionTemplate   *template;
-   
+
    template = [[[MulleScionTemplate alloc] initWithUTF8String:s] autorelease];
    if( ! template)
       return( nil);
@@ -124,18 +122,18 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
    NSData    *data;
    NSString  *error;
    id        plist;
-   
+
    if( [s isKindOfClass:[NSURL class]])
       data  = [NSData dataWithContentsOfURL:(NSURL *) s];
    else
       data  = [NSData dataWithContentsOfFile:(NSString *) s];
-   
+
    if( ! data)
    {
       NSLog( @"failed to open: %@", s);
       return( data);
    }
-   
+
    error = nil;
    plist = [NSPropertyListSerialization propertyListFromData:data
                                             mutabilityOption:NSPropertyListImmutable
@@ -153,7 +151,7 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
 {
    MulleScionTemplate   *template;
    id                    plist;
-   
+
    template = [[[MulleScionTemplate alloc] initWithContentsOfFile:fileName] autorelease];
    if( ! template)
       return( nil);
@@ -192,12 +190,12 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
 {
    MulleScionParser   *parser;
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
-   
+
    BOOL               isCaching;
    NSString           *cachePath;
-   
+
    isCaching = [MulleGetClass( self) isCacheEnabled];
-   
+
    cachePath = [self cachePathForPath:fileName];
    if( cachePath)
    {
@@ -211,10 +209,10 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
       [self release];
       // self = nil;
    }
-   
+
    parser = [MulleScionParser parserWithContentsOfFile:fileName];
    self   = [[parser template] retain];
-   
+
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
    if( isCaching)
    {
@@ -233,12 +231,12 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
 {
    MulleScionParser   *parser;
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
-   
+
    BOOL               isCaching;
    NSString           *cachePath;
-   
+
    isCaching = [MulleGetClass( self) isCacheEnabled];
-   
+
    cachePath = [self cachePathForPath:[url path]];
    if( cachePath)
    {
@@ -252,10 +250,10 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
       [self release];
       // self = nil;
    }
-   
+
    parser = [MulleScionParser parserWithContentsOfURL:url];
    self   = [[parser template] retain];
-   
+
 #ifndef DONT_HAVE_MULLE_SCION_CACHING
    if( isCaching)
    {
@@ -284,11 +282,11 @@ static id   acquirePropertyList( NSObject <MulleScionStringOrURL> *s)
       self = [self initWithContentsOfArchive:fileName];
    else
       self = [self _initWithContentsOfFile:fileName];
-   
+
    return( self);
 }
 
-             
+
 static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
 {
    //   if( ! dataSource)
@@ -303,13 +301,13 @@ static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
    MulleScionPrinter   *printer;
    NSAutoreleasePool   *pool;
    NSString            *s;
-   
+
    pool = [NSAutoreleasePool new];
 
    printer = createPrinterWithDatasource( dataSource);
    [printer setDefaultLocalVariables:locals];
    s = [printer describeWithTemplate:self];
-   
+
    [s retain];
    [pool release];
    return( [s autorelease]);
@@ -322,7 +320,7 @@ static MulleScionPrinter  *createPrinterWithDatasource( id dataSource)
 {
    MulleScionPrinter   *printer;
    NSAutoreleasePool   *pool;
-   
+
    pool = [NSAutoreleasePool new];
    printer = createPrinterWithDatasource( dataSource);
    [printer setDefaultLocalVariables:locals];
@@ -372,7 +370,7 @@ static BOOL  checkCacheDirectory( NSString *path)
 #ifndef PROFILE
    NSString           *s;
 #endif
-   
+
    pool = [NSAutoreleasePool new];
 #ifndef PROFILE
    s = [[NSUserDefaults standardUserDefaults] stringForKey:MulleScionCacheDirectoryKey];
@@ -399,21 +397,21 @@ static BOOL  checkCacheDirectory( NSString *path)
    NSString           *cacheDir;
    NSString           *cachePath;
    NSString           *name;
-   
+
    isCaching = [MulleGetClass( self) isCacheEnabled];
    if( ! isCaching)
       return( nil);
-   
+
    name      = [[fileName lastPathComponent] stringByDeletingPathExtension];
    cacheDir  = [MulleGetClass( self) cacheDirectory];
    if( ! cacheDir)
       cacheDir = [fileName stringByDeletingLastPathComponent];
-   
+
    if( ! [cacheDir length])
       cacheDir = @".";
    cachePath = [cacheDir stringByAppendingPathComponent:name];
    cachePath = [cachePath stringByAppendingPathExtension:@"scionz"];
-   
+
    return( cachePath);
 }
 

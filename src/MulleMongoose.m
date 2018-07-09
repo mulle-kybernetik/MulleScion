@@ -44,7 +44,7 @@
 
 #include "mongoose.h"
 
-#import <Foundation/Foundation.h>
+#import "import-private.h"
 #include <signal.h>
 
 /* this code is just for demo purposes. */
@@ -230,7 +230,7 @@ static void   start_mongoose( void  *datasource, char **options)
 }
 
 
-void    _mulle_mongoose_main( void *datasource, char **options)
+static void    _mulle_mongoose_main( void *datasource, char **options)
 {
    init_server_name();
 

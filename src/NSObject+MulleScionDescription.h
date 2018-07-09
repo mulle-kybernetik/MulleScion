@@ -35,7 +35,7 @@
 //
 
 
-#import <Foundation/Foundation.h>
+#import "import.h"
 
 
 @interface NSObject( MulleScionDescription)
