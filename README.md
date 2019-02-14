@@ -192,3 +192,5 @@ Hoedown Library by Natacha Porté
 Vicent Martí
 Xavier Mendez, Devin Torres and the Hoedown authors
 
+Contributors: @hons82 (Hannes)
+
