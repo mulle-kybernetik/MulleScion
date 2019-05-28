@@ -2,8 +2,9 @@ language: objective-c
 
 before_install:
   - brew update
-  - brew install mulle-kybernetik/software/mulle-build
+  - brew install mulle-kybernetik/software/mulle-sde-developer
 
 script: 
-  - mulle-build -vv -V --bootstrap 
-  - mulle-test -vv -V 
+  - mulle-sde craft
+  - cd test 
+  - ./run-test
