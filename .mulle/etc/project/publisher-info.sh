@@ -1,0 +1,1 @@
+../../../../publisher-info.sh

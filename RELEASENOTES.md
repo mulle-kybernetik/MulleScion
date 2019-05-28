@@ -1,3 +1,11 @@
+# 1859.0.0
+
+chamged versioning to three digits for mulle-project
+
+* tested against mulle-objc 0.15
+* migration from bootstrap to mulle-sde
+
+
 ### 1858.2
 
 * adapt to changes in mulle-configuration
