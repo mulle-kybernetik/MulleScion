@@ -85,6 +85,10 @@ NSString   *mulleLinefeedEscapedShortenedString( NSString *s, size_t max)
 
 static Class   NSPlaceholderStringClass;
 
+
+MULLE_OBJC_DEPENDS_ON_LIBRARY( Foundation);
+
+
 + (void) load
 {
    NSString  *s;

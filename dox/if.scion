@@ -1,6 +1,20 @@
-``if`` ``then`` ``else`` are you standard conditionals.
+``if`` <expr> 
+  ...
+``else`` 
+   ...
+``endif`` 
+
+is  your standard conditional statement.
+
+The [expression](Expressions.scion?wrapper=_wrapper.scion) `expr` is evaluated and
+if the return value is YES or non-zero or non-nil, the code block after 
+the ``if`` statement is executed until either an ``else`` or ``endif`` 
+is found. 
+If the return value is NO or zero or nil, the code block after ``else`` (if
+any) until ``endif is executed. Normal execution resumes after ``endif``.
 
 #### Example 1
+
 ```
 {% if YES %}
 t
@@ -8,10 +22,12 @@ t
 f
 {% endif %}
 ```
+
 The boolean operations are limited to ``not`` ``and`` ``or``. Read from left to
 right as there is no precedence. If you need precedence use parentheses.
 
 #### Example 2
+
 ```
 {% if not YES and YES or NO %}
 t
@@ -21,6 +37,7 @@ f
 ```
 
 #### Example 3
+
 ```
 {% if not( YES and (YES or NO)) %}
 t
@@ -29,9 +46,8 @@ f
 {% endif %}
 ```
 
-If you need `if` `then` `else` within an expression use the `?` `:` conditional.
-
 #### Example 4
+
 ```
 {{ YES ? "yes" : "no" }}/{{ NO ? "yes" : "no" }}
 ```

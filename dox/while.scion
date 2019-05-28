@@ -1,3 +1,11 @@
+``while`` <expr>
+   ...
+``endwhile``
+
+Until the [expression](Expressions.scion?wrapper=_wrapper.scion) `expr` 
+evaluates to NO, zero or nil the code block after the while statement 
+until the ``endwhile`` statements keeps getting executed.
+
 #### Example
 ```
 {# render an old skool HTML table with while #}

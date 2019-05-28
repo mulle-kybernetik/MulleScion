@@ -472,11 +472,11 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
 + (void) setDefaultValuesOfLocalVariables:(NSMutableDictionary *) locals
 {
    // setup some often needed OS X constants
-   [locals setObject:[NSNumber numberWithUnsignedLong:NSOrderedSame]
+   [locals setObject:[NSNumber numberWithInteger:NSOrderedSame]
               forKey:@"NSOrderedSame"];
-   [locals setObject:[NSNumber numberWithUnsignedLong:NSOrderedAscending]
+   [locals setObject:[NSNumber numberWithInteger:NSOrderedAscending]
               forKey:@"NSOrderedAscending"];
-   [locals setObject:[NSNumber numberWithUnsignedLong:NSOrderedDescending]
+   [locals setObject:[NSNumber numberWithInteger:NSOrderedDescending]
               forKey:@"NSOrderedDescending"];
 
    [locals setObject:[NSNumber numberWithUnsignedLong:NSASCIIStringEncoding]
@@ -492,7 +492,7 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
    [locals setObject:[NSNumber numberWithUnsignedLong:NSUTF32StringEncoding]
               forKey:@"NSUTF32StringEncoding"];
 
-   [locals setObject:[NSNumber numberWithUnsignedLong:NSNotFound]
+   [locals setObject:[NSNumber numberWithInteger:NSNotFound]
               forKey:@"NSNotFound"];
 }
 
@@ -1379,6 +1379,8 @@ static void   *numberBuffer( char *type, NSNumber *value)
 
 static Class  _nsStringClass;
 
+
+MULLE_OBJC_DEPENDS_ON_LIBRARY( Foundation);
 
 + (void) load
 {
@@ -2419,7 +2421,11 @@ static NSBundle  *searchForBundleInDirectory( NSFileManager *manager, NSString *
       }
    }
 
+#ifdef __MULLE_OBJC__
+   if( ! [bundle loadBundle])
+#else
    if( ! [bundle load])
+#endif
       MulleScionPrintingException( NSInvalidArgumentException, locals, @"could not %@ bundle with identifier \"%@\"", bundle ? @"load" : @"locate", identifier_);
 
    [pool release];

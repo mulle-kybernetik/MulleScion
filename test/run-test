@@ -7,6 +7,8 @@
 #  Copyright (c) 2013 Mulle kybernetiK. All rights reserved.
 #  (was run-mulle-scion-test)
 
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
 set -m
 
 # check if running a single test or all
@@ -43,6 +45,7 @@ do
    shift
 done
 
+
 TEST="$1"
 shift
 
@@ -54,14 +57,6 @@ trace_ignore()
 trap trace_ignore 5 6
 
 
-# parse optional parameters
-MULLE_SCION=`ls -1 "${PWD}/../build/mulle-scion" | tail -1 2> /dev/null`
-
-if [ -z "${MULLE_SCION}" ]
-then
-   echo "mulle-scion can not be found ($PWD)" >&2
-   exit 1
-fi
 
 DIR=`pwd`
 shift
@@ -421,17 +416,30 @@ main()
    exe=`ls -1 ./bin/mulle-scion 2> /dev/null | tail -1`
    if [ ! -x "${exe}" ]
    then
-      exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
+      exe=`ls -1 ../kitchen/*/mulle-scion 2> /dev/null | tail -1`
       if [ ! -x "${exe}" ]
       then
-         exe=`ls -1 ../?uild/*/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
-         if [ ! -x "${exe}" ]
-         then
-            exe=`ls -1 ../?uild*/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
-         fi
+         exe=`ls -1 ../kitchen/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
       fi
    fi
 
+   # old code
+   if [ -z "${exe}" ]
+   then
+      exe=`ls -1 ./bin/mulle-scion 2> /dev/null | tail -1`
+      if [ ! -x "${exe}" ]
+      then
+         exe=`ls -1 ../?uild/Products/*/mulle-scion 2> /dev/null | tail -1`
+         if [ ! -x "${exe}" ]
+         then
+            exe=`ls -1 ../?uild/*/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
+            if [ ! -x "${exe}" ]
+            then
+               exe=`ls -1 ../?uild*/mulle-scion 2> /dev/null | tail -1 2> /dev/null`
+            fi
+         fi
+      fi
+   fi
 
    if [ -x "${exe}" ]
    then

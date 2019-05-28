@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Volumes/Source/srcO/MulleObjC-master/MulleObjCFoundation"
+      customWorkingDirectory = "/Volumes/Source/srcM/MulleScion"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -64,7 +64,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&apos;/Volumes/Source/srcO/MulleObjC-master/MulleObjCFoundation/templates/__wrapper.scion&apos; args &apos;dox/HOWTO_DEPENDENCIES.md&apos; PUBLISHER=&apos;mulle-nat&apos; PUBLISHER_TAP=&apos;mulle-kybernetik/software&apos; PUBLISHER_FULLNAME=&apos;Mulle kybernetiK&apos; COMMENT=&apos;DO NOT EDIT THIS. EDIT THE TEMPLATE &quot;templates/dox/HOWTO_DEPENDENCIES.md.scion&quot;&apos; TEMPLATE_FILE=&apos;templates/dox/HOWTO_DEPENDENCIES.md.scion&apos;"
+            argument = "-w"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

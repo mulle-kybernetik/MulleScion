@@ -10,7 +10,8 @@ if( NOT __ALL_LOAD_C_CMAKE__)
    # a link
    #
    # This is either done by prefixing a library or enclosing
-   # link statements
+   # link statements. Sometimes it seemed as if Apple needed
+   # -lx -force_load x though. ?
    #
    if( APPLE)
       set( FORCE_LOAD_PREFIX "-force_load ")
@@ -22,21 +23,31 @@ if( NOT __ALL_LOAD_C_CMAKE__)
          set( BEGIN_ALL_LOAD)
          set( END_ALL_LOAD)
       else()
-         set( BEGIN_ALL_LOAD "-Wl,--whole-archive")
-         set( END_ALL_LOAD "-Wl,--no-whole-archive")
+         set( BEGIN_ALL_LOAD "-Wl,--whole-archive -Wl,--no-as-needed")
+         set( END_ALL_LOAD "-Wl,--as-needed -Wl,--no-whole-archive")
          set( FORCE_LOAD_PREFIX)
       endif()
    endif()
 
+   #
+   # for APPLE we mention the library twice, that's because it happens to
+   # be a shared library for some reason, that cmake still picks it up
+   # to generate an RPATH
+   #
    function( CreateForceAllLoadList listname outputname)
-      set( list ${BEGIN_ALL_LOAD})
-      foreach( library ${${listname}})
-         list( APPEND list "${FORCE_LOAD_PREFIX}${library}")
-      endforeach()
-      list( APPEND list ${END_ALL_LOAD})
+      if( ${listname})
+         set( list ${BEGIN_ALL_LOAD})
+         foreach( library ${${listname}})
+            if( APPLE)
+               list( APPEND list "${library}")
+            endif()
+            list( APPEND list "${FORCE_LOAD_PREFIX}${library}")
+         endforeach()
+         list( APPEND list ${END_ALL_LOAD})
+      endif()
       set( ${outputname} "${list}" PARENT_SCOPE)
    endfunction()
 
-   include( AllLoadCAux OPTIONAL)
+   include( AllLoadAuxC OPTIONAL)
 
 endif()

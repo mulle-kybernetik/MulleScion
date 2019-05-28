@@ -66,8 +66,30 @@
 {
    [fileName_ release];
    [data_ release];
+   [preprocessor_ release];
    
    [super dealloc];
+}
+
+
+- (void) setPreprocessor:(NSObject <MulleScionPreprocessor> *) preprocessor
+{
+   [preprocessor_ autorelease];
+   preprocessor_ = [preprocessor retain];
+}
+
+
+- (NSObject <MulleScionPreprocessor> *) preprocessor
+{
+   return( preprocessor_);
+}
+
+
+- (NSData *) preprocessedData:(NSData *) data
+{
+   if( preprocessor_)
+      return( [preprocessor_ preprocessedData:data]);
+   return( data);
 }
 
 
@@ -189,10 +211,10 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
 }
 
 
-#define MULLE_SCION_DESCRIPTION_PRE_EXPAND     "MulleScionDescriptionPreBlockExpansion"
-#define MULLE_SCION_DESCRIPTION_POST_EXPAND    "MulleScionDescriptionPostBlockExpansion"
-#define MULLE_SCION_DUMP_PRE_EXPAND            "MulleScionDumpPreBlockExpansion"
-#define MULLE_SCION_DUMP_POST_EXPAND           "MulleScionDumpPostBlockExpansion"
+#define MULLE_SCION_DESCRIPTION_PRE_EXPAND  "MulleScionDescriptionPreBlockExpansion"
+#define MULLE_SCION_DESCRIPTION_POST_EXPAND "MulleScionDescriptionPostBlockExpansion"
+#define MULLE_SCION_DUMP_PRE_EXPAND         "MulleScionDumpPreBlockExpansion"
+#define MULLE_SCION_DUMP_POST_EXPAND        "MulleScionDumpPostBlockExpansion"
 
 
 - (MulleScionTemplate *) template
@@ -205,13 +227,21 @@ static void   dump( MulleScionTemplate *self, char *env, NSString *blurb, SEL se
    blockTable = [NSMutableDictionary dictionary];
    template   = [self templateParsedWithBlockTable:blockTable];
 
-   dump( template, MULLE_SCION_DUMP_PRE_EXPAND,         @"BEFORE BLOCK EXPANSION:", @selector( dumpDescription));
-   dump( template, MULLE_SCION_DESCRIPTION_PRE_EXPAND,  @"BEFORE BLOCK EXPANSION:", @selector( templateDescription));
+   dump( template, MULLE_SCION_DUMP_PRE_EXPAND,
+                   @"BEFORE BLOCK EXPANSION:",
+                   @selector( dumpDescription));
+   dump( template, MULLE_SCION_DESCRIPTION_PRE_EXPAND,
+                   @"BEFORE BLOCK EXPANSION:",
+                   @selector( templateDescription));
    
    [template expandBlocksUsingTable:blockTable];
    
-   dump( template, MULLE_SCION_DUMP_POST_EXPAND,         @"AFTER BLOCK EXPANSION:", @selector( dumpDescription));
-   dump( template, MULLE_SCION_DESCRIPTION_POST_EXPAND,  @"AFTER BLOCK EXPANSION:", @selector( templateDescription));
+   dump( template, MULLE_SCION_DUMP_POST_EXPAND,
+                   @"AFTER BLOCK EXPANSION:",
+                   @selector( dumpDescription));
+   dump( template, MULLE_SCION_DESCRIPTION_POST_EXPAND,
+                   @"AFTER BLOCK EXPANSION:",
+                   @selector( templateDescription));
    
    [template retain];
    [pool release];
@@ -273,7 +303,8 @@ warningInFileName:(NSString *) fileName
      lineNumber:(NSUInteger) lineNumber
          reason:(NSString *) reason
 {
-   NSLog( @"warning: %@,%lu: %@", fileName ? fileName : @"template", (long) lineNumber, reason);
+   NSLog( @"warning: %@,%lu: %@", fileName ? fileName : @"template",
+                                  (long) lineNumber, reason);
 }
 
 
@@ -283,7 +314,8 @@ errorInFileName:(NSString *) fileName
          reason:(NSString *) reason
 {
    [NSException raise:NSInvalidArgumentException
-               format:@"%@,%lu: %@", fileName ? fileName : @"template", (long) lineNumber, reason];
+               format:@"%@,%lu: %@", fileName ? fileName : @"template",
+                                     (long) lineNumber, reason];
 }
 
 @end

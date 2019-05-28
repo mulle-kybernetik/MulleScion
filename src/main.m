@@ -37,16 +37,19 @@
 
 #import "MulleScion.h"
 #import "MulleMongoose.h"
+
 #import "MulleScionObjectModel+MulleMongoose.h"
 #import "MulleScionTemplate+CompressedArchive.h"
 #import "NSFileHandle+MulleOutputFileHandle.h"
+
+#include <sys/param.h>  // for MAXPATHLEN
 
 
 // all C strings
 #ifndef DEBUG
 # define DOCUMENT_ROOT "/usr/local/share/mulle-scion/dox"
 #else
-# define DOCUMENT_ROOT "/Volumes/Source/srcM/MulleScion/dox"
+# define DOCUMENT_ROOT "dox"
 #endif
 #define SERVER_HOST "127.0.0.1"
 #define SERVER_PORT "18048"
@@ -57,7 +60,10 @@ static NSString  *processName( void);
 static void   usage( void)
 {
    fprintf( stderr, "Usage:\n"
-                    "   %s [options] <input> <datasource> [output] [arguments]\n",
+                    "   %s [options] <input> <datasource> [output] [arguments]\n"
+                    "\n"
+                    "   The Objective-C Template processor\n"
+                    "   See: https://github.com/mulle-kybernetik/MulleScion\n",
                         [processName() cString]);
    fprintf( stderr,
 "\n"
@@ -408,7 +414,11 @@ static void  loadBundles( void)
       bundle = [NSBundle bundleWithIdentifier:argument];
       if( ! bundle)
          bundle = [NSBundle bundleWithPath:argument];
+#ifdef __MULLE_OBJC__
+      if( ! [bundle loadBundle])
+#else
       if( ! [bundle load])
+#endif
       {
          NSLog( @"Couldn't load bundle %@", argument);
          exit( 1);
@@ -459,7 +469,7 @@ static int   _archive_main( int argc, char *argv[], BOOL keyed)
  */
 #ifndef DONT_HAVE_WEBSERVER
 
- static char    *default_options[] =
+static char    *default_options[] =
 {
    "document_root", DOCUMENT_ROOT,
    "listening_ports", SERVER_HOST ":" SERVER_PORT,
@@ -475,10 +485,24 @@ static int   main_www( int argc, char *argv[])
    char       *s;
    NSString   *path;
    NSString   *root;
+   char       buf[ MAXPATHLEN + 1];
 
    loadBundles();
 
-   root = [NSString stringWithCString:DOCUMENT_ROOT];
+   s = DOCUMENT_ROOT;
+   if( s[ 0] != '/')
+   {
+      if( getcwd( buf, MAXPATHLEN + 1))
+      {
+         if( strlen( buf) + strlen( s) + 2 <= MAXPATHLEN)
+         {
+            strcat( buf, "/");
+            strcat( buf, s);
+            s = buf;
+         }
+      }
+   }
+   root = [NSString stringWithCString:s];
 
    // hack to get something else going
    if( argc)
@@ -545,7 +569,13 @@ int main( int argc, char *argv[])
    int                 rval;
 
 #if defined( __MULLE_OBJC__) && defined( DEBUG)
-   mulle_objc_check_runtime();
+   if( mulle_objc_global_check_universe( __MULLE_OBJC_UNIVERSENAME__) !=
+         mulle_objc_universe_is_ok)
+   {
+      MulleObjCHTMLDumpUniverseToTmp();
+      MulleObjCDotdumpUniverseToTmp();
+      return( 1);
+   }
 #endif
 
    if( argc > 1)

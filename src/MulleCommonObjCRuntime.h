@@ -55,6 +55,10 @@ static inline Class   MulleGetClass( id self)
 }
 
 #else
+
+#define MULLE_OBJC_DEPENDS_ON_LIBRARY( unused) \
+   extern char   MulleScionFrameworkVersion[] // sic
+
 # ifdef __LP64__
 
 # import <objc/runtime.h>

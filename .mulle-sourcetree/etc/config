@@ -1,4 +1,0 @@
-zlib;tar;no-all-load,no-import,no-public,no-rootheader;F30DEEA6-BCA8-4CDE-B74B-0598D7AFDED9;${ZLIB_URL:-https://github.com/madler/zlib/archive/${ZLIB_BRANCH:-v1}.2.11.tar.gz};;;;aliases=z
-google-toolbox-for-mac;git;no-all-load,no-build,no-header,no-import,no-link,no-share;E5C4B17F-BFBA-4146-A0FD-27E4C70E1454;${GOOGLE_TOOLBOX_FOR_MAC_URL:-https://github.com/mulle-nat/google-toolbox-for-mac.git};${GOOGLE_TOOLBOX_FOR_MAC_BRANCH};;;
-mulle-sde-xcconfig;git;no-all-load,no-build,no-header,no-import,no-link,no-share;246C0369-2BCC-4CF3-82DF-1C8274E2642D;${MULLE_SDE_XCCONFIG_URL:-https://github.com/mulle-nat/mulle-sde-xcconfig.git};${MULLE_SDE_XCCONFIG_BRANCH};;;
-Foundation;tar;no-fetch-darwin;5aed87f4-86d7-42b3-9f76-7ab93f27c910;${FOUNDATION_URL:-https://github.com/MulleFoundation/Foundation/archive/${FOUNDATION_BRANCH:-latest}.tar.gz};;;;

@@ -1,9 +1,16 @@
+## About
+
+Imagine MulleScion as logic-less template system, with some logic added. A 
+template should not be as complex as a script. But it is still convenient 
+to be able to perform some small logical operations in a template.
+
+
 ### Give it a try
 
 To try out an example, compile the project and put ``mulle-scion`` into your ``$PATH``.
 It's a commandline program.
 
-Run an example file like ``set.scion``
+Run an example file:
 
 	mulle-scion 'dox/set.scion' 'dox/properties.plist'
 

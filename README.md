@@ -34,25 +34,26 @@ Fast** :      *MulleScion* can compile templates into a compressed
 
 Here is a simple example, where ObjC code is embedded in a template:
 
-	<html>
+```
+<html>
 	<!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on
         {{ [NSDate date] }} -->
 	<body>
-	{% for item in [NSTimeZone knownTimeZoneNames] %}
+	  {% for item in [NSTimeZone knownTimeZoneNames] %}
 	    {% if item#.isFirst %}
-	<table>
-	   <tr><th>TimeZone</th></tr>
-	    {% endif %}
-	   <tr><td>{{ item }}</td></tr>
+	      <table>
+	        <tr><th>TimeZone</th></tr>
+ 	    {% endif %}
+	      <tr><td>{{ item }}</td></tr>
 	    {% if item#.isLast %}
-	</table>
-	    {% endif %}
-	{% else %}
-	Sorry, no timezone info available.
-	{% endfor %}
+ 	      </table>
+      {% endif %}
+    {% else %}
+	    Sorry, no timezone info available.
+    {% endfor %}
 	</body>
-	</html>
-
+</html>
+```
 
 Using the MulleScion.framework the creation of a string from your
 object using a template file is as easy as:
@@ -65,16 +66,44 @@ object using a template file is as easy as:
 This is the general architecture of *MulleScion*
 
 ![](/dox/MulleScionDataFlow.png "Data Flow Sketch")
-![](http://www.mulle-kybernetik.com/software/git/MulleScion/raw/master/dox/MulleScionDataFlow.png "Data Flow Sketch")
+![](https://www.mulle-kybernetik.com/software/git/MulleScion/raw/master/dox/MulleScionDataFlow.png "Data Flow Sketch")
 
 *MulleScion* is happily used in a commercial project and has gone through
 enough iterations to pronounce it "ready for production".
 
 
+HTML PREPROCESSOR
+=============
+There is a companion project [MulleScionHTMLPreprocessor](/mulle-nat/MulleScionHTMLPreprocessor)
+that used HTML like tags, to make the template easier to reformat in
+HTML editors:
+
+```
+<html>
+  <!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on
+        {{ [NSDate date] }} -->
+  <body>
+    <for item in [NSTimeZone knownTimeZoneNames]>
+      <if item#.isFirst>
+        <table>
+          <tr><th>TimeZone</th></tr>
+      </if>
+        <tr><td>{{ item }}</td></tr>
+      <if item#.isLast>
+        </table>
+      </if>
+    <else/>
+      Sorry, no timezone info available.
+    </for>
+  </body>
+</html>
+```
+
+
 
 TOOLS
 =============
-There is an interactive editor available for OS X called [MulleScionist](http://www.mulle-kybernetik.com/software/git/MulleScionist/),
+There is an interactive editor available for OS X called [MulleScionist](https://www.mulle-kybernetik.com/software/git/MulleScionist/),
 which allows you to edit a HTML scion template and preview the results at the
 same time.
 

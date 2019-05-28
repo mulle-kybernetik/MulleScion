@@ -116,6 +116,30 @@
 		414A436F19040B530020C6FF /* self.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41B07E24182001800003B67F /* self.scion */; };
 		414A437019040B530020C6FF /* verbatim.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 41DD56A516E397D800C4D68A /* verbatim.scion */; };
 		414A437119040B530020C6FF /* while.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4121DAF916DCFD9D00BFD60C /* while.scion */; };
+		415807DF2292D8CD001D9BB5 /* import.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944720F3788B007313FD /* import.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807E02292D8D0001D9BB5 /* import-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944320F3788B007313FD /* import-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807E12292D8D2001D9BB5 /* _MulleScion-import.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944820F3788B007313FD /* _MulleScion-import.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807E22292D8D4001D9BB5 /* _MulleScion-import-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944220F3788B007313FD /* _MulleScion-import-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807E32292D8E0001D9BB5 /* import.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944720F3788B007313FD /* import.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807E42292D8E2001D9BB5 /* _MulleScion-import.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944820F3788B007313FD /* _MulleScion-import.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807E52292D8E6001D9BB5 /* import-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944320F3788B007313FD /* import-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807E62292D8E9001D9BB5 /* _MulleScion-import-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944220F3788B007313FD /* _MulleScion-import-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807E72292D8F1001D9BB5 /* import.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944720F3788B007313FD /* import.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807E82292D8F3001D9BB5 /* import-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944320F3788B007313FD /* import-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807E92292D8F8001D9BB5 /* _MulleScion-import.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944820F3788B007313FD /* _MulleScion-import.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807EA2292D8FB001D9BB5 /* _MulleScion-import-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944220F3788B007313FD /* _MulleScion-import-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807EB2292DCC3001D9BB5 /* include.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944420F3788B007313FD /* include.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807EC2292DCC5001D9BB5 /* _MulleScion-include.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944620F3788B007313FD /* _MulleScion-include.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807ED2292DCCA001D9BB5 /* _MulleScion-include-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944520F3788B007313FD /* _MulleScion-include-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807EE2292DCCE001D9BB5 /* include-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944120F3788A007313FD /* include-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807EF2292DCDA001D9BB5 /* _MulleScion-include.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944620F3788B007313FD /* _MulleScion-include.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807F02292DCDA001D9BB5 /* include.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944420F3788B007313FD /* include.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807F12292DCE5001D9BB5 /* _MulleScion-include-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944520F3788B007313FD /* _MulleScion-include-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807F22292DCE5001D9BB5 /* include-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944120F3788A007313FD /* include-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807F32292DCF4001D9BB5 /* _MulleScion-include.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944620F3788B007313FD /* _MulleScion-include.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807F42292DCF4001D9BB5 /* include.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944420F3788B007313FD /* include.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415807F52292DD05001D9BB5 /* _MulleScion-include-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944520F3788B007313FD /* _MulleScion-include-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415807F62292DD08001D9BB5 /* include-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 411C944120F3788A007313FD /* include-private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		415918051A976C2A006ECD52 /* Environment_Variables.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 415918031A976C2A006ECD52 /* Environment_Variables.scion */; };
 		415C401E1A9641010072B73A /* __demo.scion in CopyFiles */ = {isa = PBXBuildFile; fileRef = 415C401D1A9641010072B73A /* __demo.scion */; };
 		41665B4918D70804005DF9BF /* NSData+ZLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4121DB0116DD251900BFD60C /* NSData+ZLib.m */; };
@@ -797,7 +821,6 @@
 				413C51701CC284CA00F62468 /* _Common.xcconfig */,
 				413C51711CC284CA00F62468 /* generate-dot.sh */,
 			);
-			name = "mulle-sde-xcconfig";
 			path = "mulle-sde-xcconfig";
 			sourceTree = "<group>";
 		};
@@ -1116,6 +1139,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415807DF2292D8CD001D9BB5 /* import.h in Headers */,
+				415807E12292D8D2001D9BB5 /* _MulleScion-import.h in Headers */,
+				415807F02292DCDA001D9BB5 /* include.h in Headers */,
+				415807EF2292DCDA001D9BB5 /* _MulleScion-include.h in Headers */,
 				41F31C7A1BB00D9400A004B9 /* MulleScion.h in Headers */,
 				41F31C7B1BB00D9400A004B9 /* MulleObjCCompilerSettings.h in Headers */,
 				41F31C7C1BB00D9400A004B9 /* MulleScionObjectModel.h in Headers */,
@@ -1130,6 +1157,10 @@
 				41F31C851BB00D9400A004B9 /* MulleScionPrinter.h in Headers */,
 				41F31C861BB00D9400A004B9 /* MulleScionPrintingException.h in Headers */,
 				41F31C871BB00D9400A004B9 /* NSObject+MulleScionDescription.h in Headers */,
+				415807E02292D8D0001D9BB5 /* import-private.h in Headers */,
+				415807E22292D8D4001D9BB5 /* _MulleScion-import-private.h in Headers */,
+				415807F22292DCE5001D9BB5 /* include-private.h in Headers */,
+				415807F12292DCE5001D9BB5 /* _MulleScion-include-private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1137,6 +1168,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415807E32292D8E0001D9BB5 /* import.h in Headers */,
+				415807F42292DCF4001D9BB5 /* include.h in Headers */,
+				415807F32292DCF4001D9BB5 /* _MulleScion-include.h in Headers */,
+				415807E42292D8E2001D9BB5 /* _MulleScion-import.h in Headers */,
 				410300A81701DFBA00197713 /* MulleScion.h in Headers */,
 				41F31C5E1BB00D0F00A004B9 /* MulleObjCCompilerSettings.h in Headers */,
 				41F31C5F1BB00D0F00A004B9 /* MulleScionObjectModel.h in Headers */,
@@ -1151,6 +1186,10 @@
 				41F31C681BB00D3000A004B9 /* MulleScionPrinter.h in Headers */,
 				41F31C691BB00D3000A004B9 /* MulleScionPrintingException.h in Headers */,
 				41F31C6A1BB00D3000A004B9 /* NSObject+MulleScionDescription.h in Headers */,
+				415807E52292D8E6001D9BB5 /* import-private.h in Headers */,
+				415807E62292D8E9001D9BB5 /* _MulleScion-import-private.h in Headers */,
+				415807F62292DD08001D9BB5 /* include-private.h in Headers */,
+				415807F52292DD05001D9BB5 /* _MulleScion-include-private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,6 +1197,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415807E72292D8F1001D9BB5 /* import.h in Headers */,
+				415807EB2292DCC3001D9BB5 /* include.h in Headers */,
+				415807E92292D8F8001D9BB5 /* _MulleScion-import.h in Headers */,
+				415807EC2292DCC5001D9BB5 /* _MulleScion-include.h in Headers */,
 				41F31C891BB00D9F00A004B9 /* MulleScion.h in Headers */,
 				41F31C8A1BB00D9F00A004B9 /* MulleObjCCompilerSettings.h in Headers */,
 				41F31C8B1BB00D9F00A004B9 /* MulleScionObjectModel.h in Headers */,
@@ -1172,6 +1215,10 @@
 				41F31C941BB00D9F00A004B9 /* MulleScionPrinter.h in Headers */,
 				41F31C951BB00D9F00A004B9 /* MulleScionPrintingException.h in Headers */,
 				41F31C961BB00D9F00A004B9 /* NSObject+MulleScionDescription.h in Headers */,
+				415807E82292D8F3001D9BB5 /* import-private.h in Headers */,
+				415807EA2292D8FB001D9BB5 /* _MulleScion-import-private.h in Headers */,
+				415807EE2292DCCE001D9BB5 /* include-private.h in Headers */,
+				415807ED2292DCCA001D9BB5 /* _MulleScion-include-private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1947,7 +1994,7 @@
 		415DA5BB182BCAB500F654F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1956,7 +2003,7 @@
 		415DA5BC182BCAB500F654F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1965,7 +2012,7 @@
 		415DA5BD182BCAB500F654F7 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

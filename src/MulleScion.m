@@ -364,6 +364,9 @@ static BOOL  checkCacheDirectory( NSString *path)
 }
 
 
+MULLE_OBJC_DEPENDS_ON_LIBRARY( Foundation);
+
+
 + (void) load
 {
    NSAutoreleasePool  *pool;

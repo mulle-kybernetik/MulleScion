@@ -1,3 +1,6 @@
+A for statement iterates over an [expression](Expressions?wrapper=_wrapper.scion), 
+which is typically an array,
+
 This is an example of a ``for`` loop over an array.
 
 #### Example 1

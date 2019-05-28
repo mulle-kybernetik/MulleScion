@@ -37,11 +37,16 @@
 
 #import "MulleScionNull.h"
 
+#import "MulleCommonObjCRuntime.h"
+
 
 @implementation _MulleScionNull
 
 id   MulleScionNull;
 id   MulleScionZero;
+
+
+MULLE_OBJC_DEPENDS_ON_LIBRARY( Foundation);
 
 
 + (void) load

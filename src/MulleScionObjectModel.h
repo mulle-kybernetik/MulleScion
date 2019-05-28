@@ -261,7 +261,7 @@ typedef enum
    MulleScionGreaterThan,
    MulleScionLessThanOrEqualTo,
    MulleScionGreaterThanOrEqualTo,
-   MulleScionNoComparison = 0xFF
+   MulleScionNoComparison = -1
 } MulleScionComparisonOperator;
 
 

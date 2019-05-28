@@ -1,5 +1,9 @@
-`set` is used to assign values to variables. You may omit the `set` keyword
-if you want.
+`set` is used to assign an [expression](Expressions?wrapper=_wrapper.scion) 
+to a variable. You may omit the `set` keyword if you want.
+
+An expression is typically a string or the result of an
+[Objective-C method]([]?wrapper=_wrapper.scion) call.
+
 
 #### Example
 ```

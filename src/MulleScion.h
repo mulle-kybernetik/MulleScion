@@ -131,5 +131,4 @@
 
 #endif
 
-
 extern char   MulleScionFrameworkVersion[];

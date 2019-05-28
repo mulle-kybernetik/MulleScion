@@ -41,14 +41,22 @@
 @class MulleScionTemplate;
 
 
+@protocol MulleScionPreprocessor
+
+- (NSData *) preprocessedData:(NSData *) data;
+
+@end
+
+
 @interface MulleScionParser : NSObject
 {
    NSData     *data_;
    NSString   *fileName_;
+   NSObject <MulleScionPreprocessor> *preprocessor_;
 }
 
-+ (MulleScionParser *) parserWithUTF8String:(unsigned char *) s;
 
++ (MulleScionParser *) parserWithUTF8String:(unsigned char *) s;
 + (MulleScionParser *) parserWithContentsOfFile:(NSString *) fileName;
 + (MulleScionParser *) parserWithContentsOfURL:(NSURL *) url;
 
@@ -69,5 +77,16 @@ warningInFileName:(NSString *) fileName
          reason:(NSString *) reason;
 
 - (NSString *) fileName;
+
+// Preprocessor support:
+//
+// The preprocessor will be called from the parser. So it must be
+// installed before calling -template; The preprocessor will be
+// inherited across includes, regardless of them being HTML files or
+// not!
+//
+- (void) setPreprocessor:(NSObject <MulleScionPreprocessor> *) preprocessor;
+- (NSObject <MulleScionPreprocessor> *) preprocessor;
+- (NSData *) preprocessedData:(NSData *) data;
 
 @end

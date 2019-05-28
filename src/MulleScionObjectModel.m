@@ -49,7 +49,7 @@
 }
 
 
-+ (id) allocWithZone:(NSZone *)zone NS_RETURNS_RETAINED
++ (id) allocWithZone:(NSZone *)zone 
 {
    id  p;
    
@@ -474,7 +474,7 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
 
 
 #if DEBUG
-- (void) release
+- (oneway void) release
 {
    [super release];
 }
@@ -687,7 +687,7 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    case MulleScionGreaterThanOrEqualTo : return( @">=");
    case MulleScionNoComparison         : break;  // should never happen!
    }
-   return( @"???");
+   return( @"<unknown comparison>");
 }
 
 @end

@@ -47,19 +47,14 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
    NSCParameterAssert( [exceptionName isKindOfClass:[NSString class]]);
    NSCParameterAssert( [locals isKindOfClass:[NSDictionary class]]);
    NSCParameterAssert( [format isKindOfClass:[NSString class]]);
-   
+
    va_start( args, format);
-   
-#ifdef __MULLE_OBJC__
-   s = [[[NSString alloc] initWithFormat:format
-                              varargList:args] autorelease];
-#else
+
    s = [[[NSString alloc] initWithFormat:format
                                arguments:args] autorelease];
-#endif
-   
+
    va_end( args);
-   
+
    [NSException raise:exceptionName
                format:@"%@ %@: %@",
     [locals valueForKey:MulleScionCurrentFileKey],
@@ -72,11 +67,11 @@ void  MULLE_NO_RETURN   MulleScionPrintingException( NSString *exceptionName, NS
 void  MulleScionPrintingValidateArgumentCount( NSArray *arguments, NSUInteger n,  NSDictionary *locals)
 {
    NSUInteger   count;
-   
+
    count = [arguments count];
    if( count == n)
       return;
-   
+
    MulleScionPrintingException( NSInvalidArgumentException, locals,
                                @"%@ expects %ld arguments (got %ld)",
                                [locals valueForKey:MulleScionCurrentFunctionKey],
@@ -89,14 +84,14 @@ void  MulleScionPrintingValidateArgumentCount( NSArray *arguments, NSUInteger n,
 id   MulleScionPrintingValidatedArgument( NSArray *arguments, NSUInteger i,  Class cls, NSDictionary *locals)
 {
    id   value;
-   
+
    value = [arguments objectAtIndex:i];
    if( value == MulleScionNull)
       return( nil);
-   
+
    if( ! cls || [value isKindOfClass:cls])
       return( value);
-   
+
    MulleScionPrintingException( NSInvalidArgumentException, locals,
                                @"%@ expects a %@ as argument #%ld",
                                [locals valueForKey:MulleScionCurrentFunctionKey],
