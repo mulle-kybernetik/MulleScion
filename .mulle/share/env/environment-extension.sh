@@ -3,7 +3,7 @@ export MULLE_SDE_UPDATE_CALLBACKS="sourcetree:source"
 
 
 # Used by `mulle-match find` to speed up the search.
-export MULLE_MATCH_FILENAMES="config:*.h:*.inc:*.c:CMakeLists.txt:*.cmake:*.m:*.aam"
+export MULLE_MATCH_FILENAMES="config:*.h:*.inc:*.c:*.m:*.aam:*.plist:CMakeLists.txt:*.cmake"
 
 
 # Used by `mulle-match find` to locate files
@@ -17,7 +17,7 @@ export MULLE_MATCH_IGNORE_PATH=""
 #
 #
 #
-export PREFERRED_STARTUP_LIBRARY="MulleObjC-startup"
+export PREFERRED_STARTUP_LIBRARY="MulleFoundation-startup"
 
 
 # tell mulle-sde to keep files protected from read/write changes

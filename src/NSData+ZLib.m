@@ -15,10 +15,10 @@
 //
 #import "NSData+ZLib.h"
 
-#ifndef DONT_HAVE_ZLIB
 
 #import "include-private.h"
 
+#ifdef HAVE_ZLIB
 
 @implementation NSData( ZLib)
 

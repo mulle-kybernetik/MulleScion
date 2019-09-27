@@ -10,10 +10,10 @@ generate_brew_formula_build()
    local name="$2"
    local version="$3"
 
-#   generate_brew_cmake_formula_build
+   generate_brew_cmake_formula_build
 #   generate_brew_configure_formula_build
 #   generate_script_brew_formula_build
-   generate_xcodebuild_brew_formula_build
+#   generate_xcodebuild_brew_formula_build
 }
 
 

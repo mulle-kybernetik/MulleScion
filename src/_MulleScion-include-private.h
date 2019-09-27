@@ -6,6 +6,9 @@
 #ifndef _mulle_scion_include_private_h__
 #define _mulle_scion_include_private_h__
 
+#if ! defined( __APPLE__) && ! defined( HAVE_NO_ZLIB)
 # include <zlib/zlib.h>   // zlib
+# define HAVE_ZLIB
+#endif
 
 #endif

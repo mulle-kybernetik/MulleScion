@@ -18,8 +18,6 @@
 //
 #import "import.h"
 
-#ifndef DONT_HAVE_ZLIB
-
 //
 // Simplistic Obj-C interface to Apple supplied Zip Library, which is zlib in a framework
 //
@@ -32,4 +30,3 @@
 
 @end
 
-#endif

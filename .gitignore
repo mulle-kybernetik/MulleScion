@@ -69,3 +69,4 @@ tmp.*/
 .mulle/etc/env/environment-user-*.sh
 mulle-sde-xcconfig
 mulle-sde-xcconfig/
+kitchen/

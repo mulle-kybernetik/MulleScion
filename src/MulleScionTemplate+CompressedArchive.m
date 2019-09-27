@@ -42,17 +42,6 @@
 
 
 #ifdef HAVE_ZLIB
-# undef HAVE_ZLIB
-#endif
-
-#ifndef DONT_HAVE_ZLIB
-# define HAVE_ZLIB  1
-#else
-# define HAVE_ZLIB  0
-#endif
-
-
-#if HAVE_ZLIB
 # import "NSData+ZLib.h"
 #endif
 
@@ -71,10 +60,7 @@ typedef struct
 
 
 static char  current_version[]            = "mulle-noics1848";
-
-#if HAVE_ZLIB
 static char  current_compressed_version[] = "mulle-scion1848";
-#endif
 
 
 #ifndef HAVE_HTONQ_NTOHQ
@@ -175,7 +161,7 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
 
    if( isCompressed)
    {
-#if HAVE_ZLIB
+#ifdef HAVE_ZLIB
       data = [data decompressedDataUsingZLib:length];
 
       [data retain];
@@ -279,7 +265,7 @@ static id   _newWithContentsOfArchive( NSString *fileName, NSAutoreleasePool **p
 #endif
 
    length  = [payload length];
-#if HAVE_ZLIB
+#ifdef HAVE_ZLIB
    payload = [payload compressedDataUsingZLib];
    version = current_compressed_version;
 #else

@@ -142,6 +142,7 @@ run()
    set +v
    # denied, will always print TRACE/BPT
 
+   # valgrind -q --error-exitcode=77 --num-callers=500 --track-origins=yes \
    $MULLE_SCION "$template" "$plist" < "$stdin" > "$output" 2> "$errput"
 
    if [ $? -ne 0 ]
