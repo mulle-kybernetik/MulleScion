@@ -532,7 +532,7 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
    MulleScionObject   *curr;
    NSAutoreleasePool  *pool;
    extern char        MulleScionFrameworkVersion[];
-   
+
    NSAssert( [locals valueForKey:@"NSNotFound"], @"use -[MulleScionTemplate localVariablesWithDefaultValues:] to create the localVariables dictionary");
 
    TRACE_RENDER( self, s, locals, dataSource);
@@ -1576,7 +1576,7 @@ static BOOL  isTrue( id value)
    // NOT SURE ABOUT THIS
    if( ! identifier)
       goto done;
-   
+
    info    = [NSMutableDictionary dictionaryWithCapacity:16];
    infoKey = [NSString stringWithFormat:@"%@#", identifier];
    [locals setObject:info
@@ -1612,7 +1612,7 @@ static BOOL  isTrue( id value)
          newi  = newi1;
       }
       newi1 = [NSNumber numberWithInteger:i + 1];
-      
+
       [info setObject:newi
                forKey:@"i"];
       [info setObject:newi1
