@@ -531,7 +531,8 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
 {
    MulleScionObject   *curr;
    NSAutoreleasePool  *pool;
-
+   extern char        MulleScionFrameworkVersion[];
+    
    NSAssert( [locals valueForKey:@"NSNotFound"], @"use -[MulleScionTemplate localVariablesWithDefaultValues:] to create the localVariables dictionary");
 
    TRACE_RENDER( self, s, locals, dataSource);
@@ -555,7 +556,7 @@ static id  f_NSLocalizedString( id self, NSArray *arguments, NSMutableDictionary
    [locals setObject:@"Apple"
              forKey:MulleScionFoundationKey];
 #endif
-   [locals setObject:[NSNumber numberWithDouble:PROJECT_VERSION]
+   [locals setObject:[NSString stringWithUTF8String:MulleScionFrameworkVersion]
               forKey:MulleScionVersionKey];
 
    // must be provided, because it's too painful to always set it here
