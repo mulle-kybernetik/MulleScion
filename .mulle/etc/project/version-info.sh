@@ -5,9 +5,9 @@
 # no git operations.
 #
 
-VERSIONFILE='CMakeLists.txt'
-VERSIONNAME='PROJECT_VERSION'
-WRITE_XCODE_VERSION='YES'
+
+VERSIONFILE="CMakeLists.txt"
+VERSIONNAME="PROJECT_VERSION"
 
 #
 # Other files getting the version written into. Write only. Linefeed separated.

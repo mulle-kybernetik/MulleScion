@@ -1,3 +1,7 @@
+### 1859.1.1
+
+* updated mulle-sde, improved versioning
+
 # 1859.0.0
 
 chamged versioning to three digits for mulle-project

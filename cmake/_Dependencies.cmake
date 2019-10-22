@@ -164,7 +164,7 @@ endif()
 
 
 #
-# Generated from sourcetree: Foundation-startup;no-dynamic-link,no-header,no-intermediate-link,no-os-darwin,no-singlephase;
+# Generated from sourcetree: Foundation-startup;no-dynamic-link,no-header,no-intermediate-link,no-os-darwin;
 # Disable with: `mulle-sourcetree mark Foundation-startup no-link`
 #
 if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
