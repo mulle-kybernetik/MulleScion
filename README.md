@@ -77,10 +77,10 @@ enough iterations to pronounce it "ready for production".
 HTML PREPROCESSOR
 =============
 There is a companion project [MulleScionHTMLPreprocessor](/mulle-nat/MulleScionHTMLPreprocessor)
-that used HTML like tags, to make the template easier to reformat in
+that uses HTML like tags, to make the template easier to reformat in
 HTML editors:
 
-```
+``` twig
 <html>
   <!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on
         {{ [NSDate date] }} -->
@@ -170,7 +170,7 @@ It might be nice to have delayed evaluation for render results. More tests.
 INSTALLATION (mulle-scion command line tool only)
 =============
 
-```
+``` sh
 brew install mulle-kybernetik/software/mulle-scion
 ```
 
