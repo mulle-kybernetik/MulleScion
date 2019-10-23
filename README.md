@@ -76,11 +76,11 @@ enough iterations to pronounce it "ready for production".
 
 HTML PREPROCESSOR
 =============
-There is a companion project [MulleScionHTMLPreprocessor](/mulle-nat/MulleScionHTMLPreprocessor)
+There is a companion project [MulleScionHTMLPreprocessor](//github.com/mulle-nat/MulleScionHTMLPreprocessor)
 that uses HTML like tags, to make the template easier to reformat in
 HTML editors:
 
-``` twig
+``` html
 <html>
   <!-- rendered by {{ [[NSProcessInfo processInfo] processName] }} on
         {{ [NSDate date] }} -->

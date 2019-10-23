@@ -1,3 +1,7 @@
+### 1859.1.2
+
+* Various small improvements
+
 ### 1859.1.1
 
 * updated mulle-sde, improved versioning
