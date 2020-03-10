@@ -268,7 +268,7 @@ static id  _copy(id self)
    unsigned char   code;
 
    [super encodeWithCoder:encoder];
-   code = comparison_;
+   code = (unsigned char) comparison_;
    [encoder encodeValuesOfObjCTypes:"C", &code];
 }
 

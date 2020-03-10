@@ -896,6 +896,10 @@
 				41CFAFED1A93E18500B0783A /* hoedown */,
 				41DD56A016E376FF00C4D68A /* MulleMongoose.h */,
 				41DD56A116E376FF00C4D68A /* MulleMongoose.m */,
+				411F77F71A94A29B00307651 /* Hoedown+MulleScionPrinting.h */,
+				41CFB00B1A93E21800B0783A /* Hoedown+MulleScionPrinting.m */,
+				41F02AC91A94DA06005F2E97 /* NSString+TrimTextFromExamples.h */,
+				41F02ACA1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m */,
 				41DD56B516E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.h */,
 				41DD56B616E3F7A600C4D68A /* MulleScionObjectModel+MulleMongoose.m */,
 				4121DB0816DD410D00BFD60C /* MulleScionLibrary */,
@@ -1025,10 +1029,6 @@
 			children = (
 				41CFB0071A93E1FA00B0783A /* Hoedown.h */,
 				41CFB0081A93E1FA00B0783A /* Hoedown.m */,
-				411F77F71A94A29B00307651 /* Hoedown+MulleScionPrinting.h */,
-				41CFB00B1A93E21800B0783A /* Hoedown+MulleScionPrinting.m */,
-				41F02AC91A94DA06005F2E97 /* NSString+TrimTextFromExamples.h */,
-				41F02ACA1A94DA06005F2E97 /* NSString+TrimTextFromExamples.m */,
 				41CFB00D1A93E28F00B0783A /* NSData+Hoedown.h */,
 				41CFB00E1A93E28F00B0783A /* NSData+Hoedown.m */,
 				41CFAFEE1A93E1E500B0783A /* autolink.h */,
@@ -1455,6 +1455,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 41764B8316DA511200560FCF;

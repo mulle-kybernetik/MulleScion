@@ -41,14 +41,23 @@
 
 @implementation NSString (HTMLEscape)
 
-#ifndef  NO_APACHE_LICENSE
+#ifdef __MULLE_OBJC__
+
+- (NSString *) htmlEscapedString
+{
+   return( [self mulleStringByEscapingHTMLForASCII]);
+}
+
+#else
+
+# ifndef  NO_APACHE_LICENSE
 
 - (NSString *) htmlEscapedString
 {
    return( [self gtm_stringByEscapingForAsciiHTML]);
 }
 
-#else 
+# else
 
 static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
 {
@@ -104,6 +113,7 @@ static inline unichar   *copy( unichar *dst, char *src, NSUInteger len)
                                    length:len]);
 }
 
+# endif
 #endif
 
 
