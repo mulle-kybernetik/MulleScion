@@ -45,7 +45,7 @@ generate_brew_cmake_formula_build()
 
   def install
     system "mulle-sde", "fetch"
-    system "xcodebuild", "-configuration", "Release", "DSTROOT=#{prefix}", "install"
+    system "xcodebuild", "-target", "OSX", "-configuration", "Release", "DSTROOT=#{prefix}", "install"
   end
 
   test do

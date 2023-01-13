@@ -26,8 +26,10 @@ NAME="mulle-scion"        # formula filename w/o .rb extension
 #
 BUILD_DEPENDENCIES='${MULLE_SDE_TAP}mulle-sde
 ${MULLE_SDE_TAP}mulle-env
-${MULLE_SDE_TAP}mulle-platform
 ${MULLE_SDE_TAP}mulle-domain
+${MULLE_SDE_TAP}mulle-fetch
+${MULLE_SDE_TAP}mulle-platform
+${MULLE_SDE_TAP}mulle-semver
 ${MULLE_SDE_TAP}mulle-sourcetree
 ${MULLE_NAT_TAP}mulle-bashfunctions
 cmake
