@@ -1,16 +1,16 @@
 Pod::Spec.new do |s|
   s.name             = "MulleScion"
-  s.version          = '1858.2'
+  s.version          = '1859.1.3'
   s.summary          = "MulleScion a modern Template library for ObjC."
   s.description      = <<-DESC
                        MulleScion is indeed a modern Template library for ObjC.
                        Yes.
                        DESC
-  s.homepage         = "http://www.mulle-kybernetik.com/software/git/MulleScion/about"
-  s.screenshots      = "docx/MulleScionTemplatesDataFlow.png", "docx/MulleScionDataFlow.png"
+  s.homepage         = "https://github.com/mulle-kybernetik/MulleScion"
+  s.screenshots      = "dox/MulleScionTemplatesDataFlow.png", "doc/MulleScionDataFlow.png"
   s.license          = 'BSD3'
   s.author           = { "Nat!" => "nat@mulle-kybernetik.com" }
-  s.source           = { :git => "https://github.com/mulle-nat/MulleScion.git", :tag => '#{s.version.to_s}' }
+  s.source           = { :git => "https://github.com/mulle-kybernetik/MulleScion.git", :tag => '#{s.version.to_s}' }
 
   s.platform              = :ios, '5.0'
   s.platform              = :osx, '10.6'

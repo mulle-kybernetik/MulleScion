@@ -1,3 +1,7 @@
+### If you want to edit this, copy it from cmake/share to cmake. It will be
+### picked up in preference over the one in cmake/share. And it will not get
+### clobbered with the next upgrade.
+
 # This in theory can be included multiple times
 
 if( MULLE_TRACE_INCLUDE)
@@ -11,6 +15,6 @@ if( LINK_PHASE)
 
    install( TARGETS ${INSTALL_FRAMEWORK_TARGETS} DESTINATION "Frameworks")
 
-   include( PreInstallFramework OPTIONAL)
+   include( PostInstallFramework OPTIONAL)
 
 endif()

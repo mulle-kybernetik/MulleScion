@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 #
-#   Copyright (c) 2018 Nat! - Mulle kybernetiK
+#   Copyright (c) 2020 Nat! - Mulle kybernetiK
 #   All rights reserved.
 #
 #   Redistribution and use in source and binary forms, with or without
@@ -30,16 +30,47 @@
 #   POSSIBILITY OF SUCH DAMAGE.
 #
 
-#
-# overwrite inherited task and add mulle-c-sourcetree-update
-# it would be nice to inherit this properly instead of clobbering it
-#
-cmake_sourcetree_update_task_run()
+filesystem_task_run()
 {
-   log_entry "mulle-sde/cmake::cmake_sourcetree_update_task_run" "$@"
+   log_entry "mulle-sde/c-cmake::filesystem_task_run" "$@"
 
-   log_info "Updating ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} sourcetree"
+   log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME:-.}${C_INFO} filesystem"
 
-   exekutor cmake-sourcetree-update ${CMAKE_SOURCETREE_UPDATE_FLAGS} "$@" &&
-   exekutor c-sourcetree-update ${C_SOURCETREE_UPDATE_FLAGS} "$@"
+   local rval 
+
+   rval=0
+   case "${MULLE_MATCH_TO_CMAKE_RUN}" in
+      NO|DISABLE*|OFF)
+      ;;
+
+      *)
+         exekutor mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} "$@"  
+         rval=$?
+      ;;
+   esac
+
+   if [ $rval -ne 0 ]
+   then
+      log_error "mulle-match-to-cmake ${MULLE_TECHNICAL_FLAGS} $* failed ($rval)"
+   fi
+
+   local rval2
+
+   rval2=0
+   case "${MULLE_MATCH_TO_C_RUN}" in
+      NO|DISABLE*|OFF)
+      ;;
+
+      *)
+         exekutor mulle-match-to-c ${MULLE_TECHNICAL_FLAGS} "$@"  || return $?
+         rval2=$?
+      ;;
+   esac
+
+   if [ $rval2 -ne 0 ]
+   then
+      log_error "mulle-match-to-c ${MULLE_TECHNICAL_FLAGS} $* failed ($rval2)"
+   fi
+
+   [ $rval -eq 0 -a $rval2 -eq 0 ]   
 }

@@ -1,1 +1,1 @@
-../../../../publisher-info.sh
+../../../../../publisher-info.sh

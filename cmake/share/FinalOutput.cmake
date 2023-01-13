@@ -1,3 +1,7 @@
+### If you want to edit this, copy it from cmake/share to cmake. It will be
+### picked up in preference over the one in cmake/share. And it will not get
+### clobbered with the next upgrade.
+
 if( NOT __FINAL_OUTPUT_C_CMAKE__)
    set( __FINAL_OUTPUT_C_CMAKE__ ON)
 
@@ -35,6 +39,7 @@ if( NOT __FINAL_OUTPUT_C_CMAKE__)
    message( STATUS "CMAKE_EXE_LINKER_FLAGS is ${CMAKE_EXE_LINKER_FLAGS}")
    message( STATUS "CMAKE_SHARED_LINKER_FLAGS is ${CMAKE_SHARED_LINKER_FLAGS}")
    message( STATUS "CMAKE_STATIC_LINKER_FLAGS is ${CMAKE_STATIC_LINKER_FLAGS}")
+   message( STATUS "CMAKE_INSTALL_RPATH=\"${CMAKE_INSTALL_RPATH}\"" )
 
    include( FinalOutputAuxC OPTIONAL)
 

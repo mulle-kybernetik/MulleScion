@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/sh
 #
 #   Copyright (c) 2018 Nat! - Mulle kybernetiK
 #   All rights reserved.
@@ -29,84 +29,20 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-[ "${TRACE}" = "YES" ] && set -x && : "$0" "$@"
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
 
 
-emit_executable_motd()
-{
-   log_entry "emit_executable_motd" "$@"
-
-   local builddir="$1"
-   local name="$2"
-
-   local filepath
-
-   filepath="`filepath_concat "${builddir}" "${name}" `"
-   printf "%b\n"  "${C_INFO}Run your executable:${C_RESET}"
-   printf "%b\n"  "${C_BOLD}   ${filepath#${MULLE_VIRTUAL_ROOT#/}}${C_RESET}"
-}
-
-
-emit_library_motd()
-{
-   log_entry "emit_library_motd" "$@"
-
-   # nothing yet
-   :
-}
-
-
+#
+# if action is empty, assume it means we are inside mulle-sde monitor update
+#
 main()
 {
-   while [ $# -ne 0 ]
-   do
-      if options_technical_flags "$1"
-      then
-         shift
-         continue
-      fi
+#   local callback="$1"
+#   local action="$2"     # unused
+#   local filename="$3"
+#   local category="$4"
 
-      break
-   done
+   echo "filesystem"     # this selects the **task** to run
+}                        # see mulle-sde task list for whats available
 
-   options_setup_trace "${MULLE_TRACE}"
-
-   local buildtype="$1"
-   local builddir="$2"
-   local name="$3"
-
-   case "${buildtype}" in
-      library)
-         text="`emit_library_motd "$2" "$3" `"
-      ;;
-
-      executable)
-         text="`emit_executable_motd "$2" "$3" `"
-      ;;
-
-      *)
-         log_verbose "Unknown buildtype \"${buildtype}\", ignoring it"
-      ;;
-   esac
-
-   if [ ! -z "${text}" ]
-   then
-      log_fluff "Writing motd..."
-      redirect_exekutor "${builddir}/.motd" echo "${text}"
-   fi
-}
-
-
-_init()
-{
-   MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env "libexec-dir" 2> /dev/null`"
-   [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ] && \
-      echo "mulle-bashfunctions-env not installed" >&2 && \
-      exit 1
-
-   . "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}/mulle-bashfunctions.sh" "minimal" || exit 1
-}
-
-
-_init "$@"
 main "$@"

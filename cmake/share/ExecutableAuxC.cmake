@@ -1,3 +1,7 @@
+### If you want to edit this, copy it from cmake/share to cmake. It will be
+### picked up in preference over the one in cmake/share. And it will not get
+### clobbered with the next upgrade.
+
 if( NOT __EXECUTABLE_C_AUX_CMAKE__)
    set( __EXECUTABLE_C_AUX_CMAKE__ ON)
 
@@ -10,4 +14,5 @@ if( NOT __EXECUTABLE_C_AUX_CMAKE__)
 
    include( ExecutableObjC)
    include( OptimizedLinkObjC)
+
 endif()

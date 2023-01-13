@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/sh
 #
 #   Copyright (c) 2018 Nat! - Mulle kybernetiK
 #   All rights reserved.
@@ -33,16 +33,26 @@
 
 
 #
-# if action is empty, assume it means we are inside mulle-sde monitor update
+# this script is used by mulle-monitor in monitor mode so that source changes
+# trigger rebuilds. It usually won't be executed during a `mulle-sde reflect`
 #
+
+
 main()
 {
-   local action="$1"     # unused
-   local filename="$2"
-   local category="$3"
+#   local callback="$1"
+#   local action="$2"     # unused
+   local filename="$3"
+   local category="$4"
 
-   echo "source"
-}
+   case "-${category}-" in
+      *-generated-*)
+         return 0
+      ;;
+   esac
+
+   echo "craft"           # this selects the **task** to run
+}                        # none means no task
 
 main "$@"
 

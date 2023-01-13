@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/sh
 #
 #   Copyright (c) 2018 Nat! - Mulle kybernetiK
 #   All rights reserved.
@@ -29,13 +29,29 @@
 #   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 #   POSSIBILITY OF SUCH DAMAGE.
 #
-source_task_run()
+[ "${TRACE}" = 'YES' ] && set -x && : "$0" "$@"
+
+
+#
+# this script is used by mulle-monitor in monitor mode so that source changes
+# trigger rebuilds. It usually won't be executed during a `mulle-sde reflect`
+#
+
+
+main()
 {
-   log_entry "mulle-sde/c-cmake::source_task_run" "$@"
+#   local callback="$1"
+#   local action="$2"     # unused
+   local filename="$3"
+   local category="$4"
 
-   log_info "Updating ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} source"
+   case "-${category}-" in
+      *-generated-*)
+         return 0
+      ;;
+   esac
 
-   exekutor mulle-match-to-cmake \
-               ${MULLE_TECHNICAL_FLAGS} \
-               "$@"
-}
+   echo "craft"           # this selects the **task** to run
+}                        # none means no task
+
+main "$@"

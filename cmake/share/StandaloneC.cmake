@@ -1,3 +1,7 @@
+### If you want to edit this, copy it from cmake/share to cmake. It will be
+### picked up in preference over the one in cmake/share. And it will not get
+### clobbered with the next upgrade.
+
 # can be included multiple times
 
 if( MULLE_TRACE_INCLUDE)
@@ -22,6 +26,21 @@ if( STANDALONE)
       set( LIBRARY_NAME "${PROJECT_NAME}")
    endif()
 
+   if( NOT LIBRARY_IDENTIFIER)
+      string( MAKE_C_IDENTIFIER "${LIBRARY_NAME}" LIBRARY_IDENTIFIER)
+   endif()
+
+   include( StringCase)
+
+   if( NOT LIBRARY_UPCASE_IDENTIFIER)
+      snakeCaseString( "${LIBRARY_IDENTIFIER}" LIBRARY_UPCASE_IDENTIFIER)
+      string( TOUPPER "${LIBRARY_UPCASE_IDENTIFIER}" LIBRARY_UPCASE_IDENTIFIER)
+   endif()
+   if( NOT LIBRARY_DOWNCASE_IDENTIFIER)
+      snakeCaseString( "${LIBRARY_IDENTIFIER}" LIBRARY_DOWNCASE_IDENTIFIER)
+      string( TOLOWER "${LIBRARY_DOWNCASE_IDENTIFIER}" LIBRARY_DOWNCASE_IDENTIFIER)
+   endif()
+
    if( NOT STANDALONE_LIBRARY_NAME)
       set( STANDALONE_LIBRARY_NAME "${LIBRARY_NAME}-standalone")
    endif()
@@ -40,8 +59,11 @@ if( STANDALONE)
       set( STANDALONE_ALL_LOAD_LIBRARIES
          $<TARGET_FILE:${LIBRARY_NAME}>
          ${ALL_LOAD_DEPENDENCY_LIBRARIES}
+         ${ALL_LOAD_DEPENDENCY_FRAMEWORKS}
          ${DEPENDENCY_LIBRARIES}
+         ${DEPENDENCY_FRAMEWORKS}
          ${OPTIONAL_DEPENDENCY_LIBRARIES}
+         ${OPTIONAL_DEPENDENCY_FRAMEWORKS}
       )
    endif()
 
@@ -132,16 +154,23 @@ and everybody will be happy")
          ${STANDALONE_SOURCES}
          ${DEF_FILE}
       )
-      set_property( TARGET ${STANDALONE_LIBRARY_NAME} PROPERTY CXX_STANDARD 11)
 
-      add_dependencies( ${STANDALONE_LIBRARY_NAME} ${LIBRARY_NAME})
+      set_target_properties( "${STANDALONE_LIBRARY_NAME}"
+         PROPERTIES
+            CXX_STANDARD 11
+#            DEFINE_SYMBOL "${LIBRARY_UPCASE_IDENTIFIER}_SHARED_BUILD"
+      )
+      target_compile_definitions( "${STANDALONE_LIBRARY_NAME}" PRIVATE "${LIBRARY_UPCASE_IDENTIFIER}_BUILD")
+      target_compile_definitions( "${STANDALONE_LIBRARY_NAME}" PRIVATE ${STANDALONE_DEFINITIONS})
+
+
+      add_dependencies( "${STANDALONE_LIBRARY_NAME}" "${LIBRARY_NAME}")
 
 
       # If STANDALONE_SOURCES were to be empty, this would be needed
       # set_target_properties( ${STANDALONE_LIBRARY_NAME} PROPERTIES LINKER_LANGUAGE "C")
 
       # PRIVATE is a guess
-      target_compile_definitions( ${STANDALONE_LIBRARY_NAME} PRIVATE ${STANDALONE_DEFINITIONS})
 
       #
       # If you add DEPENDENCY_LIBRARIES to the static, adding them again to
@@ -150,9 +179,10 @@ and everybody will be happy")
       #
       CreateForceAllLoadList( STANDALONE_ALL_LOAD_LIBRARIES FORCE_STANDALONE_ALL_LOAD_LIBRARIES)
 
-      target_link_libraries( ${STANDALONE_LIBRARY_NAME}
+      target_link_libraries( "${STANDALONE_LIBRARY_NAME}"
          ${FORCE_STANDALONE_ALL_LOAD_LIBRARIES}
          ${OS_SPECIFIC_LIBRARIES}
+         ${OS_SPECIFIC_FRAMEWORKS}
       )
 
       set( INSTALL_LIBRARY_TARGETS
@@ -166,5 +196,6 @@ and everybody will be happy")
       message( STATUS "STANDALONE_ALL_LOAD_LIBRARIES is ${STANDALONE_ALL_LOAD_LIBRARIES}")
       message( STATUS "FORCE_STANDALONE_ALL_LOAD_LIBRARIES is ${FORCE_STANDALONE_ALL_LOAD_LIBRARIES}")
       message( STATUS "OS_SPECIFIC_LIBRARIES is ${OS_SPECIFIC_LIBRARIES}")
+      message( STATUS "OS_SPECIFIC_FRAMEWORKS is ${OS_SPECIFIC_FRAMEWORKS}")
    endif()
 endif()

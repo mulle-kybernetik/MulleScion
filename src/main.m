@@ -572,6 +572,9 @@ int main( int argc, char *argv[])
    if( mulle_objc_global_check_universe( __MULLE_OBJC_UNIVERSENAME__) !=
          mulle_objc_universe_is_ok)
    {
+      MULLE_OBJC_GLOBAL void MulleObjCHTMLDumpUniverseToTmp( void);
+      MULLE_OBJC_GLOBAL void MulleObjCDotdumpUniverseToTmp( void);
+
       MulleObjCHTMLDumpUniverseToTmp();
       MulleObjCDotdumpUniverseToTmp();
       return( 1);

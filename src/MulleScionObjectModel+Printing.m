@@ -705,32 +705,36 @@ static id   MulleScionValueForKeyPath( NSString *keyPath,
 
 static char   *_NSObjCSkipRuntimeTypeQualifier( char *type)
 {
-   char   c;
-
    assert( type != NULL);
 
-   while( (c = *type) == _C_CONST
+   for(;;)
+   {
+      switch( *type)
+      {
+      default :
+         return( type);
+
+#ifdef _C_CONST
+      case _C_CONST :
+#endif
 #ifdef _C_IN
-         || c == _C_IN
+      case _C_IN :
 #endif
 #ifdef _C_INOUT
-         || c == _C_INOUT
+      case _C_INOUT :
 #endif
 #ifdef _C_OUT
-         || c == _C_OUT
+      case _C_OUT :
 #endif
 #ifdef _C_BYCOPY
-         || c == _C_BYCOPY
+      case _C_BYCOPY :
 #endif
 #ifdef _C_ONEWAY
-         || c == _C_ONEWAY
+      case _C_ONEWAY :
 #endif
-         )
-   {
-      type++;
+         type++;
+      }
    }
-
-   return( type);
 }
 
 

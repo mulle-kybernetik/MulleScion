@@ -17,8 +17,6 @@ src/mongoose/mongoose.c
 
 set( HOEDOWN_SOURCES
 src/hoedown/Hoedown.m
-src/hoedown/Hoedown+MulleScionPrinting.m
-src/hoedown/NSString+TrimTextFromExamples.m
 src/hoedown/NSData+Hoedown.m
 src/hoedown/autolink.c
 src/hoedown/buffer.c
@@ -92,11 +90,13 @@ src/NSObject+MulleScionDescription.h
 
 
 set( MULLE_SCION_PRINTER_SOURCES
+src/Hoedown+MulleScionPrinting.m
 src/MulleScionDataSourceProtocol.m
 src/MulleScionPrinter.m
 src/MulleScionPrintingException.m
 src/MulleScionObjectModel+Printing.m
 src/NSObject+MulleScionDescription.m
+src/NSString+TrimTextFromExamples.m
 src/NSValue+CheatAndHack.m
 src/MulleMutableLineNumber.m
 src/MulleScionNull.m

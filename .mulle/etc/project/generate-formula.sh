@@ -44,8 +44,8 @@ generate_brew_cmake_formula_build()
   cat <<EOF
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "mulle-sde", "fetch"
+    system "xcodebuild", "-configuration", "Release", "DSTROOT=#{prefix}", "install"
   end
 
   test do

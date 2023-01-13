@@ -1,3 +1,7 @@
+### 1859.1.3
+
+* fix various bits and pieces so stuff builds on macOS
+
 ### 1859.1.2
 
 * Various small improvements

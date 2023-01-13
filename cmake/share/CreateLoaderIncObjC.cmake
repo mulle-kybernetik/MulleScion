@@ -1,3 +1,7 @@
+### If you want to edit this, copy it from cmake/share to cmake. It will be
+### picked up in preference over the one in cmake/share. And it will not get
+### clobbered with the next upgrade.
+
 # can be included multiple times
 # define OBJC_LOADER_INC
 #        CREATE_OBJC_LOADER_INC
@@ -8,11 +12,26 @@ if( MULLE_TRACE_INCLUDE)
    message( STATUS "# Include \"${CMAKE_CURRENT_LIST_FILE}\"" )
 endif()
 
-# this is the the second part, the option is in DefineLoaderIncObjC.cmake
+# this is the second part, the option is in DefineLoaderIncObjC.cmake
 
 if( CREATE_OBJC_LOADER_INC)
    if( NOT LIBRARY_NAME)
       set( LIBRARY_NAME "${PROJECT_NAME}")
+   endif()
+
+   if( NOT LIBRARY_IDENTIFIER)
+      string( MAKE_C_IDENTIFIER "${LIBRARY_NAME}" LIBRARY_IDENTIFIER)
+   endif()
+
+   include( StringCase)
+
+   if( NOT LIBRARY_UPCASE_IDENTIFIER)
+      snakeCaseString( "${LIBRARY_IDENTIFIER}" LIBRARY_UPCASE_IDENTIFIER)
+      string( TOUPPER "${LIBRARY_UPCASE_IDENTIFIER}" LIBRARY_UPCASE_IDENTIFIER)
+   endif()
+   if( NOT LIBRARY_DOWNCASE_IDENTIFIER)
+      snakeCaseString( "${LIBRARY_IDENTIFIER}" LIBRARY_DOWNCASE_IDENTIFIER)
+      string( TOLOWER "${LIBRARY_DOWNCASE_IDENTIFIER}" LIBRARY_DOWNCASE_IDENTIFIER)
    endif()
 
    #
@@ -25,12 +44,9 @@ if( CREATE_OBJC_LOADER_INC)
    endif()
 
    if( NOT OBJC_LOADER_INC)
-      set( OBJC_LOADER_INC "${CMAKE_SOURCE_DIR}/src/objc-loader.inc")
+      set( OBJC_LOADER_INC "${CMAKE_SOURCE_DIR}/src/reflect/objc-loader.inc")
    endif()
 
-   set_source_files_properties( "${OBJC_LOADER_INC}"
-      PROPERTIES GENERATED TRUE
-   )
    # add to headers being installed, not part of project headers though
    # because it is too late here
    set( PUBLIC_HEADERS
@@ -60,10 +76,18 @@ if( CREATE_OBJC_LOADER_INC)
    # included by the Loader.
    #
    if( TARGET "_2_${LIBRARY_NAME}")
-      add_library( "_3_${LIBRARY_NAME}" STATIC
+      set( LIBRARY_STAGE3_TARGET "_3_${LIBRARY_NAME}")
+      add_library( ${LIBRARY_STAGE3_TARGET} STATIC
          $<TARGET_OBJECTS:_1_${LIBRARY_NAME}>
       )
-      set( OBJC_LOADER_LIBRARY "$<TARGET_FILE:_3_${LIBRARY_NAME}>")
+      set( OBJC_LOADER_LIBRARY "$<TARGET_FILE:${LIBRARY_STAGE3_TARGET}>")
+
+      set_target_properties( ${LIBRARY_STAGE3_TARGET}
+         PROPERTIES
+            CXX_STANDARD 11
+#            DEFINE_SYMBOL "${LIBRARY_UPCASE_IDENTIFIER}_SHARED_BUILD"
+      )
+      target_compile_definitions( ${LIBRARY_STAGE3_TARGET} PRIVATE "${LIBRARY_UPCASE_IDENTIFIER}_BUILD")
 
       set( STAGE2_HEADERS
          ${STAGE2_HEADERS}
@@ -71,15 +95,30 @@ if( CREATE_OBJC_LOADER_INC)
       )
    else()
       if( TARGET "_1_${LIBRARY_NAME}")
-         message( FATAL_ERROR "_1_${LIBRARY_NAME} is defined, but _2_${LIBRARY_NAME} is missing")
+         message( FATAL_ERROR "_1_${LIBRARY_NAME} is defined, but _2_${LIBRARY_NAME} is missing.
+   Maybe MulleObjCLoader+${LIBRARY_NAME}.h not part of STAGE2_SOURCES ?
+   Tip: Check if \"$ENV{PROJECT_SOURCE_DIR}/MulleObjCLoader+${LIBRARY_NAME}.m\" (sic) exists")
       endif()
       set( OBJC_LOADER_LIBRARY "$<TARGET_FILE:${LIBRARY_NAME}>")
    endif()
 
+   #
+   # on windows we lose the PATH due to the cmake windows bounce
+   # therefore push this in via .bat
+   #
+   if( MSVC)
+      set( TMP_MULLE_BIN_DIR "~/.mulle/${LIBRARY_NAME}.var/env/bin")
+   else()
+      set( TMP_MULLE_BIN_DIR "")
+   endif()
+
+   # TODO: $ENV{MULLE_OBJC_LOADER_TOOL_FLAGS} are implicitly double quote 
+   # protected by cmake it seems, which trips up settings like "-vvv -ld" 
    add_custom_command(
       OUTPUT ${OBJC_LOADER_INC}
       COMMAND ${MULLE_OBJC_LOADER_TOOL}
                  $ENV{MULLE_OBJC_LOADER_TOOL_FLAGS}
+                 -p "${TMP_MULLE_BIN_DIR}"
                  -c "${CMAKE_BUILD_TYPE}"
                  -o "${OBJC_LOADER_INC}"
                  ${OBJC_LOADER_LIBRARY}
@@ -90,19 +129,33 @@ if( CREATE_OBJC_LOADER_INC)
       VERBATIM
    )
 
+   #
+   # if set to true, than a make clean/ninja clean removes it's
+   # which we don't want... Doesn't help though...
+   #
+   # set_source_files_properties( "${OBJC_LOADER_INC}"
+   #    PROPERTIES GENERATED FALSE
+   # )
+
    add_custom_target( "__objc_loader_inc__"
       DEPENDS ${OBJC_LOADER_INC}
+      COMMENT "Target to build \"${OBJC_LOADER_INC}\""
    )
 
    if( TARGET "_2_${LIBRARY_NAME}")
-      add_dependencies( "_2_${LIBRARY_NAME}" __objc_loader_inc__)
+      add_dependencies( "_2_${LIBRARY_NAME}" "__objc_loader_inc__")
    else()
-      add_dependencies( "${LIBRARY_NAME}" __objc_loader_inc__)
+      add_dependencies( "${LIBRARY_NAME}" "__objc_loader_inc__")
    endif()
+
+   # seemingly needed
+   foreach( TMP_STAGE2_SOURCE in STAGE2_SOURCES)
+      set_property( SOURCE ${TMP_STAGE2_SOURCE} APPEND PROPERTY OBJECT_DEPENDS ${OBJC_LOADER_INC})
+   endforeach()
 
    #
    # tricky: this file can only be installed during link phase.
-   #         It's installation is somewhat gratuitous now.
+   #         Used by optimization.
    #
    if( LINK_PHASE)
       install( FILES "${OBJC_LOADER_INC}" DESTINATION "include/${LIBRARY_NAME}/private")

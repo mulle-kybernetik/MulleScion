@@ -24,6 +24,7 @@ NAME="mulle-scion"        # formula filename w/o .rb extension
 # Build via mulle-build. If you don't like this
 # edit bin/release.sh
 #
-BUILD_DEPENDENCIES='${BOOTSTRAP_TAP}mulle-build
-${BOOTSTRAP_TAP}mulle-bootstrap
+BUILD_DEPENDENCIES='mulle-sde
 cmake'
+
+DEBIAN_DEPENDENCIES="foundation-developer cmake"

@@ -40,14 +40,14 @@ sourcetree_task_run()
 {
    log_entry "mulle-sde/c-cmake::sourcetree_task_run" "$@"
 
-   log_info "Updating ${C_MAGENTA}${C_BOLD}${PROJECT_NAME}${C_INFO} sourcetree"
+   local runs
 
    case "${MULLE_SOURCETREE_TO_CMAKE_RUN}" in
       NO|DISABLE*|OFF)
       ;;
 
       *)
-         exekutor mulle-sourcetree-to-cmake "$@"  || return $?
+         runs="cmake"
       ;;
    esac
 
@@ -56,7 +56,45 @@ sourcetree_task_run()
       ;;
 
       *)
-         exekutor mulle-sourcetree-to-c "$@" || return $?
+         r_comma_concat "${runs}" "c"
+         runs="${RVAL}"
       ;;
    esac
+
+   if [ -z "${runs}" ]
+   then
+      return
+   fi
+
+   log_info "Reflecting ${C_MAGENTA}${C_BOLD}${PROJECT_NAME:-.}${C_INFO} sourcetree ${C_RESET_BOLD}${MULLE_SOURCETREE_CONFIG_NAME:-config}"
+
+   local rval
+
+   rval=0
+   case ",${runs}," in
+      *,cmake,*)
+         exekutor mulle-sourcetree-to-cmake ${MULLE_TECHNICAL_FLAGS} "$@"
+         rval=$?
+         if [ $rval -ne 0 ]
+         then
+            log_error "mulle-sourcetree-to-cmake ${MULLE_TECHNICAL_FLAGS} $* failed ($rval)"
+         fi
+      ;;
+   esac
+
+   local rval2
+
+   rval2=0
+   case ",${runs}," in
+      *,c,*)
+         exekutor mulle-sourcetree-to-c ${MULLE_TECHNICAL_FLAGS} "$@"
+         rval2=$?
+         if [ $rval2 -ne 0 ]
+         then
+            log_error "mulle-sourcetree-to-c ${MULLE_TECHNICAL_FLAGS} $* failed ($rval2)"
+         fi
+      ;;
+   esac
+
+   [ $rval -eq 0 -a $rval2 -eq 0 ]
 }

@@ -1,0 +1,26 @@
+# Copy .plist and related Objective-C resources
+
+*.plist
+*.strings
+*.eomodeld
+*.nib
+*.xib
+
+# Some image formats
+
+*.tiff
+*.tif
+*.png
+*.jpg
+*.svg
+*.icns
+
+# Some sound formats
+*.wav
+*.snd
+
+#
+# MEMO for extension writer. If you add to file formats here, then also add 
+# them to the "environment" file in this extension.
+# This will expand MULLE_MATCH_FILENAMES.
+#
