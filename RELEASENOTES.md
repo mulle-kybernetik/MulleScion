@@ -1,3 +1,7 @@
+### 1859.1.4
+
+* fix leaks in the object model (backported from MulleWeb/MulleScion)
+
 ### 1859.1.3
 
 * fix various bits and pieces so stuff builds on macOS

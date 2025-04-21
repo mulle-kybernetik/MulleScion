@@ -649,6 +649,13 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    return( p);
 }
 
+- (void) dealloc
+{
+   [right_ release];
+   
+   [super dealloc];
+}
+
 @end
 
 
@@ -817,6 +824,14 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    return( p);
 }
 
+- (void) dealloc
+{
+   [middle_ release];
+   [right_ release];
+   
+   [super dealloc];
+}
+
 @end
 
 
@@ -933,6 +948,13 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
    return( p);
 }
 
+- (void) dealloc
+{
+   [left_ release];
+   [right_ release];
+   
+   [super dealloc];
+}
 
 - (NSString *) commandName
 {
@@ -1312,4 +1334,3 @@ NS_RETURNS_RETAINED static id   newMulleScionValueObject( Class self, id value, 
 }
 
 @end
-
